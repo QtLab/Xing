@@ -13,6 +13,8 @@ Dialog::Dialog(QWidget *parent) :
 {
     ui->setupUi(this);
     m_session.Init();
+    QStringList serverList = m_session.GetServerList();
+    ui->serverSelection->addItems(serverList);
 }
 
 bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * result){
@@ -35,44 +37,8 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
     }
     return false;
 }
-HWND Dialog::getWindowHandle() {
-    return (HWND)winId();
-}
 
 Dialog::~Dialog()
 {
     delete ui;
-}
-
-void Dialog::on_testButton1_clicked()
-{
-
-    BOOL result = m_session.ConnectServer(*this, false);
-    if(result) {
-        QMessageBox::information(this, "Connection", "success");
-    } else {
-        QMessageBox::information(this, "Connection", "failed");
-    }
-}
-
-void Dialog::on_testButton2_clicked()
-{
-    if(m_session.DisconnectServer()){
-        QMessageBox::information(this, "Disconnect", "success");
-    } else {
-        QMessageBox::information(this, "Disconnect", "failed");
-    }
-}
-
-void Dialog::on_testButton3_clicked()
-{
-    QString id = "seuki77";
-    QString passwd = "folken77";
-    QString certPwd = "";
-    int type = 0;
-    if(m_session.Login(*this, id, passwd, certPwd)){
-        QMessageBox::information(this, "Login", "request success");
-    } else {
-        QMessageBox::information(this, "Login", "request failed");
-    }
 }

@@ -1,5 +1,10 @@
 #include "IXingAPI.h"
 
+IXingAPI::IXingAPI(){
+    ZeroMemory( this, sizeof( IXingAPI ) );
+    Init();
+}
+
 IXingAPI::~IXingAPI(){
      Uninit();
 }

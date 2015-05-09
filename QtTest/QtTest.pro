@@ -18,7 +18,8 @@ SOURCES += main.cpp\
         dialog.cpp \
     xing/IXingAPI.cpp \
     xing/xasession.cpp \
-    xing/xaquery.cpp
+    xing/xaquery.cpp \
+    tr/t8430.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \

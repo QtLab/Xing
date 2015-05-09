@@ -2,7 +2,7 @@
 #define _IXINGAPI_H_
 #include <QLibrary>
 #include <QString>
-
+#include "util/templatesingleton.h"
 #undef UNICODE
 #include <qt_windows.h>
 //------------------------------------------------------------------------------
@@ -87,10 +87,10 @@ typedef struct _LINKDATA_RECV_MSG
 }LINKDATA_RECV_MSG, *LPLINKDATA_RECV_MSG;
 //------------------------------------------------------------------------------
 
-class IXingAPI
+class IXingAPI : public TemplateSingleton<IXingAPI>
 {
-public:
-    IXingAPI () { ZeroMemory( this, sizeof( IXingAPI ) ); }
+protected:
+    IXingAPI ();
 
 //	inline	HMODULE	GetSafeHandle			()											{ return m_hModule; }
 

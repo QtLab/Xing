@@ -20,13 +20,11 @@ public:
     ~XASession();
 
 private:
-    IXingAPI m_api;
     int m_timeout;
     int m_sendPacketSize;
 signals:
 
 public slots:
-    bool Init();
     bool ConnectServer(const QWidget& widget, bool isRealServer=false);
     bool DisconnectServer();
     QString GetAccountList(int nIndex);
@@ -43,6 +41,7 @@ public slots:
     bool Logout(const QWidget& widget);
     void SetConnectTimeOut(int ConnectTimeOut);
     void SetSendPacketSize(int SendPacketSize);
+    QStringList GetServerList();
 };
 
 #endif // XASESSION_H

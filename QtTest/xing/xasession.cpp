@@ -7,31 +7,26 @@ XASession::XASession(QObject *parent) : QObject(parent),m_timeout(DEFAULT_TIMEOU
 
 XASession::~XASession()
 {
-    m_api.Uninit();
-}
-
-bool XASession::Init()
-{
-    return m_api.Init();
+    IXingAPI::GetInstance()->Uninit();
 }
 
 bool XASession::ConnectServer(const QWidget& widget, bool isRealServer)
 {
-    if(!m_api.IsInit()){
-        if(!m_api.Init())
+    if(!IXingAPI::GetInstance()->IsInit()){
+        if(!IXingAPI::GetInstance()->Init())
             return false;
     }
     if(isRealServer) {
-        return m_api.Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
+        return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     } else {
-        return m_api.Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
+        return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     }
 }
 
 bool XASession::DisconnectServer()
 {
-    if(m_api.IsInit())
-        return m_api.Disconnect();
+    if(IXingAPI::GetInstance()->IsInit())
+        return IXingAPI::GetInstance()->Disconnect();
     else
         return false;
 }
@@ -39,7 +34,7 @@ bool XASession::DisconnectServer()
 QString XASession::GetAccountList(int nIndex)
 {
     char account[20];
-    if(m_api.GetAccountList(nIndex, account, sizeof(account))){
+    if(IXingAPI::GetInstance()->GetAccountList(nIndex, account, sizeof(account))){
         return QString::fromLocal8Bit(account);
     } else {
         return "";
@@ -48,57 +43,57 @@ QString XASession::GetAccountList(int nIndex)
 
 int XASession::GetAccountListCount()
 {
-    return m_api.GetAccountListCount();
+    return IXingAPI::GetInstance()->GetAccountListCount();
 }
 
 QString XASession::GetClientIP()
 {
-    return m_api.GetClientIP();
+    return IXingAPI::GetInstance()->GetClientIP();
 }
 
 QString XASession::GetCommMedia()
 {
-    return m_api.GetCommMedia();
+    return IXingAPI::GetInstance()->GetCommMedia();
 }
 
 QString XASession::GetETKMedia()
 {
-    return m_api.GetETKMedia();
+    return IXingAPI::GetInstance()->GetETKMedia();
 }
 
 QString XASession::GetErrorMessage(int nErrorCode)
 {
-    return m_api.GetErrorMessage(nErrorCode);
+    return IXingAPI::GetInstance()->GetErrorMessage(nErrorCode);
 }
 
 int XASession::GetLastError()
 {
-    return m_api.GetLastError();
+    return IXingAPI::GetInstance()->GetLastError();
 }
 
 QString XASession::GetServerName()
 {
-    return m_api.GetServerName();
+    return IXingAPI::GetInstance()->GetServerName();
 }
 
 bool XASession::IsConnected()
 {
-    return m_api.IsConnected();
+    return IXingAPI::GetInstance()->IsConnected();
 }
 
 bool XASession::IsLoadAPI()
 {
-    return m_api.IsInit();
+    return IXingAPI::GetInstance()->IsInit();
 }
 
 bool XASession::Login(const QWidget& widget, const QString& id, const QString& pwd, const QString& certPwd, int serverType, bool bShowCertErrDlg)
 {
-    return m_api.Login((HWND)widget.winId(), id.toLocal8Bit().constData(), pwd.toLocal8Bit().constData(), certPwd.toLocal8Bit().constData(), serverType, bShowCertErrDlg);
+    return IXingAPI::GetInstance()->Login((HWND)widget.winId(), id.toLocal8Bit().constData(), pwd.toLocal8Bit().constData(), certPwd.toLocal8Bit().constData(), serverType, bShowCertErrDlg);
 }
 
 bool XASession::Logout(const QWidget& widget)
 {
-    return m_api.Logout((HWND)widget.winId());
+    return IXingAPI::GetInstance()->Logout((HWND)widget.winId());
 }
 
 void XASession::SetConnectTimeOut(int ConnectTimeOut)
@@ -109,5 +104,13 @@ void XASession::SetConnectTimeOut(int ConnectTimeOut)
 void XASession::SetSendPacketSize(int SendPacketSize)
 {
     m_sendPacketSize = SendPacketSize;
+}
+
+QStringList XASession::GetServerList()
+{
+    QStringList list;
+    list.push_front(REAL_SERVER_ADDR);
+    list.push_front(DEMO_SERVER_ADDR);
+    return list;
 }
 

@@ -1,36 +1,66 @@
-#ifndef _t8430_H_
-#define _t8430_H_
+#ifndef T8430_H
+#define T8430_H
 
+#include <QObject>
+#include <QWidget>
+#include "xing/IXingAPI.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// ÁÖ½ÄÁ¾¸ñÁ¶È¸ ( BLOCK,HEADTYPE=A )
+// ì£¼ì‹ì¢…ëª©ì¡°íšŒ ( BLOCK,HEADTYPE=A )
 #pragma pack( push, 1 )
 
 #define NAME_t8430     "t8430"
 
-// ±âº»ÀÔ·Â                       
+// ê¸°ë³¸ì…ë ¥
 typedef struct _t8430InBlock
 {
-    char    gubun               [   1];    // [string,    1] ±¸ºĞ(0:ÀüÃ¼1:ÄÚ½ºÇÇ2:ÄÚ½º´Ú)    StartPos 0, Length 1
+    char    gubun               [   1];    // [string,    1] êµ¬ë¶„(0:ì „ì²´1:ì½”ìŠ¤í”¼2:ì½”ìŠ¤ë‹¥)    StartPos 0, Length 1
 } t8430InBlock, *LPt8430InBlock;
 #define NAME_t8430InBlock     "t8430InBlock"
 
-// Ãâ·Â1                          , occurs
+// ì¶œë ¥1                          , occurs
 typedef struct _t8430OutBlock
 {
-    char    hname               [  20];    // [string,   20] Á¾¸ñ¸í                          StartPos 0, Length 20
-    char    shcode              [   6];    // [string,    6] ´ÜÃàÄÚµå                        StartPos 20, Length 6
-    char    expcode             [  12];    // [string,   12] È®ÀåÄÚµå                        StartPos 26, Length 12
-    char    etfgubun            [   1];    // [string,    1] ETF±¸ºĞ(1:ETF)                  StartPos 38, Length 1
-    char    uplmtprice          [   8];    // [long  ,    8] »óÇÑ°¡                          StartPos 39, Length 8
-    char    dnlmtprice          [   8];    // [long  ,    8] ÇÏÇÑ°¡                          StartPos 47, Length 8
-    char    jnilclose           [   8];    // [long  ,    8] ÀüÀÏ°¡                          StartPos 55, Length 8
-    char    memedan             [   5];    // [string,    5] ÁÖ¹®¼ö·®´ÜÀ§                    StartPos 63, Length 5
-    char    recprice            [   8];    // [long  ,    8] ±âÁØ°¡                          StartPos 68, Length 8
-    char    gubun               [   1];    // [string,    1] ±¸ºĞ(1:ÄÚ½ºÇÇ2:ÄÚ½º´Ú)          StartPos 76, Length 1
+    char    hname               [  20];    // [string,   20] ì¢…ëª©ëª…                          StartPos 0, Length 20
+    char    shcode              [   6];    // [string,    6] ë‹¨ì¶•ì½”ë“œ                        StartPos 20, Length 6
+    char    expcode             [  12];    // [string,   12] í™•ì¥ì½”ë“œ                        StartPos 26, Length 12
+    char    etfgubun            [   1];    // [string,    1] ETFêµ¬ë¶„(1:ETF)                  StartPos 38, Length 1
+    char    uplmtprice          [   8];    // [long  ,    8] ìƒí•œê°€                          StartPos 39, Length 8
+    char    dnlmtprice          [   8];    // [long  ,    8] í•˜í•œê°€                          StartPos 47, Length 8
+    char    jnilclose           [   8];    // [long  ,    8] ì „ì¼ê°€                          StartPos 55, Length 8
+    char    memedan             [   5];    // [string,    5] ì£¼ë¬¸ìˆ˜ëŸ‰ë‹¨ìœ„                    StartPos 63, Length 5
+    char    recprice            [   8];    // [long  ,    8] ê¸°ì¤€ê°€                          StartPos 68, Length 8
+    char    gubun               [   1];    // [string,    1] êµ¬ë¶„(1:ì½”ìŠ¤í”¼2:ì½”ìŠ¤ë‹¥)          StartPos 76, Length 1
 } t8430OutBlock, *LPt8430OutBlock;
 #define NAME_t8430OutBlock     "t8430OutBlock"
 
 #pragma pack( pop )
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct _T8430Item
+{
+    QString hname;
+    QString shcode;
+    QString expcode;
+    bool isETF;
+    long uplmtprice;
+    long dnlmtprice;
+    long jniclose;
+    int memedan;
+    long recprice;
+    bool isKOSPI;
+} t8430Item, *LPt8430Item;
 
-#endif // _t8430_H_
+class T8430 : public QObject
+{
+    Q_OBJECT
+public:
+    explicit T8430(QObject *parent = 0);
+    ~T8430();
+    typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
+signals:
+
+public slots:
+    void request(const QWidget& widget, MODE=ALL);
+    void responseReceived(LPRECV_PACKET packet);
+};
+
+#endif // T8430_H
