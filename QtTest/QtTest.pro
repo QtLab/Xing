@@ -16,7 +16,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         dialog.cpp \
-    IXingAPI.cpp \
     xing/IXingAPI.cpp \
     xing/xasession.cpp \
     xing/xaquery.cpp
@@ -25,7 +24,8 @@ HEADERS  += dialog.h \
     util/templatesingleton.h \
     xing/IXingAPI.h \
     xing/xasession.h \
-    xing/xaquery.h
+    xing/xaquery.h \
+    tr/t8430.h
 
 FORMS    += dialog.ui
 

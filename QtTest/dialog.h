@@ -2,7 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include "xing/IXingAPI.h"
+#include "xing/xasession.h"
 
 namespace Ui {
 class Dialog;
@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::Dialog *ui;
-    IXingAPI m_api;
+    XASession m_session;
 protected:
     bool nativeEvent(const QByteArray & eventType, void * message, long * result);
     HWND getWindowHandle();

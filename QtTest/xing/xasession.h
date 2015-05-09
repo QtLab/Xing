@@ -28,7 +28,7 @@ signals:
 public slots:
     bool Init();
     bool ConnectServer(const QWidget& widget, bool isRealServer=false);
-    void DisconnectServer();
+    bool DisconnectServer();
     QString GetAccountList(int nIndex);
     int GetAccountListCount();
     QString GetClientIP();

@@ -12,7 +12,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    m_api.Init();
+    m_session.Init();
 }
 
 bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * result){
@@ -47,8 +47,7 @@ Dialog::~Dialog()
 void Dialog::on_testButton1_clicked()
 {
 
-    QString server = "demo.etrade.co.kr";
-    BOOL result = m_api.Connect(getWindowHandle(), server.toLocal8Bit().constData(), 20001, WM_USER, 3000, 512);
+    BOOL result = m_session.ConnectServer(*this, false);
     if(result) {
         QMessageBox::information(this, "Connection", "success");
     } else {
@@ -58,7 +57,7 @@ void Dialog::on_testButton1_clicked()
 
 void Dialog::on_testButton2_clicked()
 {
-    if(m_api.Disconnect()){
+    if(m_session.DisconnectServer()){
         QMessageBox::information(this, "Disconnect", "success");
     } else {
         QMessageBox::information(this, "Disconnect", "failed");
@@ -71,7 +70,7 @@ void Dialog::on_testButton3_clicked()
     QString passwd = "folken77";
     QString certPwd = "";
     int type = 0;
-    if(m_api.Login(getWindowHandle(), id.toLocal8Bit().constData(), passwd.toLocal8Bit().constData(), certPwd.toLocal8Bit().constData(),0, FALSE)){
+    if(m_session.Login(*this, id, passwd, certPwd)){
         QMessageBox::information(this, "Login", "request success");
     } else {
         QMessageBox::information(this, "Login", "request failed");

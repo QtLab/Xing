@@ -1,6 +1,6 @@
 #ifndef XAQUERY_H
 #define XAQUERY_H
-
+#include <QObject>
 
 class XAQuery : public QObject
 {

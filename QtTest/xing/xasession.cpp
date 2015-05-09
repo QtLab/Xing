@@ -7,7 +7,7 @@ XASession::XASession(QObject *parent) : QObject(parent),m_timeout(DEFAULT_TIMEOU
 
 XASession::~XASession()
 {
-    m_api.uninit();
+    m_api.Uninit();
 }
 
 bool XASession::Init()
@@ -21,24 +21,26 @@ bool XASession::ConnectServer(const QWidget& widget, bool isRealServer)
         if(!m_api.Init())
             return false;
     }
-    if(isRealaServer) {
-        return m_api.Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
-    } else {
+    if(isRealServer) {
         return m_api.Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
+    } else {
+        return m_api.Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     }
 }
 
-void XASession::DisconnectServer()
+bool XASession::DisconnectServer()
 {
     if(m_api.IsInit())
-        m_api.Disconnect();
+        return m_api.Disconnect();
+    else
+        return false;
 }
 
 QString XASession::GetAccountList(int nIndex)
 {
     char account[20];
     if(m_api.GetAccountList(nIndex, account, sizeof(account))){
-        return QString.fromLocal8Bit(account);
+        return QString::fromLocal8Bit(account);
     } else {
         return "";
     }
