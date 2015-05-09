@@ -2,19 +2,31 @@
 #define XASESSION_H
 
 #include <QObject>
+#include <QWidget>
+#include "IXingAPI.h"
 
-class QAxObject;
-class XASessionEvents;
+#define REAL_SERVER_ADDR "hts.etrade.co.kr"
+#define DEMO_SERVER_ADDR "demo.etrade.co.kr"
+
+#define DEFAULT_SERVER_PORT 20001
+#define DEFAULT_TIMEOUT_LIMIT 3000
+#define DEFAULT_MAX_PACKET_SIZE 512
+
 class XASession : public QObject
 {
     Q_OBJECT
 public:
     explicit XASession(QObject *parent = 0);
+    ~XASession();
+
+private:
+    IXingAPI m_api;
+
 signals:
-    void ReportEventLog(const QString&); // event signal to report event
+
 public slots:
     bool Init();
-    bool ConnectServer(const QString&, int);
+    bool ConnectServer(const QWidget& widget, bool isRealServer=false);
     void DisconnectServer();
     QString GetAccountList(int nIndex);
     int GetAccountListCount();
@@ -26,17 +38,10 @@ public slots:
     QString GetServerName();
     bool IsConnected();
     bool IsLoadAPI();
-    bool Login(QString szID, QString szPwd, QString szCertPwd, int nServerType, bool bShowCertErrDlg);
+    bool Login(const QWidget& widget, const QString& id, const QString& pwd, const QString& certPwd, int serverType, bool bShowCertErrDlg);
     bool Logout();
     void SetConnectTimeOut(int ConnectTimeOut);
     void SetSendPacketSize(int SendPacketSize);
-
-private slots:
-    void ReportXASessionEventLog(const QString&); //event slot from XASessionEvents
-private:
-    XASessionEvents *sessionEvents;
-    QAxObject *session;
-    friend class XASessionEvents;
 };
 
 #endif // XASESSION_H
