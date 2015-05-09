@@ -1,13 +1,13 @@
 #include "xasession.h"
 
-XASession::XASession(QObject *parent) : QObject(parent)
+XASession::XASession(QObject *parent) : QObject(parent),m_timeout(DEFAULT_TIMEOUT_LIMIT), m_sendPacketSize(DEFAULT_MAX_PACKET_SIZE)
 {
 
 }
 
 XASession::~XASession()
 {
-
+    m_api.uninit();
 }
 
 bool XASession::Init()
@@ -22,9 +22,9 @@ bool XASession::ConnectServer(const QWidget& widget, bool isRealServer)
             return false;
     }
     if(isRealaServer) {
-        return m_api.Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, DEFAULT_TIMEOUT_LIMIT, DEFAULT_MAX_PACKET_SIZE);
+        return m_api.Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     } else {
-        return m_api.Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, DEFAULT_TIMEOUT_LIMIT, DEFAULT_MAX_PACKET_SIZE);
+        return m_api.Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     }
 }
 
@@ -91,21 +91,21 @@ bool XASession::IsLoadAPI()
 
 bool XASession::Login(const QWidget& widget, const QString& id, const QString& pwd, const QString& certPwd, int serverType, bool bShowCertErrDlg)
 {
-    return m_api.Login((HWND)widget.winId(), id.toLocal8Bit().constData(), pwd.toLocal8Bit().constData(), certPwd.toLocal8Bit().constData())
+    return m_api.Login((HWND)widget.winId(), id.toLocal8Bit().constData(), pwd.toLocal8Bit().constData(), certPwd.toLocal8Bit().constData(), serverType, bShowCertErrDlg);
 }
 
-bool XASession::Logout()
+bool XASession::Logout(const QWidget& widget)
 {
-
+    return m_api.Logout((HWND)widget.winId());
 }
 
 void XASession::SetConnectTimeOut(int ConnectTimeOut)
 {
-
+    m_timeout = ConnectTimeOut;
 }
 
 void XASession::SetSendPacketSize(int SendPacketSize)
 {
-
+    m_sendPacketSize = SendPacketSize;
 }
 

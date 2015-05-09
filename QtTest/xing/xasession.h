@@ -21,7 +21,8 @@ public:
 
 private:
     IXingAPI m_api;
-
+    int m_timeout;
+    int m_sendPacketSize;
 signals:
 
 public slots:
@@ -38,8 +39,8 @@ public slots:
     QString GetServerName();
     bool IsConnected();
     bool IsLoadAPI();
-    bool Login(const QWidget& widget, const QString& id, const QString& pwd, const QString& certPwd, int serverType, bool bShowCertErrDlg);
-    bool Logout();
+    bool Login(const QWidget& widget, const QString& id, const QString& pwd, const QString& certPwd, int serverType=0, bool bShowCertErrDlg=false);
+    bool Logout(const QWidget& widget);
     void SetConnectTimeOut(int ConnectTimeOut);
     void SetSendPacketSize(int SendPacketSize);
 };
