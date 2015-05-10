@@ -10,3 +10,8 @@ XAQuery::~XAQuery()
 
 }
 
+void XAQuery::run()
+{
+
+}
+

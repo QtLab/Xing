@@ -1,9 +1,8 @@
 #ifndef T8430_H
 #define T8430_H
 
-#include <QObject>
-#include <QWidget>
 #include "xing/IXingAPI.h"
+#include "tr/TrQuery.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 주식종목조회 ( BLOCK,HEADTYPE=A )
 #pragma pack( push, 1 )
@@ -44,22 +43,24 @@ typedef struct _T8430Item
     long uplmtprice;
     long dnlmtprice;
     long jniclose;
-    int memedan;
+    QString memedan;
     long recprice;
     bool isKOSPI;
 } t8430Item, *LPt8430Item;
 
-class T8430 : public QObject
+class T8430 : public TrQuery
 {
-    Q_OBJECT
 public:
-    explicit T8430(QObject *parent = 0);
+    explicit T8430(const QWidget &widget, MODE mode, QObject *parent = 0);
     ~T8430();
     typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
-signals:
+private:
 
+    const MODE m_mode;
+signals:
+    void workDone(const QList<LPt8430Item> & itemList);
 public slots:
-    void request(const QWidget& widget, MODE=ALL);
+    void sendRequest();
     void responseReceived(LPRECV_PACKET packet);
 };
 

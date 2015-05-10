@@ -1,13 +1,17 @@
 #ifndef XAQUERY_H
 #define XAQUERY_H
-#include <QObject>
 
-class XAQuery : public QObject
+#include <QThread>
+
+class XAQuery : public QThread
 {
     Q_OBJECT
 public:
-    explicit XAQuery(QObject *parent = 0);
+    XAQuery();
     ~XAQuery();
+
+protected:
+    void run();
 
 signals:
 
