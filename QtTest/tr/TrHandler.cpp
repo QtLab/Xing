@@ -1,16 +1,16 @@
-#include "trhandler.h"
+#include "TrHandler.h"
 
-TrQueryHandler::TrQueryHandler()
+TrHandler::TrHandler(QObject *parent):QObject(parent)
 {
 
 }
 
-TrQueryHandler::~TrQueryHandler()
+TrHandler::~TrHandler()
 {
 
 }
 
-long TrQueryHandler::changeStringToLong(char *strLong, int length)
+long TrHandler::changeStringToLong(char *strLong, int length)
 {
     int multiply = 1;
     long result = 0;
@@ -21,5 +21,10 @@ long TrQueryHandler::changeStringToLong(char *strLong, int length)
     }
 
     return result;
+}
+
+void TrHandler::addTrQuery(TrQuery &query)
+{
+
 }
 

@@ -1,23 +1,23 @@
 
 #include "t8430.h"
 
-T8430::T8430(const QWidget &widget, MODE mode, QObject *parent) : TrQuery(widget, parent),m_mode(mode), m_workDone(false)
+T8430Handler::T8430Handler(const QWidget &widget, MODE mode, QObject *parent) : TrHandler(widget, parent),m_mode(mode), m_workDone(false)
 {
 
 }
 
-T8430::~T8430()
+T8430Handler::~T8430Handler()
 {
 
 }
 
-void T8430::dataProcessed()
+void T8430Handler::dataProcessed()
 {
     m_workDone = true;
     emit workDone(itemList);
 }
 
-QList<LPt8430Item> T8430::handleData(LPRECV_PACKET packet)
+QList<LPt8430Item> T8430Handler::handleData(LPRECV_PACKET packet)
 {
     LPt8430OutBlock pOutBlock;
     QList<LPt8430Item> itemList;
@@ -48,7 +48,7 @@ QList<LPt8430Item> T8430::handleData(LPRECV_PACKET packet)
     return itemList;
 }
 
-int T8430::sendRequest()
+int T8430Handler::sendRequest()
 {
     t8430InBlock pckInBlock;
     memset(&pckInBlock, ' ', sizeof(pckInBlock));
@@ -68,7 +68,7 @@ int T8430::sendRequest()
     return IXingAPI::GetInstance()->Request(m_hwnd, NAME_t8430, &pckInBlock, sizeof(pckInBlock), FALSE, " ", -1);
 }
 
-void T8430::dataReceived(LPRECV_PACKET packet)
+void T8430Handler::dataReceived(LPRECV_PACKET packet)
 {
     mFuture = QtConcurrent::run(handleData, packet);
     mFutureWatcher.setFuture(mFuture);
@@ -76,23 +76,36 @@ void T8430::dataReceived(LPRECV_PACKET packet)
     connect(&mFutureWatcher, SIGNAL(finished()), SLOT(dataProcessed());
 }
 
-void T8430::messageReceived(LPMSG_PACKET packet)
+void T8430Handler::messageReceived(LPMSG_PACKET packet)
 {
 
 }
 
-void T8430::errorReceived(LPMSG_PACKET packet)
+void T8430Handler::errorReceived(LPMSG_PACKET packet)
 {
 
 }
 
-void T8430::releaseReceived(int requestId)
+void T8430Handler::releaseReceived(int requestId)
 {
 
 }
 
-bool T8430::hasMoreRequest()
+bool T8430Handler::hasMoreRequest()
 {
 
 }
 
+
+
+T8430Query *T8430Query::createQuery(const QWidget &requester, T8430Query::MODE mode, QObject *parent)
+{
+    T8430Query* query = new T8430Query(requester, parent);
+    query->mMode = mode;
+    return query;
+}
+
+T8430Query::T8430Query(const QWidget &requester, QObject *parent) : TrQuery(requester,"t8430", parent)
+{
+
+}

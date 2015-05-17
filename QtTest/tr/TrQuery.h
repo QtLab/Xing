@@ -1,27 +1,23 @@
-#ifndef TRHANDLER_H
-#define TRHANDLER_H
+#ifndef TRQUERY_H
+#define TRQUERY_H
 
-#include <QObjec>
-#include <QThread>
-#include <xing/xaquery.h>
+#include <QObject>
+#include <QWidget>
 class TrQuery : public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 public:
-    explicit TrQuery(const QWidget& widget, QObject *parent=0);
+
     ~TrQuery();
+
+    QString getName() {return mName;}
 protected:
-    long changeStringToLong(char * strLong, int length);
-    const HWND m_hwnd;
-private:
+    explicit TrQuery(const QWidget& requester, QString name, QObject *parent = 0);
+    QString mName;
+    const QWidget& mRequester;
+signals:
 
 public slots:
-    virtual int sendRequest()=0;
-    virtual void dataReceived(LPRECV_PACKET packet)=0;
-    virtual void messageReceived(LPMSG_PACKET packet)=0;
-    virtual void errorReceived(LPMSG_PACKET packet)=0;
-    virtual void releaseReceived(int requestId)=0;
-    virtual bool hasMoreRequest()=0;
 };
 
-#endif // TRHANDLER_H
+#endif // TRQUERY_H

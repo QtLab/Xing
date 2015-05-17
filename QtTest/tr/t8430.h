@@ -2,7 +2,7 @@
 #define T8430_H
 
 #include "xing/IXingAPI.h"
-#include "tr/TrQuery.h"
+#include "tr/TrHandler.h"
 #include <qtconcurrentrun.h>
 #include <QFuture>
 #include <QFutureWatcher>
@@ -53,12 +53,13 @@ typedef struct _T8430Item
     bool isKOSPI;
 } t8430Item, *LPt8430Item;
 
-class T8430 : public TrQuery
+class T8430Handler : public TrHandler
 {
 public:
-    explicit T8430(const QWidget &widget, MODE mode, QObject *parent = 0);
-    ~T8430();
-    typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
+    explicit T8430Handler(const QWidget &widget, MODE mode, QObject *parent = 0);
+    ~T8430Handler();
+
+
 private:
     bool m_workDone;
     const MODE m_mode;
@@ -80,7 +81,20 @@ public slots:
     void errorReceived(LPMSG_PACKET packet);
     void releaseReceived(int requestId);
     bool hasMoreRequest();
+};
 
+class T8430Query : public TrQuery
+{
+public:
+    typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
+
+    T8430Query *createQuery(const QWidget& requester,MODE mode,QObject *parent = 0);
+protected:
+    explicit T8430Query(const QWidget& requester,QObject *parent = 0);
+private:
+    MODE mMode;
+signals:
+    void workDone(QList<LPt8430Item> list);
 };
 
 #endif // T8430_H

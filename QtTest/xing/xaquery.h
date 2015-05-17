@@ -5,7 +5,7 @@
 #include <QMap>
 #include <QThread>
 #include "xing/IXingAPI.h"
-#include "tr/TrQuery.h"
+#include "tr/TrHandler.h"
 
 class XAQuery : public QThread
 {
@@ -17,12 +17,12 @@ public:
 protected:
 
 private:
-    QMap<int, TrQuery*> mQueryMap;
+    QMap<int, TrHandler*> mQueryMap;
 
 signals:
 
 public slots:
-    void requestQuery(TrQuery* query);
+    void requestQuery(TrHandler* query);
     void dataReceived(LPRECV_PACKET packet);
     void messageReceived(LPMSG_PACKET packet);
     void errorReceived(LPMSG_PACKET packet);

@@ -10,7 +10,7 @@ XAQuery::~XAQuery()
 
 }
 
-void XAQuery::requestQuery(TrQuery *query)
+void XAQuery::requestQuery(TrHandler *query)
 {
     int requestId = query->sendRequest();
     mQueryMap.insert(requestId, query);
@@ -18,7 +18,7 @@ void XAQuery::requestQuery(TrQuery *query)
 
 void XAQuery::dataReceived(LPRECV_PACKET packet)
 {
-    TrQuery* query = mQueryMap.value(packet->nRqID);
+    TrHandler* query = mQueryMap.value(packet->nRqID);
     mQueryMap.remove(packet->nRqID);
     query->dataReceived(packet);
     if(query->hasMoreRequest()){
