@@ -3,6 +3,11 @@
 
 #include "xing/IXingAPI.h"
 #include "tr/TrQuery.h"
+#include <qtconcurrentrun.h>
+#include <QFuture>
+#include <QFutureWatcher>
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 주식종목조회 ( BLOCK,HEADTYPE=A )
 #pragma pack( push, 1 )
@@ -55,13 +60,27 @@ public:
     ~T8430();
     typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
 private:
-
+    bool m_workDone;
     const MODE m_mode;
+
+
+
+    QList<LPt8430Item> handleData(LPRECV_PACKET packet);
+    QFuture<QList<LPt8430Item>> mFuture;
+    QFutureWatcher<QList<LPt8430Item>> mFutureWatcher;
 signals:
     void workDone(const QList<LPt8430Item> & itemList);
+
+private slots:
+    void dataProcessed();
 public slots:
-    void sendRequest();
-    void responseReceived(LPRECV_PACKET packet);
+    int sendRequest();
+    void dataReceived(LPRECV_PACKET packet);
+    void messageReceived(LPMSG_PACKET packet);
+    void errorReceived(LPMSG_PACKET packet);
+    void releaseReceived(int requestId);
+    bool hasMoreRequest();
+
 };
 
 #endif // T8430_H

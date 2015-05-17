@@ -7,7 +7,7 @@
 QT       += core gui
 
 QT      += gui-private
-
+QT       += concurrent
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QtTest

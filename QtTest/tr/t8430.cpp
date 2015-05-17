@@ -1,6 +1,7 @@
+
 #include "t8430.h"
 
-T8430::T8430(const QWidget &widget, MODE mode, QObject *parent) : TrQuery(widget, parent),m_mode(mode)
+T8430::T8430(const QWidget &widget, MODE mode, QObject *parent) : TrQuery(widget, parent),m_mode(mode), m_workDone(false)
 {
 
 }
@@ -10,28 +11,13 @@ T8430::~T8430()
 
 }
 
-void T8430::sendRequest()
+void T8430::dataProcessed()
 {
-    t8430InBlock pckInBlock;
-    memset(&pckInBlock, ' ', sizeof(pckInBlock));
-
-    switch(m_mode) {
-    case ALL:
-        memcpy(pckInBlock.gubun, "0", sizeof(pckInBlock.gubun));
-        break;
-    case KOSPI:
-        memcpy(pckInBlock.gubun, "1", sizeof(pckInBlock.gubun));
-        break;
-    case KOSDAQ:
-        memcpy(pckInBlock.gubun, "2", sizeof(pckInBlock.gubun));
-        break;
-    }
-
-    IXingAPI::GetInstance()->request(m_hwnd, NAME_t8430, &pckInBlock, sizeof(pckInBlock), FALSE, " ", -1);
-
+    m_workDone = true;
+    emit workDone(itemList);
 }
 
-void T8430::responseReceived(LPRECV_PACKET packet)
+QList<LPt8430Item> T8430::handleData(LPRECV_PACKET packet)
 {
     LPt8430OutBlock pOutBlock;
     QList<LPt8430Item> itemList;
@@ -59,6 +45,54 @@ void T8430::responseReceived(LPRECV_PACKET packet)
         }
         itemList.push_back(item);
     }
-    emit workDone(itemList);
+    return itemList;
+}
+
+int T8430::sendRequest()
+{
+    t8430InBlock pckInBlock;
+    memset(&pckInBlock, ' ', sizeof(pckInBlock));
+
+    switch(m_mode) {
+    case ALL:
+        memcpy(pckInBlock.gubun, "0", sizeof(pckInBlock.gubun));
+        break;
+    case KOSPI:
+        memcpy(pckInBlock.gubun, "1", sizeof(pckInBlock.gubun));
+        break;
+    case KOSDAQ:
+        memcpy(pckInBlock.gubun, "2", sizeof(pckInBlock.gubun));
+        break;
+    }
+
+    return IXingAPI::GetInstance()->Request(m_hwnd, NAME_t8430, &pckInBlock, sizeof(pckInBlock), FALSE, " ", -1);
+}
+
+void T8430::dataReceived(LPRECV_PACKET packet)
+{
+    mFuture = QtConcurrent::run(handleData, packet);
+    mFutureWatcher.setFuture(mFuture);
+
+    connect(&mFutureWatcher, SIGNAL(finished()), SLOT(dataProcessed());
+}
+
+void T8430::messageReceived(LPMSG_PACKET packet)
+{
+
+}
+
+void T8430::errorReceived(LPMSG_PACKET packet)
+{
+
+}
+
+void T8430::releaseReceived(int requestId)
+{
+
+}
+
+bool T8430::hasMoreRequest()
+{
+
 }
 

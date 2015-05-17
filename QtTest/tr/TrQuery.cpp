@@ -1,6 +1,6 @@
 #include "TrQuery.h"
 
-TrQuery::TrQuery(const QWidget& widget, QObject *parent):m_hwnd((HWND)widget.winId()),QObject(parent)
+TrQuery::TrQuery(const QWidget& widget,QObject *parent):m_hwnd((HWND)widget.winId(), QObject(parent)
 {
 
 }
