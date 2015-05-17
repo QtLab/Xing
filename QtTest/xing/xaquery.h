@@ -7,7 +7,7 @@
 #include "xing/IXingAPI.h"
 #include "tr/TrQuery.h"
 
-class XAQuery : public QObject
+class XAQuery : public QThread
 {
     Q_OBJECT
 public:
