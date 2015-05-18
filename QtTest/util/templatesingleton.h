@@ -34,7 +34,7 @@ private:
     static T * m_pInstance;
 };
 
-template <typename t> T * TemplateSingleton<t>::m_pInstance = 0;
+template <typename T> T * TemplateSingleton<T>::m_pInstance = 0;
 
 #endif // TEMPLATESINGLETON
 

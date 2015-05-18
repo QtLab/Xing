@@ -16,7 +16,8 @@ protected:
     QString mName;
     const QWidget& mRequester;
 signals:
-
+    void messageReceived(const QString& msg);
+    void errorReceived(const QString& msg);
 public slots:
 };
 

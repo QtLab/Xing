@@ -1,46 +1,67 @@
 #include "xaquery.h"
+#include "util/objectfactory.h"
+#include "tr/t8430.h"
+XAQueryMngr::XAQueryMngr(QObject *parent) : QThread(parent)
+{
+    ObjectFactory::registerClass<T8430Handler>();
+}
 
-XAQuery::XAQuery(QObject *parent) : QObject(parent)
+XAQueryMngr::~XAQueryMngr()
 {
 
 }
 
-XAQuery::~XAQuery()
+void XAQueryMngr::requestQuery(TrQuery *query)
 {
-
+    TrHandler* handler;
+    if(!mHandlerMap.contains(query->getName())){
+        QString name = query->getName();
+        name.replace(0, 1, 'T');
+        name.append("Handler");
+        handler = static_cast<TrHandler*>(ObjectFactory::createObject(name));
+        mHandlerMap.insert(query->getName(), handler);
+    }
+    handler->addTrQuery(query);
 }
 
-void XAQuery::requestQuery(TrHandler *query)
+void XAQueryMngr::handleResponse(WPARAM wparam, LPARAM lparam)
 {
-    int requestId = query->sendRequest();
-    mQueryMap.insert(requestId, query);
-}
-
-void XAQuery::dataReceived(LPRECV_PACKET packet)
-{
-    TrHandler* query = mQueryMap.value(packet->nRqID);
-    mQueryMap.remove(packet->nRqID);
-    query->dataReceived(packet);
-    if(query->hasMoreRequest()){
-        int requestId = query->sendRequest();
-        mQueryMap.insert(requestId, query);
+    switch(wparam){
+    case REQUEST_DATA:
+    {
+        LPRECV_PACKET lpRecvPacket = (LPRECV_PACKET)lParam;
+        //mHandlerMap[lpRecvPacket->szTrCode]->dataReceived(lpRecvPacket);
+        QMetaObject::invokeMethod(mHandlerMap[lpRecvPacket->szTrCode],"dataReceived", Qt::QueuedConnection, Q_ARG(LPRECV_PACKET, lpRecvPacket));
+        break;
+    }
+    case MESSAGE_DATA:
+    {
+        LPMSG_PACKET pMsg = (LPMSG_PACKET)lParam;
+        QList<TrHandler*> trHandlerList = mHandlerMap.values();
+        foreach(TrHandler* handler, trHandlerList){
+            QMetaObject::invokeMethod(handler, "messageReceived", Qt::QueuedConnection, Q_ARG(LPMSG_PACKET,pMsg));
+        }
+        break;
+    }
+    case SYSTEM_ERROR_DATA:
+    {
+        LPMSG_PACKET pMsg = (LPMSG_PACKET)lParam;
+        QList<TrHandler*> trHandlerList = mHandlerMap.values();
+        foreach(TrHandler* handler, trHandlerList){
+            QMetaObject::invokeMethod(handler, "errorReceived", Qt::QueuedConnection, Q_ARG(LPMSG_PACKET,pMsg));
+        }
+        break;
+    }
+    case RELEASE_DATA:
+    {
+        QList<TrHandler*> trHandlerList = mHandlerMap.values();
+        foreach(TrHandler* handler, trHandlerList){
+            QMetaObject::invokeMethod(handler, "releaseReceived", Qt::QueuedConnection, Q_ARG(int,pMsg));
+        }
+        break;
     }
 }
 
-void XAQuery::messageReceived(LPMSG_PACKET packet)
-{
-    mQueryMap[packet->nRqID]->messageReceived(packet);
-}
-
-void XAQuery::errorReceived(LPMSG_PACKET packet)
-{
-    mQueryMap[packet->nRqID]->errorReceived(packet);
-}
-
-void XAQuery::releaseReceived(int requestId)
-{
-    mQueryMap[requestId]->releaseReceived();
-}
 
 
 

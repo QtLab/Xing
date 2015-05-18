@@ -53,34 +53,20 @@ typedef struct _T8430Item
     bool isKOSPI;
 } t8430Item, *LPt8430Item;
 
-class T8430Handler : public TrHandler
+class T8430Handler : public TrHandler<T8430Query*>
 {
 public:
-    explicit T8430Handler(const QWidget &widget, MODE mode, QObject *parent = 0);
+    explicit T8430Handler(QObject *parent = 0);
     ~T8430Handler();
 
+protected:
+    virtual int sendRequest(T8430Query* query);
 
-private:
-    bool m_workDone;
-    const MODE m_mode;
-
-
-
-    QList<LPt8430Item> handleData(LPRECV_PACKET packet);
-    QFuture<QList<LPt8430Item>> mFuture;
-    QFutureWatcher<QList<LPt8430Item>> mFutureWatcher;
-signals:
-    void workDone(const QList<LPt8430Item> & itemList);
-
-private slots:
-    void dataProcessed();
 public slots:
-    int sendRequest();
-    void dataReceived(LPRECV_PACKET packet);
-    void messageReceived(LPMSG_PACKET packet);
-    void errorReceived(LPMSG_PACKET packet);
-    void releaseReceived(int requestId);
-    bool hasMoreRequest();
+    virtual void dataReceived(LPRECV_PACKET packet);
+    virtual void messageReceived(LPMSG_PACKET packet);
+    virtual void errorReceived(LPMSG_PACKET packet);
+    virtual void releaseReceived(int reqId);
 };
 
 class T8430Query : public TrQuery
@@ -88,7 +74,7 @@ class T8430Query : public TrQuery
 public:
     typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
 
-    T8430Query *createQuery(const QWidget& requester,MODE mode,QObject *parent = 0);
+    static T8430Query *createQuery(const QWidget& requester,MODE mode,QObject *parent = 0);
 protected:
     explicit T8430Query(const QWidget& requester,QObject *parent = 0);
 private:

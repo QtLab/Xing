@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "xing/xasession.h"
-
+#include "xing/xaquery.h"
 namespace Ui {
 class Dialog;
 }
@@ -19,13 +19,13 @@ public:
 private:
     Ui::Dialog *ui;
     XASession m_session;
+    XAQueryMngr m_queryMngr;
 protected:
     bool nativeEvent(const QByteArray & eventType, void * message, long * result);
     HWND getWindowHandle();
 private slots:
-    void on_testButton1_clicked();
-    void on_testButton2_clicked();
-    void on_testButton3_clicked();
+
+    void on_connectBtn_clicked();
 };
 
 #endif // DIALOG_H

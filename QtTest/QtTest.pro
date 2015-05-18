@@ -30,7 +30,8 @@ HEADERS  += dialog.h \
     tr/t8430.h \
     xing/xaquery.h \
     tr/TrHandler.h \
-    tr/trquery.h
+    tr/trquery.h \
+    util/objectfactory.h
 
 FORMS    += dialog.ui
 

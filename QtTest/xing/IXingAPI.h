@@ -2,6 +2,7 @@
 #define _IXINGAPI_H_
 #include <QLibrary>
 #include <QString>
+#include <QMetaType>
 #include "util/templatesingleton.h"
 #undef UNICODE
 #include <qt_windows.h>
@@ -49,6 +50,7 @@ typedef struct _RECV_PACKET
     char				szBlockName [17];			// Block 명, Block Mode 일때 사용
     unsigned char*		lpData;
 } RECV_PACKET, *LPRECV_PACKET;
+Q_DECLARE_METATYPE(RECV_PACKET)
 
 // 메시지 수신 Packet
 typedef struct
@@ -59,7 +61,7 @@ typedef struct
     int					nMsgLength;					// Message 길이
     unsigned char*		lpszMessageData;			// Message Data
 } MSG_PACKET, *LPMSG_PACKET;
-
+Q_DECLARE_METATYPE(MSG_PACKET)
 // 실시간TR 수신 Packet
 typedef struct _REAL_RECV_PACKET
 {
@@ -74,7 +76,7 @@ typedef struct _REAL_RECV_PACKET
     int					nDataLength;
     char*				pszData;
 } RECV_REAL_PACKET, *LPRECV_REAL_PACKET;
-
+Q_DECLARE_METATYPE(RECV_REAL_PACKET)
 
 // HTS에서 API로 연동되어 수신되는 Packet
 typedef struct _LINKDATA_RECV_MSG
@@ -85,6 +87,7 @@ typedef struct _LINKDATA_RECV_MSG
     char				sLinkData[32];
     char				sFiller  [64];
 }LINKDATA_RECV_MSG, *LPLINKDATA_RECV_MSG;
+Q_DECLARE_METATYPE(LINKDATA_RECV_MSG)
 //------------------------------------------------------------------------------
 
 class IXingAPI : public TemplateSingleton<IXingAPI>
