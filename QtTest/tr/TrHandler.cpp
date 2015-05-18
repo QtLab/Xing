@@ -1,18 +1,15 @@
 #include "TrHandler.h"
 
-template < typename T >
-TrHandler<T>::TrHandler(QObject *parent):QObject(parent)
+TrHandler::TrHandler(QObject *parent):QObject(parent)
 {
 
 }
-template < typename T >
-TrHandler<T>::~TrHandler()
+TrHandler::~TrHandler()
 {
 
 }
 
-template < typename T >
-long TrHandler<T>::changeStringToLong(char *strLong, int length)
+long TrHandler::changeStringToLong(char *strLong, int length)
 {
     int multiply = 1;
     long result = 0;
@@ -31,8 +28,7 @@ void TrHandler::printLog(const QString &log)
     qDebug()<<"["<<metaObj->className()<<"] "<<log;
 }
 
-template < typename T >
-void TrHandler<T>::addTrQuery(T query)
+void TrHandler::addTrQuery(TrQuery* query)
 {
     int requestId = sendRequest(query);
     mQueryMap.insert(requestId, query);

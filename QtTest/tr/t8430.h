@@ -53,7 +53,7 @@ typedef struct _T8430Item
     bool isKOSPI;
 } t8430Item, *LPt8430Item;
 
-class T8430Handler : public TrHandler<T8430Query*>
+class T8430Handler : public TrHandler
 {
 public:
     explicit T8430Handler(QObject *parent = 0);
