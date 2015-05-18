@@ -1,6 +1,4 @@
-
-#include "t8430.h"
-#include "util/str_util.h"
+#include "t8430handler.h"
 T8430Handler::T8430Handler(QObject *parent) : TrHandler(parent)
 {
 
@@ -105,19 +103,4 @@ void T8430Handler::releaseReceived(int reqId)
         query->deleteLater();
         IXingAPI::GetInstance()->ReleaseRequestData(reqId);
     }
-}
-
-
-
-
-T8430Query *T8430Query::createQuery(const QWidget &requester, T8430Query::MODE mode, QObject *parent)
-{
-    T8430Query* query = new T8430Query(requester, parent);
-    query->mMode = mode;
-    return query;
-}
-
-T8430Query::T8430Query(const QWidget &requester, QObject *parent) : TrQuery(requester,NAME_t8430, parent)
-{
-
 }

@@ -1,5 +1,6 @@
 #include "xaquery.h"
 #include "tr/t8430.h"
+#include "tr/t8430handler.h"
 #include "util/objectfactory.h"
 
 XAQueryMngr::XAQueryMngr(QObject *parent) : QThread(parent)

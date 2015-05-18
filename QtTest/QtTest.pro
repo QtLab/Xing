@@ -18,12 +18,12 @@ SOURCES += main.cpp\
         dialog.cpp \
     xing/IXingAPI.cpp \
     xing/xasession.cpp \
-    tr/t8430.cpp \
     xing/xaquery.cpp \
     tr/TrHandler.cpp \
     tr/trquery.cpp \
     util/str_util.cpp \
-    tr/t8430query.cpp
+    tr/t8430query.cpp \
+    tr/t8430handler.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
@@ -35,7 +35,8 @@ HEADERS  += dialog.h \
     tr/trquery.h \
     util/objectfactory.h \
     util/str_util.h \
-    tr/t8430query.h
+    tr/t8430query.h \
+    tr/t8430handler.h
 
 FORMS    += dialog.ui
 
