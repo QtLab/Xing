@@ -1,6 +1,6 @@
 
 #include "t8430.h"
-
+#include "util/str_util.h"
 T8430Handler::T8430Handler(QObject *parent) : TrHandler(parent)
 {
 
@@ -11,18 +11,13 @@ T8430Handler::~T8430Handler()
 
 }
 
-QList<LPt8430Item> T8430Handler::handleData(LPRECV_PACKET packet)
+int T8430Handler::sendRequest(TrQuery* trQuery)
 {
-
-    return itemList;
-}
-
-int T8430Handler::sendRequest(T8430Query* query)
-{
+    T8430Query* query = static_cast<T8430Query*>(trQuery);
     t8430InBlock pckInBlock;
     memset(&pckInBlock, ' ', sizeof(pckInBlock));
 
-    switch(query->mMode) {
+    switch(query->getMode()) {
     case T8430Query::ALL:
         memcpy(pckInBlock.gubun, "0", sizeof(pckInBlock.gubun));
         break;
@@ -34,7 +29,12 @@ int T8430Handler::sendRequest(T8430Query* query)
         break;
     }
 
-    return IXingAPI::GetInstance()->Request(m_hwnd, NAME_t8430, &pckInBlock, sizeof(pckInBlock), FALSE, " ", -1);
+    return IXingAPI::GetInstance()->Request(query->getHWnd(), NAME_t8430, &pckInBlock, sizeof(pckInBlock), FALSE, " ", -1);
+}
+
+T8430Query *T8430Handler::getQuery(int reqId)
+{
+    return static_cast<T8430Query*>(mQueryMap.value(reqId));
 }
 
 void T8430Handler::dataReceived(LPRECV_PACKET packet)
@@ -65,18 +65,20 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
         }
         itemList.push_back(item);
     }
-    T8430Query* query = mQueryMap.value(packet->nRqId);
-    query->workDone(itemList);
+    T8430Query* query = getQuery(packet->nRqID);
+    emit query->workDone(itemList);
 }
 
 void T8430Handler::messageReceived(LPMSG_PACKET packet)
 {
-    if(mQueryMap.contains(packet->nRqId)) {
+    if(mQueryMap.contains(packet->nRqID)) {
         QString msg("messageReceived");
-        printLog(msg.append(packet->lpszMessageData));
+        QString appendMsg;
 
-        T8430Query* query = mQueryMap.value(packet->nRqId);
-        query->messageReceived(packet->lpszMessageData);
+        printLog(msg.append(QString::fromLocal8Bit((const char *)packet->lpszMessageData)));
+
+        T8430Query* query = getQuery(packet->nRqID);
+        query->messageReceived(QString::fromLocal8Bit((const char *)packet->lpszMessageData));
 
         IXingAPI::GetInstance()->ReleaseMessageData((LPARAM)packet);
     }
@@ -84,12 +86,12 @@ void T8430Handler::messageReceived(LPMSG_PACKET packet)
 
 void T8430Handler::errorReceived(LPMSG_PACKET packet)
 {
-    if(mQueryMap.contains(packet->nRqId)) {
+    if(mQueryMap.contains(packet->nRqID)) {
         QString msg("errorReceived");
-        printLog(msg.append(packet->lpszMessageData));
+        printLog(msg.append(QString::fromLocal8Bit((const char *)packet->lpszMessageData)));
 
-        T8430Query* query = mQueryMap.value(packet->nRqId);
-        query->errorReceived(packet->lpszMessageData);
+        T8430Query* query = getQuery(packet->nRqID);
+        query->errorReceived(QString::fromLocal8Bit((const char *)packet->lpszMessageData));
 
         IXingAPI::GetInstance()->ReleaseMessageData((LPARAM)packet);
     }
@@ -98,7 +100,7 @@ void T8430Handler::errorReceived(LPMSG_PACKET packet)
 void T8430Handler::releaseReceived(int reqId)
 {
     if(mQueryMap.contains(reqId)) {
-        T8430Query* query = mQueryMap.value(reqId);
+        T8430Query* query = getQuery(reqId);
         mQueryMap.remove(reqId);
         query->deleteLater();
         IXingAPI::GetInstance()->ReleaseRequestData(reqId);

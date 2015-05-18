@@ -16,7 +16,9 @@ public:
 protected:
     long changeStringToLong(char * strLong, int length);
     virtual int sendRequest(TrQuery* query)=0;
+    virtual TrQuery* getQuery(int reqId) = 0;
     void printLog(const QString& log);
+
     QMap<int,TrQuery*> mQueryMap;
 private:
 

@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     tr/t8430.cpp \
     xing/xaquery.cpp \
     tr/TrHandler.cpp \
-    tr/trquery.cpp
+    tr/trquery.cpp \
+    util/str_util.cpp \
+    tr/t8430query.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
@@ -31,9 +33,13 @@ HEADERS  += dialog.h \
     xing/xaquery.h \
     tr/TrHandler.h \
     tr/trquery.h \
-    util/objectfactory.h
+    util/objectfactory.h \
+    util/str_util.h \
+    tr/t8430query.h
 
 FORMS    += dialog.ui
 
 #LIBS += -lxingAPI
 LIBS += -LC:/eBEST/xingAPI/
+
+CONFIG += c++11

@@ -7,16 +7,17 @@
 #include "xing/IXingAPI.h"
 #include "tr/trquery.h"
 #include "tr/TrHandler.h"
+class TrHandler;
 
 class XAQueryMngr : public QThread
 {
     Q_OBJECT
 public:
-    XAQueryMngr();
+    explicit XAQueryMngr(QObject *parent=0);
     ~XAQueryMngr();
 
 private:
-    QMap<QString, TrHandler*> mHandlerMap;
+    QMap<QString,TrHandler*> mHandlerMap;
 
 public slots:
     void requestQuery(TrQuery* query);

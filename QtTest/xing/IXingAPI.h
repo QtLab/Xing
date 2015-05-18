@@ -92,7 +92,7 @@ Q_DECLARE_METATYPE(LINKDATA_RECV_MSG)
 
 class IXingAPI : public TemplateSingleton<IXingAPI>
 {
-protected:
+public:
     IXingAPI ();
 
 //	inline	HMODULE	GetSafeHandle			()											{ return m_hModule; }

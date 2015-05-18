@@ -1,5 +1,5 @@
 #include "TrHandler.h"
-
+#include <QDebug>
 TrHandler::TrHandler(QObject *parent):QObject(parent)
 {
 
@@ -24,7 +24,7 @@ long TrHandler::changeStringToLong(char *strLong, int length)
 
 void TrHandler::printLog(const QString &log)
 {
-    QMetaObject* metaObj = metaObject();
+    const QMetaObject* metaObj = metaObject();
     qDebug()<<"["<<metaObj->className()<<"] "<<log;
 }
 

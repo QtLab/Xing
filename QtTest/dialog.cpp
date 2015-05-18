@@ -12,7 +12,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    m_session.Init();
+
     QStringList serverList = m_session.GetServerList();
     ui->serverSelection->addItems(serverList);
 
@@ -24,6 +24,7 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
 
     switch ( msg->message ){
     case WM_USER+XM_LOGIN:
+    {
         //LPCSTR pszCode = (LPCSTR)msg->wParam;
         //LPCSTR pszMsg = (LPCSTR)msg->lParam;
 
@@ -32,9 +33,11 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
 
         QString code = QString::fromLocal8Bit(pszCode);
         QString msg = QString::fromLocal8Bit(pszMsg);
-        QString result = QString("code=%s, msg=%s").arg(code).arg(msg);
+        //QString result = QString("code=%s, msg=%s").arg(code).arg(msg);
 
         QMessageBox::information(this, "Login",msg);
+        break;
+    }
     case WM_USER+XM_RECEIVE_DATA:
         m_queryMngr.handleResponse(msg->wParam, msg->lParam);
         break;
@@ -58,10 +61,10 @@ void Dialog::on_connectBtn_clicked()
     } else {
         isRealServer = false;
     }
-    if(!m_session.ConnectServer(this, isRealServer)){
-        QMessageBox::warning(this, "서버 연결", "서버 연결 실패");
+    if(!m_session.ConnectServer(*this, isRealServer)){
+        QMessageBox::warning(this, "Connect Server", "failed");
     }
-    if(!m_session.Login(this, id, passwd, ui->certpwInput->text())){
-        QMessageBox::warning(this, "로그인", "실패");
+    if(!m_session.Login(*this, id, passwd, ui->certpwInput->text())){
+        QMessageBox::warning(this, "Login", "failed");
     }
 }

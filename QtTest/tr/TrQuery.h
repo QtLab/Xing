@@ -11,6 +11,8 @@ public:
     ~TrQuery();
 
     QString getName() {return mName;}
+
+    HWND getHWnd() {return (HWND)mRequester.winId();}
 protected:
     explicit TrQuery(const QWidget& requester, QString name, QObject *parent = 0);
     QString mName;
