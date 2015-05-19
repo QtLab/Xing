@@ -1,7 +1,15 @@
 #include "IXingAPI.h"
-
+#include <QMetaType>
 IXingAPI::IXingAPI(){
     ZeroMemory( this, sizeof( IXingAPI ) );
+    qRegisterMetaType<RECV_PACKET>("RECV_PACKET");
+    qRegisterMetaType<LPRECV_PACKET>("LPRECV_PACKET");
+    qRegisterMetaType<MSG_PACKET>("MSG_PACKET");
+    qRegisterMetaType<LPMSG_PACKET>("LPMSG_PACKET");
+    qRegisterMetaType<RECV_REAL_PACKET>("RECV_REAL_PACKET");
+    qRegisterMetaType<LPRECV_REAL_PACKET>("LPRECV_REAL_PACKET");
+    qRegisterMetaType<LINKDATA_RECV_MSG>("LINKDATA_RECV_MSG");
+    qRegisterMetaType<LPLINKDATA_RECV_MSG>("LPLINKDATA_RECV_MSG");
     Init();
 }
 

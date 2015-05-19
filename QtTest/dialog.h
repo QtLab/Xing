@@ -2,8 +2,10 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <QCloseEvent>
 #include "xing/xasession.h"
 #include "xing/xaquery.h"
+#include "tr/t8430query.h"
 namespace Ui {
 class Dialog;
 }
@@ -20,12 +22,25 @@ private:
     Ui::Dialog *ui;
     XASession m_session;
     XAQueryMngr m_queryMngr;
+
+    bool clearResource();
 protected:
     bool nativeEvent(const QByteArray & eventType, void * message, long * result);
     HWND getWindowHandle();
-private slots:
+    virtual void closeEvent(QCloseEvent *event) override;
 
+    template <class T>
+    void showResult(QList<T> list);
+
+public slots:
+    void t8430result(QList<LPt8430Item> list);
+
+
+
+private slots:
+    void onFinished(int result);
     void on_connectBtn_clicked();
+    void on_runBtn_clicked();
 };
 
 #endif // DIALOG_H

@@ -123,6 +123,9 @@
           <property name="text">
            <string>전체 종목</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">buttonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -130,6 +133,9 @@
           <property name="text">
            <string>코스피</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">buttonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -137,6 +143,9 @@
           <property name="text">
            <string>코스닥</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">buttonGroup</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -149,6 +158,9 @@
         <property name="checked">
          <bool>true</bool>
         </property>
+        <attribute name="buttonGroup">
+         <string notr="true">buttonGroup</string>
+        </attribute>
        </widget>
       </item>
       <item>
@@ -166,14 +178,6 @@
        </layout>
       </item>
      </layout>
-     <zorder>radioBtn_all</zorder>
-     <zorder>radioBtn_one</zorder>
-     <zorder>label_5</zorder>
-     <zorder>shcodeInput</zorder>
-     <zorder>shcodeInput</zorder>
-     <zorder>label_5</zorder>
-     <zorder>radioBtnKospi</zorder>
-     <zorder>radioBtnKosdaq</zorder>
     </widget>
    </item>
    <item>
@@ -187,5 +191,25 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>endBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-7</x>
+     <y>82</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

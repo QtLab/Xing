@@ -51,6 +51,7 @@ typedef struct _RECV_PACKET
     unsigned char*		lpData;
 } RECV_PACKET, *LPRECV_PACKET;
 Q_DECLARE_METATYPE(RECV_PACKET)
+Q_DECLARE_OPAQUE_POINTER(LPRECV_PACKET)
 
 // 메시지 수신 Packet
 typedef struct
@@ -62,6 +63,7 @@ typedef struct
     unsigned char*		lpszMessageData;			// Message Data
 } MSG_PACKET, *LPMSG_PACKET;
 Q_DECLARE_METATYPE(MSG_PACKET)
+Q_DECLARE_OPAQUE_POINTER(LPMSG_PACKET)
 // 실시간TR 수신 Packet
 typedef struct _REAL_RECV_PACKET
 {
@@ -77,7 +79,7 @@ typedef struct _REAL_RECV_PACKET
     char*				pszData;
 } RECV_REAL_PACKET, *LPRECV_REAL_PACKET;
 Q_DECLARE_METATYPE(RECV_REAL_PACKET)
-
+Q_DECLARE_OPAQUE_POINTER(LPRECV_REAL_PACKET)
 // HTS에서 API로 연동되어 수신되는 Packet
 typedef struct _LINKDATA_RECV_MSG
 {
@@ -88,6 +90,7 @@ typedef struct _LINKDATA_RECV_MSG
     char				sFiller  [64];
 }LINKDATA_RECV_MSG, *LPLINKDATA_RECV_MSG;
 Q_DECLARE_METATYPE(LINKDATA_RECV_MSG)
+Q_DECLARE_OPAQUE_POINTER(LPLINKDATA_RECV_MSG)
 //------------------------------------------------------------------------------
 
 class IXingAPI : public TemplateSingleton<IXingAPI>

@@ -5,6 +5,11 @@
 #include <qt_windows.h>
 #include <qpa/qplatformnativeinterface.h>
 #include <QMessageBox>
+#include <QDebug>
+#define MODE_ALL 0
+#define MODE_KOSPI 1
+#define MODE_KOSDAQ 2
+#define MODE_ONE 3
 
 //IXingAPI api;
 Dialog::Dialog(QWidget *parent) :
@@ -15,7 +20,16 @@ Dialog::Dialog(QWidget *parent) :
 
     QStringList serverList = m_session.GetServerList();
     ui->serverSelection->addItems(serverList);
+    ui->buttonGroup->setId(ui->radioBtn_all,MODE_ALL);
+    ui->buttonGroup->setId(ui->radioBtnKospi,MODE_KOSPI);
+    ui->buttonGroup->setId(ui->radioBtnKosdaq,MODE_KOSDAQ);
+    ui->buttonGroup->setId(ui->radioBtn_one, MODE_ONE);
+    ui->radioBtn_all->setChecked(true);
+    ui->runBtn->setEnabled(false);
+    ui->idInput->setText("seuki77");
+    ui->passwdInput->setText("folken77");
 
+    connect(this, &Dialog::finished, this, &Dialog::onFinished);
     m_queryMngr.start();
 }
 
@@ -45,9 +59,50 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
     return false;
 }
 
+void Dialog::closeEvent(QCloseEvent *event)
+{
+    qDebug()<<"closeEvent";
+    if(clearResource()){
+        event->accept();
+    } else {
+        event->ignore();
+        QApplication::sendEvent(this,new QCloseEvent());
+    }
+}
+
+void Dialog::t8430result(QList<LPt8430Item> list)
+{
+    showResult(list);
+    QMessageBox::information(this, "t8430result", "success");
+
+}
+
+void Dialog::onFinished(int result)
+{
+    qDebug()<<"onFinished";
+    clearResource();
+}
+
 Dialog::~Dialog()
 {
     delete ui;
+}
+
+bool Dialog::clearResource()
+{
+    if(m_queryMngr.isRunning()) {
+        qDebug()<<"Thread is still running";
+        m_queryMngr.exit();
+        m_session.DisconnectServer();
+        if(m_queryMngr.wait(5000)) {
+            qDebug()<<"Thread is finished";
+            return true;
+        } else {
+            qDebug()<<"Thread is not finished in 5s";
+            return false;
+        }
+    }
+    return true;
 }
 
 void Dialog::on_connectBtn_clicked()
@@ -63,8 +118,28 @@ void Dialog::on_connectBtn_clicked()
     }
     if(!m_session.ConnectServer(*this, isRealServer)){
         QMessageBox::warning(this, "Connect Server", "failed");
+        return;
     }
     if(!m_session.Login(*this, id, passwd, ui->certpwInput->text())){
         QMessageBox::warning(this, "Login", "failed");
+        return;
     }
+    ui->runBtn->setEnabled(true);
+}
+
+void Dialog::on_runBtn_clicked()
+{
+    if((ui->buttonGroup->checkedId()==MODE_ONE)&&(ui->shcodeInput->text().count()==0)){
+        QMessageBox::warning(this, "Run","Input shcode");
+        return;
+    }
+    T8430Query* query = T8430Query::createQuery(*this, T8430Query::ALL);
+    connect(query, &T8430Query::workDone,this,&Dialog::t8430result);
+    m_queryMngr.requestQuery(query);
+}
+
+template<class T>
+void Dialog::showResult(QList<T> list)
+{
+
 }
