@@ -2,21 +2,9 @@
 #define T8430QUERY_H
 
 #include <QObject>
-#include "tr/t8430.h"
+#include "tr/t8430/t8430.h"
+#include "tr/t8430/t8430item.h"
 #include "tr/trquery.h"
-typedef struct _T8430Item
-{
-    QString hname;
-    QString shcode;
-    QString expcode;
-    bool isETF;
-    long uplmtprice;
-    long dnlmtprice;
-    long jniclose;
-    QString memedan;
-    long recprice;
-    bool isKOSPI;
-} t8430Item, *LPt8430Item;
 
 class T8430Query : public TrQuery
 {
@@ -34,7 +22,7 @@ protected:
 private:
     MODE mMode;
 signals:
-    void workDone(QList<LPt8430Item> list);
+    void workDone(QList<T8430Item*> list);
 };
 
 #endif // T8430QUERY_H

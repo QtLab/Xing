@@ -5,7 +5,7 @@
 #include <QCloseEvent>
 #include "xing/xasession.h"
 #include "xing/xaquery.h"
-#include "tr/t8430query.h"
+#include "tr/t8430/t8430query.h"
 namespace Ui {
 class Dialog;
 }

@@ -38,28 +38,28 @@ T8430Query *T8430Handler::getQuery(int reqId)
 void T8430Handler::dataReceived(LPRECV_PACKET packet)
 {
     LPt8430OutBlock pOutBlock;
-    QList<LPt8430Item> itemList;
+    QList<T8430Item*> itemList;
     int numOfItem = packet->nDataLength/sizeof(t8430OutBlock);
     for(int i = 0; i<numOfItem; i++) {
-        LPt8430Item item = new t8430Item();
+        T8430Item* item = new T8430Item();
         pOutBlock = (LPt8430OutBlock)(packet->lpData + (sizeof(t8430OutBlock) * i)); //데이터를 가져오기 위한 Block을 설장한다.
-        item->hname = pOutBlock->hname;
-        item->shcode = pOutBlock->shcode;
-        item->expcode = pOutBlock->expcode;
+        item->setHName(QString::fromLocal8Bit(pOutBlock->hname));
+        item->setShcode(QString::fromLocal8bit(pOutBlock->shcode));
+        item->setExpcode(QString::fromLocal8bit(pOutBlock->expcode));
         if(!strcmp("1", pOutBlock->etfgubun)){
-            item->isETF = true;
+            item->setAsETF(true);
         } else {
-            item->isETF = false;
+            item->setAsETF(false);
         }
-        item->uplmtprice = changeStringToLong(pOutBlock->uplmtprice, 8);
-        item->dnlmtprice = changeStringToLong(pOutBlock->dnlmtprice, 8);
-        item->jniclose = changeStringToLong(pOutBlock->jnilclose, 8);
-        item->memedan = pOutBlock->memedan;
-        item->recprice = changeStringToLong(pOutBlock->recprice, 8);
+        item->setUplmtprice(changeStringToLong(pOutBlock->uplmtprice, 8));
+        item->setDnlmtprice(changeStringToLong(pOutBlock->dnlmtprice, 8));
+        item->setJniclose(changeStringToLong(pOutBlock->jnilclose, 8));
+        item->sMemedan(QString::toLocal8bit(pOutBlock->memedan));
+        item->sRecprice(changeStringToLong(pOutBlock->recprice, 8));
         if(!strcmp("1", pOutBlock->gubun)){
-            item->isKOSPI = true;
+            item->setAsKOSPI(true);
         } else {
-            item->isKOSPI = false;
+            item->setAsKOSPI(false);
         }
         itemList.push_back(item);
     }

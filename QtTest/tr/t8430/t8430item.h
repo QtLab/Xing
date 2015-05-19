@@ -3,7 +3,8 @@
 
 #include <QObject>
 #include <QString>
-class T8430Item
+#include "tr/tritem.h"
+class T8430Item : public TrItem
 {
     Q_OBJECT
     Q_PROPERTY(QString mHname READ hname WRITE setHName)
@@ -27,7 +28,7 @@ public:
     QString shcode() { return mShcode;}
     void setShcode(const QString& shcode){mShcode = shcode;}
 
-    QString expcode() { return mExpCode;}
+    QString expcode() { return mExpcode;}
     void setExpCode(const QString& expcode) {mExpcode = expcode;}
 
     bool isETF() { return bIsETF;}
@@ -51,6 +52,7 @@ public:
     bool isKOSPI() { return bIsKOSPI;}
     void setAsKOSPI(bool isKospi) { bIsKOSPI = isKospi;}
 
+    virtual QStringList getPropertyList() override;
 private:
     QString mHname;
     QString mShcode;

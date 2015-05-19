@@ -3,7 +3,7 @@
 
 #include "xing/IXingAPI.h"
 #include "tr/TrHandler.h"
-#include "tr/t8430query.h"
+#include "tr/t8430/t8430query.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 주식종목조회 ( BLOCK,HEADTYPE=A )
