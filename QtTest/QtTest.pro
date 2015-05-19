@@ -22,23 +22,23 @@ SOURCES += main.cpp\
     tr/TrHandler.cpp \
     tr/trquery.cpp \
     util/str_util.cpp \
-    tr/t8430query.cpp \
-    tr/t8430handler.cpp \
-    view/resulttablewidget.cpp
+    tr/t8430/t8430query.cpp \
+    tr/t8430/t8430handler.cpp \
+    tr/t8430/t8430item.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
     xing/IXingAPI.h \
     xing/xasession.h \
-    tr/t8430.h \
+    tr/t8430/t8430.h \
     xing/xaquery.h \
     tr/TrHandler.h \
     tr/trquery.h \
     util/objectfactory.h \
     util/str_util.h \
-    tr/t8430query.h \
-    tr/t8430handler.h \
-    view/resulttablewidget.h
+    tr/t8430/t8430query.h \
+    tr/t8430/t8430handler.h \
+    tr/t8430/t8430item.h
 
 FORMS    += dialog.ui
 
