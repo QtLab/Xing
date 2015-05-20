@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     tr/t8430/t8430query.cpp \
     tr/t8430/t8430handler.cpp \
     tr/t8430/t8430item.cpp \
-    tr/tritem.cpp
+    tr/tritem.cpp \
+    view/resultdialog.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
@@ -40,7 +41,8 @@ HEADERS  += dialog.h \
     tr/t8430/t8430query.h \
     tr/t8430/t8430handler.h \
     tr/t8430/t8430item.h \
-    tr/tritem.h
+    tr/tritem.h \
+    view/resultdialog.h
 
 FORMS    += dialog.ui
 

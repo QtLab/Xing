@@ -1,13 +1,13 @@
 #include "t8430item.h"
-
-T8430Item::T8430Item()
+#include <QDebug>
+T8430Item::T8430Item(QObject *parent):TrItem(parent)
 {
 
 }
 
 T8430Item::~T8430Item()
 {
-
+    qDebug()<<"T8430Item destroyed";
 }
 
 QStringList T8430Item::getPropertyList()

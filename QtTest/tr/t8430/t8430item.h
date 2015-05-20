@@ -19,7 +19,7 @@ class T8430Item : public TrItem
     Q_PROPERTY(bool bIsKOSPI READ isKOSPI WRITE setAsKOSPI)
 
 public:
-    T8430Item();
+    explicit T8430Item(QObject *parent=0);
     ~T8430Item();
 
     QString hname() {return mHname;}
@@ -29,7 +29,7 @@ public:
     void setShcode(const QString& shcode){mShcode = shcode;}
 
     QString expcode() { return mExpcode;}
-    void setExpCode(const QString& expcode) {mExpcode = expcode;}
+    void setExpcode(const QString& expcode) {mExpcode = expcode;}
 
     bool isETF() { return bIsETF;}
     void setAsETF(bool etf){ bIsETF = etf;}

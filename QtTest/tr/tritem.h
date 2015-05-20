@@ -11,7 +11,7 @@ public:
     explicit TrItem(QObject *parent = 0);
     ~TrItem();
 
-    virtual QStringList getPropertyList()=0;
+    virtual QStringList getPropertyList() = 0;
 signals:
 
 public slots:

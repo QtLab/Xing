@@ -39,13 +39,14 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
 {
     LPt8430OutBlock pOutBlock;
     QList<T8430Item*> itemList;
+    T8430Query* query = getQuery(packet->nRqID);
     int numOfItem = packet->nDataLength/sizeof(t8430OutBlock);
     for(int i = 0; i<numOfItem; i++) {
-        T8430Item* item = new T8430Item();
+        T8430Item* item = new T8430Item(query);
         pOutBlock = (LPt8430OutBlock)(packet->lpData + (sizeof(t8430OutBlock) * i)); //데이터를 가져오기 위한 Block을 설장한다.
-        item->setHName(QString::fromLocal8Bit(pOutBlock->hname));
-        item->setShcode(QString::fromLocal8bit(pOutBlock->shcode));
-        item->setExpcode(QString::fromLocal8bit(pOutBlock->expcode));
+        item->setHName(QString::fromLocal8Bit(pOutBlock->hname,sizeof(pOutBlock->hname)));
+        item->setShcode(QString::fromLocal8Bit(pOutBlock->shcode,sizeof(pOutBlock->shcode)));
+        item->setExpcode(QString::fromLocal8Bit(pOutBlock->expcode,sizeof(pOutBlock->expcode)));
         if(!strcmp("1", pOutBlock->etfgubun)){
             item->setAsETF(true);
         } else {
@@ -54,8 +55,8 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
         item->setUplmtprice(changeStringToLong(pOutBlock->uplmtprice, 8));
         item->setDnlmtprice(changeStringToLong(pOutBlock->dnlmtprice, 8));
         item->setJniclose(changeStringToLong(pOutBlock->jnilclose, 8));
-        item->sMemedan(QString::toLocal8bit(pOutBlock->memedan));
-        item->sRecprice(changeStringToLong(pOutBlock->recprice, 8));
+        item->setMemedan(QString::fromLocal8Bit(pOutBlock->memedan, sizeof(pOutBlock->memedan)));
+        item->setRecprice(changeStringToLong(pOutBlock->recprice, 8));
         if(!strcmp("1", pOutBlock->gubun)){
             item->setAsKOSPI(true);
         } else {
@@ -63,8 +64,9 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
         }
         itemList.push_back(item);
     }
-    T8430Query* query = getQuery(packet->nRqID);
+
     emit query->workDone(itemList);
+
 }
 
 void T8430Handler::messageReceived(LPMSG_PACKET packet)

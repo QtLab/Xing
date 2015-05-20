@@ -29,11 +29,10 @@ protected:
     HWND getWindowHandle();
     virtual void closeEvent(QCloseEvent *event) override;
 
-    template <class T>
-    void showResult(QList<T> list);
+    void showResult(QList<TrItem*> list);
 
 public slots:
-    void t8430result(QList<LPt8430Item> list);
+    void t8430result(QList<T8430Item*> list);
 
 
 

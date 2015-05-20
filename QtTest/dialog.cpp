@@ -6,6 +6,7 @@
 #include <qpa/qplatformnativeinterface.h>
 #include <QMessageBox>
 #include <QDebug>
+#include "view/resultdialog.h"
 #define MODE_ALL 0
 #define MODE_KOSPI 1
 #define MODE_KOSDAQ 2
@@ -70,11 +71,16 @@ void Dialog::closeEvent(QCloseEvent *event)
     }
 }
 
-void Dialog::t8430result(QList<LPt8430Item> list)
+void Dialog::t8430result(QList<T8430Item*> list)
 {
-    showResult(list);
-    QMessageBox::information(this, "t8430result", "success");
+    QList<TrItem*> itemList;
 
+    foreach(T8430Item* item, list){
+        itemList.append(item);
+    }
+    list.clear();
+    //QMessageBox::information(this, "t8430result", "success");
+    showResult(itemList);
 }
 
 void Dialog::onFinished(int result)
@@ -138,8 +144,9 @@ void Dialog::on_runBtn_clicked()
     m_queryMngr.requestQuery(query);
 }
 
-template<class T>
-void Dialog::showResult(QList<T> list)
+void Dialog::showResult(QList<TrItem*> list)
 {
-
+   ResultDialog* dialog = new ResultDialog(this);
+   dialog->setData(list);
+   dialog->show();
 }

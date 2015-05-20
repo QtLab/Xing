@@ -10,3 +10,9 @@ TrItem::~TrItem()
 
 }
 
+//QStringList TrItem::getPropertyList()
+//{
+//    QStringList list;
+//    return list;
+//}
+
