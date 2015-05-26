@@ -1,10 +1,6 @@
 #ifndef T8430_H
 #define T8430_H
 
-#include "xing/IXingAPI.h"
-#include "tr/TrHandler.h"
-#include "tr/t8430/t8430query.h"
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 주식종목조회 ( BLOCK,HEADTYPE=A )
 #pragma pack( push, 1 )
