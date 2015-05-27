@@ -31,7 +31,7 @@ class T1702Item : public TrItem
     Q_PROPERTY(long amt0088 READ amt0088 WRITE setAmt0088)
     Q_PROPERTY(long amt0099 READ amt0099 WRITE setAmt0099)
 public:
-    typedef enum{ UP="up", DOWN="down"} SIGN;
+    typedef enum{ UP=5, DOWN=2} SIGN;
     Q_DECLARE_METATYPE(SIGN)
 
     explicit T1702Item(QObject *parent=0);

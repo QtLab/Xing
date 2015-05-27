@@ -15,10 +15,11 @@ public:
     ~TrHandler();
 protected:
     long changeStringToLong(char * strLong, int length);
+    float changeStringToFloat(char* strFloat, int length);
     virtual int sendRequest(TrQuery* query)=0;
     virtual TrQuery* getQuery(int reqId) = 0;
     void printLog(const QString& log);
-
+    void changeReqId(int fromId, int toId);
     QMap<int,TrQuery*> mQueryMap;
 private:
 

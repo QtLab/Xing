@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     tr/tritem.cpp \
     view/resultdialog.cpp \
     tr/t1702/t1702item.cpp \
-    tr/t1702/t1702query.cpp
+    tr/t1702/t1702query.cpp \
+    tr/t1702/t1702handler.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
@@ -47,7 +48,8 @@ HEADERS  += dialog.h \
     view/resultdialog.h \
     tr/t1702/t1702.h \
     tr/t1702/t1702item.h \
-    tr/t1702/t1702query.h
+    tr/t1702/t1702query.h \
+    tr/t1702/t1702handler.h
 
 FORMS    += dialog.ui
 

@@ -17,23 +17,38 @@ public:
                                    REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0
                                    );
 protected:
-    explicit T1702Query(const QWidget& requester,const QString& shcode, const QDate& todt,
+    explicit T1702Query(const QWidget& requester,const QString& shcode,const QDate& fromdt, const QDate& todt,
                         REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0);
 
+public:
     QString getShcode();
-    QDate getDate();
-    REQUEST_UNIT getUnit();
-    REQUEST_TYPE getType();
-    REQUEST_OPTION getOption();
+    QDate getToDate();
+    QDate getFromDate();
+    REQUEST_UNIT getVolvalgb();
+    REQUEST_TYPE getMsmdgb();
+    REQUEST_OPTION getCumulgb();
+    void addT1702Item(T1702Item* item);
+
+    void setCtsIdx(const QString& cts_idx);
+    QString getCtsIdx();
+
+    void setCtsDate(const QDate& cts_date);
+    QDate getCtsDate();
+
+    QList<T1702Item*> getResultList();
 
 private:
     QString mShcode;
     QDate mToDate;
-
+    QDate mFromDate;
     REQUEST_UNIT mUnit;
     REQUEST_TYPE mType;
     REQUEST_OPTION mOption;
 
+    QString m_cts_idx;
+    QDate m_cts_date;
+
+    QList<T1702Item*> mResultList;
 signals:
     void workDone(QList<T1702Item*> list);
 };
