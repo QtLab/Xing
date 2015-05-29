@@ -52,11 +52,11 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
         } else {
             item->setAsETF(false);
         }
-        item->setUplmtprice(changeStringToLong(pOutBlock->uplmtprice, 8));
-        item->setDnlmtprice(changeStringToLong(pOutBlock->dnlmtprice, 8));
-        item->setJniclose(changeStringToLong(pOutBlock->jnilclose, 8));
+        item->setUplmtprice(getLongFromField(pOutBlock->uplmtprice, 8));
+        item->setDnlmtprice(getLongFromField(pOutBlock->dnlmtprice, 8));
+        item->setJniclose(getLongFromField(pOutBlock->jnilclose, 8));
         item->setMemedan(QString::fromLocal8Bit(pOutBlock->memedan, sizeof(pOutBlock->memedan)));
-        item->setRecprice(changeStringToLong(pOutBlock->recprice, 8));
+        item->setRecprice(getLongFromField(pOutBlock->recprice, 8));
         if(!strcmp("1", pOutBlock->gubun)){
             item->setAsKOSPI(true);
         } else {

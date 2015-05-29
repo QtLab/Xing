@@ -21,7 +21,6 @@ SOURCES += main.cpp\
     xing/xaquery.cpp \
     tr/TrHandler.cpp \
     tr/trquery.cpp \
-    util/str_util.cpp \
     tr/t8430/t8430query.cpp \
     tr/t8430/t8430handler.cpp \
     tr/t8430/t8430item.cpp \
@@ -29,7 +28,8 @@ SOURCES += main.cpp\
     view/resultdialog.cpp \
     tr/t1702/t1702item.cpp \
     tr/t1702/t1702query.cpp \
-    tr/t1702/t1702handler.cpp
+    tr/t1702/t1702handler.cpp \
+    util/fieldutil.cpp
 
 HEADERS  += dialog.h \
     util/templatesingleton.h \
@@ -40,7 +40,6 @@ HEADERS  += dialog.h \
     tr/TrHandler.h \
     tr/trquery.h \
     util/objectfactory.h \
-    util/str_util.h \
     tr/t8430/t8430query.h \
     tr/t8430/t8430handler.h \
     tr/t8430/t8430item.h \
@@ -49,7 +48,8 @@ HEADERS  += dialog.h \
     tr/t1702/t1702.h \
     tr/t1702/t1702item.h \
     tr/t1702/t1702query.h \
-    tr/t1702/t1702handler.h
+    tr/t1702/t1702handler.h \
+    util/fieldutil.h
 
 FORMS    += dialog.ui
 

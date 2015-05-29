@@ -4,8 +4,10 @@
 #include <QObject>
 #include <QThread>
 #include <QMap>
+#include <QDate>
 #include "xing/xaquery.h"
 #include "tr/trquery.h"
+
 
 class TrHandler : public QObject
 {
@@ -14,8 +16,7 @@ public:
     explicit TrHandler(QObject *parent=0);
     ~TrHandler();
 protected:
-    long changeStringToLong(char * strLong, int length);
-    float changeStringToFloat(char* strFloat, int length);
+
     virtual int sendRequest(TrQuery* query)=0;
     virtual TrQuery* getQuery(int reqId) = 0;
     void printLog(const QString& log);
