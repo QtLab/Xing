@@ -18,9 +18,6 @@ protected:
 
 public slots:
     virtual void dataReceived(LPRECV_PACKET packet);
-    virtual void messageReceived(LPMSG_PACKET packet);
-    virtual void errorReceived(LPMSG_PACKET packet);
-    virtual void releaseReceived(int reqId);
 };
 
 #endif // T8430HANDLER_H

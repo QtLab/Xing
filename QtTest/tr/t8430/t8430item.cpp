@@ -5,12 +5,22 @@ T8430Item::T8430Item(LPt8430OutBlock outblock, QObject *parent):TrItem(parent)
 {
     mHname = GET_STRING_FROM_FIELD(outblock->hname);
     mShcode = GET_STRING_FROM_FIELD(outblock->shcode);
-    mExpcode = GET_STRING_FROM_FIELD(outblock->expcode);,./
+    mExpcode = GET_STRING_FROM_FIELD(outblock->expcode);
 }
 
 T8430Item::~T8430Item()
 {
     qDebug()<<"T8430Item destroyed";
+}
+
+QList<QString> T8430Item::getPropertyNameList()
+{
+
+}
+
+QString T8430Item::getPropertyByName(const QString &name)
+{
+
 }
 
 QStringList T8430Item::getPropertyList()

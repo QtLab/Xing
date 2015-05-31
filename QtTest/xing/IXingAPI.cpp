@@ -1,5 +1,6 @@
 #include "IXingAPI.h"
 #include <QMetaType>
+#include <QThread>
 IXingAPI::IXingAPI(){
     ZeroMemory( this, sizeof( IXingAPI ) );
     qRegisterMetaType<RECV_PACKET>("RECV_PACKET");
@@ -120,7 +121,7 @@ int IXingAPI::Request( HWND hWnd, LPCTSTR pszCode, LPVOID lpData, int nDataSize,
 
     if( NULL == m_fpRequest )	return -1;
 
-	return m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
+    int reqId = m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
 }
 
 BOOL IXingAPI::AdviseRealData ( HWND hWnd, LPCTSTR pszTrNo, LPCTSTR pszData, int nDataUnitLen )

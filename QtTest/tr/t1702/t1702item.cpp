@@ -32,6 +32,16 @@ T1702Item::~T1702Item()
     qDebug()<<"T1702Item destroyed";
 }
 
+QList<QString> T1702Item::getPropertyNameList()
+{
+
+}
+
+QString T1702Item::getPropertyByName(const QString &name)
+{
+
+}
+
 QStringList T1702Item::getPropertyList()
 {
     QStringList list{"date", "close", "sign", "change", "diff", "volume",

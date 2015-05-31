@@ -6,6 +6,8 @@
 #include "xing/xasession.h"
 #include "xing/xaquery.h"
 #include "tr/t8430/t8430query.h"
+#include "tr/t1702/t1702query.h"
+
 namespace Ui {
 class Dialog;
 }
@@ -28,12 +30,10 @@ protected:
     bool nativeEvent(const QByteArray & eventType, void * message, long * result);
     HWND getWindowHandle();
     virtual void closeEvent(QCloseEvent *event) override;
-
     void showResult(QList<TrItem*> list);
-
 public slots:
     void t8430result(QList<T8430Item*> list);
-
+    void t1702result(QList<T1702Item*> list);
 
 
 private slots:

@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QHeaderView>
+
 ResultDialog::ResultDialog(QWidget *parent) : QDialog(parent)
 {
 
@@ -21,7 +22,7 @@ void ResultDialog::setData(QList<TrItem *> list)
         mLayout->addWidget(mTableWidget);
         setLayout(mLayout);
         TrItem* item = list.at(0);
-        QStringList headerList = item->getPropertyList();
+        QStringList headerList = item->getPropertyNameList();
         mTableWidget->setRowCount(list.size());
         mTableWidget->setColumnCount(headerList.size());
 
@@ -30,9 +31,10 @@ void ResultDialog::setData(QList<TrItem *> list)
 
         foreach(TrItem* item, list) {
             int columnCnt = 0;
-            foreach(QString propertyName, item->getPropertyList()) {
-                QVariant property = item->property(propertyName.toLocal8Bit());
-                mTableWidget->setItem(rowCnt,columnCnt, new QTableWidgetItem(property.toString()));
+            foreach(QString propertyName, item->getPropertyNameList()) {
+                QString property = item->getPropertyByName(propertyName);
+                QVariant propertyValue = item->property(property.toLocal8Bit());
+                mTableWidget->setItem(rowCnt,columnCnt, new QTableWidgetItem(propertyValue.toString()));
                 columnCnt++;
             }
             rowCnt++;

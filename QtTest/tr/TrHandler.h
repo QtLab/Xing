@@ -27,9 +27,12 @@ private:
 public slots:
     virtual void addTrQuery(TrQuery* query);
     virtual void dataReceived(LPRECV_PACKET packet)=0;
-    virtual void messageReceived(LPMSG_PACKET packet)=0;
-    virtual void errorReceived(LPMSG_PACKET packet)=0;
-    virtual void releaseReceived(int reqId)=0;
+    virtual void messageReceived(LPMSG_PACKET packet);
+    virtual void errorReceived(LPMSG_PACKET packet);
+    virtual void releaseReceived(int reqId);
+
+signals:
+    void postRequest(HWND hWnd, LPCTSTR pszCode, LPVOID lpData, int nDataSize, BOOL bNext=FALSE, const char* pszNextKey="", int nTimeOut=30);
 };
 
 #endif // TRHANDLER_H

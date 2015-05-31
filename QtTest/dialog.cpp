@@ -50,7 +50,7 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
         QString msg = QString::fromLocal8Bit(pszMsg);
         //QString result = QString("code=%s, msg=%s").arg(code).arg(msg);
 
-        QMessageBox::information(this, "Login",msg);
+        QMessageBox::information(this, "LoginMsg",msg);
         break;
     }
     case WM_USER+XM_RECEIVE_DATA:
@@ -71,6 +71,13 @@ void Dialog::closeEvent(QCloseEvent *event)
     }
 }
 
+void Dialog::showResult(QList<TrItem *> list)
+{
+    ResultDialog* dialog = new ResultDialog(this);
+    dialog->setData(list);
+    dialog->show();
+}
+
 void Dialog::t8430result(QList<T8430Item*> list)
 {
     QList<TrItem*> itemList;
@@ -79,7 +86,19 @@ void Dialog::t8430result(QList<T8430Item*> list)
         itemList.append(item);
     }
     list.clear();
-    //QMessageBox::information(this, "t8430result", "success");
+    showResult(itemList);
+
+
+}
+
+void Dialog::t1702result(QList<T1702Item *> list)
+{
+    QList<TrItem*> itemList;
+
+    foreach(T1702Item* item, list){
+        itemList.append(item);
+    }
+    list.clear();
     showResult(itemList);
 }
 
@@ -135,18 +154,18 @@ void Dialog::on_connectBtn_clicked()
 
 void Dialog::on_runBtn_clicked()
 {
+/*
     if((ui->buttonGroup->checkedId()==MODE_ONE)&&(ui->shcodeInput->text().count()==0)){
         QMessageBox::warning(this, "Run","Input shcode");
         return;
     }
-    T8430Query* query = T8430Query::createQuery(*this, T8430Query::ALL);
+    T8430Query* query = T8430Query::createQuery(this, T8430Query::ALL);
     connect(query, &T8430Query::workDone,this,&Dialog::t8430result);
     m_queryMngr.requestQuery(query);
-}
-
-void Dialog::showResult(QList<TrItem*> list)
-{
-   ResultDialog* dialog = new ResultDialog(this);
-   dialog->setData(list);
-   dialog->show();
+*/
+    QDate fromdt(2014,5,29);
+    QDate todt(2015,5,29);
+    T1702Query* query = T1702Query::createQuery(this, "005930", fromdt, todt, T1702Query::QUANTITY, T1702Query::NET_BUY, T1702Query::DAILY);
+    connect(query, &T1702Query::workDone, this, &Dialog::t1702result);
+    m_queryMngr.requestQuery(query);
 }

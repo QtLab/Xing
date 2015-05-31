@@ -12,12 +12,12 @@ public:
     typedef enum {NET_BUY=0, BUY=1, SELL=2} REQUEST_TYPE; //순매수, 매수, 매도
     typedef enum {DAILY=0, CUMULATIVE=1} REQUEST_OPTION; //누적, 일간
     ~T1702Query();
-    static T1702Query *createQuery(const QWidget& requester
-                                   , const QString& shcode, const QDate& todt,
+    static T1702Query *createQuery(const QWidget* requester
+                                   , const QString& shcode, const QDate& fromdt, const QDate& todt,
                                    REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0
                                    );
 protected:
-    explicit T1702Query(const QWidget& requester,const QString& shcode,const QDate& fromdt, const QDate& todt,
+    explicit T1702Query(const QWidget* requester,const QString& shcode,const QDate& fromdt, const QDate& todt,
                         REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0);
 
 public:

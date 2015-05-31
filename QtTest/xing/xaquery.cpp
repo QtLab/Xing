@@ -1,11 +1,13 @@
 #include "xaquery.h"
 #include "tr/t8430/t8430.h"
 #include "tr/t8430/t8430handler.h"
+#include "tr/t1702/t1702handler.h"
 #include "util/objectfactory.h"
 
 XAQueryMngr::XAQueryMngr(QObject *parent) : QThread(parent)
 {
     ObjectFactory::registerClass<T8430Handler>();
+    ObjectFactory::registerClass<T1702Handler>();
 }
 
 XAQueryMngr::~XAQueryMngr()

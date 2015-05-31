@@ -12,12 +12,12 @@ class T8430Query : public TrQuery
 public:
     typedef enum { ALL=0, KOSPI, KOSDAQ } MODE;
 
-    static T8430Query *createQuery(const QWidget& requester,MODE mode,QObject *parent = 0);
+    static T8430Query *createQuery(const QWidget* requester,MODE mode,QObject *parent = 0);
 
     MODE getMode(){ return mMode;}
     ~T8430Query();
 protected:
-    explicit T8430Query(const QWidget& requester,QObject *parent = 0);
+    explicit T8430Query(const QWidget* requester,QObject *parent = 0);
 
 private:
     MODE mMode;

@@ -9,7 +9,7 @@ FieldUtil::~FieldUtil()
 {
 
 }
-QString FieldUtil::getStringFromUnsignedChar( unsigned char *str, const int len ){
+QString FieldUtil::getStringFromField( unsigned char *str, const int len ){
     QString result = "";
     int lengthOfString = len;
 
@@ -81,9 +81,4 @@ float FieldUtil::getFloatFromField(char *strFloat, int length)
     }
 
     return result;
-}
-
-float changeStringToFloat(char * strFloat)
-{
-
 }
