@@ -1,1 +1,12 @@
 *.user
+*.opensdk
+*.tlog
+*.lastbuildstate
+FundamentalAnalysis\FundamentalAnalysis\Debug
+*.log
+*.obj
+*.pch
+*.pdb
+*.exe
+*.ilk
+FundamentalAnalysis\Win32
