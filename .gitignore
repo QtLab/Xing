@@ -1,5 +1,5 @@
 *.user
-*.opensdk
+Fun.opensdk
 *.tlog
 *.lastbuildstate
 FundamentalAnalysis\FundamentalAnalysis\Debug
@@ -10,3 +10,7 @@ FundamentalAnalysis\FundamentalAnalysis\Debug
 *.exe
 *.ilk
 FundamentalAnalysis\Win32
+FundamentalAnalysis/FundamentalAnalysis.opensdf
+FundamentalAnalysis/FundamentalAnalysis/Debug/
+FundamentalAnalysis/FundamentalAnalysis/GeneratedFiles/
+FundamentalAnalysis/FundamentalAnalysis.v12.suo
