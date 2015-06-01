@@ -10,6 +10,7 @@ FundamentalAnalysis\FundamentalAnalysis\Debug
 *.exe
 *.ilk
 FundamentalAnalysis\Win32
+FundamentalAnalysis/FundamentalAnalysis.sdf
 FundamentalAnalysis/FundamentalAnalysis.opensdf
 FundamentalAnalysis/FundamentalAnalysis/Debug/
 FundamentalAnalysis/FundamentalAnalysis/GeneratedFiles/
