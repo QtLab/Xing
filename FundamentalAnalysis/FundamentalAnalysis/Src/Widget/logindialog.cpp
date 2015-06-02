@@ -15,6 +15,5 @@ LoginDialog::~LoginDialog()
 }
 
 void LoginDialog::on_loginButton_clicked(){
-	setResult(LOGIN_SUCCESS);
-	close();
+	accept();
 }

@@ -9,7 +9,7 @@ class LoginDialog : public QDialog
 	Q_OBJECT
 
 public:
-	typedef enum  { LOGIN_CANCEL= 0,LOGIN_SUCCESS = 1 } LOGIN_RESULT;
+	typedef enum  { LOGIN_SUCCESS = 0 ,LOGIN_CANCEL = 1 } LOGIN_RESULT;
 public:
 	LoginDialog(QWidget *parent = 0);
 	~LoginDialog();
