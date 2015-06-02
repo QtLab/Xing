@@ -9,6 +9,7 @@ FundamentalAnalysis\FundamentalAnalysis\Debug
 *.pdb
 *.exe
 *.ilk
+*.ipch
 FundamentalAnalysis\Win32
 FundamentalAnalysis/FundamentalAnalysis.sdf
 FundamentalAnalysis/FundamentalAnalysis.opensdf
