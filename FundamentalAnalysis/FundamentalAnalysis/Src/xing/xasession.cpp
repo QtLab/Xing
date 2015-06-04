@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "xasession.h"
 
 XASession::XASession(QObject *parent) : QObject(parent),m_timeout(DEFAULT_TIMEOUT_LIMIT), m_sendPacketSize(DEFAULT_MAX_PACKET_SIZE)
@@ -16,10 +17,11 @@ bool XASession::ConnectServer(const QWidget& widget, bool isRealServer)
         if(!IXingAPI::GetInstance()->Init())
             return false;
     }
+	LPCSTR t;
     if(isRealServer) {
-        return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
+        return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), (LPCTSTR)REAL_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     } else {
-        return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
+		return IXingAPI::GetInstance()->Connect((HWND)widget.winId(), (LPCTSTR)DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT, WM_USER, m_timeout, m_sendPacketSize);
     }
 }
 

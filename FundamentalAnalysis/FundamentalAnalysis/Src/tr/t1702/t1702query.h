@@ -2,8 +2,8 @@
 #define T1702QUERY_H
 
 #include <QObject>
-#include "tr/TrQuery.h"
-#include "tr/t1702/t1702item.h"
+#include "../tr/TrQuery.h"
+#include "../tr/t1702/t1702item.h"
 class T1702Query : public TrQuery
 {
     Q_OBJECT

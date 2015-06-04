@@ -1,5 +1,5 @@
 #include "t8430query.h"
-
+#include "stdafx.h"
 T8430Query *T8430Query::createQuery(const QWidget *requester, T8430Query::MODE mode, QObject *parent)
 {
     T8430Query* query = new T8430Query(requester, parent);

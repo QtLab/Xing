@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QMap>
 #include <QThread>
-#include "xing/IXingAPI.h"
-#include "tr/trquery.h"
-#include "tr/TrHandler.h"
+#include "IXingAPI.h"
+#include "../tr/trquery.h"
+#include "../tr/TrHandler.h"
 class TrHandler;
 
 class XAQueryMngr : public QThread

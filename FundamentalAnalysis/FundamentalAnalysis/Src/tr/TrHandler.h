@@ -5,8 +5,8 @@
 #include <QThread>
 #include <QMap>
 #include <QDate>
-#include "xing/xaquery.h"
-#include "tr/trquery.h"
+#include "../xing/xaquery.h"
+#include "../tr/trquery.h"
 
 
 class TrHandler : public QObject

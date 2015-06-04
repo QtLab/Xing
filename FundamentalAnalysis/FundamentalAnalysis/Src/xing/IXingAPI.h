@@ -3,7 +3,7 @@
 #include <QLibrary>
 #include <QString>
 #include <QMetaType>
-#include "util/templatesingleton.h"
+#include "../util/templatesingleton.h"
 #undef UNICODE
 #include <qt_windows.h>
 //------------------------------------------------------------------------------

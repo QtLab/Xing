@@ -1,5 +1,6 @@
+#include "stdafx.h"
 #include "TrHandler.h"
-#include "util/fieldutil.h"
+#include "../util/fieldutil.h"
 #include <QDebug>
 
 TrHandler::TrHandler(QObject *parent):QObject(parent)

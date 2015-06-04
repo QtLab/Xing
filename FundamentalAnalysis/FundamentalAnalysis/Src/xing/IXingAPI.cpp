@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "IXingAPI.h"
 #include <QMetaType>
 #include <QThread>

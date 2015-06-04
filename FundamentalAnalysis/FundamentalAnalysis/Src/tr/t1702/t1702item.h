@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QString>
 #include <QDate>
-#include "tr/tritem.h"
-#include "tr/t1702/t1702.h"
+#include "../tr/tritem.h"
+#include "../tr/t1702/t1702.h"
 class T1702Item : public TrItem
 {
     Q_OBJECT

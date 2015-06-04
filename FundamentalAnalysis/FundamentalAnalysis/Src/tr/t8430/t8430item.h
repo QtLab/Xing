@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QList>
 #include <QString>
-#include "tr/tritem.h"
-#include "tr/t8430/t8430.h"
+#include "../Src/tr/tritem.h"
+#include "../Src/tr/t8430/t8430.h"
 class T8430Item : public TrItem
 {
     Q_OBJECT

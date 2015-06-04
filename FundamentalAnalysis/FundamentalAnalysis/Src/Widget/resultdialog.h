@@ -5,7 +5,7 @@
 #include <QList>
 #include <QTableWidget>
 #include <QGridLayout>
-#include "tr/tritem.h"
+#include "../tr/tritem.h"
 class ResultDialog : public QDialog
 {
     Q_OBJECT

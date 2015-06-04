@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "trquery.h"
 #include <QDebug>
 TrQuery::TrQuery(const QWidget* requester, QString name, QObject *parent) : mRequester(requester), mName(name),bIsFinished(false), QObject(parent)

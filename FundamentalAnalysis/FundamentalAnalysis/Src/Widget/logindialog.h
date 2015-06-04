@@ -2,6 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
+#include "../../Src/xing/xasession.h"
 namespace Ui {class LoginDialog;};
 
 class LoginDialog : public QDialog
@@ -18,6 +19,8 @@ private slots:
 	void on_loginButton_clicked();
 private:
 	Ui::LoginDialog *ui;
+
+	XASession m_session;
 };
 
 #endif // LOGINDIALOG_H

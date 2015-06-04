@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "resultdialog.h"
 #include <QGridLayout>
 #include <QDebug>

@@ -2,9 +2,10 @@
 #define T8430QUERY_H
 
 #include <QObject>
-#include "tr/t8430/t8430.h"
-#include "tr/t8430/t8430item.h"
-#include "tr/trquery.h"
+#include "t8430.h"
+#include "t8430item.h"
+#include "t8430.h"
+#include "../TrQuery.h"
 
 class T8430Query : public TrQuery
 {

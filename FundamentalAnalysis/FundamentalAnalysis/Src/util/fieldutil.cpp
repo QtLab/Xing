@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "fieldutil.h"
 
 FieldUtil::FieldUtil()
