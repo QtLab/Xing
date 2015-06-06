@@ -17,7 +17,7 @@ QList<QString> TrItem::getPropertyList()
 
 QList<QString> TrItem::getPropertyNameList()
 {
-    return mPropertyNameMap.keys();
+    return mPropertyNameList;
 }
 
 QString TrItem::getPropertyByName(const QString &name)
@@ -28,5 +28,11 @@ QString TrItem::qkor(const char *strKor)
 {
     static QTextCodec *codec = QTextCodec::codecForName("eucKR");
     return codec->toUnicode(strKor);
+}
+
+void TrItem::addItemProperty(QString name, QString property)
+{
+    mPropertyNameMap.insert(name, property);
+    mPropertyNameList.append(name);
 }
 

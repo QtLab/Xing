@@ -34,6 +34,7 @@ void ResultDialog::setData(QList<TrItem *> list)
             foreach(QString propertyName, headerList) {
                 QString property = item->getPropertyByName(propertyName);
                 QVariant propertyValue = item->property(property.toLocal8Bit());
+                QString value = propertyValue.toString();
                 mTableWidget->setItem(rowCnt,columnCnt, new QTableWidgetItem(propertyValue.toString()));
                 columnCnt++;
             }

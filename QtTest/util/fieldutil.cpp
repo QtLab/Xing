@@ -56,29 +56,14 @@ QString FieldUtil::getStringFromField(char *src, int length)
 
 long FieldUtil::getLongFromField(char *strLong, int length)
 {
-    int multiply = 1;
-    long result = 0;
-
-    for (int i=length-1; i>=0; i--) {
-        result += ((unsigned int)(strLong[i] - '0') * multiply);
-        multiply *= 10;
-    }
-
-    return result;
+    QString str = QString::fromLocal8Bit(strLong, length);
+    return str.toLong();
 }
 
 float FieldUtil::getFloatFromField(char *strFloat, int length)
 {
-    int i, j, multiply;
-    float result = 0;
-
-    for (i=0; i<length; i++) {
-        multiply = 1;
-        for (j=0; j<i; j++)
-            multiply *= 10;
-
-        result += (float)((int)(strFloat[length-1-i] - '0') * 0.01 * multiply);
-    }
-
-    return result;
+    QString str = QString::fromLocal8Bit(strFloat, length);
+    float value1 =  str.toFloat();
+    float value2 = value1/100.0;
+    return value2;
 }
