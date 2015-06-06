@@ -122,7 +122,7 @@ int IXingAPI::Request( HWND hWnd, LPCTSTR pszCode, LPVOID lpData, int nDataSize,
 
     if( NULL == m_fpRequest )	return -1;
 
-    int reqId = m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
+    return m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
 }
 
 BOOL IXingAPI::AdviseRealData ( HWND hWnd, LPCTSTR pszTrNo, LPCTSTR pszData, int nDataUnitLen )
@@ -258,7 +258,7 @@ QString	IXingAPI::GetCommMedia()
 
     TCHAR szMedia[256] = { 0 };
     m_fpGetCommMedia( szMedia );
-    return szMedia;
+    return (LPSTR)szMedia;
 }
 
 QString	IXingAPI::GetETKMedia()
@@ -272,7 +272,7 @@ QString	IXingAPI::GetETKMedia()
 
 	TCHAR szMedia[256] = { 0 };
     m_fpGetETKMedia( szMedia );
-    return szMedia;
+	return (LPSTR)szMedia;
 }
 
 QString	IXingAPI::GetClientIP()
@@ -286,7 +286,7 @@ QString	IXingAPI::GetClientIP()
 
     TCHAR szIP[256] = { 0 };
     m_fpGetClientIP( szIP );
-    return szIP;
+	return (LPSTR)szIP;
 }
 
 QString	IXingAPI::GetServerName()
@@ -300,7 +300,7 @@ QString	IXingAPI::GetServerName()
 
     TCHAR szName[256] = { 0 };
     m_fpGetServerName( szName );
-    return szName;
+	return (LPSTR)szName;
 }
 
 QString	IXingAPI::GetAPIPath()
@@ -365,7 +365,7 @@ QString	IXingAPI::GetProcBranchNo()
 
     TCHAR szProcBranchNo[256] = { 0 };
     m_fpGetProcBranchNo( szProcBranchNo );
-    return szProcBranchNo;
+    return (LPCSTR)szProcBranchNo;
 }
 
 BOOL IXingAPI::GetUseOverFuture()

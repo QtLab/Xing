@@ -59,33 +59,29 @@ public:
     long amt0018() { return mAmt0018;}
     long amt0088() { return mAmt0088;}
     long amt0099() { return mAmt0099;}
-    virtual QList<QString> getPropertyList() override;
-    virtual QList<QString> getPropertyNameList() override;
-    virtual QString getPropertyByName(const QString &name) override;
 
 private:
-    QDate   mDate;            //ì¼ì
-    long    mClose;             //ì¢…ê°€
-    SIGN    mSign;          //ì „ì¼ëŒ€ë¹„êµ¬ë¶„
-    long    mChange;            //ì „ì¼ëŒ€ë¹„
-    float   mDiff;              //ë“±ë½ìœ¨
-    long    mVolume;            //ëˆ„ì ê±°ë˜ëŸ‰
-    long    mAmt0000;           //ì‚¬ëª¨í€ë“œ
-    long    mAmt0001;           //ì¦ê¶Œ
-    long    mAmt0002;           //ë³´í—˜
-    long    mAmt0003;           //íˆ¬ì‹ 
-    long    mAmt0004;           //ì€í–‰
-    long    mAmt0005;           //ì¢…ê¸ˆ
-    long    mAmt0006;           //ê¸°ê¸ˆ
-    long    mAmt0007;           //ê¸°íƒ€ë²•ì¸
-    long    mAmt0008;           //ê°œì¸
-    long    mAmt0009;           //ë“±ë¡ì™¸êµ­ì¸
-    long    mAmt0010;           //ë¯¸ë“±ë¡ì™¸êµ­ì¸
-    long    mAmt0011;           //êµ­ê°€ì™¸
-    long    mAmt0018;           //ê¸°ê´€
-    long    mAmt0088;           //ì™¸ì¸ê³„(ë“±ë¡+ë¯¸ë“±ë¡)
-    long    mAmt0099;           //ê¸°íƒ€ê³„(ê¸°íƒ€+êµ­ê°€)
-
+    QDate   mDate;            //ÀÏÀÚ
+    long    mClose;             //Á¾°¡
+    SIGN    mSign;          //ÀüÀÏ´ëºñ±¸ºĞ
+    long    mChange;            //ÀüÀÏ´ëºñ
+    float   mDiff;              //µî¶ôÀ²
+    long    mVolume;            //´©Àû°Å·¡·®
+    long    mAmt0000;           //»ç¸ğÆİµå
+    long    mAmt0001;           //Áõ±Ç
+    long    mAmt0002;           //º¸Çè
+    long    mAmt0003;           //Åõ½Å
+    long    mAmt0004;           //ÀºÇà
+    long    mAmt0005;           //Á¾±İ
+    long    mAmt0006;           //±â±İ
+    long    mAmt0007;           //±âÅ¸¹ıÀÎ
+    long    mAmt0008;           //°³ÀÎ
+    long    mAmt0009;           //µî·Ï¿Ü±¹ÀÎ
+    long    mAmt0010;           //¹Ìµî·Ï¿Ü±¹ÀÎ
+    long    mAmt0011;           //±¹°¡¿Ü
+    long    mAmt0018;           //±â°ü
+    long    mAmt0088;           //¿ÜÀÎ°è(µî·Ï+¹Ìµî·Ï)
+    long    mAmt0099;           //±âÅ¸°è(±âÅ¸+±¹°¡)
 };
 
 #endif // T1702ITEM

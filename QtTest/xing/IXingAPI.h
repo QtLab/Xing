@@ -7,16 +7,16 @@
 #undef UNICODE
 #include <qt_windows.h>
 //------------------------------------------------------------------------------
-// ë©”ì‹œì§€ ì •ì˜
-// ë©”ì‹œì§€ì˜ IDê°’ì€ Connectì‹œì— ì„¤ì •í•œ nStartMsgIDì™€ ë”í•˜ì—¬ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
-#define 	XM_DISCONNECT				1		// ì„œë²„ì™€ì˜ ì—°ê²°ì´ ëŠì–´ì¡Œì„ ê²½ìš° ë°œìƒ
-#define 	XM_RECEIVE_DATA				3		// RequestDataë¡œ ìš”ì²­í•œ ë°ì´í„°ê°€ ì„œë²„ë¡œë¶€í„° ë°›ì•˜ì„ ë•Œ ë°œìƒ
-#define 	XM_RECEIVE_REAL_DATA		4		// AdviseDataë¡œ ìš”ì²­í•œ ë°ì´í„°ê°€ ì„œë²„ë¡œë¶€í„° ë°›ì•˜ì„ ë•Œ ë°œìƒ
-#define 	XM_LOGIN					5		// ì„œë²„ë¡œë¶€í„° ë¡œê·¸ì¸ ê²°ê³¼ ë°›ì•˜ì„ë•Œ ë°œìƒ
-#define 	XM_LOGOUT					6		// ì„œë²„ë¡œë¶€í„° ë¡œê·¸ì•„ì›ƒ ê²°ê³¼ ë°›ì•˜ì„ë•Œ ë°œìƒ
-#define		XM_TIMEOUT_DATA				7		// RequestDataë¡œ ìš”ì²­í•œ ë°ì´í„°ê°€ Timeout ì´ ë°œìƒí–ˆì„ë•Œ
-#define 	XM_RECEIVE_LINK_DATA		8		// HTS ì—ì„œ ì—°ë™ ë°ì´í„°ê°€ ë°œìƒí–ˆì„ ë•Œ	: by zzin 2013.11.11
-#define 	XM_RECEIVE_REAL_DATA_CHART	10		// ì‹¤ì‹œê°„ ìžë™ ë“±ë¡í•œ í›„ ì°¨íŠ¸ ì¡°íšŒ ì‹œ, ì§€í‘œì‹¤ì‹œê°„ ë°ì´í„°ë¥¼ ë°›ì•˜ì„ ë•Œ  : by zzin 2013.08.14
+// ¸Þ½ÃÁö Á¤ÀÇ
+// ¸Þ½ÃÁöÀÇ ID°ªÀº Connect½Ã¿¡ ¼³Á¤ÇÑ nStartMsgID¿Í ´õÇÏ¿© »ç¿ëÇÏ¸é µÈ´Ù.
+#define 	XM_DISCONNECT				1		// ¼­¹ö¿ÍÀÇ ¿¬°áÀÌ ²÷¾îÁ³À» °æ¿ì ¹ß»ý
+#define 	XM_RECEIVE_DATA				3		// RequestData·Î ¿äÃ»ÇÑ µ¥ÀÌÅÍ°¡ ¼­¹ö·ÎºÎÅÍ ¹Þ¾ÒÀ» ¶§ ¹ß»ý
+#define 	XM_RECEIVE_REAL_DATA		4		// AdviseData·Î ¿äÃ»ÇÑ µ¥ÀÌÅÍ°¡ ¼­¹ö·ÎºÎÅÍ ¹Þ¾ÒÀ» ¶§ ¹ß»ý
+#define 	XM_LOGIN					5		// ¼­¹ö·ÎºÎÅÍ ·Î±×ÀÎ °á°ú ¹Þ¾ÒÀ»¶§ ¹ß»ý
+#define 	XM_LOGOUT					6		// ¼­¹ö·ÎºÎÅÍ ·Î±×¾Æ¿ô °á°ú ¹Þ¾ÒÀ»¶§ ¹ß»ý
+#define		XM_TIMEOUT_DATA				7		// RequestData·Î ¿äÃ»ÇÑ µ¥ÀÌÅÍ°¡ Timeout ÀÌ ¹ß»ýÇßÀ»¶§
+#define 	XM_RECEIVE_LINK_DATA		8		// HTS ¿¡¼­ ¿¬µ¿ µ¥ÀÌÅÍ°¡ ¹ß»ýÇßÀ» ¶§	: by zzin 2013.11.11
+#define 	XM_RECEIVE_REAL_DATA_CHART	10		// ½Ç½Ã°£ ÀÚµ¿ µî·ÏÇÑ ÈÄ Â÷Æ® Á¶È¸ ½Ã, ÁöÇ¥½Ç½Ã°£ µ¥ÀÌÅÍ¸¦ ¹Þ¾ÒÀ» ¶§  : by zzin 2013.08.14
 
 //------------------------------------------------------------------------------
 
@@ -26,45 +26,45 @@
 #define		MESSAGE_DATA			2
 #define		SYSTEM_ERROR_DATA		3
 #define		RELEASE_DATA			4
-#define		LINK_DATA				10			// XM_RECEIVE_LINK_DATA ë©”ì‹œì§€ì˜ êµ¬ë¶„ í”Œëž˜ê·¸
+#define		LINK_DATA				10			// XM_RECEIVE_LINK_DATA ¸Þ½ÃÁöÀÇ ±¸ºÐ ÇÃ·¡±×
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Structure ì •ì˜
+// Structure Á¤ÀÇ
 #pragma pack( push, 1 )
 
-// ì¡°íšŒTR ìˆ˜ì‹  Packet
+// Á¶È¸TR ¼ö½Å Packet
 typedef struct _RECV_PACKET
 {
     _RECV_PACKET() { ZeroMemory( this, sizeof(_RECV_PACKET ) ); }
 
     int					nRqID;						// Request ID
-    int					nDataLength;				// ë°›ì€ ë°ì´í„° í¬ê¸°
-    int					nTotalDataBufferSize;		// lpDataì— í• ë‹¹ëœ í¬ê¸°
-    int					nElapsedTime;				// ì „ì†¡ì—ì„œ ìˆ˜ì‹ ê¹Œì§€ ê±¸ë¦°ì‹œê°„(1/1000ì´ˆ)
+    int					nDataLength;				// ¹ÞÀº µ¥ÀÌÅÍ Å©±â
+    int					nTotalDataBufferSize;		// lpData¿¡ ÇÒ´çµÈ Å©±â
+    int					nElapsedTime;				// Àü¼Û¿¡¼­ ¼ö½Å±îÁö °É¸°½Ã°£(1/1000ÃÊ)
     int					nDataMode;					// 1:BLOCK MODE, 2:NON-BLOCK MODE
     char				szTrCode	[10+1];			// AP Code
-    char				cCont		[1];			// '0' : ë‹¤ìŒì¡°íšŒ ì—†ìŒ, '1' : ë‹¤ìŒì¡°íšŒ ìžˆìŒ
-    char				szContKey	[18+1];			// ì—°ì†í‚¤, Data Headerê°€ B ì¸ ê²½ìš°ì—ë§Œ ì‚¬ìš©
-    char				szUserData	[30+1];			// ì‚¬ìš©ìž ë°ì´í„°
-    char				szBlockName [17];			// Block ëª…, Block Mode ì¼ë•Œ ì‚¬ìš©
+    char				cCont		[1];			// '0' : ´ÙÀ½Á¶È¸ ¾øÀ½, '1' : ´ÙÀ½Á¶È¸ ÀÖÀ½
+    char				szContKey	[18+1];			// ¿¬¼ÓÅ°, Data Header°¡ B ÀÎ °æ¿ì¿¡¸¸ »ç¿ë
+    char				szUserData	[30+1];			// »ç¿ëÀÚ µ¥ÀÌÅÍ
+    char				szBlockName [17];			// Block ¸í, Block Mode ÀÏ¶§ »ç¿ë
     unsigned char*		lpData;
 } RECV_PACKET, *LPRECV_PACKET;
 Q_DECLARE_METATYPE(RECV_PACKET)
 Q_DECLARE_OPAQUE_POINTER(LPRECV_PACKET)
 
-// ë©”ì‹œì§€ ìˆ˜ì‹  Packet
+// ¸Þ½ÃÁö ¼ö½Å Packet
 typedef struct
 {
     int					nRqID;						// Request ID
-    int					nIsSystemError;				// 0:ì¼ë°˜ë©”ì‹œì§€, 1:System Error ë©”ì‹œì§€
-    char				szMsgCode[5+1];				// ë©”ì‹œì§€ ì½”ë“œ
-    int					nMsgLength;					// Message ê¸¸ì´
+    int					nIsSystemError;				// 0:ÀÏ¹Ý¸Þ½ÃÁö, 1:System Error ¸Þ½ÃÁö
+    char				szMsgCode[5+1];				// ¸Þ½ÃÁö ÄÚµå
+    int					nMsgLength;					// Message ±æÀÌ
     unsigned char*		lpszMessageData;			// Message Data
 } MSG_PACKET, *LPMSG_PACKET;
 Q_DECLARE_METATYPE(MSG_PACKET)
 Q_DECLARE_OPAQUE_POINTER(LPMSG_PACKET)
-// ì‹¤ì‹œê°„TR ìˆ˜ì‹  Packet
+// ½Ç½Ã°£TR ¼ö½Å Packet
 typedef struct _REAL_RECV_PACKET
 {
     _REAL_RECV_PACKET() { ZeroMemory( this, sizeof( _REAL_RECV_PACKET ) ); }
@@ -80,7 +80,7 @@ typedef struct _REAL_RECV_PACKET
 } RECV_REAL_PACKET, *LPRECV_REAL_PACKET;
 Q_DECLARE_METATYPE(RECV_REAL_PACKET)
 Q_DECLARE_OPAQUE_POINTER(LPRECV_REAL_PACKET)
-// HTSì—ì„œ APIë¡œ ì—°ë™ë˜ì–´ ìˆ˜ì‹ ë˜ëŠ” Packet
+// HTS¿¡¼­ API·Î ¿¬µ¿µÇ¾î ¼ö½ÅµÇ´Â Packet
 typedef struct _LINKDATA_RECV_MSG
 {
     _LINKDATA_RECV_MSG() { ZeroMemory( this, sizeof( _LINKDATA_RECV_MSG ) );	}
@@ -101,122 +101,122 @@ public:
 //	inline	HMODULE	GetSafeHandle			()											{ return m_hModule; }
 
 public:
-    // ì´ˆê¸°í™” ê´€ë ¨
-    BOOL	Init					( LPCTSTR szPath=NULL );
+    // ÃÊ±âÈ­ °ü·Ã
+    BOOL	Init					();
     BOOL	IsInit					()											{ return m_Lib != NULL; }
     void	Uninit					();
 
-    // ì„œë²„ì—°ê²°
+    // ¼­¹ö¿¬°á
     BOOL	Connect					( HWND hWnd, LPCTSTR pszSvrIP, int nPort, int nStartMsgID, int nTimeOut=-1, int nSendMaxPacketSize=-1 );
     BOOL	IsConnected				();
     BOOL	Disconnect				();
 
-    // ë¡œê·¸ì¸
+    // ·Î±×ÀÎ
     BOOL	Login					( HWND hWnd, LPCSTR pszID, LPCSTR pszPwd, LPCSTR pszCertPwd, int nType, BOOL bShowCertErrDlg=TRUE );
     BOOL	Logout					( HWND hWnd );
 
     int		GetLastError			();
     QString	GetErrorMessage			( int nErrorCode );
 
-    // ì¡°íšŒì„±TR ê´€ë ¨
+    // Á¶È¸¼ºTR °ü·Ã
     int		Request					( HWND hWnd, LPCTSTR pszCode, LPVOID lpData, int nDataSize, BOOL bNext=FALSE, const char* pszNextKey="", int nTimeOut=30 );
     BOOL	ReleaseRequestData		( int nRequestID );
     BOOL	ReleaseMessageData		( LPARAM lp );
 
-    // ì‹¤ì‹œê°„TR ê´€ë ¨
+    // ½Ç½Ã°£TR °ü·Ã
     BOOL	AdviseRealData			( HWND hWnd, LPCTSTR pszTrNo, LPCTSTR pszData, int nDataUnitLen );
     BOOL	UnadviseRealData		( HWND hWnd, LPCTSTR pszTrNo, LPCTSTR pszData, int nDataUnitLen );
     BOOL	UnadviseWindow			( HWND hWnd );
 
-    // ê³„ì¢Œ ê´€ë ¨
+    // °èÁÂ °ü·Ã
     int		GetAccountListCount		();
     BOOL	GetAccountList			( int nIndex, LPSTR pszAcc, int nAccSize );
     BOOL	GetAccountName			( LPCTSTR pszAcc, LPSTR pszAccName, int nAccNameSize );
     BOOL	GetAcctDetailName		( LPCTSTR pszAcc, LPSTR pszAcctDetailName, int nAcctDetailNameSize );
     BOOL	GetAcctNickname			( LPCTSTR pszAcc, LPSTR pszAcctNickname, int nAcctNicknameSize );
 
-    // ì •ë³´ì–»ê¸°
-    QString	GetCommMedia			();			// í†µì‹ ë§¤ì²´ë¥¼ êµ¬í•œë‹¤.
-    QString	GetETKMedia				();			// ë‹¹ì‚¬ë§¤ì²´ë¥¼ êµ¬í•œë‹¤.
-    QString	GetClientIP				();			// ê³µì¸IPë¥¼ êµ¬í•œë‹¤.
-    QString	GetServerName			();			// ì„œë²„ëª…ì„ êµ¬í•œë‹¤.
-    QString GetAPIPath				();			// ì‹¤í–‰ì¤‘ì¸ xingAPIì˜ ê²½ë¡œ
+    // Á¤º¸¾ò±â
+    QString	GetCommMedia			();			// Åë½Å¸ÅÃ¼¸¦ ±¸ÇÑ´Ù.
+    QString	GetETKMedia				();			// ´ç»ç¸ÅÃ¼¸¦ ±¸ÇÑ´Ù.
+    QString	GetClientIP				();			// °øÀÎIP¸¦ ±¸ÇÑ´Ù.
+    QString	GetServerName			();			// ¼­¹ö¸íÀ» ±¸ÇÑ´Ù.
+    QString GetAPIPath				();			// ½ÇÇàÁßÀÎ xingAPIÀÇ °æ·Î
 
     void	SetHeaderInfo			( LPCTSTR szType, LPCTSTR szValue );
     void	SetUseAPIVer			( LPCTSTR szUserAPIVer );
     BOOL	SetMode					( LPCTSTR pszMode, LPCTSTR pszValue );
 
-    QString	GetProcBranchNo			();			// ì²˜ë¦¬ì ì„ êµ¬í•œë‹¤.
-    BOOL	GetUseOverFuture		();			// í•´ì™¸ì„ ë¬¼ ì‚¬ìš©ê¶Œí•œ
-    BOOL	GetUseFX				();			// FX ì‚¬ìš©ê¶Œí•œ
-    BOOL	IsChartLib				();			// ì°¨íŠ¸ë¼ì´ë¸ŒëŸ¬ë¦¬ ì—°ê²°
+    QString	GetProcBranchNo			();			// Ã³¸®Á¡À» ±¸ÇÑ´Ù.
+    BOOL	GetUseOverFuture		();			// ÇØ¿Ü¼±¹° »ç¿ë±ÇÇÑ
+    BOOL	GetUseFX				();			// FX »ç¿ë±ÇÇÑ
+    BOOL	IsChartLib				();			// Â÷Æ®¶óÀÌºê·¯¸® ¿¬°á
 
-    int		GetTRCountPerSec		( LPCTSTR pszCode );				// ì´ˆë‹¹ ì „ì†¡ ê°€ëŠ¥ íšŸìˆ˜
+    int		GetTRCountPerSec		( LPCTSTR pszCode );				// ÃÊ´ç Àü¼Û °¡´É È½¼ö
 
-    void	SetNotifyFlag			( BOOL bNotifyFlag );	// ê¸´ê¸‰ë©”ì‹œì§€, ì„œë²„ì ‘ì† ë‹¨ì ˆí†µì§€ ë“±ì˜ í†µë³´ ì„¤ì • (ì§€ì› ì˜ˆì •)
+    void	SetNotifyFlag			( BOOL bNotifyFlag );	// ±ä±Þ¸Þ½ÃÁö, ¼­¹öÁ¢¼Ó ´ÜÀýÅëÁö µîÀÇ Åëº¸ ¼³Á¤ (Áö¿ø ¿¹Á¤)
 
     //------------------------------------------------------------------------------
-    // ë¶€ê°€ ì„œë¹„ìŠ¤ TR ì¡°íšŒ
-    //     ë°˜í™˜ê°’       - Request() í•¨ìˆ˜ì™€ ì´ìš© ë°©ì‹ ë™ì¼
-    //     hWnd			- ì¡°íšŒ ê²°ê³¼ë¥¼ ë°›ì„ ìœˆë„ìš°ì˜ í•¸ë“¤
+    // ºÎ°¡ ¼­ºñ½º TR Á¶È¸
+    //     ¹ÝÈ¯°ª       - Request() ÇÔ¼ö¿Í ÀÌ¿ë ¹æ½Ä µ¿ÀÏ
+    //     hWnd			- Á¶È¸ °á°ú¸¦ ¹ÞÀ» À©µµ¿ìÀÇ ÇÚµé
     //
     //
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…  [1] ì¢…ëª© ê²€ìƒ‰
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú  [1] Á¾¸ñ °Ë»ö
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
     //
-    //     pszCode		- "t1807" (HTS '[1807] ì¢…ëª©ê²€ìƒ‰' ì—ì„œ 'API ë¡œ ë‚´ë³´ë‚´ê¸°' ì €ìž¥í•œ ì¡°ê±´ì˜ ì¢…ëª©ì„ ê²€ìƒ‰í•˜ëŠ” TR)
-    //     lpData		- 'APIë¡œ ë‚´ë³´ë‚´ê¸°' í•œ íŒŒì¼ì˜ ì „ì²´ ê²½ë¡œ ì§€ì •, NULL ìž…ë ¥ì‹œ íŒŒì¼ë‹¤ì´ì–¼ë¡œê·¸ í‘œì‹œ
+    //     pszCode		- "t1807" (HTS '[1807] Á¾¸ñ°Ë»ö' ¿¡¼­ 'API ·Î ³»º¸³»±â' ÀúÀåÇÑ Á¶°ÇÀÇ Á¾¸ñÀ» °Ë»öÇÏ´Â TR)
+    //     lpData		- 'API·Î ³»º¸³»±â' ÇÑ ÆÄÀÏÀÇ ÀüÃ¼ °æ·Î ÁöÁ¤, NULL ÀÔ·Â½Ã ÆÄÀÏ´ÙÀÌ¾ó·Î±× Ç¥½Ã
     //
-    //     ex) HTS '[1807] ì¢…ëª©ê²€ìƒ‰' ì—ì„œ 'API ë¡œ ë‚´ë³´ë‚´ê¸°' ì €ìž¥í•œ íŒŒì¼ì´ "D:\test.adf"
+    //     ex) HTS '[1807] Á¾¸ñ°Ë»ö' ¿¡¼­ 'API ·Î ³»º¸³»±â' ÀúÀåÇÑ ÆÄÀÏÀÌ "D:\test.adf"
     //			pszCode = "t1833", pszData = "D:\test.adf"
     //			int nReqID = RequestService( hWnd, "t1833", "D:\test.adf" );
     //
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…  [2] ~ [3] ì°¨íŠ¸ ê¸°ì´ˆë°ì´í„°ë¥¼ ì´ìš©í•´ ì§€í‘œë°ì´í„°ë¥¼ ì œê³µ
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú  [2] ~ [3] Â÷Æ® ±âÃÊµ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇØ ÁöÇ¥µ¥ÀÌÅÍ¸¦ Á¦°ø
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
     //
-    //	ì§€í‘œë°ì´í„°ëŠ” ì± íŠ¸ ê¸°ì´ˆë°ì´í„°ë¥¼ ìˆ˜ì‹ ë°›ì•„ APIë‚´ë¶€ì—ì„œ ê°€ê³µí•˜ì—¬ ì œê³µí•˜ëŠ” ê²ƒìœ¼ë¡œ ì¡°íšŒ ë° ì‹¤ì‹œê°„ ì‘ë‹µì—
-    //  ë‹¤ì†Œ ì‹œê°„ì´ ê±¸ë¦´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
-    //  ìžë£Œì‹¤ê²Œì‹œíŒ ë‚´ì— "ChartApiSample(VC++ 2012)" ìƒ˜í”Œì„ ì°¸ê³ í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.
+    //	ÁöÇ¥µ¥ÀÌÅÍ´Â Ã­Æ® ±âÃÊµ¥ÀÌÅÍ¸¦ ¼ö½Å¹Þ¾Æ API³»ºÎ¿¡¼­ °¡°øÇÏ¿© Á¦°øÇÏ´Â °ÍÀ¸·Î Á¶È¸ ¹× ½Ç½Ã°£ ÀÀ´ä¿¡
+    //  ´Ù¼Ò ½Ã°£ÀÌ °É¸± ¼ö ÀÖ½À´Ï´Ù.
+    //  ÀÚ·á½Ç°Ô½ÃÆÇ ³»¿¡ "ChartApiSample(VC++ 2012)" »ùÇÃÀ» Âü°íÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
     //
-    //  â€» ì¡°íšŒì‹œ ì‹¤ì‹œê°„ ìžë™ë“±ë¡ì„ í•˜ë©´, ì‹¤ì‹œê°„ ì§€í‘œë°ì´í„° ë°œìƒì‹œ XM_RECEIVE_REAL_DATA_CHART ë¡œ ë©”ì‹œì§€ê°€ ìˆ˜ì‹ 
-    //	  WPARAM = í•´ë‹¹ ì—†ìŒ
-    //	  LPARAM = LPRECV_REAL_PACKET (RECV_REAL_PACKET ì˜ pszData  = ì¡°íšŒ TRì˜ outblock1ê³¼ ë™ì¼)
+    //  ¡Ø Á¶È¸½Ã ½Ç½Ã°£ ÀÚµ¿µî·ÏÀ» ÇÏ¸é, ½Ç½Ã°£ ÁöÇ¥µ¥ÀÌÅÍ ¹ß»ý½Ã XM_RECEIVE_REAL_DATA_CHART ·Î ¸Þ½ÃÁö°¡ ¼ö½Å
+    //	  WPARAM = ÇØ´ç ¾øÀ½
+    //	  LPARAM = LPRECV_REAL_PACKET (RECV_REAL_PACKET ÀÇ pszData  = Á¶È¸ TRÀÇ outblock1°ú µ¿ÀÏ)
     //
     //
-    //  [2] ì°¨íŠ¸ ì§€í‘œë°ì´í„° ì¡°íšŒ (HTS '[4201]xingì°¨íŠ¸1'ì˜ ìˆ˜ì‹ê´€ë¦¬ìžë‚´ ì§€í‘œì™€ ë™ì¼í•˜ë©°, DevCenter ë©”ë‰´ [ë¶€ê°€ì„œë¹„ìŠ¤-ìˆ˜ì‹ê´€ë¦¬ìž] ë¥¼ í†µí•´ ì§€í‘œ ì €ìž¥)
+    //  [2] Â÷Æ® ÁöÇ¥µ¥ÀÌÅÍ Á¶È¸ (HTS '[4201]xingÂ÷Æ®1'ÀÇ ¼ö½Ä°ü¸®ÀÚ³» ÁöÇ¥¿Í µ¿ÀÏÇÏ¸ç, DevCenter ¸Þ´º [ºÎ°¡¼­ºñ½º-¼ö½Ä°ü¸®ÀÚ] ¸¦ ÅëÇØ ÁöÇ¥ ÀúÀå)
     //
-    //     pszCode		- "ChartIndex" (ì°¨íŠ¸ ì§€í‘œë°ì´í„° ì¡°íšŒìš© TR)
-    //     lpData		- "ChartIndex" TRë‚´ Inblockì˜ ë°ì´í„° êµ¬ì¡°ì²´
+    //     pszCode		- "ChartIndex" (Â÷Æ® ÁöÇ¥µ¥ÀÌÅÍ Á¶È¸¿ë TR)
+    //     lpData		- "ChartIndex" TR³» InblockÀÇ µ¥ÀÌÅÍ ±¸Á¶Ã¼
     //
-    //     ex) "MACD" ì§€í‘œë°ì´í„° ì¡°íšŒ
+    //     ex) "MACD" ÁöÇ¥µ¥ÀÌÅÍ Á¶È¸
     //         ChartIndexInBlock sInBlock;
-    //         sInBlock.indexid		= ì§€í‘œID	 // ìµœì´ˆ ì¡°íšŒì‹œ ê³µë°±, 'ë™ì¼ ì¢…ëª© - ë™ì¼ ì§€í‘œ' ì¡°íšŒì‹œ ì´ì „ ì¡°íšŒ ChartIndexOutBlockì˜ indexid
+    //         sInBlock.indexid		= ÁöÇ¥ID	 // ÃÖÃÊ Á¶È¸½Ã °ø¹é, 'µ¿ÀÏ Á¾¸ñ - µ¿ÀÏ ÁöÇ¥' Á¶È¸½Ã ÀÌÀü Á¶È¸ ChartIndexOutBlockÀÇ indexid
     //         sInBlock.indexname	= "MACD"
-    //         sInBlock.market		= "1"		 // ì£¼ì‹
-    //         ...ìƒëžµ..
+    //         sInBlock.market		= "1"		 // ÁÖ½Ä
+    //         ...»ý·«..
     //		   RemoveService( hWnd, "ChartIndex", sInBlock.indexid );
     //         int nReqID = RequestService( hWnd, "ChartIndex", &sInBlock );
     //
     //
-    // [3] ì°¨íŠ¸ ì—‘ì…€ë°ì´í„° ì¡°íšŒ (HTS '[4201]xingì°¨íŠ¸1'ì˜ ìˆ˜ì‹ê´€ë¦¬ìžë‚´ ì§€í‘œì™€ ë™ì¼í•˜ë©°, DevCenter ë©”ë‰´ [ë¶€ê°€ì„œë¹„ìŠ¤-ìˆ˜ì‹ê´€ë¦¬ìž] ë¥¼ í†µí•´ ì§€í‘œ ì €ìž¥)
-    //     ì§ì ‘ ì €ìž¥í•œ ì°¨íŠ¸ ê¸°ì´ˆë°ì´í„°ë¥¼ ì—‘ì…€ í¬ë§·ìœ¼ë¡œ ë³€ê²½í•œ í›„, RequestService() í˜¸ì¶œ ì‹œ ì§€í‘œë°ì´í„°ë¡œ ê°€ê³µí•˜ì—¬ ì œê³µ
-    //     ("xingAPI ì„¤ì¹˜í´ë”/ì—‘ì…€ìƒ˜í”Œ/ChartExcelData.xls" ì°¸ê³ )
+    // [3] Â÷Æ® ¿¢¼¿µ¥ÀÌÅÍ Á¶È¸ (HTS '[4201]xingÂ÷Æ®1'ÀÇ ¼ö½Ä°ü¸®ÀÚ³» ÁöÇ¥¿Í µ¿ÀÏÇÏ¸ç, DevCenter ¸Þ´º [ºÎ°¡¼­ºñ½º-¼ö½Ä°ü¸®ÀÚ] ¸¦ ÅëÇØ ÁöÇ¥ ÀúÀå)
+    //     Á÷Á¢ ÀúÀåÇÑ Â÷Æ® ±âÃÊµ¥ÀÌÅÍ¸¦ ¿¢¼¿ Æ÷¸ËÀ¸·Î º¯°æÇÑ ÈÄ, RequestService() È£Ãâ ½Ã ÁöÇ¥µ¥ÀÌÅÍ·Î °¡°øÇÏ¿© Á¦°ø
+    //     ("xingAPI ¼³Ä¡Æú´õ/¿¢¼¿»ùÇÃ/ChartExcelData.xls" Âü°í)
     //
-    //     pszCode		- "ChartExcel" (ì°¨íŠ¸ ì§€í‘œë°ì´í„° ì¡°íšŒìš© TR)
-    //     lpData		- "ChartExcel" TRë‚´ Inblockì˜ ë°ì´í„° êµ¬ì¡°ì²´
+    //     pszCode		- "ChartExcel" (Â÷Æ® ÁöÇ¥µ¥ÀÌÅÍ Á¶È¸¿ë TR)
+    //     lpData		- "ChartExcel" TR³» InblockÀÇ µ¥ÀÌÅÍ ±¸Á¶Ã¼
     //
-    //     ex) ì§ì ‘ ìŒ“ì€ ì‹œê³ ì €ì¢… ë°ì´í„°ë¥¼ ì—‘ì…€ í¬ë§·ìœ¼ë¡œ ë³€í™˜í•˜ì—¬ ì €ìž¥í•œ íŒŒì¼ì´ "C:\ETRADE\xingAPI\ì—‘ì…€ìƒ˜í”Œ\ChartExcelData.xls"
+    //     ex) Á÷Á¢ ½×Àº ½Ã°íÀúÁ¾ µ¥ÀÌÅÍ¸¦ ¿¢¼¿ Æ÷¸ËÀ¸·Î º¯È¯ÇÏ¿© ÀúÀåÇÑ ÆÄÀÏÀÌ "C:\ETRADE\xingAPI\¿¢¼¿»ùÇÃ\ChartExcelData.xls"
     //         ChartExcelInBlock sInBlock;
-    //          sInBlock.indexid		= ì§€í‘œID	 // ìµœì´ˆ ì¡°íšŒì‹œ ê³µë°±, 'ë™ì¼ ì¢…ëª© - ë™ì¼ ì§€í‘œ' ì¡°íšŒì‹œ ì´ì „ ì¡°íšŒ ChartIndexOutBlockì˜ indexid
+    //          sInBlock.indexid		= ÁöÇ¥ID	 // ÃÖÃÊ Á¶È¸½Ã °ø¹é, 'µ¿ÀÏ Á¾¸ñ - µ¿ÀÏ ÁöÇ¥' Á¶È¸½Ã ÀÌÀü Á¶È¸ ChartIndexOutBlockÀÇ indexid
     //         sInBlock.indexname		= "MACD"
-    //         sInBlock.excelfilename	= "C:\ETRADE\xingAPI\ì—‘ì…€ìƒ˜í”Œ\ChartExcelData.xls"
-    //         ...ìƒëžµ..
+    //         sInBlock.excelfilename	= "C:\ETRADE\xingAPI\¿¢¼¿»ùÇÃ\ChartExcelData.xls"
+    //         ...»ý·«..
     //         RemoveService( hWnd, "ChartExcel", sInBlock.indexid );
     //         int nReqID = RequestService( hWnd, "ChartExcel", &sInBlock );
     //
@@ -225,105 +225,105 @@ public:
 
 
     //------------------------------------------------------------------------------
-    // ë¶€ê°€ ì„œë¹„ìŠ¤ ì¡°íšŒ TR í•´ì œ
-    //     ë°˜í™˜ê°’       - ë¶€ê°€ì„œë¹„ìŠ¤ì— ë”°ë¼ ë‹¬ë¼ì§
-    //     hWnd			- ì¡°íšŒ ê²°ê³¼ë¥¼ ë°›ì„ ìœˆë„ìš°ì˜ í•¸ë“¤
+    // ºÎ°¡ ¼­ºñ½º Á¶È¸ TR ÇØÁ¦
+    //     ¹ÝÈ¯°ª       - ºÎ°¡¼­ºñ½º¿¡ µû¶ó ´Þ¶óÁü
+    //     hWnd			- Á¶È¸ °á°ú¸¦ ¹ÞÀ» À©µµ¿ìÀÇ ÇÚµé
     //
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…  [1] ì¢…ëª© ê²€ìƒ‰
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú  [1] Á¾¸ñ °Ë»ö
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
     //
-    //		í•´ë‹¹ ì—†ìŒ
+    //		ÇØ´ç ¾øÀ½
     //
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…  [2] ~ [3] ì°¨íŠ¸ë°ì´í„° ì¡°íšŒ
-    // â˜…â˜…â˜…â˜…â˜…
-    // â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú  [2] ~ [3] Â÷Æ®µ¥ÀÌÅÍ Á¶È¸
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú
+    // ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
     //
-    //		ì§€í‘œë°ì´í„°ëŠ” ì± íŠ¸ ê¸°ì´ˆë°ì´í„°ë¥¼ ìˆ˜ì‹ ë°›ì•„ APIë‚´ë¶€ì—ì„œ ê°€ê³µí•˜ì—¬ ì œê³µí•˜ëŠ” ê²ƒìœ¼ë¡œ
-    //      ë§Žì´ ì¡°íšŒí• ìˆ˜ë¡ APIì— ë¶€í•˜ê°€ ê°ˆ ìˆ˜ ìžˆìœ¼ë‹ˆ, ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ì§€í‘œëŠ” í•´ì œí•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
+    //		ÁöÇ¥µ¥ÀÌÅÍ´Â Ã­Æ® ±âÃÊµ¥ÀÌÅÍ¸¦ ¼ö½Å¹Þ¾Æ API³»ºÎ¿¡¼­ °¡°øÇÏ¿© Á¦°øÇÏ´Â °ÍÀ¸·Î
+    //      ¸¹ÀÌ Á¶È¸ÇÒ¼ö·Ï API¿¡ ºÎÇÏ°¡ °¥ ¼ö ÀÖÀ¸´Ï, »ç¿ëÇÏÁö ¾Ê´Â ÁöÇ¥´Â ÇØÁ¦ÇÏ´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
     //
     //
-    //		â€» ì¡°íšŒ ì‹œ ìžë™ë“±ë¡í•œ ì‹¤ì‹œê°„ì„ í•´ì œí•  ë•Œë„ í˜¸ì¶œí•¨
+    //		¡Ø Á¶È¸ ½Ã ÀÚµ¿µî·ÏÇÑ ½Ç½Ã°£À» ÇØÁ¦ÇÒ ¶§µµ È£ÃâÇÔ
     //
     //     pszCode		- "ChartIndex" or "ChartExcel"
-    //     lpData		- ê° TRì˜  OutBlockì˜ indexid
+    //     lpData		- °¢ TRÀÇ  OutBlockÀÇ indexid
     //
     int		RemoveService			( HWND hWnd, LPCTSTR pszCode, LPCTSTR pszData );
 
     //------------------------------------------------------------------------------
-    // API ì—ì„œ HTSë¡œ ì—°ë™ (API -> HTS) : ì—°ë™ì„ ì›í• ë•Œë§ˆë‹¤ ìš”ì²­í•œë‹¤
-    //     ë°˜í™˜ê°’       - ì—°ë™ ì„±ê³µ ì—¬ë¶€
-    //     hWnd			- ì—°ë™ì„ ìš”ì²­í•œ ìœˆë„ìš°ì˜ í•¸ë“¤
+    // API ¿¡¼­ HTS·Î ¿¬µ¿ (API -> HTS) : ¿¬µ¿À» ¿øÇÒ¶§¸¶´Ù ¿äÃ»ÇÑ´Ù
+    //     ¹ÝÈ¯°ª       - ¿¬µ¿ ¼º°ø ¿©ºÎ
+    //     hWnd			- ¿¬µ¿À» ¿äÃ»ÇÑ À©µµ¿ìÀÇ ÇÚµé
     //
-    // [1] ì¢…ëª© ì—°ë™
-    //     pszLinkKey	- &STOCK_CODE				: ì£¼ì‹ ì¢…ëª©ì½”ë“œ
-    //                    &ETF_CODE					: ETF ì¢…ëª©ì½”ë“œ
-    //                    &ELW_CODE					: ELW ì¢…ëª©ì½”ë“œ
-    //                    &KONEX_CODE				: ì½”ë„¥ìŠ¤ ì¢…ëª©ì½”ë“œ
-    //                    &FREEBOARD_CODE			: í”„ë¦¬ë³´ë“œ ì¢…ëª©ì½”ë“œ
-    //                    &KSPI_CODE				: ì½”ìŠ¤í”¼ ì—…ì¢… ì½”ë“œ
-    //                    &KSQI_CODE				: ì½”ìŠ¤ë‹¥ ì—…ì¢… ì½”ë“œ
-    //                    &FUTURE_CODE				: ì„ ë¬¼ì¢…ëª©ì½”ë“œ
-    //                    &OPTION_CODE				: ì˜µì…˜ì¢…ëª©ì½”ë“œ
-    //                    &FUTOPT_CODE				: ì„ ë¬¼/ì˜µì…˜ ì¢…ëª©ì½”ë“œ
-    //                    &FUTSP_CODE				: ì„ ë¬¼ìŠ¤í”„ë ˆë“œ ì¢…ëª©ì½”ë“œ
-    //                    &STOCK_FUTURE_CODE		: ì£¼ì‹ ì„ ë¬¼ ì¢…ëª©ì½”ë“œ
-    //                    &STOCK_OPTION_CODE		: ì£¼ì‹ ì˜µì…˜ ì¢…ëª©ì½”ë“œ
-    //                    &STOCK_FUTOPT_CODE		: ì£¼ì‹ ì„ ë¬¼ì˜µì…˜ ì¢…ëª©ì½”ë“œ
-    //                    &STOCK_FUTSP_CODE			: ì£¼ì‹ ì„ ë¬¼ìŠ¤í”„ë ˆë“œ ì¢…ëª©ì½”ë“œ
-    //                    &FUTOPT_STOCK_FUTOPT_CODE : ì„ ë¬¼ì˜µì…˜ & ì£¼ì‹ ì„ ë¬¼ì˜µì…˜ ì¢…ëª©ì½”ë“œ
-    //                    &US_CODE					: í•´ì™¸ì¢…ëª©ì½”ë“œ
-    //                    &COMMODITY_FUTOPT_CODE	: ìƒí’ˆì„ ë¬¼/ì„ ë¬¼ì˜µì…˜
-    //                    &COMMODITY_FUTURE_CODE	: ìƒí’ˆì„ ë¬¼
-    //                    &COMMODITY_STAR_CODE		: ìŠ¤íƒ€ì„ ë¬¼
-    //                    &CME_FUTURE_CODE			: CMEì•¼ê°„ì„ ë¬¼
-    //                    &EUREX_OPTION_CODE		: EUREXì•¼ê°„ì˜µì…˜
-    //                    &NIGHT_FUTOPT_CODE		: ì•¼ê°„ì„ ë¬¼ì˜µì…˜
-    //     pszData    	- ìƒí’ˆë³„ ì¢…ëª©ì½”ë“œ
+    // [1] Á¾¸ñ ¿¬µ¿
+    //     pszLinkKey	- &STOCK_CODE				: ÁÖ½Ä Á¾¸ñÄÚµå
+    //                    &ETF_CODE					: ETF Á¾¸ñÄÚµå
+    //                    &ELW_CODE					: ELW Á¾¸ñÄÚµå
+    //                    &KONEX_CODE				: ÄÚ³Ø½º Á¾¸ñÄÚµå
+    //                    &FREEBOARD_CODE			: ÇÁ¸®º¸µå Á¾¸ñÄÚµå
+    //                    &KSPI_CODE				: ÄÚ½ºÇÇ ¾÷Á¾ ÄÚµå
+    //                    &KSQI_CODE				: ÄÚ½º´Ú ¾÷Á¾ ÄÚµå
+    //                    &FUTURE_CODE				: ¼±¹°Á¾¸ñÄÚµå
+    //                    &OPTION_CODE				: ¿É¼ÇÁ¾¸ñÄÚµå
+    //                    &FUTOPT_CODE				: ¼±¹°/¿É¼Ç Á¾¸ñÄÚµå
+    //                    &FUTSP_CODE				: ¼±¹°½ºÇÁ·¹µå Á¾¸ñÄÚµå
+    //                    &STOCK_FUTURE_CODE		: ÁÖ½Ä ¼±¹° Á¾¸ñÄÚµå
+    //                    &STOCK_OPTION_CODE		: ÁÖ½Ä ¿É¼Ç Á¾¸ñÄÚµå
+    //                    &STOCK_FUTOPT_CODE		: ÁÖ½Ä ¼±¹°¿É¼Ç Á¾¸ñÄÚµå
+    //                    &STOCK_FUTSP_CODE			: ÁÖ½Ä ¼±¹°½ºÇÁ·¹µå Á¾¸ñÄÚµå
+    //                    &FUTOPT_STOCK_FUTOPT_CODE : ¼±¹°¿É¼Ç & ÁÖ½Ä ¼±¹°¿É¼Ç Á¾¸ñÄÚµå
+    //                    &US_CODE					: ÇØ¿ÜÁ¾¸ñÄÚµå
+    //                    &COMMODITY_FUTOPT_CODE	: »óÇ°¼±¹°/¼±¹°¿É¼Ç
+    //                    &COMMODITY_FUTURE_CODE	: »óÇ°¼±¹°
+    //                    &COMMODITY_STAR_CODE		: ½ºÅ¸¼±¹°
+    //                    &CME_FUTURE_CODE			: CME¾ß°£¼±¹°
+    //                    &EUREX_OPTION_CODE		: EUREX¾ß°£¿É¼Ç
+    //                    &NIGHT_FUTOPT_CODE		: ¾ß°£¼±¹°¿É¼Ç
+    //     pszData    	- »óÇ°º° Á¾¸ñÄÚµå
     //
-    //     ex) ì£¼ì‹ ì¢…ëª© ì—°ë™ : pszLinkKey = "&STOCK_CODE", pszData = "078020"
-    //         ì„ ë¬¼ ì¢…ëª© ì—°ë™ : pszLinkKey = "&FUTURE_CODE", pszData = "101HC000"
+    //     ex) ÁÖ½Ä Á¾¸ñ ¿¬µ¿ : pszLinkKey = "&STOCK_CODE", pszData = "078020"
+    //         ¼±¹° Á¾¸ñ ¿¬µ¿ : pszLinkKey = "&FUTURE_CODE", pszData = "101HC000"
     //
-    // [2] HTS í™”ë©´ ì—´ê¸°
-    //     pszLinkKey	- &OPEN_SCREEN : í™”ë©´ ì—´ê¸°
-    //     pszData    	- ì—´ê³  ì‹¶ì€ í™”ë©´ ë²ˆí˜¸
+    // [2] HTS È­¸é ¿­±â
+    //     pszLinkKey	- &OPEN_SCREEN : È­¸é ¿­±â
+    //     pszData    	- ¿­°í ½ÍÀº È­¸é ¹øÈ£
     //
-    //     ex) HTSì˜ '[6602]ì„ ì˜µì›ìž¥ ë¯¸ê²°ì œìž”ê³ ' ì—´ê¸°
+    //     ex) HTSÀÇ '[6602]¼±¿É¿øÀå ¹Ì°áÁ¦ÀÜ°í' ¿­±â
     //         pszLinkKey = &OPEN_SCREEN, pszData = "6602"
 
     int		RequestLinkToHTS        ( HWND hWnd, LPCTSTR pszLinkKey, LPCTSTR pszData, LPCTSTR pszFiller=NULL );
 
     //------------------------------------------------------------------------------
-    // HTS ì—ì„œ APIë¡œ ì—°ë™ (HTS -> API) : ë“±ë¡í•˜ë©´ í•´ì œí• ë•Œê¹Œì§€ ì—°ë™ëœë‹¤
-    //     hWnd			- ì—°ë™ì„ ì›í•˜ëŠ” ìœˆë„ìš°ì˜ í•¸ë“¤
+    // HTS ¿¡¼­ API·Î ¿¬µ¿ (HTS -> API) : µî·ÏÇÏ¸é ÇØÁ¦ÇÒ¶§±îÁö ¿¬µ¿µÈ´Ù
+    //     hWnd			- ¿¬µ¿À» ¿øÇÏ´Â À©µµ¿ìÀÇ ÇÚµé
     //
-    // â€» HTSì—ì„œ ì—°ë™ ë°œìƒ ì‹œ, XM_RECEIVE_LINK_DATA ë¡œ ë©”ì‹œì§€ê°€ ë°œìƒ
+    // ¡Ø HTS¿¡¼­ ¿¬µ¿ ¹ß»ý ½Ã, XM_RECEIVE_LINK_DATA ·Î ¸Þ½ÃÁö°¡ ¹ß»ý
     //	  WPARAM = LINK_DATA,
-    //	  LPARAM = LINKDATA_RECV_MSG êµ¬ì¡°ì²´ ë°ì´í„°
+    //	  LPARAM = LINKDATA_RECV_MSG ±¸Á¶Ã¼ µ¥ÀÌÅÍ
 
     void	AdviseLinkFromHTS		( HWND hWnd );
     void	UnAdviseLinkFromHTS		( HWND hWnd );
 
     //------------------------------------------------------------------------------
-    // ë°ì´í„°ì˜ ì••ì¶•ì„ í•´ì œí•œë‹¤ : í‹±ì± íŠ¸ ë°ì´í„° ë“±ì—ì„œ ì••ì¶•ìƒíƒœë¡œ ìˆ˜ì‹ ë°›ì€ ê²½ìš° ì‚¬ìš©
-    //     ë°˜í™˜ê°’       - ì••ì¶•ì„ í•´ì œí•œ ë°ì´í„°(pszDest)ì˜ ê¸¸ì´
+    // µ¥ÀÌÅÍÀÇ ¾ÐÃàÀ» ÇØÁ¦ÇÑ´Ù : Æ½Ã­Æ® µ¥ÀÌÅÍ µî¿¡¼­ ¾ÐÃà»óÅÂ·Î ¼ö½Å¹ÞÀº °æ¿ì »ç¿ë
+    //     ¹ÝÈ¯°ª       - ¾ÐÃàÀ» ÇØÁ¦ÇÑ µ¥ÀÌÅÍ(pszDest)ÀÇ ±æÀÌ
     //
-    //     pszSrc		- ì••ì¶•ìƒíƒœ ë°ì´í„°
-    //     pszDest		- ì••ì¶•ì„ í•´ì œí•œ ë°ì´í„°ë¥¼ ì €ìž¥í•  ë©”ëª¨ë¦¬ (Outblock êµ¬ì¡°ì²´ ì‚¬ì´ì¦ˆ ìµœëŒ€ 2000ê±´)
-    //	   nSrcLen	    - pszSrc ë°ì´í„°ì˜ ê¸¸ì´
+    //     pszSrc		- ¾ÐÃà»óÅÂ µ¥ÀÌÅÍ
+    //     pszDest		- ¾ÐÃàÀ» ÇØÁ¦ÇÑ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÒ ¸Þ¸ð¸® (Outblock ±¸Á¶Ã¼ »çÀÌÁî ÃÖ´ë 2000°Ç)
+    //	   nSrcLen	    - pszSrc µ¥ÀÌÅÍÀÇ ±æÀÌ
     //
-    // ì‚¬ìš© ë°©ë²•
-    //     ex) t8411 TR ì´ìš©ì‹œ, InBlockì˜ comp_yn(ì••ì¶•ì—¬ë¶€) í•„ë“œì— "Y" ìž…ë ¥ í›„ ì¡°íšŒ
-    //          ReceiveData() ì—ì„œ Occurs ë¸”ëŸ­(t8411OutBlock1)ì´ ì••ì¶•ë˜ì–´ ìˆ˜ì‹ ë˜ë¯€ë¡œ, í•´ë‹¹ ë¸”ëŸ­ ì••ì¶•ì„ í•´ì œ
+    // »ç¿ë ¹æ¹ý
+    //     ex) t8411 TR ÀÌ¿ë½Ã, InBlockÀÇ comp_yn(¾ÐÃà¿©ºÎ) ÇÊµå¿¡ "Y" ÀÔ·Â ÈÄ Á¶È¸
+    //          ReceiveData() ¿¡¼­ Occurs ºí·°(t8411OutBlock1)ÀÌ ¾ÐÃàµÇ¾î ¼ö½ÅµÇ¹Ç·Î, ÇØ´ç ºí·° ¾ÐÃàÀ» ÇØÁ¦
     //
     //			LRESULT t8411_Wnd::OnXMReceiveData( WPARAM wParam, LPARAM lParam )
     //			{
     //				//-------------------------------------------------------------------------------------
-    //				// Dataë¥¼ ë°›ìŒ
+    //				// Data¸¦ ¹ÞÀ½
     //				if( wParam == REQUEST_DATA )
     //				{
     //					LPRECV_PACKET pRpData = (LPRECV_PACKET)lParam;
@@ -335,18 +335,18 @@ public:
     //					{
     //						LPt8411OutBlock1 pOutBlock1 = (LPt8411OutBlock1)pRpData->lpData;
     //
-    //						t8411OutBlock1 szOutBlock1[2000];		// ì••ì¶• í•´ì œì‹œ ìµœëŒ€ 2000ê±´ ìˆ˜ì‹ 
+    //						t8411OutBlock1 szOutBlock1[2000];		// ¾ÐÃà ÇØÁ¦½Ã ÃÖ´ë 2000°Ç ¼ö½Å
     //						int nDestSize = g_iXingAPI.Decompress((char *)pOutBlock1, (char *)&szOutBlock1[0], pRpData->nDataLength);
     //
-    //						// Occurs ì¼ ê²½ìš°
-    //						// Headerê°€ 'A' ì´ë©´ ì „ì²´ê¸¸ì´ì—ì„œ OutBlockì˜ ê¸¸ì´ë¥¼ ë‚˜ëˆ ì„œ ê°¯ìˆ˜ë¥¼ êµ¬í•œë‹¤.
+    //						// Occurs ÀÏ °æ¿ì
+    //						// Header°¡ 'A' ÀÌ¸é ÀüÃ¼±æÀÌ¿¡¼­ OutBlockÀÇ ±æÀÌ¸¦ ³ª´²¼­ °¹¼ö¸¦ ±¸ÇÑ´Ù.
     //						if (nDestSize > 0)
     //						{
     //							int nCount = nDestSize / sizeof( t8411OutBlock1 );
     //
     //							for( int i=0; i<nCount; i++ )
     //							{
-    //								ë°ì´í„° í‘œì‹œ
+    //								µ¥ÀÌÅÍ Ç¥½Ã
     //							}
     //						}
     //					}
@@ -358,7 +358,7 @@ public:
     //------------------------------------------------------------------------------
     ~IXingAPI();
 protected:
-    int		LoadLibHelper		( LPCTSTR szPath );
+    int		LoadLibHelper		();
 
 protected:
 //	HMODULE			m_hModule;
@@ -463,6 +463,8 @@ protected:
 
     FP_DECOMPRESS				m_fpDecompress;
     FP_ISCHARTLIB				m_fpIsChartLib;
+
+    bool isInitialized;
 };
 
 

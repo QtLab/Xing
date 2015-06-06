@@ -25,28 +25,31 @@ T1702Item::T1702Item(LPt1702OutBlock1 outblock, QObject *parent):TrItem(parent)
     mAmt0018 = GET_LONG_FROM_FIELD(outblock->amt0018);
     mAmt0088 = GET_LONG_FROM_FIELD(outblock->amt0088);
     mAmt0099 = GET_LONG_FROM_FIELD(outblock->amt0099);
+
+    DEFINE_PROPERTY_NAME("일자","date");
+    DEFINE_PROPERTY_NAME("종가","close");
+    DEFINE_PROPERTY_NAME("전일대비구분","sign");
+    DEFINE_PROPERTY_NAME("전일대비", "change");
+    DEFINE_PROPERTY_NAME("등락율", "diff");
+    DEFINE_PROPERTY_NAME("누적거래량", "volume");
+    DEFINE_PROPERTY_NAME("개인", "amt0008");
+    DEFINE_PROPERTY_NAME("등록외국인", "amt0009");
+    DEFINE_PROPERTY_NAME("미등록외국인", "amt0010");
+    DEFINE_PROPERTY_NAME("외인계", "amt0088");
+    DEFINE_PROPERTY_NAME("기관", "amt0018");
+    DEFINE_PROPERTY_NAME("투신", "amt0003");
+    DEFINE_PROPERTY_NAME("보험", "amt0002");
+    DEFINE_PROPERTY_NAME("은행", "amt0004");
+    DEFINE_PROPERTY_NAME("종금", "amt0005");
+    DEFINE_PROPERTY_NAME("기금", "amt0006");
+    DEFINE_PROPERTY_NAME("사모펀드", "amt0000");
+    DEFINE_PROPERTY_NAME("증권", "amt0001");
+    DEFINE_PROPERTY_NAME("기타법인", "amt0007");
+    DEFINE_PROPERTY_NAME("국가외", "amt0011");
+    DEFINE_PROPERTY_NAME("기타계", "amt0099");
 }
 
 T1702Item::~T1702Item()
 {
     qDebug()<<"T1702Item destroyed";
-}
-
-QList<QString> T1702Item::getPropertyNameList()
-{
-
-}
-
-QString T1702Item::getPropertyByName(const QString &name)
-{
-
-}
-
-QStringList T1702Item::getPropertyList()
-{
-    QStringList list{"date", "close", "sign", "change", "diff", "volume",
-                      "amt0000", "amt0001", "amt0002", "amt0003", "amt0004", "amt0005",
-                     "amt0006", "amt0007", "amt0008", "amt0009", "amt0010", "amt0011",
-                     "amt0018", "amt0088", "amt0099"};
-    return list;
 }

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
+
 #include "IXingAPI.h"
 
 #define REAL_SERVER_ADDR "hts.etrade.co.kr"

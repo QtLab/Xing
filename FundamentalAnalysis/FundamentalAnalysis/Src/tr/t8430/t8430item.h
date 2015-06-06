@@ -8,7 +8,6 @@
 #include "../Src/tr/t8430/t8430.h"
 class T8430Item : public TrItem
 {
-    Q_OBJECT
     Q_PROPERTY(QString hname MEMBER mHname READ hname)
     Q_PROPERTY(QString shcode MEMBER mShcode READ shcode)
     Q_PROPERTY(QString expcode MEMBER mExpcode READ expcode)

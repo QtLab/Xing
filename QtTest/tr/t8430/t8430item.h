@@ -34,20 +34,18 @@ public:
     QString memedan() { return mMemedan;}
     long recprice() { return mRecprice; }
     bool isKOSPI() { return bIsKOSPI;}
-    virtual QList<QString> getPropertyList() override;
-    virtual QList<QString> getPropertyNameList() override;
-    virtual QString getPropertyByName(const QString& name) override;
+
 private:
-    QString mHname;
-    QString mShcode;
-    QString mExpcode;
-    bool bIsETF;
-    long mUplmtprice;
-    long mDnlmtprice;
-    long mJniclose;
-    QString mMemedan;
-    long mRecprice;
-    bool bIsKOSPI;
+    QString mHname;     //종목명
+    QString mShcode;    //단축코드
+    QString mExpcode;   //확장코드
+    bool bIsETF;        //ETF구분
+    long mUplmtprice;   //상한가
+    long mDnlmtprice;   //하한가
+    long mJniclose;     //전일가
+    QString mMemedan;   //주문수량단위
+    long mRecprice;     //기준가
+    bool bIsKOSPI;      //구분(1:코스피2:코스닥)
 };
 
 #endif // T8430ITEM_H

@@ -8,9 +8,9 @@ class T1702Query : public TrQuery
 {
     Q_OBJECT
 public:
-    typedef enum {AMOUNT_OF_MONEY=0, QUANTITY=1, PRICE=2} REQUEST_UNIT; //ê¸ˆì•¡, ìˆ˜ëŸ‰, ë‹¨ê°€
-    typedef enum {NET_BUY=0, BUY=1, SELL=2} REQUEST_TYPE; //ìˆœë§¤ìˆ˜, ë§¤ìˆ˜, ë§¤ë„
-    typedef enum {DAILY=0, CUMULATIVE=1} REQUEST_OPTION; //ëˆ„ì , ì¼ê°„
+    typedef enum {AMOUNT_OF_MONEY=0, QUANTITY=1, PRICE=2} REQUEST_UNIT; //±İ¾×, ¼ö·®, ´Ü°¡
+    typedef enum {NET_BUY=0, BUY=1, SELL=2} REQUEST_TYPE; //¼ø¸Å¼ö, ¸Å¼ö, ¸Åµµ
+    typedef enum {DAILY=0, CUMULATIVE=1} REQUEST_OPTION; //´©Àû, ÀÏ°£
     ~T1702Query();
     static T1702Query *createQuery(const QWidget* requester
                                    , const QString& shcode, const QDate& fromdt, const QDate& todt,

@@ -2,6 +2,9 @@
 #define FIELDUTIL_H
 #include <QString>
 #include <QDate>
+
+
+
 #define SET_FIELD(dst, src) FieldUtil::setField(dst, src, sizeof(dst))
 #define GET_DATE_FROM_FIELD(src) FieldUtil::getDateFromField(src, sizeof(src))
 #define GET_STRING_FROM_FIELD(src) FieldUtil::getStringFromField(src, sizeof(src))

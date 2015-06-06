@@ -1,5 +1,5 @@
 #include "t1702item.h"
-#include "util/fieldutil.h"
+#include "../../util/fieldutil.h"
 #include <QDebug>
 
 T1702Item::T1702Item(LPt1702OutBlock1 outblock, QObject *parent):TrItem(parent)
@@ -34,15 +34,17 @@ T1702Item::~T1702Item()
 
 QList<QString> T1702Item::getPropertyNameList()
 {
-
+	QList<QString> list;
+	return list;
 }
 
 QString T1702Item::getPropertyByName(const QString &name)
 {
-
+	QString str;
+	return str;
 }
 
-QStringList T1702Item::getPropertyList()
+QList<QString> T1702Item::getPropertyList()
 {
     QStringList list{"date", "close", "sign", "change", "diff", "volume",
                       "amt0000", "amt0001", "amt0002", "amt0003", "amt0004", "amt0005",

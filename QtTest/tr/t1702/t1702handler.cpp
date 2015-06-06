@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "t1702handler.h"
 #include "util/fieldutil.h"
-T1702Handler::T1702Handler(QObject *parent)
+T1702Handler::T1702Handler(QObject *parent):TrHandler(parent)
 {
 
 }

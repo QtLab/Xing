@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "t1702handler.h"
-#include "util/fieldutil.h"
+#include "../../util/fieldutil.h"
 T1702Handler::T1702Handler(QObject *parent)
 {
 
@@ -14,7 +14,7 @@ T1702Handler::~T1702Handler()
 int T1702Handler::sendRequest(TrQuery *trQuery)
 {
     t1702InBlock* pckInBlock = makeT1702InBlock(trQuery);
-    int requestId = IXingAPI::GetInstance()->Request(trQuery->getHWnd(), NAME_t1702, pckInBlock, sizeof(t1702InBlock), FALSE, " ", -1);
+    int requestId = IXingAPI::GetInstance()->Request(trQuery->getHWnd(), L"t1702", pckInBlock, sizeof(t1702InBlock), FALSE, L" ", -1);
     delete pckInBlock;
     return requestId;
 }
@@ -65,7 +65,7 @@ bool T1702Handler::handleT1702OutBlock1(LPRECV_PACKET packet)
     t1702InBlock* pckInBlock = makeT1702InBlock(query);
     SET_FIELD(pckInBlock->cts_date, query->getCtsDate());
 
-    int requestId = IXingAPI::GetInstance()->Request(query->getHWnd(), NAME_t1702, pckInBlock, sizeof(t1702InBlock), TRUE, " ", -1);
+    int requestId = IXingAPI::GetInstance()->Request(query->getHWnd(), L"t1702", pckInBlock, sizeof(t1702InBlock), TRUE, L" ", -1);
     QThread::sleep(1);
     mQueryMap.insert(requestId, query);
     return false;

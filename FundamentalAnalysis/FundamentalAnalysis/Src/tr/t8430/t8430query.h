@@ -4,7 +4,6 @@
 #include <QObject>
 #include "t8430.h"
 #include "t8430item.h"
-#include "t8430.h"
 #include "../TrQuery.h"
 
 class T8430Query : public TrQuery

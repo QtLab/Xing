@@ -2,10 +2,10 @@
 #define T1702HANDLER_H
 
 #include <QObject>
-#include "../tr/t1702/t1702.h"
-#include "../tr/TrHandler.h"
-#include "../tr/TrQuery.h"
-#include "../tr/t1702/t1702query.h"
+#include "t1702.h"
+#include "../TrHandler.h"
+#include "../TrQuery.h"
+#include "t1702query.h"
 class T1702Handler : public TrHandler
 {
     Q_OBJECT

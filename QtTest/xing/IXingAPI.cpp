@@ -1,7 +1,8 @@
 #include "IXingAPI.h"
 #include <QMetaType>
+#include <QDebug>
 #include <QThread>
-IXingAPI::IXingAPI(){
+IXingAPI::IXingAPI():isInitialized(false){
     ZeroMemory( this, sizeof( IXingAPI ) );
     qRegisterMetaType<RECV_PACKET>("RECV_PACKET");
     qRegisterMetaType<LPRECV_PACKET>("LPRECV_PACKET");
@@ -11,25 +12,27 @@ IXingAPI::IXingAPI(){
     qRegisterMetaType<LPRECV_REAL_PACKET>("LPRECV_REAL_PACKET");
     qRegisterMetaType<LINKDATA_RECV_MSG>("LINKDATA_RECV_MSG");
     qRegisterMetaType<LPLINKDATA_RECV_MSG>("LPLINKDATA_RECV_MSG");
-    Init();
+    isInitialized = Init();
 }
 
 IXingAPI::~IXingAPI(){
      Uninit();
 }
 
-BOOL IXingAPI::Init(LPCTSTR szPath)
+BOOL IXingAPI::Init()
 {
     if( IsInit() ) return TRUE;
 
-    return LoadLibHelper( szPath );
+    return LoadLibHelper();
 }
 
-BOOL IXingAPI::LoadLibHelper( LPCTSTR szPath )
+BOOL IXingAPI::LoadLibHelper()
 {
     m_Lib=new QLibrary("xingAPI");
 
-    return m_Lib->load();
+    bool loaded =  m_Lib->load();
+    qDebug()<<m_Lib->errorString();
+    return loaded;
 }
 
 void IXingAPI::Uninit()
@@ -121,7 +124,7 @@ int IXingAPI::Request( HWND hWnd, LPCTSTR pszCode, LPVOID lpData, int nDataSize,
 
     if( NULL == m_fpRequest )	return -1;
 
-    int reqId = m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
+    return m_fpRequest(hWnd, pszCode, lpData, nDataSize, bNext, pszNextKey, nTimeOut);
 }
 
 BOOL IXingAPI::AdviseRealData ( HWND hWnd, LPCTSTR pszTrNo, LPCTSTR pszData, int nDataUnitLen )
