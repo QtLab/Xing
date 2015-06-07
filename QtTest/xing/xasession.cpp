@@ -123,7 +123,7 @@ void XASession::handleResponse(const QWidget *receiver, WPARAM wParam, LPARAM lP
     QString code = QString::fromLocal8Bit(pszCode);
     QString msg = QString::fromLocal8Bit(pszMsg);
 
-    QMessageBox::infomation(receiver, "LoginMsg", msg);
+    QMessageBox::information(receiver, "LoginMsg", msg);
 }
 
 
