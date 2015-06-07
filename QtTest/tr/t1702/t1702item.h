@@ -13,7 +13,7 @@ class T1702Item : public TrItem
     Q_PROPERTY(long close MEMBER mClose READ close)
     Q_PROPERTY(SIGN sign MEMBER mSign READ sign)
     Q_PROPERTY(long change MEMBER mChange READ change)
-    Q_PROPERTY(long diff MEMBER mDiff READ diff)
+    Q_PROPERTY(float diff MEMBER mDiff READ diff)
     Q_PROPERTY(long volume MEMBER mVolume READ volume)
     Q_PROPERTY(long amt0000 MEMBER mAmt0000 READ amt0000)
     Q_PROPERTY(long amt0001 MEMBER mAmt0001 READ amt0001)
@@ -42,7 +42,7 @@ public:
     long close() { return mClose;}
     SIGN sign() { return mSign;}
     long change() {return mChange;}
-    long diff() { return mDiff; }
+    float diff() { return mDiff;}
     long volume() { return mVolume; }
     long amt0000() { return mAmt0000;}
     long amt0001() { return mAmt0001;}

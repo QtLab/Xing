@@ -163,7 +163,7 @@ void Dialog::on_runBtn_clicked()
     connect(query, &T8430Query::workDone,this,&Dialog::t8430result);
     m_queryMngr.requestQuery(query);
 */
-    QDate fromdt(2014,5,29);
+    QDate fromdt(2015,5,1);
     QDate todt(2015,5,29);
     T1702Query* query = T1702Query::createQuery(this, "005930", fromdt, todt, T1702Query::QUANTITY, T1702Query::NET_BUY, T1702Query::DAILY);
     connect(query, &T1702Query::workDone, this, &Dialog::t1702result);

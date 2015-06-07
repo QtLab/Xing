@@ -64,6 +64,6 @@ float FieldUtil::getFloatFromField(char *strFloat, int length)
 {
     QString str = QString::fromLocal8Bit(strFloat, length);
     float value1 =  str.toFloat();
-    float value2 = value1/100.0;
+    float value2 = value1/100.0f;
     return value2;
 }
