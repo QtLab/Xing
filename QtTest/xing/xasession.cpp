@@ -1,4 +1,5 @@
 #include "xasession.h"
+#include <QMessageBox>
 
 XASession::XASession(QObject *parent) : QObject(parent),m_timeout(DEFAULT_TIMEOUT_LIMIT), m_sendPacketSize(DEFAULT_MAX_PACKET_SIZE)
 {
@@ -112,6 +113,17 @@ QStringList XASession::GetServerList()
     list.push_front(REAL_SERVER_ADDR);
     list.push_front(DEMO_SERVER_ADDR);
     return list;
+}
+
+void XASession::handleResponse(const QWidget *receiver, WPARAM wParam, LPARAM lParam)
+{
+    const char* pszCode = (const char*)wParam;
+    const char* pszMsg = (const char*)lParam;
+
+    QString code = QString::fromLocal8Bit(pszCode);
+    QString msg = QString::fromLocal8Bit(pszMsg);
+
+    QMessageBox::infomation(receiver, "LoginMsg", msg);
 }
 
 

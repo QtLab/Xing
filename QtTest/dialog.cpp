@@ -40,17 +40,7 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
     switch ( msg->message ){
     case WM_USER+XM_LOGIN:
     {
-        //LPCSTR pszCode = (LPCSTR)msg->wParam;
-        //LPCSTR pszMsg = (LPCSTR)msg->lParam;
-
-        const char * pszCode = (const char *)msg->wParam;
-        const char * pszMsg = (const char *)msg->lParam;
-
-        QString code = QString::fromLocal8Bit(pszCode);
-        QString msg = QString::fromLocal8Bit(pszMsg);
-        //QString result = QString("code=%s, msg=%s").arg(code).arg(msg);
-
-        QMessageBox::information(this, "LoginMsg",msg);
+        m_session.handleResponse(msg->wParam, msg->lParam);
         break;
     }
     case WM_USER+XM_RECEIVE_DATA:

@@ -43,6 +43,8 @@ public slots:
     void SetConnectTimeOut(int ConnectTimeOut);
     void SetSendPacketSize(int SendPacketSize);
     QStringList GetServerList();
+
+    void handleResponse(const QWidget* receiver, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // XASESSION_H
