@@ -40,7 +40,7 @@ bool Dialog::nativeEvent(const QByteArray & eventType, void * message, long * re
     switch ( msg->message ){
     case WM_USER+XM_LOGIN:
     {
-        m_session.handleResponse(msg->wParam, msg->lParam);
+        m_session.handleResponse(this, msg->wParam, msg->lParam);
         break;
     }
     case WM_USER+XM_RECEIVE_DATA:
