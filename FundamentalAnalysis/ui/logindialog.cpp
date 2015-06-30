@@ -1,13 +1,14 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
-
+#include <QMessageBox>
+#include <QComboBox>
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
     loadSettings();
-    connect(ui->checkBoxSaveId, &QCheckBox::stateChanged, this, &LoginDialog::saveIdChecked);
+    connect(&m_session, &XASession::LoginResult, this, &LoginDialog::onLogin);
 
 }
 
@@ -16,11 +17,22 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
+void LoginDialog::onLogin(bool success, const QString &msg)
+{
+    if(success) {
+        QMessageBox::information(this, "LoginResult", msg);
+        done(QDialog::Accepted);
+    } else {
+        QMessageBox::warning(this, "Login Result", msg);
+    }
+}
+
 void LoginDialog::on_connectBtn_clicked()
 {
-    String id = ui->lineEditId->text();
-    String passwd = ui->lineEditPasswd->text();
-    String certPasswd = ui->lineEditCertPasswd->text();
+    saveSettings();
+    QString id = ui->lineEditId->text();
+    QString passwd = ui->lineEditPasswd->text();
+    QString certPasswd = ui->lineEditCertPasswd->text();
     if(!m_session.ConnectServer(*this, !isDemoServer())){
         QMessageBox::warning(this, "Connect Server", "Failed");
         return;
@@ -30,26 +42,12 @@ void LoginDialog::on_connectBtn_clicked()
         QMessageBox::warning(this, "Login", "failed");
         return;
     }
-
-
-    saveSettings();
-    done(QDialog::Accepted);
 }
 
 void LoginDialog::on_closeBtn_clicked()
 {
     saveSettings();
     done(QDialog::Rejected);
-}
-
-void LoginDialog::saveIdChecked(int state)
-{
-    if(state == Qt::Checked) {
-        mSettings.setValue(KEY_SAVE_ID, true);
-    } else if(state==Qt::Unchecked) {
-        mSettings.setValue(KEY_SAVE_ID, false);
-    }
-    mSettings.sync();
 }
 
 void LoginDialog::saveSettings()
@@ -80,6 +78,9 @@ void LoginDialog::loadSettings()
         QString id = mSettings.value(KEY_ID).toString();
         ui->lineEditId->setText(id);
     }
+    if(isDemoServer()) {
+        ui->lineEditCertPasswd->setEnabled(false);
+    }
 }
 
 bool LoginDialog::isDemoServer()
@@ -103,4 +104,23 @@ bool LoginDialog::nativeEvent(const QByteArray &eventType, void *message, long *
         }
     }
     return false;
+}
+
+void LoginDialog::on_comboBoxServerType_currentTextChanged(const QString &currentServer)
+{
+    if(currentServer=="demo.etrade.co.kr") {
+        ui->lineEditCertPasswd->setEnabled(false);
+    } else {
+        ui->lineEditCertPasswd->setEnabled(true);
+    }
+}
+
+void LoginDialog::on_checkBoxSaveId_stateChanged(int state)
+{
+    if(state == Qt::Checked) {
+        mSettings.setValue(KEY_SAVE_ID, true);
+    } else if(state==Qt::Unchecked) {
+        mSettings.setValue(KEY_SAVE_ID, false);
+    }
+    mSettings.sync();
 }

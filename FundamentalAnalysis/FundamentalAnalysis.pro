@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     tr/t8430/t8430query.cpp \
     tr/TrHandler.cpp \
     tr/tritem.cpp \
-    tr/TrQuery.cpp
+    tr/TrQuery.cpp \
+    util/xingutil.cpp
 
 HEADERS  += mainwindow.h \
     ui/logindialog.h \
@@ -47,7 +48,11 @@ HEADERS  += mainwindow.h \
     tr/t8430/t8430query.h \
     tr/TrHandler.h \
     tr/tritem.h \
-    tr/trquery.h
+    tr/trquery.h \
+    util/xingutil.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui
+LIBS += -LC:/eBEST/xingAPI/
+
+CONFIG += c++11

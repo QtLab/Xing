@@ -122,8 +122,10 @@ void XASession::handleResponse(QWidget *receiver, WPARAM wParam, LPARAM lParam)
 
     QString code = QString::fromLocal8Bit(pszCode);
     QString msg = QString::fromLocal8Bit(pszMsg);
-
-    QMessageBox::information(receiver, tr("LoginMsg"), msg);
+    if(code=="0000")
+        emit LoginResult(true, msg);
+    else
+        emit LoginResult(false, msg);
 }
 
 

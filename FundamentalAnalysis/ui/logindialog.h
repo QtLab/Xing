@@ -21,10 +21,14 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
+public slots:
+    void onLogin(bool success, const QString& msg);
+
 private slots:
     void on_connectBtn_clicked();
     void on_closeBtn_clicked();
-    void saveIdChecked(int);
+    void on_comboBoxServerType_currentTextChanged(const QString &arg1);
+    void on_checkBoxSaveId_stateChanged(int arg1);
 
 private:
     Ui::LoginDialog *ui;

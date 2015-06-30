@@ -49,7 +49,8 @@ HEADERS  += dialog.h \
     tr/t1702/t1702item.h \
     tr/t1702/t1702query.h \
     tr/t1702/t1702handler.h \
-    util/fieldutil.h
+    util/fieldutil.h \
+    util/xingutil.h
 
 FORMS    += dialog.ui
 

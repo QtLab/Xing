@@ -24,7 +24,7 @@ private:
     int m_timeout;
     int m_sendPacketSize;
 signals:
-
+    void LoginResult(bool success, const QString& msg);
 public slots:
     bool ConnectServer(const QWidget& widget, bool isRealServer=false);
     bool DisconnectServer();
