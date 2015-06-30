@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui concurrent sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     tr/TrHandler.cpp \
     tr/tritem.cpp \
     tr/TrQuery.cpp \
-    util/xingutil.cpp
+    util/xingutil.cpp \
+    function/shcodelistupdater.cpp
 
 HEADERS  += mainwindow.h \
     ui/logindialog.h \
@@ -49,7 +50,8 @@ HEADERS  += mainwindow.h \
     tr/TrHandler.h \
     tr/tritem.h \
     tr/trquery.h \
-    util/xingutil.h
+    util/xingutil.h \
+    function/shcodelistupdater.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui

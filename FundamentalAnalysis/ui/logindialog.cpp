@@ -53,11 +53,14 @@ void LoginDialog::on_closeBtn_clicked()
 void LoginDialog::saveSettings()
 {
     QString id = ui->lineEditId->text();
+    QString passwd = ui->lineEditPasswd->text();
     bool saveId = mSettings.value(KEY_SAVE_ID, false).toBool();
     if(saveId) {
         mSettings.setValue(KEY_ID, id);
+        mSettings.setValue(KEY_PASSWD, passwd);
     }else {
         mSettings.remove(KEY_ID);
+        mSettings.remove(KEY_PASSWD);
     }
     QString serverType = ui->comboBoxServerType->currentText();
     mSettings.setValue(KEY_SERVERTYPE, serverType);
@@ -77,6 +80,8 @@ void LoginDialog::loadSettings()
     if(saveId) {
         QString id = mSettings.value(KEY_ID).toString();
         ui->lineEditId->setText(id);
+        QString passwd = mSettings.value(KEY_PASSWD).toString();
+        ui->lineEditPasswd->setText(passwd);
     }
     if(isDemoServer()) {
         ui->lineEditCertPasswd->setEnabled(false);

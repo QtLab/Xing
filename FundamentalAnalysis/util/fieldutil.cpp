@@ -25,7 +25,7 @@ QString FieldUtil::getStringFromField( unsigned char *str, const int len ){
         result.append( s );
     }
 
-    return result;
+    return result.trimmed();
 }
 
 void FieldUtil::setField(char *dst, const QString &src, int length)
@@ -51,7 +51,7 @@ QDate FieldUtil::getDateFromField(char *strDate, int length)
 
 QString FieldUtil::getStringFromField(char *src, int length)
 {
-    return QString::fromLocal8Bit(src, length);
+    return QString::fromLocal8Bit(src, length).trimmed();
 }
 
 long FieldUtil::getLongFromField(char *strLong, int length)

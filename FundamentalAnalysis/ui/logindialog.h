@@ -12,6 +12,7 @@ class LoginDialog;
 #define KEY_SERVERTYPE "serverType"
 #define KEY_SAVE_ID "isSaveId"
 #define KEY_ID "id"
+#define KEY_PASSWD "passwd"
 
 class LoginDialog : public QDialog
 {
