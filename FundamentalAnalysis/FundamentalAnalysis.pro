@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     tr/tritem.cpp \
     tr/TrQuery.cpp \
     util/xingutil.cpp \
-    function/shcodelistupdater.cpp
+    function/shcodemanager.cpp \
+    function/stockdatamanager.cpp \
+    tr/t1102/t1102item.cpp
 
 HEADERS  += mainwindow.h \
     ui/logindialog.h \
@@ -51,7 +53,10 @@ HEADERS  += mainwindow.h \
     tr/tritem.h \
     tr/trquery.h \
     util/xingutil.h \
-    function/shcodelistupdater.h
+    function/shcodemanager.h \
+    function/stockdatamanager.h \
+    tr/t1102/t1102.h \
+    tr/t1102/t1102item.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui

@@ -17,7 +17,7 @@ public:
                                    REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0
                                    );
 protected:
-    explicit T1702Query(const QWidget* requester,const QString& shcode,const QDate& fromdt, const QDate& todt,
+    explicit T1702Query(HWND winId, const QString& shcode,const QDate& fromdt, const QDate& todt,
                         REQUEST_UNIT unit, REQUEST_TYPE type, REQUEST_OPTION option, QObject *parent=0);
 
 public:

@@ -20,5 +20,5 @@ T8430Item::T8430Item(LPt8430OutBlock outblock, QObject *parent):TrItem(parent)
 
 T8430Item::~T8430Item()
 {
-
+    //qDebug()<<"T8430Item destroyed";
 }

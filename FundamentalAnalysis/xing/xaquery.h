@@ -13,15 +13,21 @@ class XAQueryMngr : public QThread
 {
     Q_OBJECT
 public:
-    explicit XAQueryMngr(QObject *parent=0);
     ~XAQueryMngr();
+    static XAQueryMngr* getInstance();
+    static void init(QObject *parent);
+private :
+    explicit XAQueryMngr(QObject *parent=0);
 
 private:
+    static XAQueryMngr* sInstance;
     QMap<QString,TrHandler*> mHandlerMap;
 
 public slots:
     void requestQuery(TrQuery* query);
     void handleResponse(WPARAM wparam, LPARAM lparam);
 };
+
+
 
 #endif // XAQUERY_H

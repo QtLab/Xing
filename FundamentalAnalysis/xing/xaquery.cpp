@@ -4,16 +4,33 @@
 #include "tr/t1702/t1702handler.h"
 #include "util/objectfactory.h"
 
+XAQueryMngr* XAQueryMngr::sInstance = 0;
+
 XAQueryMngr::XAQueryMngr(QObject *parent) : QThread(parent)
 {
     ObjectFactory::registerClass<T8430Handler>();
     ObjectFactory::registerClass<T1702Handler>();
+    qRegisterMetaType<QList<T1702Item*>>();
+    qRegisterMetaType<QList<T8430Item*>>();
 }
 
 XAQueryMngr::~XAQueryMngr()
 {
 
 }
+
+XAQueryMngr* XAQueryMngr::getInstance()
+{
+    return sInstance;
+}
+
+void XAQueryMngr::init(QObject *parent)
+{
+    if(sInstance == NULL) {
+        sInstance = new XAQueryMngr(parent);
+    }
+}
+
 
 void XAQueryMngr::requestQuery(TrQuery *query)
 {
@@ -23,9 +40,14 @@ void XAQueryMngr::requestQuery(TrQuery *query)
         name.replace(0, 1, 'T');
         name.append("Handler");
         handler = static_cast<TrHandler*>(ObjectFactory::createObject(name.toLocal8Bit()));
+
         mHandlerMap.insert(query->getName(), handler);
+        handler->moveToThread(this);
+
     }
+    query->moveToThread(this);
     handler->addTrQuery(query);
+
 }
 
 void XAQueryMngr::handleResponse(WPARAM wparam, LPARAM lparam)

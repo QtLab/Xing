@@ -12,13 +12,14 @@ public:
 
     QString getName() {return mName;}
 
-    HWND getHWnd() {return (HWND)mRequester->winId();}
+    HWND getHWnd() {return mHwnd;}
     void setFinished();
     bool isFinished();
 private:
     bool bIsFinished;
+    HWND mHwnd;
 protected:
-    explicit TrQuery(const QWidget* requester, QString name, QObject *parent = 0);
+    explicit TrQuery(QString name, HWND winId, QObject *parent = 0);
     QString mName;
     const QWidget* mRequester;
 signals:

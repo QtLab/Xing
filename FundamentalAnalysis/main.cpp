@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui/logindialog.h"
 #include <QApplication>
+#include "xing/xaquery.h"
 
 int main(int argc, char *argv[])
 {

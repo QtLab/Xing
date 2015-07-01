@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <QDebug>
 #include "t1702handler.h"
 #include "util/fieldutil.h"
 T1702Handler::T1702Handler(QObject *parent):TrHandler(parent)
@@ -58,7 +59,7 @@ bool T1702Handler::handleT1702OutBlock1(LPRECV_PACKET packet)
         if(date<query->getFromDate()){
             return true;
         }
-        T1702Item* item = new T1702Item(pOutBlock, query);
+        T1702Item* item = new T1702Item(pOutBlock, this);
 
         query->addT1702Item(item);
     }
@@ -73,6 +74,7 @@ bool T1702Handler::handleT1702OutBlock1(LPRECV_PACKET packet)
 
 void T1702Handler::dataReceived(LPRECV_PACKET packet)
 {
+    qDebug()<<"T1702Handler - "<<QThread::currentThreadId();
     if(!strcmp("t1702OutBlock", packet->szBlockName)){
         handleT1702OutBlock(packet);
     } else if(!strcmp("t1702OutBlock1", packet->szBlockName)) {

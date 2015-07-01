@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QHeaderView>
+#include <QThread>
 #include "tr/t1702/t1702item.h"
 ResultDialog::ResultDialog(QWidget *parent) : QDialog(parent)
 {

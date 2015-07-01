@@ -13,10 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mShcodeListUpdater = new ShcodeListUpdater(this);
+    qDebug()<<"MainWindow executed in "<<QThread::currentThreadId();
     initAction();
     initMenu();
-    connect(mShcodeListUpdater, &ShcodeListUpdater::shcodeListUpdated, this, &MainWindow::onShcodeListUpdated);
+    XAQueryMngr::init(this);
+    XAQueryMngr::getInstance()->start();
+    mShcodeListUpdater = new ShcodeManager(NULL);
+    mShcodeListUpdater->moveToThread(XAQueryMngr::getInstance());
+    connect(mShcodeListUpdater, &ShcodeManager::updateDone, this, &MainWindow::onShcodeListUpdated);
+    QMetaObject::invokeMethod(mShcodeListUpdater,"init", Qt::QueuedConnection );
 }
 
 MainWindow::~MainWindow()
@@ -28,14 +33,19 @@ bool MainWindow::nativeEvent(const QByteArray & eventType, void * message, long 
 
     switch ( msg->message ){
     case WM_USER+XM_RECEIVE_DATA:
-        m_queryMngr.handleResponse(msg->wParam, msg->lParam);
+        XAQueryMngr::getInstance()->handleResponse(msg->wParam, msg->lParam);
         break;
     }
     return false;
 }
 void MainWindow::updateShcode()
 {
-    mShcodeListUpdater->updateShcodeList(this, &m_queryMngr);
+    mShcodeListUpdater->requestUpdate(this);
+}
+
+void MainWindow::updateAllStockData()
+{
+
 }
 void MainWindow::onShcodeListUpdated()
 {
@@ -47,6 +57,8 @@ void MainWindow::initAction()
     mShcodeUpdateAction = new QAction(qkor("종목코드 업데이트"), this);
     connect(mShcodeUpdateAction, &QAction::triggered, this, &MainWindow::updateShcode);
 
+    mAllStockDataUpdateAction = new QAction(qkor("수급 현황 업데이트"), this);
+    connect(mAllStockDataUpdateAction, &QAction::triggered, this, &MainWindow::updateAllStockData);
 }
 
 void MainWindow::initMenu()
@@ -57,7 +69,17 @@ void MainWindow::initMenu()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    mSession.Logout(*this);
-    mSession.DisconnectServer();
+    if(XAQueryMngr::getInstance()->isRunning()) {
+        qDebug()<<"Thread is still running";
+        XAQueryMngr::getInstance()->exit();
+        mSession.DisconnectServer();
+        if(XAQueryMngr::getInstance()->wait(5000)) {
+            qDebug()<<"Thread is finished";
+            event->accept();
+        } else {
+            qDebug()<<"Thread is not finished in 5s";
+            QCoreApplication::sendEvent(this, new QCloseEvent());
+        }
+    }
     event->accept();
 }

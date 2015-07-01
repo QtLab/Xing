@@ -58,7 +58,7 @@ bool T1702Handler::handleT1702OutBlock1(LPRECV_PACKET packet)
         if(date<query->getFromDate()){
             return true;
         }
-        T1702Item* item = new T1702Item(pOutBlock, query);
+        T1702Item* item = new T1702Item(pOutBlock, this);
 
         query->addT1702Item(item);
     }

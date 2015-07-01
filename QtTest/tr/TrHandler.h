@@ -16,7 +16,6 @@ public:
     explicit TrHandler(QObject *parent=0);
     ~TrHandler();
 protected:
-
     virtual int sendRequest(TrQuery* query)=0;
     virtual TrQuery* getQuery(int reqId) = 0;
     void printLog(const QString& log);
@@ -25,6 +24,7 @@ protected:
 private:
 
 public slots:
+
     virtual void addTrQuery(TrQuery* query);
     virtual void dataReceived(LPRECV_PACKET packet)=0;
     virtual void messageReceived(LPMSG_PACKET packet);

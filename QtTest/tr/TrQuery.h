@@ -26,5 +26,4 @@ signals:
     void errorReceived(const QString& msg);
 public slots:
 };
-
 #endif // TRQUERY_H

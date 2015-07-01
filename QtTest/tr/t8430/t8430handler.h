@@ -17,6 +17,7 @@ protected:
     virtual T8430Query* getQuery(int reqId) override;
 
 public slots:
+
     virtual void dataReceived(LPRECV_PACKET packet);
 };
 

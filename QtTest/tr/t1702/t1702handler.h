@@ -21,6 +21,7 @@ protected:
     bool handleT1702OutBlock1(LPRECV_PACKET packet);
 
 public slots:
+
     virtual void dataReceived(LPRECV_PACKET packet);
 };
 

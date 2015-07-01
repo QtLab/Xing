@@ -8,7 +8,7 @@
 
 #include "xing/xasession.h"
 #include "xing/xaquery.h"
-#include "function/shcodelistupdater.h"
+#include "function/shcodemanager.h"
 namespace Ui {
 class MainWindow;
 }
@@ -23,6 +23,7 @@ public:
 
 private slots:
     void updateShcode();
+    void updateAllStockData();
     void onShcodeListUpdated();
 private:
     void initAction();
@@ -34,12 +35,12 @@ protected:
 private:
     Ui::MainWindow *ui;
     XASession mSession;
-    XAQueryMngr m_queryMngr;
 
-    ShcodeListUpdater* mShcodeListUpdater;
+    ShcodeManager* mShcodeListUpdater;
     QMenu* mUpdateMenu;
 
     QAction* mShcodeUpdateAction;
+    QAction* mAllStockDataUpdateAction;
 };
 
 #endif // MAINWINDOW_H

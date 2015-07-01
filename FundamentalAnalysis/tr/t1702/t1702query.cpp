@@ -1,9 +1,9 @@
 #include "t1702query.h"
 
-T1702Query::T1702Query(const QWidget *requester, const QString &shcode
+T1702Query::T1702Query(HWND winId, const QString &shcode
                        , const QDate &fromdt, const QDate &todt, REQUEST_UNIT unit, REQUEST_TYPE type
                        , REQUEST_OPTION option, QObject* parent)
-    : TrQuery(requester, "t1702", parent), mShcode(shcode),mFromDate(fromdt),mToDate(todt)
+    : TrQuery("t1702",winId, parent), mShcode(shcode),mFromDate(fromdt),mToDate(todt)
     ,mUnit(unit),mType(type), mOption(option)
 {
 
@@ -76,7 +76,8 @@ T1702Query::~T1702Query()
 
 T1702Query *T1702Query::createQuery(const QWidget *requester, const QString &shcode, const QDate &fromdt, const QDate &todt, T1702Query::REQUEST_UNIT unit, T1702Query::REQUEST_TYPE type, T1702Query::REQUEST_OPTION option, QObject *parent)
 {
-    T1702Query* query = new T1702Query(requester, shcode, fromdt, todt, unit, type, option, parent);
+    HWND winId = (HWND)requester->winId();
+    T1702Query* query = new T1702Query(winId, shcode, fromdt, todt, unit, type, option, parent);
     return query;
 }
 

@@ -8,6 +8,8 @@ XAQueryMngr::XAQueryMngr(QObject *parent) : QThread(parent)
 {
     ObjectFactory::registerClass<T8430Handler>();
     ObjectFactory::registerClass<T1702Handler>();
+    qRegisterMetaType<QList<T1702Item*>>();
+    qRegisterMetaType<QList<T8430Item*>>();
 }
 
 XAQueryMngr::~XAQueryMngr()
@@ -24,8 +26,15 @@ void XAQueryMngr::requestQuery(TrQuery *query)
         name.append("Handler");
         handler = static_cast<TrHandler*>(ObjectFactory::createObject(name.toLocal8Bit()));
         mHandlerMap.insert(query->getName(), handler);
+        //handler->moveToThread(this);
+
+
     }
     handler->addTrQuery(query);
+    //handler->setParent(this);
+    handler->moveToThread(this);
+    query->moveToThread(this);
+    //QMetaObject::invokeMethod(handler, "addTrQuery", Qt::QueuedConnection, Q_ARG(TrQuery*, query));
 }
 
 void XAQueryMngr::handleResponse(WPARAM wparam, LPARAM lparam)

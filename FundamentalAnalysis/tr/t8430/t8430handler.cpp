@@ -44,7 +44,7 @@ void T8430Handler::dataReceived(LPRECV_PACKET packet)
     int numOfItem = packet->nDataLength/sizeof(t8430OutBlock);
     for(int i = 0; i<numOfItem; i++) {
         pOutBlock = (LPt8430OutBlock)(packet->lpData + (sizeof(t8430OutBlock) * i)); //데이터를 가져오기 위한 Block을 설장한다.
-        T8430Item* item = new T8430Item(pOutBlock, query);
+        T8430Item* item = new T8430Item(pOutBlock, this);
         itemList.push_back(item);
     }
     query->setFinished();

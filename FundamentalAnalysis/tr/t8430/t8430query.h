@@ -17,7 +17,7 @@ public:
     MODE getMode(){ return mMode;}
     ~T8430Query();
 protected:
-    explicit T8430Query(const QWidget* requester,QObject *parent = 0);
+    explicit T8430Query(HWND winId,QObject *parent = 0);
 
 private:
     MODE mMode;

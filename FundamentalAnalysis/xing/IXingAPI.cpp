@@ -38,8 +38,7 @@ BOOL IXingAPI::LoadLibHelper()
 void IXingAPI::Uninit()
 {
     m_Lib->unload();
-    delete m_Lib;
-    m_Lib=NULL;
+    //delete m_Lib;
 }
 
 BOOL IXingAPI::Connect( HWND hWnd, LPCTSTR pszSvrIP, int nPort, int nStartMsgID, int nTimeOut, int nSendMaxPacketSize )

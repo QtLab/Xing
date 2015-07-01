@@ -66,6 +66,10 @@ void Dialog::showResult(QList<TrItem *> list)
     ResultDialog* dialog = new ResultDialog(this);
     dialog->setData(list);
     dialog->show();
+    foreach(TrItem* item, list){
+        item->deleteLater();
+    }
+    list.clear();
 }
 
 void Dialog::t8430result(QList<T8430Item*> list)
@@ -88,7 +92,7 @@ void Dialog::t1702result(QList<T1702Item *> list)
     foreach(T1702Item* item, list){
         itemList.append(item);
     }
-    list.clear();
+
     showResult(itemList);
 }
 
@@ -144,7 +148,7 @@ void Dialog::on_connectBtn_clicked()
 
 void Dialog::on_runBtn_clicked()
 {
-/*
+
     if((ui->buttonGroup->checkedId()==MODE_ONE)&&(ui->shcodeInput->text().count()==0)){
         QMessageBox::warning(this, "Run","Input shcode");
         return;
@@ -152,10 +156,11 @@ void Dialog::on_runBtn_clicked()
     T8430Query* query = T8430Query::createQuery(this, T8430Query::ALL);
     connect(query, &T8430Query::workDone,this,&Dialog::t8430result);
     m_queryMngr.requestQuery(query);
-*/
-    QDate fromdt(2015,5,1);
-    QDate todt(2015,5,29);
-    T1702Query* query = T1702Query::createQuery(this, "005930", fromdt, todt, T1702Query::QUANTITY, T1702Query::NET_BUY, T1702Query::DAILY);
-    connect(query, &T1702Query::workDone, this, &Dialog::t1702result);
-    m_queryMngr.requestQuery(query);
+
+//    qDebug()<<"dialg - "<<QThread::currentThreadId();
+//    QDate fromdt(2015,5,1);
+//    QDate todt(2015,5,29);
+//    T1702Query* query = T1702Query::createQuery(this, "005930", fromdt, todt, T1702Query::QUANTITY, T1702Query::NET_BUY, T1702Query::DAILY);
+//    connect(query, &T1702Query::workDone, this, &Dialog::t1702result);
+//    m_queryMngr.requestQuery(query);
 }
