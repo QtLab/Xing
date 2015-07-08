@@ -49,6 +49,11 @@ QDate FieldUtil::getDateFromField(char *strDate, int length)
     return QDate::fromString(QString::fromLocal8Bit(strDate, length), "yyyyMMdd");
 }
 
+QTime FieldUtil::getTimeFromField(char *strTime, int length)
+{
+    return QTime::fromString(QString::fromLocal8Bit(strDate, length), "hhmmss");
+}
+
 QString FieldUtil::getStringFromField(char *src, int length)
 {
     return QString::fromLocal8Bit(src, length).trimmed();

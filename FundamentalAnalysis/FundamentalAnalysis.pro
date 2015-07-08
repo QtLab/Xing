@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     util/xingutil.cpp \
     function/shcodemanager.cpp \
     function/stockdatamanager.cpp \
-    tr/t1102/t1102item.cpp
+    tr/t1102/t1102item.cpp \
+    tr/t1102/t1102query.cpp \
+    tr/t1102/t1102handler.cpp
 
 HEADERS  += mainwindow.h \
     ui/logindialog.h \
@@ -56,7 +58,9 @@ HEADERS  += mainwindow.h \
     function/shcodemanager.h \
     function/stockdatamanager.h \
     tr/t1102/t1102.h \
-    tr/t1102/t1102item.h
+    tr/t1102/t1102item.h \
+    tr/t1102/t1102query.h \
+    tr/t1102/t1102handler.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui
