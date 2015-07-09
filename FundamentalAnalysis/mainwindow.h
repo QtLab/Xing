@@ -8,7 +8,7 @@
 
 #include "xing/xasession.h"
 #include "xing/xaquery.h"
-#include "function/shcodemanager.h"
+#include "function/stockinfomngr.h"
 namespace Ui {
 class MainWindow;
 }
@@ -36,7 +36,7 @@ private:
     Ui::MainWindow *ui;
     XASession mSession;
 
-    ShcodeManager* mShcodeListUpdater;
+    StockInfoMngr* mStockInfoMngr;
     QMenu* mUpdateMenu;
 
     QAction* mShcodeUpdateAction;

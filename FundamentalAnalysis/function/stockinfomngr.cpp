@@ -1,4 +1,4 @@
-#include "shcodemanager.h"
+#include "stockinfomngr.h"
 #include <QFuture>
 #include <QFutureWatcher>
 #include <QtConcurrent/QtConcurrent>
@@ -8,24 +8,25 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlError>
 
-ShcodeManager::ShcodeManager(QObject *parent) : QObject(parent)
+StockInfoMngr::StockInfoMngr(QObject *parent) : QObject(parent)
 {
 
 }
 
-ShcodeManager::~ShcodeManager()
+StockInfoMngr::~StockInfoMngr()
 {
 
 }
 
-void ShcodeManager::requestUpdate(QWidget *requester)
+void StockInfoMngr::requestUpdate(QWidget *requester)
 {
     T8430Query* query = T8430Query::createQuery(requester, T8430Query::ALL);
-    connect(query, &T8430Query::workDone,this,&ShcodeManager::onT8430ItemReceived);
+    connect(query, &T8430Query::workDone,this,&StockInfoMngr::onT8430ItemReceived);
     XAQueryMngr::getInstance()->requestQuery(query);
+    mRequester = requester;
 }
 
-void ShcodeManager::init()
+void StockInfoMngr::init()
 {
 
     qDebug()<<"ShcodeManager::init executed in "<<QThread::currentThreadId();
@@ -43,12 +44,12 @@ void ShcodeManager::init()
     }
 }
 
-QStringList ShcodeManager::getShcodeList()
+QStringList StockInfoMngr::getShcodeList()
 {
     return mShcodeMap.keys();
 }
 
-QString ShcodeManager::getStockName(const QString &shcode)
+QString StockInfoMngr::getStockName(const QString &shcode)
 {
     if(!mShcodeMap.contains(shcode))
     {
@@ -58,7 +59,7 @@ QString ShcodeManager::getStockName(const QString &shcode)
     return mShcodeMap.value(shcode);
 }
 
-void ShcodeManager::onT8430ItemReceived(QList<T8430Item *> list)
+void StockInfoMngr::onT8430ItemReceived(QList<T8430Item *> list)
 {
     if(createTable()) {
 #if USE_THREAD 1
@@ -71,14 +72,23 @@ void ShcodeManager::onT8430ItemReceived(QList<T8430Item *> list)
 #else
         qDebug()<<"onT8430ItemReceived - "<<QThread::currentThreadId();
         foreach(T8430Item* item, list) {
-            insertShcodeListToDB(item);
+            //insertShcodeListToDB(item);
+            StockInfo* info = new StockInfo();
+            info->setHname(item->hname());
+            info->setShcode(item->shcode());
+            info->setExpcode(item->expcode());
+            info->setETF(item->isETF());
+            info->setKOSPI(item->isKOSPI());
+            mStockInfoMap.insert(info->shcode(), info);
+            mShcodeList.push_back(info->shcode());
         }
-        emit updateDone();
+
+        //emit updateDone();
         qDebug()<<"insertShcodeListToDB finished";
 #endif
     }
 }
-void ShcodeManager::insertShcodeListToDB(T8430Item *item){
+void StockInfoMngr::insertShcodeListToDB(T8430Item *item){
     QSqlQuery qry;
     QString qryString = QString("SELECT COUNT(*) FROM shcodeTable WHERE shcode = '%1'").arg(item->shcode());
 
@@ -101,7 +111,12 @@ void ShcodeManager::insertShcodeListToDB(T8430Item *item){
     return;
 }
 
-bool ShcodeManager::connectDB()
+void StockInfoMngr::updateStockInfo()
+{
+
+}
+
+bool StockInfoMngr::connectDB()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
 
@@ -120,7 +135,7 @@ bool ShcodeManager::connectDB()
     }
 }
 
-bool ShcodeManager::createTable()
+bool StockInfoMngr::createTable()
 {
     QSqlQuery query;
     query.prepare("CREATE TABLE IF NOT EXISTS shcodeTable (shcode CHAR(6) UNIQUE PRIMARY KEY, hname VARCHAR(30), market VARCHAR(6))");

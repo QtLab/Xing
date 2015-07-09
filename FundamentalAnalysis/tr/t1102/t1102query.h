@@ -2,6 +2,7 @@
 #define T1102QUERY_H
 
 #include "tr/trquery.h"
+#include "tr/t1102/t1102item.h"
 #include <QObject>
 
 class T1102Query : public TrQuery
@@ -17,7 +18,8 @@ protected:
 
 public:
     QString getShcode();
-
+signals:
+    void workDone(T1102Item* item);
 private:
     QString mShcode;
 };

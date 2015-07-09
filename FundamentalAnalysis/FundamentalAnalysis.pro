@@ -29,11 +29,12 @@ SOURCES += main.cpp\
     tr/tritem.cpp \
     tr/TrQuery.cpp \
     util/xingutil.cpp \
-    function/shcodemanager.cpp \
     function/stockdatamanager.cpp \
     tr/t1102/t1102item.cpp \
     tr/t1102/t1102query.cpp \
-    tr/t1102/t1102handler.cpp
+    tr/t1102/t1102handler.cpp \
+    function/stockinfomngr.cpp \
+    data/stockinfo.cpp
 
 HEADERS  += mainwindow.h \
     ui/logindialog.h \
@@ -55,12 +56,13 @@ HEADERS  += mainwindow.h \
     tr/tritem.h \
     tr/trquery.h \
     util/xingutil.h \
-    function/shcodemanager.h \
     function/stockdatamanager.h \
     tr/t1102/t1102.h \
     tr/t1102/t1102item.h \
     tr/t1102/t1102query.h \
-    tr/t1102/t1102handler.h
+    tr/t1102/t1102handler.h \
+    function/stockinfomngr.h \
+    data/stockinfo.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui

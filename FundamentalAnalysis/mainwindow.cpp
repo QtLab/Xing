@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     initMenu();
     XAQueryMngr::init(this);
     XAQueryMngr::getInstance()->start();
-    mShcodeListUpdater = new ShcodeManager(NULL);
-    mShcodeListUpdater->moveToThread(XAQueryMngr::getInstance());
-    connect(mShcodeListUpdater, &ShcodeManager::updateDone, this, &MainWindow::onShcodeListUpdated);
-    QMetaObject::invokeMethod(mShcodeListUpdater,"init", Qt::QueuedConnection );
+    mStockInfoMngr = new StockInfoMngr(NULL);
+    mStockInfoMngr->moveToThread(XAQueryMngr::getInstance());
+    connect(mStockInfoMngr, &StockInfoMngr::updateDone, this, &MainWindow::onShcodeListUpdated);
+    QMetaObject::invokeMethod(mStockInfoMngr,"init", Qt::QueuedConnection );
 }
 
 MainWindow::~MainWindow()
@@ -40,7 +40,7 @@ bool MainWindow::nativeEvent(const QByteArray & eventType, void * message, long 
 }
 void MainWindow::updateShcode()
 {
-    mShcodeListUpdater->requestUpdate(this);
+    mStockInfoMngr->requestUpdate(this);
 }
 
 void MainWindow::updateAllStockData()

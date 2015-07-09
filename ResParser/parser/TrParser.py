@@ -114,6 +114,7 @@ class TrHeaderMaker :
         self.__addConstructor()
         self.__addDestructor()
         self.__addPublicMethod()
+        self.__line('private:')
         self.__addPrivateField()
         self.__line('};')
         self.__line('\n#endif //'+self.headerInfo.trName.upper()+'ITEM')
@@ -136,7 +137,7 @@ class TrHeaderMaker :
         self.__line('\tQ_OBJECT')
     def __addProperty(self):
         for trField in self.headerInfo.fieldList:
-            self.__line('\tQ_PROPERTY('+self.__getDataType(trField)+' '+trField.fieldname+' MEMBER'+' _'+trField.fieldname+' READ '+trField.fieldname+')\t\t//'+trField.hname)
+            self.__line('\tQ_PROPERTY('+self.__getDataType(trField)+' '+trField.fieldname+' MEMBER'+' _'+trField.fieldname+' READ '+trField.fieldname+' WRITE set'+trField.fieldname.title()+')\t\t//'+trField.hname)
     def __getDataType(self, field):
         if field.hname.endswith('시간') :
             return 'QTime'
@@ -151,6 +152,7 @@ class TrHeaderMaker :
     def __addPublicMethod(self):
         for trField in self.headerInfo.fieldList:
             self.__line('\t'+self.__getDataType(trField)+' '+trField.fieldname+'() { return _'+trField.fieldname+'; }')
+            self.__line('\tvoid set'+trField.fieldname.title()+'('+self.__getDataType(trField)+' '+trField.fieldname+') { _'+trField.fieldname+' = '+trField.fieldname+'; }')
     def __addPrivateField(self):
         for trField in self.headerInfo.fieldList:
             self.__line('\t'+self.__getDataType(trField)+' _'+trField.fieldname+';\t\t//'+trField.hname)
@@ -172,7 +174,7 @@ class TrCppMaker :
     def __line(self, line):
         self.lines.append(line)
     def __addPreprocessor(self):
-        self.__line('#include "'+self.headerInfo.trName+'item.h"')
+        self.__line('#include "tr/'+self.headerInfo.trName+'/'+self.headerInfo.trName+'item.h"')
         self.__line('#include "util/fieldutil.h"')
         self.__line('#include <QDebug>')
     def __addConstructor(self):
