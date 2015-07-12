@@ -15,7 +15,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        XingLib/xingapitest.cpp \
+                xingapitest.cpp \
     		XingLib/xasession.cpp \
     		XingLib/xasessionevents.cpp \
     		XingLib/xaquery.cpp \
@@ -23,7 +23,7 @@ SOURCES += main.cpp\
     TrLib/t1702.cpp \
     TrLib/trhandler.cpp
 
-HEADERS  += XingLib/xingapitest.h \
+HEADERS  += xingapitest.h \
     				XingLib/xasession.h \
     				XingLib/xasessionevents.h \
     				XingLib/xaquery.h \
