@@ -2,7 +2,7 @@
 #include <ActiveQt/QAxObject>
 
 XAReal::XAReal(QObject *parent) :
-    QObject(parent),xareal(new XAReal("XA_DataSet.XAReal"))
+    QObject(parent),xareal(new QAxObject("XA_DataSet.XAReal"))
 {
 }
 XAReal* XAReal::newTrInstance(const QString& _transactionCode, QObject *parent)
@@ -27,11 +27,13 @@ void XAReal::AdviseRealData()
 QString XAReal::GetFieldData(const QString &szBlockName, const QString &szFieldName)
 {
     QString result = xareal->dynamicCall("GetFieldData(QString, QString)", szBlockName,szFieldName ).toString();
+    return result;
 }
 
 QString XAReal::GetTrCode()
 {
     QString result = xareal->dynamicCall("GetTrCode()").toString();
+    return result;
 }
 
 void XAReal::SetFieldData(const QString &szBlockName, const QString &szFieldName, const QString &szData)
@@ -63,7 +65,7 @@ void XAReal::onReceiveRealData(const QString &szTrCode)
 
 void XAReal::onException(int code, const QString &source, const QString &disc, const QString &help)
 {
-    emit exception(code, source, disc, help)
+    emit exception(code, source, disc, help);
 }
 
 void XAReal::onPropertyChanged(const QString &name)

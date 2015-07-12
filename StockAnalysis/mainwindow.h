@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QAction>
+#include <QMenu>
+#include <QList>
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +19,13 @@ public:
     ~MainWindow();
 
 private:
+    void initAction();
+    void initMenu();
     Ui::MainWindow *ui;
+    QMenu* mUpdateMenu;
+    QMenu* mTestMenu;
+    QAction* mAllStockDataUpdateAction;
+    QAction* m8430Action;
 };
 
 #endif // MAINWINDOW_H

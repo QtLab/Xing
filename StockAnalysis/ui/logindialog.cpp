@@ -1,5 +1,5 @@
 #include "logindialog.h"
-#include "ui/ui_logindialog.h"
+#include "ui_logindialog.h"
 #include <QMessageBox>
 #include <QComboBox>
 LoginDialog::LoginDialog(QWidget *parent) :

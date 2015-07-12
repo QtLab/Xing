@@ -1,10 +1,19 @@
 #include "xasession.h"
 #include "xasessionevents.h"
 #include <ActiveQt/QAxObject>
+
 XASession::XASession(QObject *parent) :
     QObject(parent),session(new QAxObject("XA_Session.XASession"))
 {
 
+}
+
+QStringList XASession::GetServerList()
+{
+    QStringList list;
+    list.append(DEMO_SERVER_ADDR);
+    list.append(REAL_SERVER_ADDR);
+    return list;
 }
 bool XASession::Init()
 {
@@ -15,10 +24,11 @@ bool XASession::Init()
 
 bool XASession::ConnectServer(bool toDemoServer)
 {
+    QVariant result;
     if(toDemoServer) {
-        QVariant result = session->dynamicCall("ConnectServer(QString szServerIP, int nServerPort)", DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT);
+        result = session->dynamicCall("ConnectServer(QString szServerIP, int nServerPort)", DEMO_SERVER_ADDR, DEFAULT_SERVER_PORT);
     } else {
-        QVariant result = session->dynamicCall("ConnectServer(QString szServerIP, int nServerPort)", REAL_SERVER_ADDR, DEFAULT_SERVER_PORT);
+        result = session->dynamicCall("ConnectServer(QString szServerIP, int nServerPort)", REAL_SERVER_ADDR, DEFAULT_SERVER_PORT);
     }
 
     sessionEvents = new XASessionEvents(session, this);
