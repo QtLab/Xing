@@ -5,7 +5,6 @@
 #include <QString>
 #include <QDate>
 #include "tr/tritem.h"
-#include "tr/t1702/t1702.h"
 class T1702Item : public TrItem
 {
     Q_OBJECT
@@ -35,7 +34,7 @@ public:
     typedef enum{ UP=5, DOWN=2} SIGN;
 
 
-    explicit T1702Item(LPt1702OutBlock1 outblock, QObject *parent=0);
+    explicit T1702Item(QObject *parent=0);
     ~T1702Item();
 
     QDate date() {return mDate;}

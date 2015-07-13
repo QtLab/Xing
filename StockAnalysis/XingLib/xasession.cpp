@@ -76,7 +76,7 @@ QString XASession::GetETKMedia()
 
 QString XASession::GetErrorMessage(int nErrorCode)
 {
-    QVariant result = session->dynamicCall("GetErrorMessage(int nErrorCode)");
+    QVariant result = session->dynamicCall("GetErrorMessage(int nErrorCode)", nErrorCode);
     return result.toString();
 }
 
@@ -118,11 +118,11 @@ bool XASession::Logout()
 
 void XASession::SetConnectTimeOut(int ConnectTimeOut)
 {
-    session->dynamicCall("SetConnectTimeOut(int ConnectTimeOut)");
+    session->dynamicCall("SetConnectTimeOut(int ConnectTimeOut)", ConnectTimeOut);
 }
 
 void XASession::SetSendPacketSize(int SendPacketSize){
-    session->dynamicCall("SetSendPacketSize(int SendPacketSize)");
+    session->dynamicCall("SetSendPacketSize(int SendPacketSize)", SendPacketSize);
 }
 
 

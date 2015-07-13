@@ -5,7 +5,7 @@
 #include <QString>
 #include <QDate>
 #include "tr/tritem.h"
-#include "tr/t1102/t1102.h
+
 class T1102Item : public TrItem
 {
 	Q_OBJECT
@@ -164,7 +164,7 @@ class T1102Item : public TrItem
 	Q_PROPERTY(QString alloc_text MEMBER _alloc_text READ alloc_text WRITE setAlloc_Text)		//배분적용구분
 	Q_PROPERTY(QString shterm_text MEMBER _shterm_text READ shterm_text WRITE setShterm_Text)		//단기과열/VI발동
 public:
-	explicit T1102Item(LPt1102OutBlock outblock, QObject *parent=0);
+    explicit T1102Item(QObject *parent=0);
 	~T1102Item();
 	QString hname() { return _hname; }
 	void setHname(QString hname) { _hname = hname; }

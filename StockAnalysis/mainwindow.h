@@ -5,7 +5,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QList>
-
+#include "manager/stockinfomngr.h"
 namespace Ui {
 class MainWindow;
 }
@@ -18,14 +18,24 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void onStockInfoUpdated();
+    void onMsg(const QString& msg);
+protected:
+    virtual void closeEvent(QCloseEvent *event);
+
 private:
     void initAction();
     void initMenu();
+
     Ui::MainWindow *ui;
-    QMenu* mUpdateMenu;
-    QMenu* mTestMenu;
-    QAction* mAllStockDataUpdateAction;
-    QAction* m8430Action;
+    QMenu* m_pUpdateMenu;
+
+    QAction* m_pAllStockDataUpdateAction;
+
+
+    StockInfoMngr mStockInfoMngr;
+
 };
 
 #endif // MAINWINDOW_H

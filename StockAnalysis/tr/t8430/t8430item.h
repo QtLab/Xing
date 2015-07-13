@@ -5,7 +5,6 @@
 #include <QList>
 #include <QString>
 #include "tr/tritem.h"
-#include "tr/t8430/t8430.h"
 class T8430Item : public TrItem
 {
     Q_OBJECT
@@ -21,7 +20,7 @@ class T8430Item : public TrItem
     Q_PROPERTY(bool isKOSPI MEMBER _isKOSPI READ isKOSPI)
 
 public:
-    explicit T8430Item(LPt8430OutBlock outblock, QObject *parent=0);
+    explicit T8430Item(QObject *parent=0);
     ~T8430Item();
 
     QString hname() {return _hname;}

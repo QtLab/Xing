@@ -23,7 +23,11 @@ SOURCES += main.cpp\
     tr/t1102/t1102item.cpp \
     tr/t1702/t1702item.cpp \
     tr/t8430/t8430item.cpp \
-    data/stockinfo.cpp
+    data/stockinfo.cpp \
+    manager/stockinfomngr.cpp \
+    tr/t8430/t8430query.cpp \
+    tr/tritem.cpp \
+    tr/trquery.cpp
 
 HEADERS  += mainwindow.h \
     XingLib/xaquery.h \
@@ -36,7 +40,10 @@ HEADERS  += mainwindow.h \
     tr/t1702/t1702item.h \
     tr/t8430/t8430item.h \
     tr/tritem.h \
-    data/stockinfo.h
+    data/stockinfo.h \
+    manager/stockinfomngr.h \
+    tr/t8430/t8430query.h \
+    tr/trquery.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui

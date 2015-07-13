@@ -19,37 +19,39 @@ private:
 public:
     static XAQuery* newTrInstance(const QString& _transaction, QObject *parent = 0);
 
-    bool XAQuery::LoadFromResFile(const QString& trCode);
-    bool Request(bool);
-    void SetFieldData (const QString&, const QString&, int nOccursIndex, const QString&);
+
+    long Request(bool);
+    QString GetFieldData(const QString& szBlockName, const QString& szFieldName, long nOccursIndex);
+    void SetFieldData (const QString& szBlockName, const QString& szFieldName, long nOccursIndex, const QString& szData);
+    long GetBlockCount(const QString& szBlockName);
+    void SetBlockCount(const QString& szBlockName, long nCount);
+    bool LoadFromResFile(const QString& trCode);
     void ClearBlockdata(const QString& szFieldName);
-    int GetBlockCount(const QString& szBlockName);
+    QString GetBlockData(const QString& szBlockName);
+    int GetTrCountPerSec(const QString& trCode);
+    long RequestService(const QString& trCode, const QString& szData);
+
     void GetBlockInfo(const QString& szFieldName, QString& szNameK, QString& szNameE, int& nRecordType);
     int GetBlockSize(const QString& szBlockName);
     int GetBlockType(const QString& szBlockName);
-    QString GetFieldData(const QString& szBlockName, const QString& szFieldName, int nRecordIndex);
+
     QString GetFieldDescList(const QString& szBlockName);
     void GetFieldInfo(const QString& szFieldName, const QString& szItemName, int& nItemType, int& nDataSize, int& nDotPoint, int& nOffSet);
     QString GetResData();
     QString GetTrCode();
     QString GetTrDesc();
-    void SetBlockCount(const QString& szBlockName, int nCount);
+
     void SetResFileName(const QString& ResFileName);
 
 signals:        //signals to be used to notify COM event
-    void ReceiveMessage(bool , const QString& , const QString& );
-    void ReceiveData(const QString&);
-    void exception(int code, const QString&, const QString&, const QString&);
-    void propertyChanged(const QString& name);
-    void signal(const QString& name, int argc, void*argv);
+    void ReceiveMessage(bool bIsSystemError, const QString& msgCode, const QString& msg);
+    void ReceiveData(const QString& trCode);
+    void ReceiveChartRealData(const QString& trCode);
 
-private slots:      //slots to receive COM event
-    void onReceiveData(const QString& szTrCode);
-    void onReceiveMessage(bool bIsSystemError, const QString& nMessageCode, const QString& szMessage);
-    void onException(int code, const QString& source, const QString& disc, const QString& help);
-    void onPropertyChanged(const QString& name);
-    void onSignal(const QString& name, int argc, void* argv);
-
+public slots:
+    void onReceiveMessage(bool bIsSystemError, const QString& msgCode, const QString& msg);
+    void onReceiveData(const QString& trCode);
+    void onReceiveChartRealData(const QString& trCode);
 private:
     QAxObject* xaquery;
 
