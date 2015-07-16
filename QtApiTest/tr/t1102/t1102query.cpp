@@ -5,6 +5,16 @@ T1102Query::T1102Query(QObject *parent) : TrQuery(tr("t1102"), parent)
 
 }
 
+void T1102Query::onReceiveData(const QString &trCode)
+{
+
+}
+
+void T1102Query::onReceiveChartRealData(const QString &trCode)
+{
+
+}
+
 T1102Query *T1102Query::createQuery(const QString &shcode, QObject *parent)
 {
     T1102Query *query = new T1102Query(parent);
@@ -19,6 +29,21 @@ T1102Query::~T1102Query()
 
 void T1102Query::setShcode(const QString &shcode)
 {
-    mShcode = shcode;
+    _shcode = shcode;
+}
+
+QString T1102Query::shcode()
+{
+    return _shcode;
+}
+
+T1102Query *T1102Query::getQuery()
+{
+    return this;
+}
+
+void T1102Query::toString()
+{
+
 }
 

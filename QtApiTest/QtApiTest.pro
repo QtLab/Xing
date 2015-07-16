@@ -19,9 +19,6 @@ SOURCES += main.cpp \
     data/stockinfo.cpp \
     manager/stockinfomngr.cpp \
     tr/t1102/t1102item.cpp \
-    tr/t1702/t1702item.cpp \
-    tr/t8430/t8430item.cpp \
-    tr/t8430/t8430query.cpp \
     tr/tritem.cpp \
     tr/trquery.cpp \
     util/xingutil.cpp \
@@ -37,9 +34,6 @@ HEADERS += \
     data/stockinfo.h \
     manager/stockinfomngr.h \
     tr/t1102/t1102item.h \
-    tr/t1702/t1702item.h \
-    tr/t8430/t8430item.h \
-    tr/t8430/t8430query.h \
     tr/tritem.h \
     tr/trquery.h \
     util/xingutil.h \

@@ -15,9 +15,11 @@ int main(int argc, char *argv[])
 
     QObject::connect(&tester, &TrTester::testOver, &a, QCoreApplication::close());
 
+    tester.start();
     T1102Query *query = T1102Query::createQuery();
 
     tester.addQuery(query);
 
+    tester.startTest();
     return a.exec();
 }

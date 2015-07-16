@@ -12,7 +12,9 @@ TrMetaInfo::TrMetaInfo(const QString &trName):mTrName(trName)
 
 TrMetaInfo::~TrMetaInfo()
 {
-
+    delete mInBlock;
+    delete mOutBlock;
+    delete mOutBlock1;
 }
 
 bool TrMetaInfo::hasOutBlock1()
@@ -228,12 +230,25 @@ TrBlockInfo::TrBlockInfo(const QString &blockName):mBlockName(blockName)
 
 TrBlockInfo::~TrBlockInfo()
 {
-
+    foreach(TrFieldInfo* info , mFieldMap.values()){
+        delete info;
+    }
+    mFieldMap.clear();
 }
 
 const TrFieldInfo *TrBlockInfo::getField(const QString &fieldName)
 {
     return mFieldMap.value(fieldName);
+}
+
+QList<QString> TrBlockInfo::getFieldNameList()
+{
+    return mFieldMap.keys();
+}
+
+QString TrBlockInfo::getBlockName()
+{
+    return mBlockName;
 }
 
 void TrBlockInfo::addField(TrFieldInfo *field)

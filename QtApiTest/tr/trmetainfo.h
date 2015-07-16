@@ -2,6 +2,7 @@
 #define TRMETAINFO_H
 #include <QString>
 #include <QMap>
+#include <QList>
 #include <QTextStream>
 #define FIELD_KOR_NAME_INDEX 0
 #define FIELD_ENG_NAME_INDEX 1
@@ -36,6 +37,8 @@ public:
     TrBlockInfo(const QString& blockName);
     ~TrBlockInfo();
     const TrFieldInfo *getField(const QString& fieldName);
+    QList<QString> getFieldNameList();
+    QString getBlockName();
     void addField(TrFieldInfo* field);
     QString toString();
 private:
