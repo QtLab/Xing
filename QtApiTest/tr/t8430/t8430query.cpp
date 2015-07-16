@@ -27,6 +27,7 @@ T8430Query *T8430Query::createQuery(T8430Query::MODE mode, QObject *parent)
 void T8430Query::request()
 {
     qDebug()<<"request thread id = "<<QThread::currentThreadId();
+
     xaquery()->SetFieldData(T8430_IN_BLOCK_NAME, "gubun", 0,QString::number(mMode));
     xaquery()->Request(false);
 }

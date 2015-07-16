@@ -9,6 +9,7 @@
 #define T8430_NAME "t8430"
 #define T8430_IN_BLOCK_NAME "t8430InBlock"
 #define T8430_OUT_BLOCK_NAME "t8430OutBlock"
+
 class T8430Query : public TrQuery
 {
     Q_OBJECT

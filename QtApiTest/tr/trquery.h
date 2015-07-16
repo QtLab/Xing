@@ -15,7 +15,7 @@ signals:
     void ReceiveMsg(const QString& msg);
 
 protected:
-    XAQuery *xaquery();
+    XAQuery* xaquery();
 public slots:
     virtual void request()=0;
     void onReceiveMsg(const QString& msg);

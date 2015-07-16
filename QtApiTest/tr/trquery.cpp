@@ -13,7 +13,7 @@ TrQuery::~TrQuery()
 
 }
 
-XAQuery *TrQuery::xaquery()
+XAQuery* TrQuery::xaquery()
 {
     return mXaQuery;
 }
