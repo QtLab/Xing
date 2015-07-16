@@ -16,6 +16,7 @@ signals:
 
 protected:
     XAQuery* xaquery();
+    QString getTrName();
 public slots:
     virtual void request()=0;
     void onReceiveMsg(const QString& msg);

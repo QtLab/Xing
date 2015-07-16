@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <QObject>
 #include <QFile>
+#include <QStringBuilder>
 
 TrMetaInfo::TrMetaInfo(const QString &trName):mTrName(trName)
 {
@@ -34,6 +35,19 @@ const TrBlockInfo *TrMetaInfo::getOutBlock1()
     return mOutBlock1;
 }
 
+QString TrMetaInfo::toString()
+{
+    QString desc;
+    QTextStream st(&desc);
+    st<<mTrName<<"("<<mTitle<<")"<<endl;
+    st<<mInBlock->toString()<<endl;
+    st<<mOutBlock->toString()<<endl;
+    if(hasOutBlock1()) {
+        st<<mOutBlock1->toString()<<endl;
+    }
+    return desc;
+}
+
 void TrMetaInfo::readTrRes()
 {
     QString fullPath = QString("c:/eBest/xingAPI/Res/%1.res").arg(mTrName);
@@ -46,9 +60,9 @@ void TrMetaInfo::readTrRes()
         if(isInBlock(line)){
             processInBlock(in);
         } else if(isOutBlock(line)){
-            processOutBlock(line);
-        } else if(isOutBlock1(lien)) {
-            processOutBlock1(line);
+            processOutBlock(in);
+        } else if(isOutBlock1(line)) {
+            processOutBlock1(in);
         }
     }
 }
@@ -77,11 +91,11 @@ bool TrMetaInfo::isOutBlock1(const QString &line)
     else return false;
 }
 
-void TrMetaInfo::processInBlock(const QTextStream &in)
+void TrMetaInfo::processInBlock(QTextStream &in)
 {
     while(!in.atEnd()) {
         QString line = in.readLine();
-        QString trimmedLine = line.trimmed().split(",");
+        QString trimmedLine = line.trimmed();
         if(trimmedLine=="begin") {
             mInBlock = new TrBlockInfo(QString("%1InBlock").arg(mTrName));
         } else if(trimmedLine=="end") {
@@ -92,11 +106,11 @@ void TrMetaInfo::processInBlock(const QTextStream &in)
     }
 }
 
-void TrMetaInfo::processOutBlock(const QTextStream &in)
+void TrMetaInfo::processOutBlock(QTextStream &in)
 {
     while(!in.atEnd()) {
         QString line = in.readLine();
-        QString trimmedLine = line.trimmed().split(",");
+        QString trimmedLine = line.trimmed();
         if(trimmedLine=="begin") {
             mOutBlock = new TrBlockInfo(QString("%1OutBlock").arg(mTrName));
         } else if(trimmedLine=="end") {
@@ -106,11 +120,11 @@ void TrMetaInfo::processOutBlock(const QTextStream &in)
         }
     }
 }
-void TrMetaInfo::processOutBlock1(const QTextStream &in)
+void TrMetaInfo::processOutBlock1(QTextStream &in)
 {
     while(!in.atEnd()) {
         QString line = in.readLine();
-        QString trimmedLine = line.trimmed().split(",");
+        QString trimmedLine = line.trimmed();
         if(trimmedLine=="begin") {
             mOutBlock1 = new TrBlockInfo(QString("%1OutBlock1").arg(mTrName));
         } else if(trimmedLine=="end") {
@@ -178,8 +192,9 @@ QString TrFieldInfo::toString()
     case TrFieldInfo::TIME:
         type = QObject::tr("TIME");
         break;
+
     }
-    return QString("%1, %2, %3, %4").arg(mKorName).arg(mEngName).arg(type).arg(mLength);
+    return QString("%1, %2, %3, %4\n").arg(mKorName).arg(mEngName).arg(type).arg(mLength);
 }
 
 TrFieldInfo::DATA_TYPE TrFieldInfo::getType(const QString &hname, const QString &type)
@@ -224,4 +239,18 @@ const TrFieldInfo *TrBlockInfo::getField(const QString &fieldName)
 void TrBlockInfo::addField(TrFieldInfo *field)
 {
     mFieldMap.insert(field->getEngName(), field);
+}
+
+QString TrBlockInfo::toString()
+{
+    QString desc;
+    QTextStream st(&desc);
+    st<<mBlockName<<endl;
+    st<<"Begin";
+    QMap<QString, TrFieldInfo*>::iterator iter;
+    for(iter = mFieldMap.begin(); iter != mFieldMap.end(); ++iter){
+        st<<"\t"<<iter.value()->toString();
+    }
+    st<<endl<<"End";
+    return desc;
 }

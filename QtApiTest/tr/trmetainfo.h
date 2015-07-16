@@ -37,6 +37,7 @@ public:
     ~TrBlockInfo();
     const TrFieldInfo *getField(const QString& fieldName);
     void addField(TrFieldInfo* field);
+    QString toString();
 private:
     QMap<QString, TrFieldInfo*> mFieldMap;
     QString mBlockName;
@@ -51,14 +52,15 @@ public:
     const TrBlockInfo *getInBlock();
     const TrBlockInfo *getOutBlock();
     const TrBlockInfo *getOutBlock1();
+    QString toString();
 private:
     void readTrRes();
     bool isInBlock(const QString &line);
     bool isOutBlock(const QString &line);
     bool isOutBlock1(const QString &line);
-    void processInBlock(const QTextStream &in);
-    void processOutBlock(const QTextStream &in);
-    void processOutBlock1(const QTextStream &in);
+    void processInBlock(QTextStream &in);
+    void processOutBlock(QTextStream &in);
+    void processOutBlock1(QTextStream &in);
 private:
     QString mTrName;
     QString mTitle;

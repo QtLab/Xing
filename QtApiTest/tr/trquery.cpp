@@ -18,6 +18,11 @@ XAQuery* TrQuery::xaquery()
     return mXaQuery;
 }
 
+QString TrQuery::getTrName()
+{
+    return mTrName;
+}
+
 void TrQuery::onReceiveMsg(const QString &msg)
 {
     emit ReceiveMsg(msg);

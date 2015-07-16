@@ -29,7 +29,9 @@ SOURCES += main.cpp \
     XingLib/xareal.cpp \
     XingLib/xasession.cpp \
     XingLib/xasessionevents.cpp \
-    tr/trmetainfo.cpp
+    tr/trmetainfo.cpp \
+    test/trtester.cpp \
+    tr/t1102/t1102query.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -45,4 +47,6 @@ HEADERS += \
     XingLib/xareal.h \
     XingLib/xasession.h \
     XingLib/xasessionevents.h \
-    tr/trmetainfo.h
+    tr/trmetainfo.h \
+    test/trtester.h \
+    tr/t1102/t1102query.h
