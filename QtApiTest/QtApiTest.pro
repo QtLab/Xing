@@ -17,7 +17,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     data/stockinfo.cpp \
-    manager/stockinfomngr.cpp \
     tr/t1102/t1102item.cpp \
     tr/tritem.cpp \
     tr/trquery.cpp \
@@ -32,7 +31,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     data/stockinfo.h \
-    manager/stockinfomngr.h \
     tr/t1102/t1102item.h \
     tr/tritem.h \
     tr/trquery.h \

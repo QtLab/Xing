@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "trtester.h"
 
-TrTester::TrTester(QObject *parent) : QObject(parent)
+TrTester::TrTester(QObject *parent) : QThread(parent)
 {
 
 }
@@ -20,24 +20,35 @@ void TrTester::addQuery(TrQuery *query)
 
 void TrTester::startTest()
 {
-    QList<TrQuery*>::iterator iter;
-    for(iter = mQueryList.begin(); iter<mQueryList.end(); iter++) {
-        connect(iter, SIGNAL(workDone()), this, SLOT(testDone));
-        QMetaObject::invokeMethod(iter, "request", Qt::QueuedConnection);
+    connect(&mSession, SIGNAL(onLogin(QString,QString)), this, SLOT(runTest()));
+    if(mSession.Init()) {
+       if(mSession.ConnectServer(true)) {
+           mSession.Login(tr("seuki77"), tr("folken77"), "", 0, false);
+       }
     }
+
 }
 
 void TrTester::testDone()
 {
     QObject* sender = QObject::sender();
-    if(sender!=null){
+    if(sender!=NULL){
         TrQuery* query = qobject_cast<TrQuery*>(sender);
         qDebug()<<query->toString();
         mQueryList.removeOne(query);
         query->deleteLater();;
         if(mQueryList.size()==0){
-            emit::testOver();
+            emit testOver();
         }
+    }
+}
+
+void TrTester::runTest()
+{
+    QList<TrQuery*>::iterator iter;
+    for(iter = mQueryList.begin(); iter<mQueryList.end(); iter++) {
+        connect(*iter, SIGNAL(workDone()), this, SLOT(testDone()));
+        QMetaObject::invokeMethod(*iter, "request", Qt::QueuedConnection);
     }
 }
 

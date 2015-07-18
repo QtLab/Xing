@@ -22,17 +22,17 @@ bool TrMetaInfo::hasOutBlock1()
     return mOutBlock1 != NULL;
 }
 
-const TrBlockInfo *TrMetaInfo::getInBlock()
+TrBlockInfo *TrMetaInfo::getInBlock()
 {
     return mInBlock;
 }
 
-const TrBlockInfo *TrMetaInfo::getOutBlock()
+TrBlockInfo *TrMetaInfo::getOutBlock()
 {
     return mOutBlock;
 }
 
-const TrBlockInfo *TrMetaInfo::getOutBlock1()
+TrBlockInfo *TrMetaInfo::getOutBlock1()
 {
     return mOutBlock1;
 }
@@ -150,9 +150,14 @@ TrFieldInfo *TrFieldInfo::parse(const QString &trimmedLine)
     lengthStr = lengthStr.remove(lengthStr.length()-1,1);
     float length = lengthStr.toFloat(&ok);
     if(ok){
-        TrFieldInfo* info = new TrFieldInfo(korName,engName,getType(korName,dataType),length);
+        TrFieldInfo* info = new TrFieldInfo(korName,engName,getType(korName,dataType,length),length);
         return info;
     }
+}
+
+TrFieldInfo::~TrFieldInfo()
+{
+
 }
 
 QString TrFieldInfo::getKorName()
@@ -185,6 +190,9 @@ QString TrFieldInfo::toString()
     case TrFieldInfo::LONG:
         type = QObject::tr("LONG");
         break;
+    case TrFieldInfo::LONGLONG:
+        type = QObject::tr("LONGLONG");
+        break;
     case TrFieldInfo::FLOAT:
         type = QObject::tr("FLOAT");
         break;
@@ -199,9 +207,9 @@ QString TrFieldInfo::toString()
     return QString("%1, %2, %3, %4\n").arg(mKorName).arg(mEngName).arg(type).arg(mLength);
 }
 
-TrFieldInfo::DATA_TYPE TrFieldInfo::getType(const QString &hname, const QString &type)
+TrFieldInfo::DATA_TYPE TrFieldInfo::getType(const QString &hname, const QString &type, int dataSize)
 {
-    if(hname.endsWith(qkor("일"))){
+    if(hname.endsWith(qkor("일"))||(hname.endsWith(qkor("일자")))){
         return TrFieldInfo::DATE;
     } else if(hname.endsWith(qkor("시간"))){
         return TrFieldInfo::TIME;
@@ -209,7 +217,10 @@ TrFieldInfo::DATA_TYPE TrFieldInfo::getType(const QString &hname, const QString 
     if(type==QObject::tr("char")){
         return TrFieldInfo::CHAR;
     } else if(type==QObject::tr("long")) {
-        return TrFieldInfo::LONG;
+        if(dataSize>9)
+            return TrFieldInfo::LONGLONG;
+        else
+            return TrFieldInfo::LONG;
     } else if(type==QObject::tr("float")) {
         return TrFieldInfo::FLOAT;
     } else {
@@ -236,7 +247,7 @@ TrBlockInfo::~TrBlockInfo()
     mFieldMap.clear();
 }
 
-const TrFieldInfo *TrBlockInfo::getField(const QString &fieldName)
+TrFieldInfo *TrBlockInfo::getField(const QString &fieldName)
 {
     return mFieldMap.value(fieldName);
 }

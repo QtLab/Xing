@@ -80,7 +80,7 @@ class TrParser:
 
         while line != 'end' :
             field = line.split(',')
-            trField = TrField(field[0], field[1], field[3], field[4])
+            trField = TrField(field[0], field[2], field[3], field[4])
             outblock.addField(trField)
             line = fp.readline().strip()
         return outblock
@@ -95,7 +95,7 @@ class TrParser:
 
         while line != 'end' :
             field = line.split(',')
-            trField = TrField(field[0], field[1], field[3], field[4])
+            trField = TrField(field[0], field[2], field[3], field[4])
             inblock.addField(trField)
             line = fp.readline().strip()
         return inblock
@@ -113,6 +113,7 @@ class TrHeaderMaker :
         self.__line('public:')
         self.__addConstructor()
         self.__addDestructor()
+        self.__line('\tvirtual QString toString();')
         self.__addPublicMethod()
         self.__line('private:')
         self.__addPrivateField()
@@ -130,7 +131,7 @@ class TrHeaderMaker :
         self.__line('#include <QString>')
         self.__line('#include <QDate>')
         self.__line('#include "tr/tritem.h"')
-        self.__line('#include "tr/'+self.headerInfo.trName+'/'+self.headerInfo.trName+'.h')
+        #self.__line('#include "tr/'+self.headerInfo.trName+'/'+self.headerInfo.trName+'.h')
     def __addClassDef(self):
         self.__line('class '+self.headerInfo.trName.title()+'Item : public TrItem')
         self.__line('{')
@@ -146,7 +147,7 @@ class TrHeaderMaker :
         else :
             return self.dataTypeMap[field.datatype]
     def __addConstructor(self):
-        self.__line('\texplicit '+self.headerInfo.trName.title()+'Item('+'LP'+self.headerInfo.outblockname+' outblock, QObject *parent=0);')
+        self.__line('\texplicit '+self.headerInfo.trName.title()+'Item(QObject *parent=0);')
     def __addDestructor(self):
         self.__line('\t~'+self.headerInfo.trName.title()+'Item();')
     def __addPublicMethod(self):
@@ -166,7 +167,6 @@ class TrCppMaker :
         self.__addPreprocessor()
         self.__line('')
         self.__addConstructor()
-        self.__initField()
         self.__line('')
         self.__definePropertyName()
         self.__line('}')
@@ -175,14 +175,10 @@ class TrCppMaker :
         self.lines.append(line)
     def __addPreprocessor(self):
         self.__line('#include "tr/'+self.headerInfo.trName+'/'+self.headerInfo.trName+'item.h"')
-        self.__line('#include "util/fieldutil.h"')
         self.__line('#include <QDebug>')
     def __addConstructor(self):
-        self.__line(self.headerInfo.trName.title()+'Item::'+self.headerInfo.trName.title()+'Item(LP'+self.headerInfo.outblockname+' outblock, QObject *parent):TrItem(parent)')
+        self.__line(self.headerInfo.trName.title()+'Item::'+self.headerInfo.trName.title()+'Item(QObject *parent):TrItem(parent)')
         self.__line('{')
-    def __initField(self):
-        for trField in self.headerInfo.fieldList:
-            self.__line('\t_'+trField.fieldname+' = '+self.__getMacroType(trField)+'(outblock->'+trField.fieldname+');')
     def __definePropertyName(self):
         for trField in self.headerInfo.fieldList:
             hname = trField.hname.split('(')[0]

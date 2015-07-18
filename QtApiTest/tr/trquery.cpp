@@ -5,7 +5,7 @@
 TrQuery::TrQuery(const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName)
 {
     mXaQuery = XAQuery::newTrInstance(trName, this);
-    connect(mXaQuery, SIGNAL(ReceiveMessage(QString)), this, SLOT(onReceiveMsg(QString)));
+    connect(mXaQuery, SIGNAL(ReceiveMessage(bool,QString,QString)), this, SLOT(onReceiveMsg(bool,QString,QString)));
     connect(mXaQuery, SIGNAL(ReceiveData(QString)), this, SLOT(onReceiveData(QString)));
     connect(mXaQuery, SIGNAL(ReceiveChartRealData(QString)), this, SLOT(onReceiveChartRealData(QString)));
 }
@@ -18,20 +18,31 @@ TrQuery::~TrQuery()
 QString TrQuery::str(const QVariant &value)
 {
     switch(value.type()) {
-    case QMetaType::QDate:
-        QDate date = value.toDate();
-        return date.toString(tr("yyMMdd"));
-    case QMetaType::QTime:
-        QTime time = value.toTime();
-        return time.toString(tr("hhmmss"));
-    default:
-        return value.toString();
+        case QMetaType::QDate:
+        {
+            QDate date = value.toDate();
+            return date.toString(tr("yyyyMMdd"));
+        }
+        case QMetaType::QTime:
+        {
+            QTime time = value.toTime();
+            return time.toString(tr("hhmmss"));
+        }
+        default:
+        {
+            return value.toString();
+        }
     }
 }
 
-XAQuery* TrQuery::xaquery()
+XAQuery *TrQuery::xaquery()
 {
     return mXaQuery;
+}
+
+TrMetaInfo *TrQuery::trInfo()
+{
+    return &mTrInfo;
 }
 
 QString TrQuery::getTrName()
@@ -42,26 +53,16 @@ QString TrQuery::getTrName()
 void TrQuery::request()
 {
     TrBlockInfo* info = mTrInfo.getInBlock();
-    const QMetaObject *metaObject = this->metaObject();
-    foreach(QString fieldName, info->getFieldNameList()){
-        mXaQuery->SetFieldData(info->getBlockName(), fieldName, 0, str(metaObject->property(fieldName)));
+    foreach(QString fieldName, info->getFieldNameList()) {
+        mXaQuery->SetFieldData(info->getBlockName().toLocal8Bit(), fieldName, 0, str(this->property(fieldName.toLocal8Bit())).toLocal8Bit());
     }
     mXaQuery->Request(false);
 }
 
-void TrQuery::onReceiveMsg(const QString &msg)
+void TrQuery::onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QString &msg)
 {
     emit ReceiveMsg(msg);
 }
 
-void TrQuery::onReceiveData(const QString &trCode)
-{
-
-}
-
-void TrQuery::onReceiveChartRealData(const QString &trCode)
-{
-
-}
 
 

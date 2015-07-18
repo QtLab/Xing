@@ -1,4 +1,5 @@
 #include "tritem.h"
+#include <QTextStream>
 #include <QTextCodec>
 TrItem::TrItem(QObject *parent) : QObject(parent)
 {
@@ -23,6 +24,20 @@ QList<QString> TrItem::getPropertyNameList()
 QString TrItem::getPropertyByName(const QString &name)
 {
     return mPropertyNameMap.value(name);
+}
+
+QString TrItem::toString()
+{
+
+    QString desc;
+    QTextStream stream(&desc);
+    foreach(QString name, this->getPropertyNameList())
+    {
+        QString prop = this->getPropertyByName(name);
+        stream<<name<<"("<<prop<<") = "<<this->property(prop.toLocal8Bit()).toString()<<endl;
+    }
+    return desc;
+
 }
 QString TrItem::qkor(const char *strKor)
 {

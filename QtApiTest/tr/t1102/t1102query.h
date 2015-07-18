@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include "tr/trquery.h"
+#include "tr/t1102/t1102item.h"
 class T1102Query : public TrQuery
 {
     Q_OBJECT
@@ -16,10 +17,10 @@ public:
     QString shcode();
 
     virtual T1102Query *getQuery();
-    virtual void toString() override;
+    virtual QString toString() override;
 protected:
     explicit T1102Query(QObject *parent = 0);
-
+    virtual T1102Item *createItem() override;
 signals:
     void queryDone();
 public slots:

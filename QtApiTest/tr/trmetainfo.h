@@ -5,7 +5,7 @@
 #include <QList>
 #include <QTextStream>
 #define FIELD_KOR_NAME_INDEX 0
-#define FIELD_ENG_NAME_INDEX 1
+#define FIELD_ENG_NAME_INDEX 2
 #define FIELD_DATA_TYPE_INDEX 3
 #define FIELD_DATA_LENGTH_INDEX 4
 
@@ -16,7 +16,7 @@ public:
     static TrFieldInfo *parse(const QString& trimmedLine);
     ~TrFieldInfo();
 
-    typedef enum {CHAR, LONG, FLOAT, TIME, DATE, NONE } DATA_TYPE;
+    typedef enum {CHAR, LONG, LONGLONG, FLOAT, TIME, DATE, NONE } DATA_TYPE;
 
     QString getKorName();
     QString getEngName();
@@ -24,7 +24,7 @@ public:
     float getLength();
     QString toString();
 private:
-    static DATA_TYPE getType(const QString& hname, const QString& type);
+    static DATA_TYPE getType(const QString& hname, const QString& type, int dataSize);
     TrFieldInfo(const QString& korName, const QString& engName, DATA_TYPE type, float length);
     QString mKorName;
     QString mEngName;
@@ -36,7 +36,7 @@ class TrBlockInfo
 public:
     TrBlockInfo(const QString& blockName);
     ~TrBlockInfo();
-    const TrFieldInfo *getField(const QString& fieldName);
+    TrFieldInfo *getField(const QString& fieldName);
     QList<QString> getFieldNameList();
     QString getBlockName();
     void addField(TrFieldInfo* field);
@@ -52,9 +52,9 @@ public:
     TrMetaInfo(const QString& trName);
     ~TrMetaInfo();
     bool hasOutBlock1();
-    const TrBlockInfo *getInBlock();
-    const TrBlockInfo *getOutBlock();
-    const TrBlockInfo *getOutBlock1();
+    TrBlockInfo *getInBlock();
+    TrBlockInfo *getOutBlock();
+    TrBlockInfo *getOutBlock1();
     QString toString();
 private:
     void readTrRes();
