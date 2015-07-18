@@ -54,4 +54,14 @@ void TrQuery::onReceiveMsg(const QString &msg)
     emit ReceiveMsg(msg);
 }
 
+void TrQuery::onReceiveData(const QString &trCode)
+{
+
+}
+
+void TrQuery::onReceiveChartRealData(const QString &trCode)
+{
+
+}
+
 

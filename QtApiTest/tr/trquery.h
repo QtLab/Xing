@@ -24,9 +24,9 @@ protected:
 
 public slots:
     virtual void request();
-    void onReceiveMsg(const QString& msg);
-    virtual void onReceiveData(const QString& trCode) = 0;
-    virtual void onReceiveChartRealData(const QString& trCode) = 0;
+    virtual void onReceiveMsg(const QString& msg);
+    virtual void onReceiveData(const QString& trCode);
+    virtual void onReceiveChartRealData(const QString& trCode);
 private:
     XAQuery* mXaQuery;
     TrMetaInfo mTrInfo;
