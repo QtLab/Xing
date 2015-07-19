@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "trquery.h"
 
-TrQuery::TrQuery(const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName)
+TrQuery::TrQuery(const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName), _next(false)
 {
     mXaQuery = XAQuery::newTrInstance(trName, this);
     connect(mXaQuery, SIGNAL(ReceiveMessage(bool,QString,QString)), this, SLOT(onReceiveMsg(bool,QString,QString)));
@@ -91,7 +91,7 @@ void TrQuery::request()
     foreach(QString fieldName, info->getFieldNameList()) {
         mXaQuery->SetFieldData(info->getBlockName().toLocal8Bit(), fieldName, 0, str(this->property(fieldName.toLocal8Bit())).toLocal8Bit());
     }
-    mXaQuery->Request(false);
+    mXaQuery->Request(isNextQuery());
 }
 
 void TrQuery::onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QString &msg)

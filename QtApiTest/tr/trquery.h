@@ -15,6 +15,8 @@ public:
     virtual QString toString() = 0;
 
     QString str(const QVariant &value);
+
+
 signals:
     void ReceiveMsg(const QString& msg);
     void workDone();
@@ -25,6 +27,8 @@ protected:
     QString getTrName();
     virtual TrItem *createItem()=0;
     TrItem *getTrItemFromReceivedData(int occurIndex);
+    void setNextQuery(bool next) {_next = next; }
+    bool isNextQuery(){ return _next;}
 public slots:
     virtual void request();
     virtual void onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QString &msg);
@@ -34,6 +38,7 @@ private:
     XAQuery* mXaQuery;
     TrMetaInfo mTrInfo;
     const QString mTrName;
+    bool _next;
 };
 
 #endif // TRQUERY_H

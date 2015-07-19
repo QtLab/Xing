@@ -6,6 +6,7 @@
 #include <QDate>
 
 #include "tr/trquery.h"
+#include "tr/t1702/t1702item.h"
 class T1702Query : public TrQuery
 {
     Q_OBJECT
@@ -61,10 +62,10 @@ private:
     QString _shcode;
     QDate _todt;
     QDate _fromdate;
-    QString _volvaldgb;
+    QString _volvalgb;
     QString _msmdgb;
     QString _cumulgb;
-    QString _cts_idx;
+    long _cts_idx;
     QString _cts_date;
 };
 

@@ -6,6 +6,7 @@
 #include "test/trtester.h"
 #include "tr/t1102/t1102query.h"
 #include "tr/t8430/t8430query.h"
+#include "tr/t1702/t1702query.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,8 +20,10 @@ int main(int argc, char *argv[])
     tester.start();
     T1102Query *t1102query = T1102Query::createQuery();
     T8430Query *t8430query = T8430Query::createQuery();
+    T1702Query *t1702query = T1702Query::createQuery();
     tester.addQuery(t1102query);
     tester.addQuery(t8430query);
+    tester.addQuery(t1702query);
 
     tester.startTest();
     return a.exec();
