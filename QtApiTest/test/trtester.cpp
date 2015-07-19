@@ -32,8 +32,8 @@ void TrTester::startTest()
 
 void TrTester::run()
 {
-    QTimer timer;
-    connect(timer, SIGNAL())
+    mSendingTimer = new Timer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(sendQuery()));
 }
 
 void TrTester::testDone()
@@ -55,7 +55,19 @@ void TrTester::runTest()
     QList<TrQuery*>::iterator iter;
     for(iter = mQueryList.begin(); iter<mQueryList.end(); iter++) {
         connect(*iter, SIGNAL(workDone()), this, SLOT(testDone()));
-        QMetaObject::invokeMethod(*iter, "request", Qt::QueuedConnection);
+    mWaitingQueryList.push_back(*iter);
+    }
+    mSendingTimer->start(0);
+}
+
+void TrTester::sendQuery()
+{
+    if(!mWaitingQueryList.isEmpty()){
+    TrQuery* query = mWaitingQueryList.pop_front();
+        query->request();
+        if(mWaitingQueryList.size()>0) {
+            mSendingTimer->start(1000);
+        }
     }
 }
 
