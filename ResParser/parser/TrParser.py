@@ -113,7 +113,6 @@ class TrHeaderMaker :
         self.__line('public:')
         self.__addConstructor()
         self.__addDestructor()
-        self.__line('\tvirtual QString toString();')
         self.__addPublicMethod()
         self.__line('private:')
         self.__addPrivateField()
@@ -202,13 +201,22 @@ if __name__ == '__main__' :
     parser = TrParser(trName)
     parser.parse()
 
-    outblock = parser.getOutBlock()
-    maker = TrHeaderMaker(outblock)
-    maker.make()
-    with open(trName+'item.h','w') as fp:
-        for line in maker.lines:
-            fp.write(line)
-            fp.write('\n')
+    outblock = parser.getOutBlock1()
+    if outblock is None :
+        outblock = parser.getOutBlock()
+        maker = TrHeaderMaker(outblock)
+        maker.make()
+        with open(trName+'item.h','w') as fp:
+            for line in maker.lines:
+                fp.write(line)
+                fp.write('\n')
+    else :
+        maker = TrHeaderMaker(outblock)
+        maker.make()
+        with open(trName+'item.h','w') as fp:
+            for line in maker.lines:
+                fp.write(line)
+                fp.write('\n')
     cppMaker = TrCppMaker(outblock)
     cppMaker.make()
     with open(trName+'item.cpp','w') as fp:
