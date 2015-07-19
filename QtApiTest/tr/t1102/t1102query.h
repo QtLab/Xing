@@ -22,6 +22,7 @@ protected:
     virtual T1102Item *createItem() override;
 signals:
     void queryDone(T1102Item* item);
+
 public slots:
 
     virtual void onReceiveData(const QString& trCode);

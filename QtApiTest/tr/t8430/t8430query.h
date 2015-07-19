@@ -8,7 +8,7 @@
 class T8430Query : public TrQuery
 {
     Q_OBJECT
-    Q_PROPERTY(QString gubun MEMBER _gubun READ gubun WRITE getGubun)
+    Q_PROPERTY(QString gubun MEMBER _gubun READ gubun WRITE setGubun)
 public:
     static T8430Query *createQuery(const QString& gubun = tr("0"), QObject *parent = 0);
     ~T8430Query();

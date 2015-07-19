@@ -18,6 +18,7 @@ public:
 signals:
     void ReceiveMsg(const QString& msg);
     void workDone();
+    void scheduleNextQuery();
 protected:
     XAQuery* xaquery();
     TrMetaInfo *trInfo();

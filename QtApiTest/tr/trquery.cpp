@@ -1,5 +1,6 @@
 #include <QMetaObject>
 #include <QDate>
+#include <QDebug>
 #include "trquery.h"
 
 TrQuery::TrQuery(const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName)
@@ -97,6 +98,5 @@ void TrQuery::onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QS
 {
     emit ReceiveMsg(msg);
 }
-
 
 

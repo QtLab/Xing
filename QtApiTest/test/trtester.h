@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QList>
+#include <QTimer>
 #include "XingLib/xasession.h"
 #include "tr/trquery.h"
 
@@ -25,6 +26,7 @@ public slots:
     void testDone();
     void runTest();
     void sendQuery();
+    void onScheduleNextQuery();
 private:
     QList<TrQuery*> mQueryList;
     QList<TrQuery*> mWaitingQueryList;

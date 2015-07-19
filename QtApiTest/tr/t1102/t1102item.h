@@ -165,7 +165,6 @@ class T1102Item : public TrItem
 public:
 	explicit T1102Item(QObject *parent=0);
 	~T1102Item();
-	virtual QString toString();
 	QString hname() { return _hname; }
 	void setHname(QString hname) { _hname = hname; }
 	long price() { return _price; }

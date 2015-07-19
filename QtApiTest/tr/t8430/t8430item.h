@@ -21,7 +21,6 @@ class T8430Item : public TrItem
 public:
 	explicit T8430Item(QObject *parent=0);
 	~T8430Item();
-	virtual QString toString();
 	QString hname() { return _hname; }
 	void setHname(QString hname) { _hname = hname; }
 	QString shcode() { return _shcode; }

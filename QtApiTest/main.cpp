@@ -17,9 +17,10 @@ int main(int argc, char *argv[])
     QObject::connect(&tester, &TrTester::testOver, &a, &QCoreApplication::quit);
 
     tester.start();
-    T1102Query *query = T1102Query::createQuery();
-    T8430Query *query = T8430Query::createQuery();
-    tester.addQuery(query);
+    T1102Query *t1102query = T1102Query::createQuery();
+    T8430Query *t8430query = T8430Query::createQuery();
+    tester.addQuery(t1102query);
+    tester.addQuery(t8430query);
 
     tester.startTest();
     return a.exec();

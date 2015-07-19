@@ -13,7 +13,6 @@ class T1702Item : public TrItem
 public:
 	explicit T1702Item(QObject *parent=0);
 	~T1702Item();
-	virtual QString toString();
 	long cts_idx() { return _cts_idx; }
 	void setCts_Idx(long cts_idx) { _cts_idx = cts_idx; }
 	QString cts_date() { return _cts_date; }
