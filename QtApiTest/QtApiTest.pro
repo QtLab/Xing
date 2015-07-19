@@ -29,7 +29,9 @@ SOURCES += main.cpp \
     test/trtester.cpp \
     tr/t1102/t1102query.cpp \
     tr/1702/t1702item.cpp \
-    tr/t8430/t8430item.cpp
+    tr/t8430/t8430item.cpp \
+    tr/t1702/t1702item.cpp \
+    tr/t8430/t8430query.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -45,4 +47,6 @@ HEADERS += \
     test/trtester.h \
     tr/t1102/t1102query.h \
     tr/1702/t1102item.h \
-    tr/t8430/t8430item.h
+    tr/t8430/t8430item.h \
+    tr/t1702/t1702item.h \
+    tr/t8430/t8430query.h

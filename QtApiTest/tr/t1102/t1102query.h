@@ -16,13 +16,12 @@ public:
     void setShcode(const QString& _shcode);
     QString shcode();
 
-    virtual T1102Query *getQuery();
     virtual QString toString() override;
 protected:
     explicit T1102Query(QObject *parent = 0);
     virtual T1102Item *createItem() override;
 signals:
-    void queryDone();
+    void queryDone(T1102Item* item);
 public slots:
 
     virtual void onReceiveData(const QString& trCode);

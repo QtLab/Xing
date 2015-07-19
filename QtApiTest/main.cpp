@@ -5,6 +5,7 @@
 #include <windows.h>
 #include "test/trtester.h"
 #include "tr/t1102/t1102query.h"
+#include "tr/t8430/t8430query.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
 
     tester.start();
     T1102Query *query = T1102Query::createQuery();
-
+    T8430Query *query = T8430Query::createQuery();
     tester.addQuery(query);
 
     tester.startTest();

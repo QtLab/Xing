@@ -1,5 +1,6 @@
 #include <QMetaObject>
 #include <QDebug>
+#include <QTimer>
 #include "trtester.h"
 
 TrTester::TrTester(QObject *parent) : QThread(parent)
@@ -29,6 +30,12 @@ void TrTester::startTest()
 
 }
 
+void TrTester::run()
+{
+    QTimer timer;
+    connect(timer, SIGNAL())
+}
+
 void TrTester::testDone()
 {
     QObject* sender = QObject::sender();
@@ -52,3 +59,14 @@ void TrTester::runTest()
     }
 }
 
+
+
+Worker::Worker(QObject *parent):QObject(parent)
+{
+
+}
+
+void Worker::onTimeout()
+{
+
+}

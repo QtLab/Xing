@@ -6,6 +6,17 @@
 #include <QList>
 #include "XingLib/xasession.h"
 #include "tr/trquery.h"
+
+class Worker : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Worker(QObject * parent = 0);
+    ~Worker();
+private slots:
+    void onTimeout();
+};
+
 class TrTester : public QThread
 {
     Q_OBJECT
@@ -15,6 +26,9 @@ public:
     void addQuery(TrQuery* query);
     void startTest();
 
+protected:
+    virtual void run();
+
 signals:
     void testOver();
 public slots:
@@ -22,7 +36,9 @@ public slots:
     void runTest();
 private:
     QList<TrQuery*> mQueryList;
+    QList<TrQuery*> mWaitingQueryList;
     XASession mSession;
+    friend class Worker;
 };
 
 #endif // TRTESTER_H

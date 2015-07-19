@@ -14,38 +14,8 @@ T1102Item *T1102Query::createItem()
 
 void T1102Query::onReceiveData(const QString &trCode)
 {
-    TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
-    TrItem* item = createItem();
-    foreach(QString fieldName , outBlockInfo->getFieldNameList())
-    {
-        if(fieldName == "ftradmdvag")
-            qDebug()<<fieldName;
-        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(),fieldName, 0);
-        TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
-        switch(fieldInfo->getDataType()) {
-        case TrFieldInfo::CHAR:
-            item->setProperty(fieldName.toLocal8Bit(), value);
-            break;
-        case TrFieldInfo::LONG:
-            item->setProperty(fieldName.toLocal8Bit(), value.toLong());
-            break;
-        case TrFieldInfo::LONGLONG:
-            item->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
-            break;
-        case TrFieldInfo::FLOAT:
-            item->setProperty(fieldName.toLocal8Bit(), value.toFloat());
-            break;
-        case TrFieldInfo::DATE:
-            item->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
-            break;
-        case TrFieldInfo::TIME:
-            item->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
-            break;
-        default:
-            item->setProperty(fieldName.toLocal8Bit(), value);
-        }
-    }
-    qDebug()<<item->toString();
+    TrItem* item = getTrItemFromReceivedData(0);
+    emit queryDone(qobject_cast<T1102Item*>(item));
 }
 
 void T1102Query::onReceiveChartRealData(const QString &trCode)
@@ -72,11 +42,6 @@ void T1102Query::setShcode(const QString &shcode)
 QString T1102Query::shcode()
 {
     return _shcode;
-}
-
-T1102Query *T1102Query::getQuery()
-{
-    return this;
 }
 
 QString T1102Query::toString()

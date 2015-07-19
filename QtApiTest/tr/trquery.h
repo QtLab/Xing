@@ -12,7 +12,6 @@ public:
     explicit TrQuery(const QString& trName, QObject *parent = 0);
     ~TrQuery();
 
-    virtual TrQuery* getQuery() = 0;
     virtual QString toString() = 0;
 
     QString str(const QVariant &value);
@@ -24,6 +23,7 @@ protected:
     TrMetaInfo *trInfo();
     QString getTrName();
     virtual TrItem *createItem()=0;
+    TrItem *getTrItemFromReceivedData(int occurIndex);
 public slots:
     virtual void request();
     virtual void onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QString &msg);

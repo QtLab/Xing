@@ -50,6 +50,40 @@ QString TrQuery::getTrName()
     return mTrName;
 }
 
+TrItem *TrQuery::getTrItemFromReceivedData(int occurIndex)
+{
+    TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
+    TrItem* item = createItem();
+    foreach(QString fieldName , outBlockInfo->getFieldNameList())
+    {
+        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(),fieldName, 0);
+        TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
+        switch(fieldInfo->getDataType()) {
+        case TrFieldInfo::CHAR:
+            item->setProperty(fieldName.toLocal8Bit(), value);
+            break;
+        case TrFieldInfo::LONG:
+            item->setProperty(fieldName.toLocal8Bit(), value.toLong());
+            break;
+        case TrFieldInfo::LONGLONG:
+            item->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
+            break;
+        case TrFieldInfo::FLOAT:
+            item->setProperty(fieldName.toLocal8Bit(), value.toFloat());
+            break;
+        case TrFieldInfo::DATE:
+            item->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
+            break;
+        case TrFieldInfo::TIME:
+            item->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
+            break;
+        default:
+            item->setProperty(fieldName.toLocal8Bit(), value);
+        }
+    }
+    return item;
+}
+
 void TrQuery::request()
 {
     TrBlockInfo* info = mTrInfo.getInBlock();
