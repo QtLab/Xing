@@ -11,8 +11,6 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     CoInitialize(NULL);
 
-
-
     TrTester tester;
 
     QObject::connect(&tester, &TrTester::testOver, &a, &QCoreApplication::quit);
