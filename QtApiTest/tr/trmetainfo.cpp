@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QStringBuilder>
 
-TrMetaInfo::TrMetaInfo(const QString &trName):mTrName(trName)
+TrMetaInfo::TrMetaInfo(const QString &trName):mTrName(trName),mInBlock(NULL),mOutBlock(NULL),mOutBlock1(NULL)
 {
     readTrRes();
 }
@@ -14,7 +14,8 @@ TrMetaInfo::~TrMetaInfo()
 {
     delete mInBlock;
     delete mOutBlock;
-    delete mOutBlock1;
+    if(mOutBlock1!=NULL)
+        delete mOutBlock1;
 }
 
 bool TrMetaInfo::hasOutBlock1()
@@ -23,7 +24,7 @@ bool TrMetaInfo::hasOutBlock1()
 }
 
 TrBlockInfo *TrMetaInfo::getInBlock()
-{
+{  
     return mInBlock;
 }
 

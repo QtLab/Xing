@@ -17,16 +17,17 @@ public:
     QString gubun() { return _gubun; }
 
     virtual QString toString() override;
+    QList<T8430Item *> getResult();
 protected:
     explicit T8430Query(QObject *parent = 0);
     virtual T8430Item *createItem() override;
 signals:
-    void queryDone(QList<T8430Item*> itemList);
 public slots:
     virtual void onReceiveData(const QString& trCode);
     virtual void onReceiveChartRealData(const QString& trCode);
 private:
     QString _gubun;
+    QList<T8430Item *> mItemList;
 };
 
 #endif // T8430QUERY_H

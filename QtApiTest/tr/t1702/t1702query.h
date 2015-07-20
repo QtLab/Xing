@@ -23,7 +23,7 @@ public:
     typedef enum { PURE_BUY=0, BUY=1, SELL=2 } T1702_TYPE;	//0:순매수, 1:매수, 2:매도
     typedef enum { DAILY=0, CUMUL=1 } T1702_CUMUL_TYPE; 	//0:일간, 1:누적
 
-    static T1702Query *createQuery(const QString& shcode=tr("005930"), const QDate& fromdate = QDate("20140717","yyyyMMdd"), const QDate& todate=QDate("20150717","yyyyMMdd"), T1702_UNIT unit=AMOUNT, T1702_TYPE type=PURE_BUY, T1702_CUMUL_TYPE cumul = DAILY, QObject* parent = 0);
+    static T1702Query *createQuery(const QString& shcode=tr("005930"), const QDate& fromdate = QDate(2014,7,17), const QDate& todate=QDate(2015,7,17), T1702_UNIT unit=AMOUNT, T1702_TYPE type=PURE_BUY, T1702_CUMUL_TYPE cumul = DAILY, QObject* parent = 0);
 
     ~T1702Query();
     QString shcode() {
@@ -48,12 +48,11 @@ public:
         return _cts_date;
     }
     virtual QString toString() override;
-
+    QList<T1702Item *> getResult();
 protected:
     explicit T1702Query(QObject *parent = 0);
     virtual T1702Item *createItem() override;
 signals:
-    void queryDone(QList<T1702Item*> itemList);
 public slots:
     virtual void onReceiveData(const QString& trCode);
     virtual void onReceiveChartRealData(const QString& trCode);

@@ -7,7 +7,9 @@
 #include <QTimer>
 #include "XingLib/xasession.h"
 #include "tr/trquery.h"
-
+#include "tr/t1102/t1102item.h"
+#include "tr/t1702/t1702item.h"
+#include "tr/t8430/t8430item.h"
 class TrTester : public QThread
 {
     Q_OBJECT

@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     tr/t8430/t8430item.cpp \
     tr/t1702/t1702item.cpp \
     tr/t8430/t8430query.cpp \
-    tr/t1702/t1702query.cpp
+    tr/t1702/t1702query.cpp \
+    manager/querymngr.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -49,4 +50,5 @@ HEADERS += \
     tr/t8430/t8430item.h \
     tr/t1702/t1702item.h \
     tr/t8430/t8430query.h \
-    tr/t1702/t1702query.h
+    tr/t1702/t1702query.h \
+    manager/querymngr.h

@@ -1,6 +1,9 @@
+#include <qDebug>
+#include <QTextStream>
+
 #include "t1702query.h"
 
-T1702Query::T1702Query(QObject *parent) : QObject(parent), _cts_idx(0), _cts_date("")
+T1702Query::T1702Query(QObject *parent) : TrQuery(tr("t1702"),parent), _cts_idx(0), _cts_date("")
 {
 
 }
@@ -21,11 +24,11 @@ void T1702Query::onReceiveData(const QString &trCode)
             mItemList.append(t1702Item);
         } else if(t1702Item->date()==this->_fromdate) {
             mItemList.append(t1702Item);
-            emit queryDone(mItemList);
+            emit workDone();
             xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
             return;
         } else {
-            emit queryDone(mItemList);
+            emit workDone();
             xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
             return;
         }
@@ -47,9 +50,9 @@ T1702Query *T1702Query::createQuery(const QString &shcode, const QDate &fromdate
     query->_shcode = shcode;
     query->_fromdate = fromdate;
     query->_todt = todate;
-    query->_volvaldgb = QString("%d").arg(unit);
-    query->_msmdgb = QString("%d").arg(type);
-    query->_cumulgb = QString("%d").arg(cumul);
+    query->_volvalgb = QString("%1").arg(unit);
+    query->_msmdgb = QString("%1").arg(type);
+    query->_cumulgb = QString("%1").arg(cumul);
     return query;
 }
 
@@ -60,6 +63,18 @@ T1702Query::~T1702Query()
 
 QString T1702Query::toString()
 {
-    return tr("T1702Query");
+    QString desc;
+    QTextStream stream(&desc);
+    stream<<"T1702 Result[START]"<<endl;
+    foreach(T1702Item* item, getResult()){
+        stream<<item->toString()<<endl;
+    }
+    stream<<"T1702 Result[END]"<<endl;
+    return desc;
+}
+
+QList<T1702Item *> T1702Query::getResult()
+{
+   return mItemList;
 }
 

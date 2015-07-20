@@ -3,16 +3,20 @@
 #include <QObject>
 #include <QDebug>
 #include <windows.h>
+#include <QMetaObject>
+#include <QThread>
 #include "test/trtester.h"
 #include "tr/t1102/t1102query.h"
 #include "tr/t8430/t8430query.h"
 #include "tr/t1702/t1702query.h"
 #include "tr/t1702/t1702item.h"
-int main(int argc, char *argv[])
+#include "manager/querymngr.h"
+int main(int argc, char  *argv[])
 {
     QCoreApplication a(argc, argv);
     CoInitialize(NULL);
 
+    /*
     TrTester tester;
 
     QObject::connect(&tester, &TrTester::testOver, &a, &QCoreApplication::quit);
@@ -26,5 +30,9 @@ int main(int argc, char *argv[])
     tester.addQuery(t1702query);
 
     tester.startTest();
+    */
+    QueryMngr mngr;
+    qDebug()<<"main thread id - "<<QThread::currentThreadId();
+    QMetaObject::invokeMethod(&mngr, "doJob", Qt::QueuedConnection);
     return a.exec();
 }

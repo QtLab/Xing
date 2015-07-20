@@ -17,11 +17,11 @@ public:
     QString shcode();
 
     virtual QString toString() override;
+    T1102Item *getResult();
 protected:
     explicit T1102Query(QObject *parent = 0);
     virtual T1102Item *createItem() override;
 signals:
-    void queryDone(T1102Item* item);
 
 public slots:
 
@@ -29,6 +29,7 @@ public slots:
     virtual void onReceiveChartRealData(const QString& trCode);
 private:
     QString _shcode;
+    T1102Item* mResult;
 };
 
 #endif // T1102QUERY_H

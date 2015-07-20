@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QTextStream>
 #include "t1102query.h"
 
 
@@ -15,9 +16,8 @@ T1102Item *T1102Query::createItem()
 void T1102Query::onReceiveData(const QString &trCode)
 {
     TrBlockInfo* outblockInfo = trInfo()->getOutBlock();
-    TrItem* item = getTrItemFromReceivedData(outblockInfo, 0);
-    //qDebug()<<item->toString();
-    emit queryDone(qobject_cast<T1102Item*>(item));
+    mResult = qobject_cast<T1102Item *>(getTrItemFromReceivedData(outblockInfo, 0));
+    emit workDone();
     xaquery()->ClearBlockdata(outblockInfo->getBlockName());
 }
 
@@ -49,6 +49,16 @@ QString T1102Query::shcode()
 
 QString T1102Query::toString()
 {
-    return tr("T1102Query");
+    QString desc;
+    QTextStream stream(&desc);
+    stream<<"T1102 Result[START]"<<endl;
+    stream<<mResult->toString()<<endl;
+    stream<<"T1102 Result[END]"<<endl;
+    return desc;
+}
+
+T1102Item *T1102Query::getResult()
+{
+   return mResult;
 }
 

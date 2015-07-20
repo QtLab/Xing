@@ -82,8 +82,7 @@ void TrTester::onScheduleNextQuery()
         TrQuery* query = qobject_cast<TrQuery*>(sender);
         mWaitingQueryList.append(query);
         if(!mSendingTimer->isActive()) {
-             mSendingTimer->singleShot(0, this, SLOT(sendQuery()));
+             mSendingTimer->singleShot(1000, this, SLOT(sendQuery()));
         }
     }
 }
-

@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QTextStream>
 #include "t8430query.h"
 
 T8430Query::T8430Query(QObject *parent) : TrQuery(tr("t8430"),parent)
@@ -24,7 +25,7 @@ void T8430Query::onReceiveData(const QString &trCode)
    for(iter = itemList.cbegin(); iter<itemList.end(); iter++) {
        qDebug()<<(*iter)->toString();
    }
-   queryDone(itemList);
+   workDone();
    xaquery()->ClearBlockdata(outBlockInfo->getBlockName());
 }
 
@@ -47,5 +48,17 @@ T8430Query::~T8430Query()
 
 QString T8430Query::toString()
 {
-   return tr("T8430Query");
+    QString desc;
+    QTextStream stream(&desc);
+    stream<<"T8430 Result[START]"<<endl;
+    foreach(T8430Item* item, getResult()){
+       stream<<item->toString()<<endl;
+    }
+    stream<<"T8430 Result[END]"<<endl;
+    return desc;
+}
+
+QList<T8430Item *> T8430Query::getResult()
+{
+   return mItemList;
 }
