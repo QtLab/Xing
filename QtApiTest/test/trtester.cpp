@@ -15,6 +15,7 @@ TrTester::~TrTester()
 
 void TrTester::addQuery(TrQuery *query)
 {
+
     query->moveToThread(this);
     mQueryList.append(query);
 }

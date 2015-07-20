@@ -7,7 +7,7 @@
 #include "tr/t1102/t1102query.h"
 #include "tr/t8430/t8430query.h"
 #include "tr/t1702/t1702query.h"
-
+#include "tr/t1702/t1702item.h"
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);

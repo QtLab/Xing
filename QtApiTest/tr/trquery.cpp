@@ -19,20 +19,20 @@ TrQuery::~TrQuery()
 QString TrQuery::str(const QVariant &value)
 {
     switch(value.type()) {
-        case QMetaType::QDate:
-        {
-            QDate date = value.toDate();
-            return date.toString(tr("yyyyMMdd"));
-        }
-        case QMetaType::QTime:
-        {
-            QTime time = value.toTime();
-            return time.toString(tr("hhmmss"));
-        }
-        default:
-        {
-            return value.toString();
-        }
+    case QMetaType::QDate:
+    {
+        QDate date = value.toDate();
+        return date.toString(tr("yyyyMMdd"));
+    }
+    case QMetaType::QTime:
+    {
+        QTime time = value.toTime();
+        return time.toString(tr("hhmmss"));
+    }
+    default:
+    {
+        return value.toString();
+    }
     }
 }
 
@@ -51,13 +51,12 @@ QString TrQuery::getTrName()
     return mTrName;
 }
 
-TrItem *TrQuery::getTrItemFromReceivedData(int occurIndex)
+TrItem *TrQuery::getTrItemFromReceivedData(TrBlockInfo *outBlockInfo, int occurIndex)
 {
-    TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
     TrItem* item = createItem();
     foreach(QString fieldName , outBlockInfo->getFieldNameList())
     {
-        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(),fieldName, 0);
+        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(),fieldName, occurIndex );
         TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
         switch(fieldInfo->getDataType()) {
         case TrFieldInfo::CHAR:
@@ -83,6 +82,38 @@ TrItem *TrQuery::getTrItemFromReceivedData(int occurIndex)
         }
     }
     return item;
+}
+
+void TrQuery::setCts()
+{
+   TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
+   foreach(QString fieldName, outBlockInfo->getFieldNameList()) {
+       QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(), fieldName, 0);
+       TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
+       switch(fieldInfo->getDataType()) {
+        case TrFieldInfo::CHAR:
+            this->setProperty(fieldName.toLocal8Bit(), value);
+            break;
+        case TrFieldInfo::LONG:
+            this->setProperty(fieldName.toLocal8Bit(), value.toLong());
+            break;
+        case TrFieldInfo::LONGLONG:
+            this->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
+            break;
+        case TrFieldInfo::FLOAT:
+            this->setProperty(fieldName.toLocal8Bit(), value.toFloat());
+            break;
+        case TrFieldInfo::DATE:
+            this->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
+            break;
+        case TrFieldInfo::TIME:
+            this->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
+            break;
+        default:
+            this->setProperty(fieldName.toLocal8Bit(), value);
+        }
+   }
+   xaquery()->ClearBlockdata(outBlockInfo->getBlockName());
 }
 
 void TrQuery::request()

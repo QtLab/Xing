@@ -17,7 +17,7 @@ void T8430Query::onReceiveData(const QString &trCode)
    int blockCnt = xaquery()->GetBlockCount(outBlockInfo->getBlockName());
    QList<T8430Item*> itemList;
    for(int i = 0; i<blockCnt; i++) {
-       TrItem* item = getTrItemFromReceivedData(i);
+       TrItem* item = getTrItemFromReceivedData(outBlockInfo, i);
        itemList.append(qobject_cast<T8430Item*>(item));
    }
    QList<T8430Item*>::const_iterator iter;
@@ -25,6 +25,7 @@ void T8430Query::onReceiveData(const QString &trCode)
        qDebug()<<(*iter)->toString();
    }
    queryDone(itemList);
+   xaquery()->ClearBlockdata(outBlockInfo->getBlockName());
 }
 
 void T8430Query::onReceiveChartRealData(const QString &trCode)

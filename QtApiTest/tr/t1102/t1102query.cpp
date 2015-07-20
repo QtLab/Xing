@@ -14,9 +14,11 @@ T1102Item *T1102Query::createItem()
 
 void T1102Query::onReceiveData(const QString &trCode)
 {
-    TrItem* item = getTrItemFromReceivedData(0);
+    TrBlockInfo* outblockInfo = trInfo()->getOutBlock();
+    TrItem* item = getTrItemFromReceivedData(outblockInfo, 0);
     //qDebug()<<item->toString();
     emit queryDone(qobject_cast<T1102Item*>(item));
+    xaquery()->ClearBlockdata(outblockInfo->getBlockName());
 }
 
 void T1102Query::onReceiveChartRealData(const QString &trCode)

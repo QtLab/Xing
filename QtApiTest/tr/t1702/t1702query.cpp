@@ -12,7 +12,28 @@ T1702Item *T1702Query::createItem()
 
 void T1702Query::onReceiveData(const QString &trCode)
 {
-
+    TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
+    int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
+    for(int i = 0; i<blockCnt; i++) {
+        TrItem* item = getTrItemFromReceivedData(outBlockInfo1, i);
+        T1702Item* t1702Item = qobject_cast<T1702Item*>(item);
+        if(t1702Item->date()>this->_fromdate) {
+            mItemList.append(t1702Item);
+        } else if(t1702Item->date()==this->_fromdate) {
+            mItemList.append(t1702Item);
+            emit queryDone(mItemList);
+            xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
+            return;
+        } else {
+            emit queryDone(mItemList);
+            xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
+            return;
+        }
+    }
+    setCts();
+    setNextQuery(true);
+    emit scheduleNextQuery();
+    xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
 }
 
 void T1702Query::onReceiveChartRealData(const QString &trCode)

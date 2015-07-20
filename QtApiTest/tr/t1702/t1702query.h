@@ -67,6 +67,8 @@ private:
     QString _cumulgb;
     long _cts_idx;
     QString _cts_date;
+
+    QList<T1702Item*> mItemList;
 };
 
 #endif // T1702QUERY_H

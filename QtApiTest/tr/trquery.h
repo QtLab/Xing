@@ -26,9 +26,10 @@ protected:
     TrMetaInfo *trInfo();
     QString getTrName();
     virtual TrItem *createItem()=0;
-    TrItem *getTrItemFromReceivedData(int occurIndex);
+    TrItem *getTrItemFromReceivedData(TrBlockInfo* outBlockInfo, int occurIndex);
     void setNextQuery(bool next) {_next = next; }
     bool isNextQuery(){ return _next;}
+    virtual void setCts();
 public slots:
     virtual void request();
     virtual void onReceiveMsg(bool bIsSystemError, const QString &msgCode, const QString &msg);
