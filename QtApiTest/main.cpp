@@ -13,6 +13,7 @@
 #include "manager/querymngr.h"
 int main(int argc, char  *argv[])
 {
+    qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}");
     QCoreApplication a(argc, argv);
     CoInitialize(NULL);
 
@@ -32,7 +33,5 @@ int main(int argc, char  *argv[])
     tester.startTest();
     */
     QueryMngr mngr;
-    qDebug()<<"main thread id - "<<QThread::currentThreadId();
-    QMetaObject::invokeMethod(&mngr, "doJob", Qt::QueuedConnection);
     return a.exec();
 }

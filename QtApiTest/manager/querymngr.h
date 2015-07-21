@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QThread>
 #include <QTimer>
+#include <QQueue>
+#include "tr/trquery.h"
 class QueryMngr : public QObject
 {
     Q_OBJECT
@@ -14,15 +16,17 @@ public:
 signals:
 
 public slots:
-    void doJob();
-    void doTimeoutJob();
+    void start();
+    void requestQuery(TrQuery* query);
+    void queryDone();
+    void onScheduleNextRequest();
 private:
     void initRequestTimer();
 private:
     QThread mThread;
     QTimer mRequestTimer;
     QList<TrQuery*> mQueryList;
-
+    QQueue<TrQuery*> mSendingQueue;
 };
 
 #endif // QUERYMNGR_H
