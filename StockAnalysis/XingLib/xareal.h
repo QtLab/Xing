@@ -2,7 +2,6 @@
 #define XAREAL_H
 
 #include <QObject>
-#include <QMessageBox>
 
 class QAxObject;
 

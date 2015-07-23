@@ -2,15 +2,13 @@
 #include "ui_logindialog.h"
 #include <QMessageBox>
 #include <QComboBox>
-LoginDialog::LoginDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::LoginDialog),m_session(this)
+LoginDialog::LoginDialog(LoginMngr *loginMngr, QWidget *parent) :
+    QDialog(parent),ui(new Ui::LoginDialog),mLoginMngr(loginMngr)
 {
     ui->setupUi(this);
-    m_session.Init();
 
     loadSettings();
-    connect(&m_session, &XASession::onLogin, this, &LoginDialog::onLogin);
+    connect(mLoginMngr, &LoginMngr::notifyLogin, this, &LoginDialog::onLogin);
 }
 
 LoginDialog::~LoginDialog()
@@ -34,12 +32,8 @@ void LoginDialog::on_connectBtn_clicked()
     QString id = ui->lineEditId->text();
     QString passwd = ui->lineEditPasswd->text();
     QString certPasswd = ui->lineEditCertPasswd->text();
-    if(!m_session.ConnectServer(isDemoServer())){
-        showErrorDialog("ConnectServer");
-        return;
-    }
 
-    if(!m_session.Login(id, passwd, isDemoServer()?"":certPasswd)){
+    if(!mLoginMngr->requestLogin(id, passwd,isDemoServer()?"":certPasswd, isDemoServer())){
         showErrorDialog("Login");
         return;
     }
@@ -70,7 +64,7 @@ void LoginDialog::saveSettings()
 
 void LoginDialog::loadSettings()
 {
-    QStringList serverList = m_session.GetServerList();
+    QStringList serverList = mLoginMngr->getServerList();
     ui->comboBoxServerType->addItems(serverList);
     QString serverType = mSettings.value(KEY_SERVERTYPE, serverList.at(0)).toString();
     ui->comboBoxServerType->setCurrentText(serverType);
@@ -100,8 +94,7 @@ bool LoginDialog::isDemoServer()
 
 void LoginDialog::showErrorDialog(const QString &title)
 {
-    int errorCode = m_session.GetLastError();
-    QMessageBox::warning(this, title, m_session.GetErrorMessage(errorCode));
+    QMessageBox::warning(this, title, mLoginMngr->getLastErrorMsg());
     return;
 }
 

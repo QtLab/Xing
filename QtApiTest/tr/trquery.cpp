@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "trquery.h"
 
-TrQuery::TrQuery(const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName), _next(false)
+TrQuery::TrQuery(TR_TYPE type, const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName), _next(false),mType(type)
 {
     mXaQuery = XAQuery::newTrInstance(trName, this);
     connect(mXaQuery, SIGNAL(ReceiveMessage(bool,QString,QString)), this, SLOT(onReceiveMsg(bool,QString,QString)));
@@ -49,6 +49,11 @@ TrMetaInfo *TrQuery::trInfo()
 QString TrQuery::getTrName()
 {
     return mTrName;
+}
+
+TrQuery::TR_TYPE TrQuery::getTrType()
+{
+   return mType;
 }
 
 TrItem *TrQuery::getTrItemFromReceivedData(TrBlockInfo *outBlockInfo, int occurIndex)

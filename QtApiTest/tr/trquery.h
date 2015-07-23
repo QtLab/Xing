@@ -9,14 +9,16 @@ class TrQuery : public QObject
 {
     Q_OBJECT
 public:
-    explicit TrQuery(const QString& trName, QObject *parent = 0);
+    typedef enum {T1102, T1702, T8430} TR_TYPE;
+    explicit TrQuery(TR_TYPE type, const QString& trName, QObject *parent = 0);
     ~TrQuery();
+
 
     virtual QString toString() = 0;
 
     QString str(const QVariant &value);
-
-
+    QString getTrName();
+    TR_TYPE getTrType();
 signals:
     void ReceiveMsg(const QString& msg);
     void workDone();
@@ -24,8 +26,7 @@ signals:
 protected:
     XAQuery* xaquery();
     TrMetaInfo *trInfo();
-    QString getTrName();
-    virtual TrItem *createItem()=0;
+        virtual TrItem *createItem()=0;
     TrItem *getTrItemFromReceivedData(TrBlockInfo* outBlockInfo, int occurIndex);
     void setNextQuery(bool next) {_next = next; }
     bool isNextQuery(){ return _next;}
@@ -40,6 +41,7 @@ private:
     TrMetaInfo mTrInfo;
     const QString mTrName;
     bool _next;
+    TR_TYPE mType;
 };
 
 #endif // TRQUERY_H

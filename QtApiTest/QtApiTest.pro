@@ -26,14 +26,15 @@ SOURCES += main.cpp \
     XingLib/xasession.cpp \
     XingLib/xasessionevents.cpp \
     tr/trmetainfo.cpp \
-    test/trtester.cpp \
     tr/t1102/t1102query.cpp \
     tr/t8430/t8430item.cpp \
     tr/t1702/t1702item.cpp \
     tr/t8430/t8430query.cpp \
     tr/t1702/t1702query.cpp \
     manager/querymngr.cpp \
-    util/log.cpp
+    util/log.cpp \
+    manager/loginmngr.cpp \
+    test/trtest.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -46,11 +47,14 @@ HEADERS += \
     XingLib/xasession.h \
     XingLib/xasessionevents.h \
     tr/trmetainfo.h \
-    test/trtester.h \
     tr/t1102/t1102query.h \
     tr/t8430/t8430item.h \
     tr/t1702/t1702item.h \
     tr/t8430/t8430query.h \
     tr/t1702/t1702query.h \
     manager/querymngr.h \
-    util/log.h
+    util/log.h \
+    manager/loginmngr.h \
+    test/trtest.h
+
+FORMS +=

@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QSettings>
 #include "XingLib/xasession.h"
-
+#include "manager/loginmngr.h"
 namespace Ui {
 class LoginDialog;
 }
@@ -19,7 +19,7 @@ class LoginDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LoginDialog(QWidget *parent = 0);
+    explicit LoginDialog(LoginMngr *loginMngr, QWidget *parent = 0);
     ~LoginDialog();
 
 public slots:
@@ -33,7 +33,6 @@ private slots:
 
 private:
     Ui::LoginDialog *ui;
-    XASession m_session;
     QSettings mSettings;
 
     void saveSettings();
@@ -41,6 +40,8 @@ private:
     bool isDemoServer();
 
     void showErrorDialog(const QString& title);
+private:
+    LoginMngr *mLoginMngr;
 };
 
 #endif // LOGINDIALOG_H

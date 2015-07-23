@@ -27,7 +27,15 @@ SOURCES += main.cpp\
     manager/stockinfomngr.cpp \
     tr/t8430/t8430query.cpp \
     tr/tritem.cpp \
-    tr/trquery.cpp
+    tr/trquery.cpp \
+    manager/loginmngr.cpp \
+    manager/querymngr.cpp \
+    tr/t1102/t1102query.cpp \
+    tr/t1702/t1702query.cpp \
+    tr/trmetainfo.cpp \
+    util/log.cpp \
+    util/logbrowser.cpp \
+    util/logbrowserdialog.cpp
 
 HEADERS  += mainwindow.h \
     XingLib/xaquery.h \
@@ -43,9 +51,18 @@ HEADERS  += mainwindow.h \
     data/stockinfo.h \
     manager/stockinfomngr.h \
     tr/t8430/t8430query.h \
-    tr/trquery.h
+    tr/trquery.h \
+    manager/loginmngr.h \
+    manager/querymngr.h \
+    tr/t1102/t1102query.h \
+    tr/t1702/t1702query.h \
+    tr/trmetainfo.h \
+    util/log.h \
+    util/logbrowser.h \
+    util/logbrowserdialog.h
 
 FORMS    += mainwindow.ui \
-    ui/logindialog.ui
+    ui/logindialog.ui \
+    util/logbrowserdialog.ui
 
 CONFIG += c++11

@@ -20,6 +20,7 @@ public:
     virtual QList<QString> getPropertyList();
     QList<QString> getPropertyNameList();
     QString getPropertyByName(const QString &name);
+    virtual QString toString();
 protected:
     QString qkor(const char *strKor);
     void addItemProperty(QString name, QString property);

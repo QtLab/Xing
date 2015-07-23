@@ -5,7 +5,6 @@
 #include <QString>
 #include <QDate>
 #include "tr/tritem.h"
-
 class T1102Item : public TrItem
 {
 	Q_OBJECT
@@ -155,8 +154,8 @@ class T1102Item : public TrItem
 	Q_PROPERTY(long savg5 MEMBER _savg5 READ savg5 WRITE setSavg5)		//총매수평단가5
 	Q_PROPERTY(long ftradmdval MEMBER _ftradmdval READ ftradmdval WRITE setFtradmdval)		//외국계매도대금
 	Q_PROPERTY(long ftradmsval MEMBER _ftradmsval READ ftradmsval WRITE setFtradmsval)		//외국계매수대금
-	Q_PROPERTY(long ftradmdvag MEMBER _ftradmdvag READ ftradmdvag WRITE setFtradmdvag)		//외국계매도평단가
-	Q_PROPERTY(long ftradmsvag MEMBER _ftradmsvag READ ftradmsvag WRITE setFtradmsvag)		//외국계매수평단가
+	Q_PROPERTY(long ftradmdavg MEMBER _ftradmdavg READ ftradmdavg WRITE setFtradmdavg)		//외국계매도평단가
+	Q_PROPERTY(long ftradmsavg MEMBER _ftradmsavg READ ftradmsavg WRITE setFtradmsavg)		//외국계매수평단가
 	Q_PROPERTY(QString info5 MEMBER _info5 READ info5 WRITE setInfo5)		//투자주의환기
 	Q_PROPERTY(QString spac_gubun MEMBER _spac_gubun READ spac_gubun WRITE setSpac_Gubun)		//기업인수목적회사여부
 	Q_PROPERTY(long issueprice MEMBER _issueprice READ issueprice WRITE setIssueprice)		//발행가격
@@ -164,7 +163,7 @@ class T1102Item : public TrItem
 	Q_PROPERTY(QString alloc_text MEMBER _alloc_text READ alloc_text WRITE setAlloc_Text)		//배분적용구분
 	Q_PROPERTY(QString shterm_text MEMBER _shterm_text READ shterm_text WRITE setShterm_Text)		//단기과열/VI발동
 public:
-    explicit T1102Item(QObject *parent=0);
+	explicit T1102Item(QObject *parent=0);
 	~T1102Item();
 	QString hname() { return _hname; }
 	void setHname(QString hname) { _hname = hname; }
@@ -458,10 +457,10 @@ public:
 	void setFtradmdval(long ftradmdval) { _ftradmdval = ftradmdval; }
 	long ftradmsval() { return _ftradmsval; }
 	void setFtradmsval(long ftradmsval) { _ftradmsval = ftradmsval; }
-	long ftradmdvag() { return _ftradmdvag; }
-	void setFtradmdvag(long ftradmdvag) { _ftradmdvag = ftradmdvag; }
-	long ftradmsvag() { return _ftradmsvag; }
-	void setFtradmsvag(long ftradmsvag) { _ftradmsvag = ftradmsvag; }
+	long ftradmdavg() { return _ftradmdavg; }
+	void setFtradmdavg(long ftradmdavg) { _ftradmdavg = ftradmdavg; }
+	long ftradmsavg() { return _ftradmsavg; }
+	void setFtradmsavg(long ftradmsavg) { _ftradmsavg = ftradmsavg; }
 	QString info5() { return _info5; }
 	void setInfo5(QString info5) { _info5 = info5; }
 	QString spac_gubun() { return _spac_gubun; }
@@ -474,6 +473,7 @@ public:
 	void setAlloc_Text(QString alloc_text) { _alloc_text = alloc_text; }
 	QString shterm_text() { return _shterm_text; }
 	void setShterm_Text(QString shterm_text) { _shterm_text = shterm_text; }
+private:
 	QString _hname;		//한글명
 	long _price;		//현재가
 	QString _sign;		//전일대비구분
@@ -620,8 +620,8 @@ public:
 	long _savg5;		//총매수평단가5
 	long _ftradmdval;		//외국계매도대금
 	long _ftradmsval;		//외국계매수대금
-	long _ftradmdvag;		//외국계매도평단가
-	long _ftradmsvag;		//외국계매수평단가
+	long _ftradmdavg;		//외국계매도평단가
+	long _ftradmsavg;		//외국계매수평단가
 	QString _info5;		//투자주의환기
 	QString _spac_gubun;		//기업인수목적회사여부
 	long _issueprice;		//발행가격

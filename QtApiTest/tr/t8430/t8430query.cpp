@@ -2,7 +2,7 @@
 #include <QTextStream>
 #include "t8430query.h"
 
-T8430Query::T8430Query(QObject *parent) : TrQuery(tr("t8430"),parent)
+T8430Query::T8430Query(QObject *parent) : TrQuery(TrQuery::T8430, tr("t8430"),parent)
 {
 
 }
