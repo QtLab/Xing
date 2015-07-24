@@ -34,7 +34,8 @@ SOURCES += main.cpp \
     manager/querymngr.cpp \
     util/log.cpp \
     manager/loginmngr.cpp \
-    test/trtest.cpp
+    test/trtest.cpp \
+    manager/stockinfoupdater.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -55,6 +56,7 @@ HEADERS += \
     manager/querymngr.h \
     util/log.h \
     manager/loginmngr.h \
-    test/trtest.h
+    test/trtest.h \
+    manager/stockinfoupdater.h
 
 FORMS +=

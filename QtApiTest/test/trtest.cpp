@@ -88,4 +88,3 @@ void TrTest::handleT1702Result(T1702Query *query)
     query->deleteLater();
     qDebug()<<"T1702 Result [END]";
 }
-

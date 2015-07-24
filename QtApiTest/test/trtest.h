@@ -18,6 +18,7 @@ private:
     void handleT1102Result(T1102Query *query);
     void handleT8430Result(T8430Query *query);
     void handleT1702Result(T1702Query *query);
+
 private :
     QueryMngr* mQueryMngr;
 };
