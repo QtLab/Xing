@@ -35,7 +35,8 @@ SOURCES += main.cpp \
     util/log.cpp \
     manager/loginmngr.cpp \
     test/trtest.cpp \
-    manager/stockinfoupdater.cpp
+    manager/stockinfoupdater.cpp \
+    test/trteststockinfoupdater.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -57,6 +58,7 @@ HEADERS += \
     util/log.h \
     manager/loginmngr.h \
     test/trtest.h \
-    manager/stockinfoupdater.h
+    manager/stockinfoupdater.h \
+    test/trteststockinfoupdater.h
 
 FORMS +=

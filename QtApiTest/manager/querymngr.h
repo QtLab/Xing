@@ -30,5 +30,4 @@ private:
     QList<TrQuery*> mQueryList;
     QQueue<TrQuery*> mSendingQueue;
 };
-
 #endif // QUERYMNGR_H

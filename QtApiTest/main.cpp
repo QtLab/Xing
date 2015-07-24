@@ -4,10 +4,9 @@
 #include <QDebug>
 #include <windows.h>
 #include "test/trtest.h"
+#include "test/trteststockinfoupdater.h"
 #include "manager/querymngr.h"
 #include "manager/loginmngr.h"
-#include "util/logbrowser.h"
-
 
 int main(int argc, char  *argv[])
 {
@@ -21,7 +20,10 @@ int main(int argc, char  *argv[])
     if(!loginMngr.requestLogin(QObject::tr("seuki77"), QObject::tr("folken77"),true)) {
         return -1;
     }
-    TrTest test(&queryMngr);
-    test.start();
+    //TrTest test(&queryMngr);
+    //test.start();
+    TrTestStockInfoUpdater updateTest(&queryMngr);
+    QObject::connect(&updateTest, SIGNAL(testDone(int)), &a, SLOT(exit(int)));
+    updateTest.start();
     return a.exec();
 }

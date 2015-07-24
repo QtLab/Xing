@@ -4,8 +4,6 @@ StockInfo::StockInfo(QObject *parent):TrItem(parent)
 {
     DEFINE_PROPERTY_NAME("종목명", "hname");
     DEFINE_PROPERTY_NAME("단축코드", "shcode");
-
-
     DEFINE_PROPERTY_NAME("현재가","price");
     DEFINE_PROPERTY_NAME("전일대비구분","sign");
     DEFINE_PROPERTY_NAME("전일대비","change");

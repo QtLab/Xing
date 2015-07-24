@@ -21,10 +21,6 @@ void T8430Query::onReceiveData(const QString &trCode)
        TrItem* item = getTrItemFromReceivedData(outBlockInfo, i);
        itemList.append(qobject_cast<T8430Item*>(item));
    }
-   QList<T8430Item*>::const_iterator iter;
-   for(iter = itemList.cbegin(); iter<itemList.end(); iter++) {
-       qDebug()<<(*iter)->toString();
-   }
    workDone();
    xaquery()->ClearBlockdata(outBlockInfo->getBlockName());
 }

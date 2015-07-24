@@ -24,7 +24,7 @@ void QueryMngr::sendRequest()
 {
     if(!mSendingQueue.isEmpty()) {
         TrQuery *query = mSendingQueue.dequeue();
-        qCDebug(queryMngr,"send Request for %s",query->getTrName());
+        qCDebug(queryMngr)<<"send Request for"<<query->getTrName()<<endl;
         query->request();
     } else if(mRequestTimer.isActive()) {
         mRequestTimer.stop();
@@ -34,7 +34,7 @@ void QueryMngr::sendRequest()
 
 void QueryMngr::requestQuery(TrQuery *query)
 {
-    qCDebug(queryMngr,"%s is requested",query->getTrName());
+    qCDebug(queryMngr)<<query->getTrName()<<" is requested"<<endl;
     query->moveToThread(&mThread);
     mQueryList.append(query);
     mSendingQueue.append(query);
@@ -48,7 +48,7 @@ void QueryMngr::queryDone()
     QObject* sender = QObject::sender();
     if(sender != NULL) {
         TrQuery* query = qobject_cast<TrQuery *>(sender);
-        qCDebug(queryMngr,"query for %s is done",query->getTrName());
+        qCDebug(queryMngr)<<"query for "<<query->getTrName()<<" is done"<<endl;
         if(mQueryList.contains(query)) {
             mQueryList.removeOne(query);
         } else {
