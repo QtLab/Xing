@@ -34,13 +34,13 @@ void QueryMngr::sendRequest()
 
 void QueryMngr::requestQuery(TrQuery *query)
 {
-    qCDebug(queryMngr)<<query->getTrName()<<" is requested"<<endl;
+//    qCDebug(queryMngr)<<query->getTrName()<<" is requested"<<endl;
     query->moveToThread(&mThread);
     mQueryList.append(query);
     mSendingQueue.append(query);
     connect(query, SIGNAL(workDone()), this, SLOT(queryDone()));
     connect(query, SIGNAL(scheduleNextQuery()), this, SLOT(onScheduleNextRequest()));
-    checkAndRestartTimer();
+    QMetaObject::invokeMethod(this, "checkAndRestartTimer", Qt::QueuedConnection);
 }
 
 void QueryMngr::queryDone()

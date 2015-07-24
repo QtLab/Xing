@@ -30,6 +30,7 @@ void StockInfoUpdater::t8430QueryDone()
             QList<T8430Item *> list = query->getResult();
             foreach(T8430Item *item, list) {
                 StockInfo *stockInfo = new StockInfo();
+                stockInfo->setShcode(item->shcode());
                 stockInfo->setHname(item->hname());
                 stockInfo->setExpcode(item->expcode());
                 stockInfo->setETF(item->etfgubun()==tr("1"));

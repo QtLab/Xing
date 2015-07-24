@@ -21,9 +21,10 @@ public slots:
     void requestQuery(TrQuery* query);
     void queryDone();
     void onScheduleNextRequest();
+    void checkAndRestartTimer();
+
 private:
     void initRequestTimer();
-    void checkAndRestartTimer();
 private:
     QThread mThread;
     QTimer mRequestTimer;
