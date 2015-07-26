@@ -28,6 +28,7 @@ void StockInfoUpdater::t8430QueryDone()
         T8430Query *query = qobject_cast<T8430Query *>(sender);
         if(query != NULL) {
             QList<T8430Item *> list = query->getResult();
+            int cnt = 5;
             foreach(T8430Item *item, list) {
                 StockInfo *stockInfo = new StockInfo();
                 stockInfo->setShcode(item->shcode());
@@ -35,7 +36,8 @@ void StockInfoUpdater::t8430QueryDone()
                 stockInfo->setExpcode(item->expcode());
                 stockInfo->setETF(item->etfgubun()==tr("1"));
                 stockInfo->setKOSPI(item->gubun()==tr("1"));
-                mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
+                if(cnt-->0)
+                    mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
                 item->deleteLater();
             }
             query->deleteLater();
