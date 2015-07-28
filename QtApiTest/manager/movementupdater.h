@@ -6,6 +6,7 @@
 #include <QtSql/QSqlQuery>
 #include <QThread>
 #include "manager/querymngr.h"
+#include "tr/t1702/t1702Item.h"
 class MovementUpdater : public QObject
 {
     Q_OBJECT
@@ -26,6 +27,7 @@ private:
 private:
     QueryMngr* mQueryMngr;
     QSqlDatabase mDb;
+    QThread mThread;
 };
 
 #endif // MOVEMENTUPDATER_H

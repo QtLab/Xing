@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QMap>
 #include <QtSql/QSqlDatabase>
+#include <QThread>
+
 #include "manager/querymngr.h"
 #include "tr/t8430/t8430query.h"
 #include "tr/t1102/t1102query.h"
@@ -31,6 +33,7 @@ private:
     QMap<QString, StockInfo *> mStockInfoUpdatingMap;
     QMap<QString, StockInfo *> mStockInfoMap;
     QSqlDatabase mDb;
+    QThread mThread;
 };
 
 #endif // STOCKINFOUPDATER_H

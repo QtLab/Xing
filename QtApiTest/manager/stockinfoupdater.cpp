@@ -20,6 +20,8 @@ const QMap<QString, StockInfo *> StockInfoUpdater::getStockInfoMap()
 
 void StockInfoUpdater::update()
 {
+    moveToThread(&mThread);
+    mThread.start();
     qCDebug(stockInfoUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
     connectDB();
     createTable();
