@@ -30,8 +30,12 @@ class T1702Item : public TrItem
 	Q_PROPERTY(long amt0088 MEMBER _amt0088 READ amt0088 WRITE setAmt0088)		//외인계(등록+미등록)
 	Q_PROPERTY(long amt0099 MEMBER _amt0099 READ amt0099 WRITE setAmt0099)		//기타계(기타+국가)
 public:
-	explicit T1702Item(QObject *parent=0);
-	~T1702Item();
+    explicit T1702Item(const QString &shcode, QObject *parent=0);
+    ~T1702Item();
+    QString getSqlInsertStr();
+    QString getSqlUpdateStr();
+
+    QString shcode() { return mShcode; }
 	QDate date() { return _date; }
 	void setDate(QDate date) { _date = date; }
 	long close() { return _close; }
@@ -75,6 +79,7 @@ public:
 	long amt0099() { return _amt0099; }
 	void setAmt0099(long amt0099) { _amt0099 = amt0099; }
 private:
+    QString mShcode;
 	QDate _date;		//일자
 	long _close;		//종가
 	QString _sign;		//전일대비구분

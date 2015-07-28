@@ -4,8 +4,9 @@
 LogBrowser::LogBrowser(QObject *parent) : QObject(parent)
 {
     qRegisterMetaType<QtMsgType>("QtMsgType");
+    qRegisterMetaType<LogContext>("LogContext");
     browserDialog = new LogBrowserDialog;
-    connect(this, SIGNAL(sendMessage(QtMsgType,QString)), browserDialog, SLOT(outputMessage(QtMsgType, QString)), Qt::QueuedConnection);
+    connect(this, &LogBrowser::sendMessage, browserDialog, &LogBrowserDialog::outputMessage, Qt::AutoConnection);
     browserDialog->show();
 }
 
@@ -14,8 +15,15 @@ LogBrowser::~LogBrowser()
     delete browserDialog;
 }
 
-void LogBrowser::outputMessage(QtMsgType type, const QString &msg)
+void LogBrowser::outputMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    emit sendMessage(type, msg);
+    LogContext logContext;
+    logContext.category = context.category;
+    QString fullPath = context.file;
+    QStringList fullPathList = fullPath.split("\\");
+    logContext.file = fullPathList.at(fullPathList.size()-1);
+    logContext.function = context.function;
+    logContext.line = context.line;
+    emit sendMessage(type,logContext, msg);
 }
 

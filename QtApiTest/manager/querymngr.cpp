@@ -2,7 +2,7 @@
 #include <QMetaObject>
 #include "util/log.h"
 #include "querymngr.h"
-
+#include "util/log.h"
 QueryMngr::QueryMngr(QObject *parent) : QObject(parent)
 {
 
@@ -10,8 +10,7 @@ QueryMngr::QueryMngr(QObject *parent) : QObject(parent)
 
 QueryMngr::~QueryMngr()
 {
-
-}
+    }
 
 void QueryMngr::start()
 {

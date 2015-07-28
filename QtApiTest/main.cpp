@@ -1,29 +1,35 @@
-#include <QCoreApplication>
+#include <QApplication>
 #include <QString>
 #include <QObject>
 #include <QDebug>
-#include <windows.h>
+#include <QPointer>
 #include "test/trtest.h"
 #include "test/trteststockinfoupdater.h"
 #include "manager/querymngr.h"
 #include "manager/loginmngr.h"
+#include "util/logbrowser.h"
+#include "util/log.h"
+#include "testdialog.h"
+#include <stdlib.h>
+#include <iostream>
+QPointer<LogBrowser> logBrowser=NULL;
+QtMessageHandler defaultHandler;
+void messageOutput(QtMsgType type,const QMessageLogContext &context,const QString &msg) {
+    if(strcmp(context.category, "default")==0){
+        defaultHandler(type, context, msg);
+        return;
+    }
+    if(logBrowser)
+        logBrowser->outputMessage(type, context, msg);
+}
 
 int main(int argc, char  *argv[])
 {
-    qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz} %{if-debug}D%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line}:%{function} - %{message}");
-    QCoreApplication a(argc, argv);
-    CoInitialize(NULL);
-
-    LoginMngr loginMngr;
-    QueryMngr queryMngr;
-    QObject::connect(&loginMngr, SIGNAL(notifyLogin(QString,QString)),&queryMngr, SLOT(start()));
-    if(!loginMngr.requestLogin(QObject::tr("seuki77"), QObject::tr("folken77"),true)) {
-        return -1;
-    }
-    //TrTest test(&queryMngr);
-    //test.start();
-    TrTestStockInfoUpdater updateTest(&queryMngr);
-    QObject::connect(&updateTest, SIGNAL(testDone(int)), &a, SLOT(exit(int)));
-    updateTest.start();
+    QApplication a(argc, argv);
+//    CoInitialize(NULL);
+    defaultHandler = qInstallMessageHandler(messageOutput);
+    logBrowser = new LogBrowser();
+    TestDialog testDialog;
+    testDialog.show();
     return a.exec();
 }

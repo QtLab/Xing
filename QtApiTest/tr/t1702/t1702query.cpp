@@ -10,7 +10,7 @@ T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),pa
 
 T1702Item *T1702Query::createItem()
 {
-    return new T1702Item();
+    return new T1702Item(_shcode);
 }
 
 void T1702Query::onReceiveData(const QString &trCode)

@@ -4,14 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core gui
+QT       += axcontainer sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QT       -= gui
-QT       += axcontainer
 TARGET = QtApiTest
-CONFIG   += console
-CONFIG   -= app_bundle
-
+TEMPLATE = app
+DISTFILES = formatter.astylerc
 TEMPLATE = app
 
 
@@ -36,7 +35,13 @@ SOURCES += main.cpp \
     manager/loginmngr.cpp \
     test/trtest.cpp \
     manager/stockinfoupdater.cpp \
-    test/trteststockinfoupdater.cpp
+    test/trteststockinfoupdater.cpp \
+    test/trtester.cpp \
+    util/logbrowser.cpp \
+    util/logbrowserdialog.cpp \
+    testdialog.cpp \
+    test/trtestmovement.cpp \
+    manager/movementupdater.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -59,6 +64,15 @@ HEADERS += \
     manager/loginmngr.h \
     test/trtest.h \
     manager/stockinfoupdater.h \
-    test/trteststockinfoupdater.h
+    test/trteststockinfoupdater.h \
+    test/trtester.h \
+    util/logbrowser.h \
+    util/logbrowserdialog.h \
+    testdialog.h \
+    test/trtestmovement.h \
+    manager/movementupdater.h
 
-FORMS +=
+FORMS += util/logbrowserdialog.ui \
+    testdialog.ui
+
+CONFIG += c++11

@@ -160,5 +160,5 @@ T1102Item::T1102Item(QObject *parent):TrItem(parent)
 }
 T1102Item::~T1102Item()
 {
-	qDebug()<<"T1102Item destroyed";
+
 }

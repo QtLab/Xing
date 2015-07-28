@@ -2,6 +2,7 @@
 #define LOGBROWSER_H
 
 #include <QObject>
+#include "util/logbrowserdialog.h"
 class LogBrowserDialog;
 class LogBrowser : public QObject
 {
@@ -11,9 +12,9 @@ public:
     ~LogBrowser();
 
 signals:
-    void sendMessage(QtMsgType, const QString &msg);
+    void sendMessage(QtMsgType type, const LogContext &context, const QString &msg);
 public slots:
-    void outputMessage(QtMsgType type, const QString &msg);
+    void outputMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 private:
     LogBrowserDialog *browserDialog;
 };

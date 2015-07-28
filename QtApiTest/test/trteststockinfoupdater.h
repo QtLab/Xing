@@ -13,7 +13,7 @@ public:
     ~TrTestStockInfoUpdater();
     void start();
 signals:
-    void testDone(int code);
+    void testDone();
 public slots:
     void onTestDone();
 private:

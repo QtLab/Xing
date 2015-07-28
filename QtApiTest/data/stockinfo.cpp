@@ -1,3 +1,6 @@
+#include <QTextStream>
+#include <QMetaObject>
+#include <QMetaProperty>
 #include "stockinfo.h"
 
 StockInfo::StockInfo(QObject *parent):TrItem(parent)
@@ -162,5 +165,15 @@ StockInfo::StockInfo(QObject *parent):TrItem(parent)
 StockInfo::~StockInfo()
 {
 
+}
+
+QString StockInfo::getSqlInsertStr()
+{
+    return makeSqlInsertQuery(tr("StockInfoTable"));
+}
+
+QString StockInfo::getSqlUpdateStr()
+{
+    return makeSqlUpdateQuery(tr("StockInfoTable"), tr(" WHERE shcode = %1").arg(shcode()));
 }
 

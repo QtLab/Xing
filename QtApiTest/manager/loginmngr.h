@@ -10,8 +10,9 @@ class LoginMngr : public QObject
 public:
     explicit LoginMngr(QObject *parent = 0);
     ~LoginMngr();
-    bool requestLogin(const QString &id, const QString &passwd, bool toDemoServer);
+    bool requestLogin(const QString &id, const QString &passwd, const QString &certPasswd, bool toDemoServer);
     QString getLastErrorMsg();
+    bool isLogined();
 signals:
     void notifyLogin(const QString &szCode, const QString &szMsg);
 public slots:
@@ -19,6 +20,7 @@ public slots:
 private:
     XASession mSession;
     QString mErrorMsg;
+    bool mIsLogin;
 };
 
 #endif // LOGINMNGR_H

@@ -20,16 +20,16 @@ void TrTestStockInfoUpdater::start()
 
 void TrTestStockInfoUpdater::onTestDone()
 {
-    QString filename = "stockupdate.txt";
-    QFile file(filename);
-    if (file.open(QIODevice::WriteOnly)) {
-        QTextStream stream(&file);
-        const QMap<QString, StockInfo*> infoMap = mUpdater->getStockInfoMap();
-        foreach(StockInfo *info , infoMap.values()) {
-            stream<<info->toString();
-        }
-    }
-    file.close();
-    emit testDone(0);
+//    QString filename = "stockupdate.txt";
+//    QFile file(filename);
+//    if (file.open(QIODevice::WriteOnly)) {
+//        QTextStream stream(&file);
+//        const QMap<QString, StockInfo*> infoMap = mUpdater->getStockInfoMap();
+//        foreach(StockInfo *info , infoMap.values()) {
+//            stream<<info->toString();
+//        }
+//    }
+//    file.close();
+    emit testDone();
 }
 

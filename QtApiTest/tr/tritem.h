@@ -24,6 +24,8 @@ public:
 protected:
     QString qkor(const char *strKor);
     void addItemProperty(QString name, QString property);
+    virtual QString makeSqlInsertQuery(const QString &tableName);
+    virtual QString makeSqlUpdateQuery(const QString &tableName, const QString &where);
 private:
     QMap<QString,QString> mPropertyNameMap;
     QList<QString> mPropertyNameList;
