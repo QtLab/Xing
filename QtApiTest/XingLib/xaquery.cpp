@@ -1,4 +1,5 @@
 #include "xaquery.h"
+#include <Windows.h>
 #include <ActiveQt/QAxObject>
 
 XAQuery::XAQuery(QObject *parent) :
@@ -15,8 +16,13 @@ XAQuery* XAQuery::newTrInstance(const QString& _transaction, QObject *parent)
     XAQuery *query_instance = new XAQuery(parent);
     if(query_instance->LoadFromResFile(_transaction))
         return query_instance;
-    else
+    else{
+        CoInitializeEx(NULL,0);
+        if(query_instance->LoadFromResFile(_transaction)){
+            return query_instance;
+        }
         return NULL;
+    }
 }
 long XAQuery::Request(bool bNext)
 {
@@ -27,9 +33,11 @@ QString XAQuery::GetFieldData(const QString& szBlockName, const QString& szField
     return xaquery->dynamicCall("GetFieldData(QString, QString, int)", szBlockName,szFieldName,nOccursIndex).toString();
 
 }
-void XAQuery::SetFieldData (const QString& szBlockName, const QString& szFieldName, long nOccursIndex, const QString& szData){
+
+void XAQuery::SetFieldData(const QString &szBlockName, const QString &szFieldName, long nOccursIndex, const QString &szData){
     xaquery->dynamicCall("SetFieldData(QString, QString, int, QString)", szBlockName,szFieldName,nOccursIndex,szData );
 }
+
 long XAQuery::GetBlockCount(const QString& szBlockName)
 {
     return xaquery->dynamicCall("GetBlockCount(QString)", szBlockName).toInt();
@@ -41,7 +49,7 @@ void XAQuery::SetBlockCount(const QString& szBlockName, long nCount)
 }
 bool XAQuery::LoadFromResFile(const QString& trCode)
 {
-    static const QString res_root_path= tr("C:\\eBest\\xingAPI\\Res\\");
+    static const QString res_root_path= tr("C:/eBest/xingAPI/Res/");
     return xaquery->dynamicCall("LoadFromResFile(QString)", res_root_path+trCode+".res").toBool();
 }
 void XAQuery::ClearBlockdata(const QString& szFieldName)

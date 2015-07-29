@@ -3,9 +3,8 @@
 
 #include <QWidget>
 #include <QMap>
-#include <QtSql/QSqlDatabase>
 #include <QThread>
-
+#include <QtSql/QSqlQuery>
 #include "manager/querymngr.h"
 #include "tr/t8430/t8430query.h"
 #include "tr/t1102/t1102query.h"
@@ -24,7 +23,6 @@ public slots:
     void t8430QueryDone();
     void t1102QueryDone();
 private:
-    void connectDB();
     void createTable();
     void saveToDB(StockInfo* info);
     void errorQuery(QSqlQuery* query);
@@ -32,7 +30,6 @@ private:
     QueryMngr* mQueryMngr;
     QMap<QString, StockInfo *> mStockInfoUpdatingMap;
     QMap<QString, StockInfo *> mStockInfoMap;
-    QSqlDatabase mDb;
     QThread mThread;
 };
 

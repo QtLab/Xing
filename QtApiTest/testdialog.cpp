@@ -5,7 +5,7 @@
 TestDialog::TestDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TestDialog),
-    mStockInfoUpdater(new StockInfoUpdater(&mQueryMngr,this)),
+    mStockInfoUpdater(new StockInfoUpdater(&mQueryMngr)),
     mMovementUpdater(new MovementUpdater(&mQueryMngr))
 {
     ui->setupUi(this);

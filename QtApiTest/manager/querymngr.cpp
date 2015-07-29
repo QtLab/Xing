@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QMetaObject>
+#include <QThread>
 #include "util/log.h"
 #include "querymngr.h"
 #include "util/log.h"
@@ -10,17 +11,18 @@ QueryMngr::QueryMngr(QObject *parent) : QObject(parent)
 
 QueryMngr::~QueryMngr()
 {
-    }
+}
 
 void QueryMngr::start()
 {
     moveToThread(&mThread);
-    mThread.start();
     initRequestTimer();
+    mThread.start();
 }
 
 void QueryMngr::sendRequest()
 {
+    qDebug()<<"sendRequest - "<<QThread::currentThreadId();
     if(!mSendingQueue.isEmpty()) {
         TrQuery *query = mSendingQueue.dequeue();
         qCDebug(queryMngr)<<"send Request for"<<query->getTrName()<<endl;
@@ -28,6 +30,7 @@ void QueryMngr::sendRequest()
     } else if(mRequestTimer.isActive()) {
         mRequestTimer.stop();
         qCDebug(queryMngr)<<"Sending Queue is empty, so stop Request Timer";
+        qDebug()<<"CurrentThreadId = "<<QThread::currentThreadId();
     }
 }
 

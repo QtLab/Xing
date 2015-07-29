@@ -6,7 +6,7 @@
 #include "movementupdater.h"
 #include "tr/t1702/t1702Query.h"
 
-MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr), mDb(QSqlDatabase::addDatabase("QMYSQL"))
+MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr)
 
 {
 
@@ -22,7 +22,6 @@ void MovementUpdater::update()
     moveToThread(&mThread);
     mThread.start();
     qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    connectDB();
     T1702Query *query = T1702Query::createQuery(tr("005930"));
     connect(query, SIGNAL(workDone()), this,SLOT(t1702QueryDone()));
     mQueryMngr->requestQuery(query);
@@ -43,23 +42,6 @@ void MovementUpdater::t1702QueryDone()
           emit updateDone();
        }
    }
-}
-
-void MovementUpdater::connectDB()
-{
-    mDb.setHostName("192.168.219.250");
-    mDb.setDatabaseName("XingDB");
-    mDb.setUserName("seuki77");
-    mDb.setPassword("folken77");
-    if(mDb.isOpen())
-        return;
-
-    if(!mDb.open()) {
-        qCDebug(movementUpdater)<<mDb.lastError();
-        qCDebug(movementUpdater)<<"Failed to connect";
-    } else {
-        qCDebug(movementUpdater)<<"Connected!";
-    }
 }
 
 void MovementUpdater::saveToDB(T1702Item *item)

@@ -7,4 +7,4 @@ Q_LOGGING_CATEGORY(loginMngr, "Mngr.login")
 Q_LOGGING_CATEGORY(trQuery, "Transaction.query")
 Q_LOGGING_CATEGORY(stockInfoUpdater, "Mngr.stockInfo")
 Q_LOGGING_CATEGORY(movementUpdater, "Mngr.movement")
-
+Q_LOGGING_CATEGORY(Main, "Main")

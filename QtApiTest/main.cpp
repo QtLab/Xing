@@ -1,26 +1,24 @@
 #include <QApplication>
-#include <QString>
 #include <QObject>
-#include <QDebug>
 #include <QPointer>
-#include "test/trtest.h"
-#include "test/trteststockinfoupdater.h"
-#include "manager/querymngr.h"
-#include "manager/loginmngr.h"
+#include <QThread>
 #include "util/logbrowser.h"
 #include "util/log.h"
 #include "testdialog.h"
 #include <stdlib.h>
-#include <iostream>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlError>
+#include "tr/t1102/t1102query.h"
+
 QPointer<LogBrowser> logBrowser=NULL;
 QtMessageHandler defaultHandler;
 void messageOutput(QtMsgType type,const QMessageLogContext &context,const QString &msg) {
-    if(strcmp(context.category, "default")==0){
-        defaultHandler(type, context, msg);
-        return;
-    }
+//    if(strcmp(context.category, "default")==0){
+//        defaultHandler(type, context, msg);
+//        return;
+//    }
     if(logBrowser)
-        logBrowser->outputMessage(type, context, msg);
+        logBrowser->outputMessage(type, context, QObject::tr("[thread-%1]").arg((long)QThread::currentThreadId())+msg);
 }
 
 int main(int argc, char  *argv[])
@@ -28,6 +26,17 @@ int main(int argc, char  *argv[])
     QApplication a(argc, argv);
 //    CoInitialize(NULL);
     defaultHandler = qInstallMessageHandler(messageOutput);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName("192.168.219.250");
+    db.setDatabaseName("XingDB");
+    db.setUserName("seuki77");
+    db.setPassword("folken77");
+    if(!db.open()) {
+        qCDebug(Main)<<db.lastError();
+        qCDebug(Main)<<"Failed to connect";
+    }else {
+        qCDebug(Main)<<"Database Connected";
+    }
     logBrowser = new LogBrowser();
     TestDialog testDialog;
     testDialog.show();

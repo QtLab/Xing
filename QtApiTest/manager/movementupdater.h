@@ -2,7 +2,6 @@
 #define MOVEMENTUPDATER_H
 
 #include <QObject>
-#include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QThread>
 #include "manager/querymngr.h"
@@ -20,13 +19,11 @@ public slots:
     void update();
     void t1702QueryDone();
 private:
-    void connectDB();
     void saveToDB(T1702Item* item);
     void createStockMovementTable(const QString &shcode);
     void errorQuery(QSqlQuery *query);
 private:
     QueryMngr* mQueryMngr;
-    QSqlDatabase mDb;
     QThread mThread;
 };
 

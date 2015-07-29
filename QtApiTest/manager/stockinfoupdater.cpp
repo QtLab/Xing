@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "stockinfoupdater.h"
 #include "util/log.h"
-StockInfoUpdater::StockInfoUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent),mQueryMngr(queryMngr),mDb(QSqlDatabase::addDatabase("QMYSQL"))
+StockInfoUpdater::StockInfoUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent),mQueryMngr(queryMngr)
 {
 }
 
@@ -23,7 +23,6 @@ void StockInfoUpdater::update()
     moveToThread(&mThread);
     mThread.start();
     qCDebug(stockInfoUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    connectDB();
     createTable();
     T8430Query *query = T8430Query::createQuery();
     connect(query, SIGNAL(workDone()), this, SLOT(t8430QueryDone()));
@@ -35,6 +34,7 @@ void StockInfoUpdater::t8430QueryDone()
     QObject* sender = QObject::sender();
     if(sender != NULL) {
         T8430Query *query = qobject_cast<T8430Query *>(sender);
+        int cnt = 1;
         if(query != NULL) {
             QList<T8430Item *> list = query->getResult();
             foreach(T8430Item *item, list) {
@@ -44,7 +44,9 @@ void StockInfoUpdater::t8430QueryDone()
                 stockInfo->setExpcode(item->expcode());
                 stockInfo->setETF(item->etfgubun()==tr("1"));
                 stockInfo->setKOSPI(item->gubun()==tr("1"));
-                mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
+                if(cnt>0)
+                    mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
+                cnt--;
                 item->deleteLater();
             }
             query->deleteLater();
@@ -83,24 +85,6 @@ void StockInfoUpdater::t1102QueryDone()
     }
 }
 
-void StockInfoUpdater::connectDB()
-{
-    mDb.setHostName("192.168.219.250");
-    mDb.setDatabaseName("XingDB");
-    mDb.setUserName("seuki77");
-    mDb.setPassword("folken77");
-    if(mDb.isOpen())
-        return;
-
-    if(!mDb.open()) {
-        qCDebug(stockInfoUpdater)<<mDb.lastError();
-        qCDebug(stockInfoUpdater)<<"Failed to connect";
-    } else {
-        qCDebug(stockInfoUpdater)<<"Connected!";
-    }
-
-}
-
 void StockInfoUpdater::createTable()
 {
     QSqlQuery query;
@@ -124,15 +108,15 @@ void StockInfoUpdater::saveToDB(StockInfo *info)
             if(qry.value(0).toInt()==0) {
                 QString insertString = info->getSqlInsertStr();
                 qry.prepare(insertString);
-            }else {
+            } else {
                 QString updateString = info->getSqlUpdateStr();
                 qry.prepare(updateString);
             }
-            if(!qry.exec()){
+            if(!qry.exec()) {
                 errorQuery(&qry);
             }
         }
-    }else {
+    } else {
         errorQuery(&qry);
     }
 
