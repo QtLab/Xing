@@ -2,11 +2,12 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlError>
 #include <QDateTime>
+#include <QDate>
 #include "util/log.h"
 #include "movementupdater.h"
 #include "tr/t1702/t1702Query.h"
 
-MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr)
+MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr),sStockStartDate(2004,1,2)
 
 {
 
@@ -22,26 +23,24 @@ void MovementUpdater::update()
     moveToThread(&mThread);
     mThread.start();
     qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    T1702Query *query = T1702Query::createQuery(tr("005930"));
-    connect(query, SIGNAL(workDone()), this,SLOT(t1702QueryDone()));
-    mQueryMngr->requestQuery(query);
+    requestMovementData(tr("005930"));
 }
 
 void MovementUpdater::t1702QueryDone()
 {
-   QObject* sender = QObject::sender();
-   if(sender != NULL) {
-       T1702Query *query = qobject_cast<T1702Query *>(sender);
-       if(query != NULL) {
-          QList<T1702Item *> list = query->getResult();
-          foreach(T1702Item *item, list) {
-              saveToDB(item);
-              item->deleteLater();
-          }
-          query->deleteLater();
-          emit updateDone();
-       }
-   }
+    QObject* sender = QObject::sender();
+    if(sender != NULL) {
+        T1702Query *query = qobject_cast<T1702Query *>(sender);
+        if(query != NULL) {
+            QList<T1702Item *> list = query->getResult();
+            foreach(T1702Item *item, list) {
+                saveToDB(item);
+                item->deleteLater();
+            }
+            query->deleteLater();
+            emit updateDone();
+        }
+    }
 }
 
 void MovementUpdater::saveToDB(T1702Item *item)
@@ -54,15 +53,15 @@ void MovementUpdater::saveToDB(T1702Item *item)
             if(qry.value(0).toInt()==0) {	//Row is not existed, So insert
                 QString insertString = item->getSqlInsertStr();
                 qry.prepare(insertString);
-            }else {	//Row is existed, So update
+            } else {	//Row is existed, So update
                 QString updateString = item->getSqlUpdateStr();
                 qry.prepare(updateString);
             }
-            if(!qry.exec()){
+            if(!qry.exec()) {
                 errorQuery(&qry);
             }
         }
-    }else {
+    } else {
         errorQuery(&qry);
     }
 
@@ -71,7 +70,7 @@ void MovementUpdater::saveToDB(T1702Item *item)
 void MovementUpdater::createStockMovementTable(const QString &shcode)
 {
     QSqlQuery query;
-    query.prepare(tr("CREATE TABLE IF NOT EXIST Movement_%1 ( `Date` DATE UNIQUE PRIMARY KEY, `close` INTEGER(8), `sign` CHAR(1), `change` INTEGER(8), `diff` FLOAT(8), `volume` BIGINT(12), `amt0001` BIGINT(12), `amt0002` BIGINT(12), `amt0003` BIGINT(12), `amt0004` BIGINT(12), `amt0005` BIGINT(12), `amt0006` BIGINT(12), `amt0007` BIGINT(12), `amt0008` BIGINT(12), `amt0009` BIGINT(12), `amt0010` BIGINT(12), `amt0011` BIGINT(12), `amt0018` BIGINT(12), `amt0088` BIGINT(12), `amt0099` BIGINT(12)").arg(shcode));
+    query.prepare(tr("CREATE TABLE IF NOT EXISTS Movement_%1 ( `date` DATE UNIQUE PRIMARY KEY, `close` INTEGER(8), `sign` CHAR(1), `change` INTEGER(8), `diff` FLOAT(8), `volume` BIGINT(12),`amt0000` BIGINT(12), `amt0001` BIGINT(12), `amt0002` BIGINT(12), `amt0003` BIGINT(12), `amt0004` BIGINT(12), `amt0005` BIGINT(12), `amt0006` BIGINT(12), `amt0007` BIGINT(12), `amt0008` BIGINT(12), `amt0009` BIGINT(12), `amt0010` BIGINT(12), `amt0011` BIGINT(12), `amt0018` BIGINT(12), `amt0088` BIGINT(12), `amt0099` BIGINT(12))").arg(shcode));
     if(!query.exec()) {
         errorQuery(&query);
     } else {
@@ -82,6 +81,36 @@ void MovementUpdater::createStockMovementTable(const QString &shcode)
 void MovementUpdater::errorQuery(QSqlQuery *query)
 {
     qCWarning(movementUpdater)<<"QueryError : "<<query->lastError()<<endl<<query->executedQuery();
+}
+
+void MovementUpdater::requestMovementData(const QString &shcode)
+{
+    createStockMovementTable(shcode);
+    QDate today = QDate::currentDate();
+    QDate fromDay = getLastUpdatedDateFromDatabase(shcode);
+    T1702Query *query = T1702Query::createQuery(shcode, fromDay, today, T1702Query::AMOUNT, T1702Query::PURE_BUY, T1702Query::DAILY);
+    connect(query, SIGNAL(workDone()), this, SLOT(t1702QueryDone()));
+    mQueryMngr->requestQuery(query);
+}
+
+QDate MovementUpdater::getLastUpdatedDateFromDatabase(const QString &shcode)
+{
+    QSqlQuery lastDateQry;
+    lastDateQry.prepare(tr("SELECT max(`Date`) FROM Movement_%1").arg(shcode));
+    if(lastDateQry.exec()) {
+        if(lastDateQry.next()) {
+            if(!lastDateQry.isNull(0))
+                return lastDateQry.value(0).toDate();
+        }
+    } else {
+        errorQuery(&lastDateQry);
+    }
+    StockInfo *stockInfo = StockInfoMngr::getInstance()->getStockInfo(shcode);
+    QDate listDate =  stockInfo->listdate();
+    if(listDate>sStockStartDate)
+        return listDate;
+    else
+        return sStockStartDate;
 }
 
 

@@ -13,10 +13,6 @@
 QPointer<LogBrowser> logBrowser=NULL;
 QtMessageHandler defaultHandler;
 void messageOutput(QtMsgType type,const QMessageLogContext &context,const QString &msg) {
-//    if(strcmp(context.category, "default")==0){
-//        defaultHandler(type, context, msg);
-//        return;
-//    }
     if(logBrowser)
         logBrowser->outputMessage(type, context, QObject::tr("[thread-%1]").arg((long)QThread::currentThreadId())+msg);
 }
@@ -26,6 +22,8 @@ int main(int argc, char  *argv[])
     QApplication a(argc, argv);
 //    CoInitialize(NULL);
     defaultHandler = qInstallMessageHandler(messageOutput);
+    logBrowser = new LogBrowser();
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("192.168.219.250");
     db.setDatabaseName("XingDB");
@@ -37,7 +35,6 @@ int main(int argc, char  *argv[])
     }else {
         qCDebug(Main)<<"Database Connected";
     }
-    logBrowser = new LogBrowser();
     TestDialog testDialog;
     testDialog.show();
     return a.exec();

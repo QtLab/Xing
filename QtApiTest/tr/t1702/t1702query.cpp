@@ -1,9 +1,8 @@
-#include <qDebug>
 #include <QTextStream>
-
+#include "util/log.h"
 #include "t1702query.h"
 
-T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),parent), _cts_idx(0), _cts_date("")
+T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),parent), _cts_idx(0), _cts_date(""),receivedDataCnt(0)
 {
 
 }
@@ -15,6 +14,8 @@ T1702Item *T1702Query::createItem()
 
 void T1702Query::onReceiveData(const QString &trCode)
 {
+    qCDebug(trQuery)<<"1702 receivedData cnt = "<<receivedDataCnt;
+    receivedDataCnt++;
     TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
     int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
     for(int i = 0; i<blockCnt; i++) {
@@ -33,6 +34,7 @@ void T1702Query::onReceiveData(const QString &trCode)
             return;
         }
     }
+
     setCts();
     setNextQuery(true);
     emit scheduleNextQuery();

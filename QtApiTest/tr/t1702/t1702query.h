@@ -66,7 +66,7 @@ private:
     QString _cumulgb;
     long _cts_idx;
     QString _cts_date;
-
+    int receivedDataCnt;
     QList<T1702Item*> mItemList;
 };
 

@@ -38,5 +38,5 @@ QString T1702Item::getSqlInsertStr()
 
 QString T1702Item::getSqlUpdateStr()
 {
-    return makeSqlUpdateQuery(tr("Movement_%1").arg(shcode()), tr(" WHERE shcode=%1").arg(shcode()));
+    return makeSqlUpdateQuery(tr("Movement_%1").arg(shcode()), tr(" WHERE date=%1").arg(date().toString(tr("yyyyMMdd"))));
 }

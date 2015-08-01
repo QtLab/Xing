@@ -3,6 +3,8 @@
 #include <QTextCodec>
 #include <QMetaObject>
 #include <QMetaProperty>
+#include <QtSql/QSqlQuery>
+#include <QVariant>
 #include <QTime>
 #include <QDate>
 TrItem::TrItem(QObject *parent) : QObject(parent)
@@ -42,6 +44,34 @@ QString TrItem::toString()
     }
     return desc;
 
+}
+
+void TrItem::setPropertyFromQuery(QSqlQuery *query)
+{
+    const QMetaObject *metaObj = metaObject();
+    for(int i = 1; i<metaObj->propertyCount(); i++) {
+        QMetaProperty metaProp = metaObj->property(i);
+        switch(metaProp.type()) {
+        case QMetaType::Bool:
+            setProperty(metaProp.name(), query->value(tr(metaProp.name())).toBool());
+            break;
+        case QMetaType::Long:
+            setProperty(metaProp.name(), query->value(tr(metaProp.name())).toInt());
+            break;
+        case QMetaType::Float:
+            setProperty(metaProp.name(), query->value(tr(metaProp.name())).toFloat());
+            break;
+        case QMetaType::QTime:
+            setProperty(metaProp.name(), query->value(tr(metaProp.name())).toTime());
+            break;
+        case QMetaType::QDate:
+            setProperty(metaProp.name(), query->value((metaProp.name())).toDate());
+            break;
+        default:
+            setProperty(metaProp.name(), query->value((metaProp.name())).toString());
+            break;
+        }
+    }
 }
 
 QString TrItem::qkor(const char *strKor)

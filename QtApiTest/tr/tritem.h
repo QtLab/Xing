@@ -10,6 +10,8 @@
 #define TO_STRING( x )      TO_STRING_AUX( x )
 
 #define DEFINE_PROPERTY_NAME(name, property) addItemProperty(qkor(name), property)
+
+class QSqlQuery;
 class TrItem : public QObject
 {
     Q_OBJECT
@@ -21,6 +23,7 @@ public:
     QList<QString> getPropertyNameList();
     QString getPropertyByName(const QString &name);
     virtual QString toString();
+    void setPropertyFromQuery(QSqlQuery *query);
 protected:
     QString qkor(const char *strKor);
     void addItemProperty(QString name, QString property);

@@ -2,7 +2,6 @@
 #define LOGINMNGR_H
 
 #include <QObject>
-#include <QThread>
 #include "XingLib/xasession.h"
 class LoginMngr : public QObject
 {

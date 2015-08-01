@@ -3,8 +3,10 @@
 
 #include <QObject>
 #include <QtSql/QSqlQuery>
-#include <QThread>
+#include <QDate>
+#include "util/xingthread.h"
 #include "manager/querymngr.h"
+#include "manager/stockinfomngr.h"
 #include "tr/t1702/t1702Item.h"
 class MovementUpdater : public QObject
 {
@@ -22,9 +24,12 @@ private:
     void saveToDB(T1702Item* item);
     void createStockMovementTable(const QString &shcode);
     void errorQuery(QSqlQuery *query);
+    void requestMovementData(const QString &shcode);
+    QDate getLastUpdatedDateFromDatabase(const QString & shcode);
 private:
     QueryMngr* mQueryMngr;
-    QThread mThread;
+    XingThread mThread;
+    QDate sStockStartDate;
 };
 
 #endif // MOVEMENTUPDATER_H

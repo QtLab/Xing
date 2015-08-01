@@ -4,18 +4,13 @@
 #include <QDebug>
 #include "stockinfoupdater.h"
 #include "util/log.h"
-StockInfoUpdater::StockInfoUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent),mQueryMngr(queryMngr)
+StockInfoUpdater::StockInfoUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent),mQueryMngr(queryMngr),ZeroDate(0,0,0)
 {
 }
 
 StockInfoUpdater::~StockInfoUpdater()
 {
 
-}
-
-const QMap<QString, StockInfo *> StockInfoUpdater::getStockInfoMap()
-{
-    return mStockInfoMap;
 }
 
 void StockInfoUpdater::update()
@@ -34,7 +29,6 @@ void StockInfoUpdater::t8430QueryDone()
     QObject* sender = QObject::sender();
     if(sender != NULL) {
         T8430Query *query = qobject_cast<T8430Query *>(sender);
-        int cnt = 1;
         if(query != NULL) {
             QList<T8430Item *> list = query->getResult();
             foreach(T8430Item *item, list) {
@@ -44,9 +38,7 @@ void StockInfoUpdater::t8430QueryDone()
                 stockInfo->setExpcode(item->expcode());
                 stockInfo->setETF(item->etfgubun()==tr("1"));
                 stockInfo->setKOSPI(item->gubun()==tr("1"));
-                if(cnt>0)
-                    mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
-                cnt--;
+                mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
                 item->deleteLater();
             }
             query->deleteLater();
@@ -55,7 +47,6 @@ void StockInfoUpdater::t8430QueryDone()
                 connect(query, SIGNAL(workDone()), this, SLOT(t1102QueryDone()));
                 mQueryMngr->requestQuery(query);
             }
-
         }
     }
 }
@@ -73,7 +64,8 @@ void StockInfoUpdater::t1102QueryDone()
                 info->setProperty(propertyName.toLocal8Bit(), item->property(propertyName.toLocal8Bit()));
             }
             mStockInfoUpdatingMap.remove(info->shcode());
-            saveToDB(info);
+            if(checkCondition(info))
+                saveToDB(info);
             qCDebug(stockInfoUpdater)<<info->hname()<<" is updated"<<endl;
             if(mStockInfoUpdatingMap.size()==0) {
                 qCDebug(stockInfoUpdater)<<"Update End time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
@@ -112,9 +104,6 @@ void StockInfoUpdater::saveToDB(StockInfo *info)
                 QString updateString = info->getSqlUpdateStr();
                 qry.prepare(updateString);
             }
-            if(!qry.exec()) {
-                errorQuery(&qry);
-            }
         }
     } else {
         errorQuery(&qry);
@@ -125,5 +114,13 @@ void StockInfoUpdater::saveToDB(StockInfo *info)
 void StockInfoUpdater::errorQuery(QSqlQuery *query)
 {
     qCWarning(stockInfoUpdater)<<"QueryError : "<<query->lastError()<<endl<<query->executedQuery();
+}
+
+bool StockInfoUpdater::checkCondition(StockInfo *info)
+{
+   if((info->listdate()!=ZeroDate)||(!info->isETF()))
+       return true;
+   else
+       return false;
 }
 
