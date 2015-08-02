@@ -43,7 +43,8 @@ SOURCES += main.cpp \
     test/trtestmovement.cpp \
     manager/movementupdater.cpp \
     util/xingthread.cpp \
-    manager/stockinfomngr.cpp
+    manager/stockinfomngr.cpp \
+    data/movementinfo.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -74,7 +75,8 @@ HEADERS += \
     test/trtestmovement.h \
     manager/movementupdater.h \
     util/xingthread.h \
-    manager/stockinfomngr.h
+    manager/stockinfomngr.h \
+    data/movementinfo.h
 
 FORMS += util/logbrowserdialog.ui \
     testdialog.ui
