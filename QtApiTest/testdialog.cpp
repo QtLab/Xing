@@ -8,17 +8,16 @@ TestDialog::TestDialog(QWidget *parent) :
     ui(new Ui::TestDialog),
     mStockInfoUpdater(new StockInfoUpdater(&mQueryMngr)),
     mMovementUpdater(new MovementUpdater(&mQueryMngr)),
-    mMovementMngr(new MovementMngr)
+    mMovementMngr(new StockExchangeMngr)
 {
     ui->setupUi(this);
     ui->stockInfoUpdateButton->setEnabled(false);
     ui->movementUpdateButton->setEnabled(false);
-    ui->movementBtn->setEnabled(false);
 
     connect(&mLoginMngr, SIGNAL(notifyLogin(QString,QString)), this, SLOT(enableTestButtons()));
     connect(mStockInfoUpdater, SIGNAL(updateDone()), this, SLOT(onStockInfoUpdateDone()));
     connect(mMovementUpdater, SIGNAL(updateDone()), this, SLOT(onMovementUpdateDone()));
-    connect(mMovementMngr, SIGNAL(responseMovementInfo(MovementInfo*)), this, SLOT(onMovementInfoReceived(MovementInfo*)));
+    connect(mMovementMngr, SIGNAL(responseWarehouseHistory(WarehouseHistoryMap)), this, SLOT(onWarehouseHistoryReceived(WarehouseHistoryMap)));
 }
 
 TestDialog::~TestDialog()
@@ -59,25 +58,35 @@ void TestDialog::onMovementUpdateDone()
     QMessageBox::information(this, "MovementUpdate", "Done");
 }
 
-void TestDialog::onMovementInfoReceived(MovementInfo *info)
+void TestDialog::onWarehouseHistoryReceived(WarehouseHistoryMap warehouseMap)
 {
-    QTableWidget *widget = new QTableWidget(info->getCount(), 6);
+    WarehouseHistory* info = warehouseMap.value(INVESTMENT_C);
+    QTableWidget *widget = new QTableWidget(info->getCount(), 9);
     QStringList headerList;
-    headerList<<qkor("날짜")<<qkor("누적합계")<<qkor("최고저점")<<qkor("매집수량")<<qkor("매집고점")<<qkor("분산비율");
+    headerList<<qkor("날짜")<<qkor("가격")<<qkor("평균단가")<<qkor("매수")<<qkor("누적합계")<<qkor("최고저점")<<qkor("매집수량")<<qkor("매집고점")<<qkor("분산비율");
     widget->setHorizontalHeaderLabels(headerList);
     widget->horizontalHeader();
+
     for(int i = 0; i<info->getCount(); i++) {
-       widget->setItem(i, 0,  new QTableWidgetItem((info->date(i)).toString("yyyyMMdd")));
-       widget->setItem(i, 1, new QTableWidgetItem(tr("%1").arg(info->cumulativeSum(i))));
-       widget->setItem(i, 2, new QTableWidgetItem(tr("%1").arg(info->minCumulativeSum(i))));
-       widget->setItem(i, 3, new QTableWidgetItem(tr("%1").arg(info->currentWareHousing(i))));
-       widget->setItem(i, 4, new QTableWidgetItem(tr("%1").arg(info->maxWareHousing(i))));
-       widget->setItem(i, 5, new QTableWidgetItem(tr("%1").arg(info->distPercent(i))));
+       widget->setItem(i, 0,  new QTableWidgetItem(((*info)[i]->date).toString("yyyyMMdd")));
+       widget->setItem(i, 1, new QTableWidgetItem(tr("%1").arg((*info)[i]->price)));
+       widget->setItem(i, 2, new QTableWidgetItem(tr("%1").arg((*info)[i]->avgPrice)));
+
+       widget->setItem(i, 3, new QTableWidgetItem(tr("%1").arg((*info)[i]->volume)));
+       widget->setItem(i, 4, new QTableWidgetItem(tr("%1").arg((*info)[i]->cumulativeSum)));
+       widget->setItem(i, 5, new QTableWidgetItem(tr("%1").arg((*info)[i]->minCumulativeSum)));
+       widget->setItem(i, 6, new QTableWidgetItem(tr("%1").arg((*info)[i]->currentWareHousing)));
+       widget->setItem(i, 7, new QTableWidgetItem(tr("%1").arg((*info)[i]->maxWareHousing)));
+       widget->setItem(i, 8, new QTableWidgetItem(tr("%1").arg((*info)[i]->distPercent)));
     }
     widget->show();
+
+//    QDate from(2015, 7,31);
+//    QDate to(2015, 7, 31);
+//    const VolumeData *data = history->getVolumeHistoryData(from, to);
 }
 
 void TestDialog::on_movementBtn_clicked()
 {
-    mMovementMngr->reqestMovementInfo("005930");
+    mMovementMngr->requestWarehouseHistory("005930");
 }

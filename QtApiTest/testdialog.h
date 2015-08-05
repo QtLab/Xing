@@ -6,7 +6,7 @@
 #include "manager/querymngr.h"
 #include "manager/stockinfoupdater.h"
 #include "manager/movementupdater.h"
-#include "manager/movementmngr.h"
+#include "manager/stockexchangemngr.h"
 namespace Ui {
 class TestDialog;
 }
@@ -31,14 +31,14 @@ public slots:
     void enableTestButtons();
     void onStockInfoUpdateDone();
     void onMovementUpdateDone();
-    void onMovementInfoReceived(MovementInfo* info);
+    void onWarehouseHistoryReceived(WarehouseHistoryMap warehouseMap);
 private:
     Ui::TestDialog *ui;
     LoginMngr mLoginMngr;
     QueryMngr mQueryMngr;
     StockInfoUpdater *mStockInfoUpdater;
     MovementUpdater *mMovementUpdater;
-    MovementMngr *mMovementMngr;
+    StockExchangeMngr *mMovementMngr;
 };
 
 #endif // TESTDIALOG_H

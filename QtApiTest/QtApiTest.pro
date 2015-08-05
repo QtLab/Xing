@@ -44,8 +44,8 @@ SOURCES += main.cpp \
     manager/movementupdater.cpp \
     util/xingthread.cpp \
     manager/stockinfomngr.cpp \
-    data/movementinfo.cpp \
-    manager/movementmngr.cpp
+    data/warehousehistory.cpp \
+    manager/stockexchangemngr.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -77,8 +77,9 @@ HEADERS += \
     manager/movementupdater.h \
     util/xingthread.h \
     manager/stockinfomngr.h \
-    data/movementinfo.h \
-    manager/movementmngr.h
+    data/warehousehistory.h \
+    data/commontype.h \
+    manager/stockexchangemngr.h
 
 FORMS += util/logbrowserdialog.ui \
     testdialog.ui
