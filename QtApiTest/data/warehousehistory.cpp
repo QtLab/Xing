@@ -59,15 +59,6 @@ QString WarehouseHistory::getFieldNameFromType(INVESTORS type)
     }
 }
 
-long WarehouseHistory::calculateMinCumulativeSum(long minCumulativeSum, long cumulativeSum, bool isFirstRecord)
-{
-//    if(isFirstRecord) {
-//        return cumulativeSum;
-//    }
-//    else
-        return fmin(cumulativeSum, minCumulativeSum);
-}
-
 void WarehouseHistory::calculateAvgPrice(long prevWareHousing, WarehouseHistoryData *item, long prevAvgPrice)
 {
     if(item->currentWareHousing>0) {
@@ -81,18 +72,6 @@ void WarehouseHistory::calculateAvgPrice(long prevWareHousing, WarehouseHistoryD
     }else {
         item->avgPrice = item->price;
     }
-}
-
-long WarehouseHistory::calculateMaxWarehousing(bool &isFirstRecord, WarehouseHistoryData *item, long maxWarehousing)
-{
-//    if(isFirstRecord) {
-//        isFirstRecord = false;
-//        return item->currentWareHousing;
-//    } else
-//        return fmax(maxWarehousing, item->currentWareHousing);
-//    return item->maxWareHousing;
-    return fmax(maxWarehousing, item->currentWareHousing);
-
 }
 
 void WarehouseHistory::calculateDistPercent(WarehouseHistoryData *item)
@@ -114,7 +93,6 @@ WarehouseHistory *WarehouseHistory::createWarehouseHistory(const QString &shcode
     long prevAvgPrice = 0;
     long maxWarehousing = 0;
     query.prepare(QObject::tr("SELECT `date`, %1,`close` FROM Movement_%2 ORDER BY `date` ASC").arg(getFieldNameFromType(type)).arg(shcode));
-    bool isFirstRecord= true;
     if(query.exec()) {
         while(query.next()) {
             WarehouseHistoryData *item = new WarehouseHistoryData();
@@ -122,11 +100,11 @@ WarehouseHistory *WarehouseHistory::createWarehouseHistory(const QString &shcode
             item->volume = query.value(1).toInt();
             cumulativeSum+= item->volume;
             item->cumulativeSum = cumulativeSum;
-            minCumulativeSum = calculateMinCumulativeSum(minCumulativeSum, cumulativeSum, isFirstRecord);
+            minCumulativeSum = fmin(minCumulativeSum, cumulativeSum);
             item->minCumulativeSum = minCumulativeSum;
             item->currentWareHousing = cumulativeSum-minCumulativeSum;
             calculateAvgPrice(prevWareHousing, item, prevAvgPrice);
-            maxWarehousing = calculateMaxWarehousing(isFirstRecord, item, maxWarehousing);
+            maxWarehousing = fmax(maxWarehousing, item->currentWareHousing);
             item->maxWareHousing = maxWarehousing;
             calculateDistPercent(item);
             item->date = query.value(0).toDate();
@@ -137,33 +115,6 @@ WarehouseHistory *WarehouseHistory::createWarehouseHistory(const QString &shcode
         }
     }
     return info;
-}
-
-VolumeHistoryData *WarehouseHistory::getVolumeHistory(const QString &shcode, const QDate &from, const QDate &to)
-{
-    QSqlQuery query;
-    query.prepare(QObject::tr("SELECT AVG(`close`) AS avgPrice, SUM(`volume`) AS volume, SUM(`amt0000`) AS pef, SUM(`amt0001`) AS investment_c, SUM(`amt0002`) AS insurance, SUM(`amt0003`) AS investment_t, SUM(`amt0004`) AS bank, SUM(`amt0005`) AS allfinanz, SUM(`amt0006`) AS npf, SUM(`amt0007`) AS corp, SUM(`amt0008`) AS indivisual, SUM(`amt0009`) AS registered_foreigner, SUM(`amt0010`) AS non_registered_foreigner, SUM(`amt0011`) AS national FROM Movement_%1 WHERE `date`>='%2' AND `date`<='%3' ORDER BY `Date` ASC").arg(shcode).arg(from.toString("yyyyMMdd")).arg(to.toString("yyyyMMdd")));
-    if(query.exec()) {
-        if(query.next()){
-            VolumeHistoryData *data = new VolumeHistoryData();
-            data->avgPrice = query.value("avgPrice").toInt();
-            data->volume = query.value("volume").toInt();
-            data->pefVolume = query.value("pef").toInt();
-            data->investmentCompanyVolume = query.value("investment_c").toInt();
-            data->insuranceVolume = query.value("insurance").toInt();
-            data->investmentTrustVolume = query.value("investment_t").toInt();
-            data->bankVolume = query.value("bank").toInt();
-            data->allFinanzVolume = query.value("allfinanz").toInt();
-            data->npfVolume = query.value("npf").toInt();
-            data->corpVolume = query.value("corp").toInt();
-            data->indivisualVolume = query.value("indivisual").toInt();
-            data->registeredForeignerVolume = query.value("registered_foreigner").toInt();
-            data->nonRegisteredForeignerVolume = query.value("non_registered_foreigner").toInt();
-            data->nationalVolume = query.value("national").toInt();
-            return data;
-        }
-    }
-    return nullptr;
 }
 
 int WarehouseHistory::getCount()
@@ -179,13 +130,18 @@ WarehouseHistory::~WarehouseHistory()
     mItemMap.clear();
 }
 
-const WarehouseHistoryData *WarehouseHistory::operator[](const QDate &date)
+const WarehouseHistoryData *WarehouseHistory::operator[](const QDate &date) const
 {
     WarehouseHistoryData *data = mItemMap.value(date);
     return mItemMap.value(date);
 }
 
-const WarehouseHistoryData *WarehouseHistory::operator[](int index)
+const WarehouseHistoryData *WarehouseHistory::last() const
+{
+    return mItemMap.value(mDateList.first());
+}
+
+const WarehouseHistoryData *WarehouseHistory::operator[](int index) const
 {
     return mItemMap.value(mDateList.at(index));
 }

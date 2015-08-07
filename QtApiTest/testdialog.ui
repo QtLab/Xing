@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>130</width>
-    <height>130</height>
+    <height>188</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,9 +38,23 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="movementBtn">
+      <widget class="QPushButton" name="warehouseTestBtn">
        <property name="text">
-        <string>MovementTest</string>
+        <string>WarehouseTest</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="volumeStatisticTestBtn">
+       <property name="text">
+        <string>VolumeTest</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="summaryTestButton">
+       <property name="text">
+        <string>SummaryTest</string>
        </property>
       </widget>
      </item>

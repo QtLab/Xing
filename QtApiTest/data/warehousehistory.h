@@ -17,23 +17,6 @@ typedef struct _WarehouseHistoryData {
     float distPercent = 0;				//분산비율
 } WarehouseHistoryData;
 
-typedef struct _VolumeHistoryData {
-    long avgPrice;
-    long volume;
-    long pefVolume;
-    long investmentCompanyVolume;
-    long insuranceVolume;
-    long investmentTrustVolume;
-    long bankVolume;
-    long allFinanzVolume;
-    long npfVolume;
-    long corpVolume;
-    long indivisualVolume;
-    long registeredForeignerVolume;
-    long nonRegisteredForeignerVolume;
-    long nationalVolume;
-}VolumeHistoryData;
-
 class WarehouseHistory
 {
 public:
@@ -45,19 +28,16 @@ public:
     //NON_REGISTERED_FOREIGNER : 미등록 외국인, NATIONAL : 국가외
 
     static WarehouseHistory *createWarehouseHistory(const QString &shcode, INVESTORS type);
-    static VolumeHistoryData *getVolumeHistory(const QString &shcode, const QDate &from, const QDate &to);
     int getCount();
     ~WarehouseHistory();
 
-    const WarehouseHistoryData *operator[](const QDate &date);
-    const WarehouseHistoryData *operator[](int index);
-
+    const WarehouseHistoryData *operator[](const QDate &date) const;
+    const WarehouseHistoryData *operator[](int index) const;
+    const WarehouseHistoryData *last() const;
 private:
     WarehouseHistory();
     static QString getFieldNameFromType(INVESTORS type);
-    static long calculateMinCumulativeSum(long minCumulativeSum,long cumulativeSum, bool isFirstRecord);
     static void calculateAvgPrice(long prevWareHousing, WarehouseHistoryData *item, long prevAvgPrice);
-    static long calculateMaxWarehousing(bool &isFirstRecord, WarehouseHistoryData *item, long maxWarehousing);
     static void calculateDistPercent(WarehouseHistoryData *item);
 private:
     QMap<QDate, WarehouseHistoryData *> mItemMap;

@@ -25,20 +25,24 @@ private slots:
     void on_movementUpdateButton_clicked();
 
     void on_loginButton_clicked();
-    void on_movementBtn_clicked();
+
+    void on_volumeStatisticTestBtn_clicked();
+
+    void on_warehouseTestBtn_clicked();
 
 public slots:
     void enableTestButtons();
     void onStockInfoUpdateDone();
     void onMovementUpdateDone();
-    void onWarehouseHistoryReceived(WarehouseHistoryMap warehouseMap);
+    void onWarehouseHistoryReceived(WarehouseInfo* warehouseMap);
+    void onStockExchangeInfoReceived(StockExchangeInfo* stockExchangeInfo);
 private:
     Ui::TestDialog *ui;
     LoginMngr mLoginMngr;
     QueryMngr mQueryMngr;
     StockInfoUpdater *mStockInfoUpdater;
     MovementUpdater *mMovementUpdater;
-    StockExchangeMngr *mMovementMngr;
+    StockExchangeMngr *mStockExchangeMngr;
 };
 
 #endif // TESTDIALOG_H

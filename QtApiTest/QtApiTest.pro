@@ -45,7 +45,10 @@ SOURCES += main.cpp \
     util/xingthread.cpp \
     manager/stockinfomngr.cpp \
     data/warehousehistory.cpp \
-    manager/stockexchangemngr.cpp
+    manager/stockexchangemngr.cpp \
+    data/sadmodel.cpp \
+    data/summarymodel.cpp \
+    data/stockexchangeinfo.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -79,7 +82,10 @@ HEADERS += \
     manager/stockinfomngr.h \
     data/warehousehistory.h \
     data/commontype.h \
-    manager/stockexchangemngr.h
+    manager/stockexchangemngr.h \
+    data/sadmodel.h \
+    data/summarymodel.h \
+    data/stockexchangeinfo.h
 
 FORMS += util/logbrowserdialog.ui \
     testdialog.ui
