@@ -129,6 +129,15 @@ void StockExchangeInfo::initDateList()
     }
 }
 
+void StockExchangeInfo::initWarehouseData()
+{
+    for(int i = 0; i<NUM_OF_INVESTORS; i++) {
+        INVESTORS investor = static_cast<INVESTORS>(i);
+        WarehouseHistory *history = WarehouseHistory::createWarehouseHistory(mShcode, investor);
+        mWarehouseData.insert(investor, history);
+    }
+}
+
 QDate StockExchangeInfo::getTargetDate(const QDate &date) const
 {
     QSqlQuery query;

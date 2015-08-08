@@ -22,7 +22,10 @@ public slots:
 private:
     QVariant getDisplayRoleData(const QModelIndex &index) const;
     QVariant getPriceLeadingPercentage(INVESTORS investor) const;
+    QVariant getCurrentWarehousePercentage(INVESTORS investor) const;
+    QVariant getDistributePercentage(INVESTORS investor) const;
     INVESTORS getInvestorByColumnIndex(int index) const;
+    void initWarehouseData();
 private:
     QString mShcode;
     WarehouseInfo *mWarehouseMap;

@@ -5,6 +5,8 @@
 #include <QDate>
 #include <QList>
 #include <array>
+#include <QMap>
+#include "data/warehousehistory.h"
 #include "data/commontype.h"
 
 typedef enum {
