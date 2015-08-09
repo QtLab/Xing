@@ -4,10 +4,11 @@
 #include <QObject>
 #include <QtSql/QSqlQuery>
 #include <QDate>
+#include <QMap>
 #include "util/xingthread.h"
 #include "manager/querymngr.h"
 #include "manager/stockinfomngr.h"
-#include "tr/t1702/t1702Item.h"
+#include "tr/t1702/t1702query.h"
 class MovementUpdater : public QObject
 {
     Q_OBJECT
@@ -30,6 +31,7 @@ private:
     QueryMngr* mQueryMngr;
     XingThread mThread;
     QDate sStockStartDate;
+    QMap<QString, T1702Query *> mUpdatingQueryMap;
 };
 
 #endif // MOVEMENTUPDATER_H

@@ -5,6 +5,7 @@
 StockExchangeInfo::StockExchangeInfo(const QString &shcode):mShcode(shcode)
 {
     initDateList();
+    initWarehouseData();
 }
 
 StockExchangeInfo::~StockExchangeInfo()
@@ -116,6 +117,42 @@ long StockExchangeInfo::getMovingTotalVolumeSum(MOVING_TYPE type, const QDate &d
         query_error(stockExchangeInfo, query);
         return -1;
     }
+}
+
+float StockExchangeInfo::getPriceLeadingPercentage(INVESTORS investor, const QDate &date)
+{
+    QDate targetDate = getTargetDate(date);
+    WarehouseHistory* warehouseHistory = mWarehouseData.value(investor);
+    long maxWarehouse = (*warehouseHistory)[targetDate]->maxWareHousing;
+    return (double)maxWarehouse/(double)getNumOfCirculationStock(targetDate);
+}
+
+float StockExchangeInfo::getCurrentWarehousePercentage(INVESTORS investor, const QDate &date)
+{
+    QDate targetDate = getTargetDate(date);
+    WarehouseHistory* warehouseHistory = mWarehouseData.value(investor);
+    long currentWarehouse = (*warehouseHistory)[targetDate]->currentWareHousing;
+    return (double)currentWarehouse/(double)getNumOfCirculationStock(targetDate);
+}
+
+float StockExchangeInfo::getDistributePercentage(INVESTORS investor, const QDate &date)
+{
+    QDate targetDate = getTargetDate(date);
+    WarehouseHistory* warehouseHistory = mWarehouseData.value(investor);
+    long currentWarehouse = (*warehouseHistory)[targetDate]->currentWareHousing;
+    long maxWarehouse = (*warehouseHistory)[targetDate]->maxWareHousing;
+    return (double)currentWarehouse/(double)maxWarehouse;
+}
+
+long StockExchangeInfo::getNumOfCirculationStock(const QDate &date)
+{
+    QDate targetDate = getTargetDate(date);
+    long numOfCirculationStock;
+    for(int i  = 0; i<NUM_OF_INVESTORS; i++) {
+        WarehouseHistory *warehouseHistory = mWarehouseData.value(static_cast<INVESTORS>(i));
+        numOfCirculationStock += (*warehouseHistory)[targetDate]->currentWareHousing;
+    }
+    return numOfCirculationStock;
 }
 
 void StockExchangeInfo::initDateList()

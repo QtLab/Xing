@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QAbstractTableModel>
-#include "manager/stockexchangemngr.h"
+#include "data/stockexchangeinfo.h"
 class SummaryModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit SummaryModel(const QString &shcode, const WarehouseInfo *historyMap, QObject *parent = 0);
+    explicit SummaryModel(const QString &shcode, StockExchangeInfo *stockExchangeInfo, QObject *parent = 0);
     ~SummaryModel();
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -25,10 +25,10 @@ private:
     QVariant getCurrentWarehousePercentage(INVESTORS investor) const;
     QVariant getDistributePercentage(INVESTORS investor) const;
     INVESTORS getInvestorByColumnIndex(int index) const;
-    void initWarehouseData();
 private:
     QString mShcode;
-    WarehouseInfo *mWarehouseMap;
+    StockExchangeInfo* mStockExchangeInfo;
+
 };
 
 #endif // SUMMARYMODEL_H

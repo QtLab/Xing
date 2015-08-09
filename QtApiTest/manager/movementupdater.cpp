@@ -6,7 +6,7 @@
 #include "util/log.h"
 #include "movementupdater.h"
 #include "tr/t1702/t1702Query.h"
-
+#include "manager/stockinfomngr.h"
 MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr),sStockStartDate(2004,1,2)
 
 {
@@ -23,7 +23,10 @@ void MovementUpdater::update()
     moveToThread(&mThread);
     mThread.start();
     qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    requestMovementData(tr("005930"));
+    QList<QString> shcodeList = StockInfoMngr::getInstance()->getShcodeList();
+    foreach(QString shcode, shcodeList){
+        requestMovementData(shcode);
+    }
 }
 
 void MovementUpdater::t1702QueryDone()
@@ -37,8 +40,10 @@ void MovementUpdater::t1702QueryDone()
                 saveToDB(item);
                 item->deleteLater();
             }
+            mUpdatingQueryMap.remove(query->shcode());
             query->deleteLater();
-            emit updateDone();
+            if(mUpdatingQueryMap.size()==0)
+                emit updateDone();
         }
     }
 }
@@ -90,6 +95,7 @@ void MovementUpdater::requestMovementData(const QString &shcode)
     QDate fromDay = getLastUpdatedDateFromDatabase(shcode);
     T1702Query *query = T1702Query::createQuery(shcode, fromDay, today, T1702Query::AMOUNT, T1702Query::PURE_BUY, T1702Query::DAILY);
     connect(query, SIGNAL(workDone()), this, SLOT(t1702QueryDone()));
+    mUpdatingQueryMap.insert(shcode, query);
     mQueryMngr->requestQuery(query);
 }
 

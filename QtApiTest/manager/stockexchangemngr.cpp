@@ -4,6 +4,7 @@
 #include "stockexchangemngr.h"
 #include "util/log.h"
 
+
 StockExchangeMngr::StockExchangeMngr(QObject *parent) : QObject(parent)
 {
     qRegisterMetaType<WarehouseInfo>("WarehouseHistoryMap");

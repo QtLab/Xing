@@ -17,6 +17,8 @@ public:
     void requestStockExchangeInfo(const QString& shcode);
     void requestWarehouseHistory(const QString& shcode);
 
+private:
+
 signals:
     void responseWarehouseHistory(WarehouseInfo* historyMap);
     void responseStockExchangeInfo(StockExchangeInfo* stockExchangeInfo);

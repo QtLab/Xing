@@ -1,8 +1,8 @@
 #include "summarymodel.h"
+#include "util/xingutil.h"
 
-SummaryModel::SummaryModel(const QString &shcode,const WarehouseInfo* historyMap, QObject *parent) : QAbstractTableModel(parent), mShcode(shcode)
+SummaryModel::SummaryModel(const QString &shcode , StockExchangeInfo *stockExchangeInfo, QObject *parent) : QAbstractTableModel(parent), mShcode(shcode),mStockExchangeInfo(stockExchangeInfo)
 {
-    initWarehouseData();
 }
 
 SummaryModel::~SummaryModel()
@@ -29,6 +29,14 @@ QVariant SummaryModel::data(const QModelIndex &index, int role) const
 
 QVariant SummaryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    if(role == Qt::DisplayRole){
+        if(orientation = Qt::Horizontal) {
+            switch(section) {
+            case 0:
+                qkor()
+            }
+        }
+    }
     return QVariant::Invalid;
 
 }
@@ -50,32 +58,21 @@ QVariant SummaryModel::getDisplayRoleData(const QModelIndex &index) const
 
 QVariant SummaryModel::getPriceLeadingPercentage(INVESTORS investor) const
 {
-    WarehouseHistory *history = mWarehouseMap->value(investor);
-    return QVariant::Invalid;
+    return mStockExchangeInfo->getPriceLeadingPercentage(investor);
 }
 
 QVariant SummaryModel::getCurrentWarehousePercentage(INVESTORS investor) const
 {
-
+    return mStockExchangeInfo->getCurrentWarehousePercentage(investor);
 }
 
 QVariant SummaryModel::getDistributePercentage(INVESTORS investor) const
 {
-
+    return mStockExchangeInfo->getDistributePercentage(investor);
 }
 
 INVESTORS SummaryModel::getInvestorByColumnIndex(int index) const
 {
     return static_cast<INVESTORS>(index);
-}
-
-void SummaryModel::initWarehouseData()
-{
-    for(int i = 0; i<NUM_OF_INVESTORS; i++) {
-        INVESTORS investor = static_cast<INVESTORS>(i);
-        WarehouseHistory *history = WarehouseHistory::createWarehouseHistory(mShcode, investor);
-        mWarehouseMap.insert(investor, history);
-    }
-
 }
 
