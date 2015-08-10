@@ -2,7 +2,7 @@
 #include "util/log.h"
 #include "t1702query.h"
 
-T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),parent), _cts_idx(0), _cts_date(""),receivedDataCnt(0)
+T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),parent), _cts_idx(0), _cts_date("")
 {
 
 }
@@ -14,13 +14,12 @@ T1702Item *T1702Query::createItem()
 
 void T1702Query::onReceiveData(const QString &trCode)
 {
-    qCDebug(trQuery)<<"1702 receivedData cnt = "<<receivedDataCnt;
-    receivedDataCnt++;
     TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
     int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
     for(int i = 0; i<blockCnt; i++) {
         TrItem* item = getTrItemFromReceivedData(outBlockInfo1, i);
         T1702Item* t1702Item = qobject_cast<T1702Item*>(item);
+        qCDebug(trQuery)<<"t1702 for "<<shcode()<<"received item date = "<<t1702Item->date()<<", fromDate"<<this->_fromdate<<endl;
         if(t1702Item->date()>this->_fromdate) {
             mItemList.append(t1702Item);
         } else if(t1702Item->date()==this->_fromdate) {

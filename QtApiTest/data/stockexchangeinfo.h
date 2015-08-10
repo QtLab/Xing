@@ -40,7 +40,7 @@ public:
     float getCurrentWarehousePercentage(INVESTORS investor,const QDate& date = QDate::currentDate() );
     float getDistributePercentage(INVESTORS investor, const QDate& date = QDate::currentDate());
     long getNumOfCirculationStock(const QDate& date = QDate::currentDate());
-
+    long getCurrentWarehouse(INVESTORS investor, const QDate& date = QDate::currentDate());
     int getNumberOfDates();
     QDate getDateByIndex(int index) const;
 private:

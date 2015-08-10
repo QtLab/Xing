@@ -48,7 +48,8 @@ SOURCES += main.cpp \
     manager/stockexchangemngr.cpp \
     data/sadmodel.cpp \
     data/summarymodel.cpp \
-    data/stockexchangeinfo.cpp
+    data/stockexchangeinfo.cpp \
+    data/progressbaritemdelegate.cpp
 
 HEADERS += \
     data/stockinfo.h \
@@ -85,7 +86,8 @@ HEADERS += \
     manager/stockexchangemngr.h \
     data/sadmodel.h \
     data/summarymodel.h \
-    data/stockexchangeinfo.h
+    data/stockexchangeinfo.h \
+    data/progressbaritemdelegate.h
 
 FORMS += util/logbrowserdialog.ui \
     testdialog.ui

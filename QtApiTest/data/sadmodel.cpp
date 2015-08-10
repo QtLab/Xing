@@ -146,11 +146,11 @@ QVariant SADModel::getDisplayRoleData(const QModelIndex &index) const
         }
         break;
     case 1:
-        return mValues.at(index.row())->avgPrice;
+        return tr("%L1").arg(mValues.at(index.row())->avgPrice);
     case 2:
-        return mValues.at(index.row())->totalVolumeSum;
+        return tr("%L1").arg(mValues.at(index.row())->totalVolumeSum);
     default:
-        return mValues.at(index.row())->volumeSum[index.column()-3];
+        return tr("%L1").arg(mValues.at(index.row())->volumeSum[index.column()-3]);
     }
 }
 

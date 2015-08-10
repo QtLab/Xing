@@ -8,7 +8,7 @@ class SummaryModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit SummaryModel(const QString &shcode, StockExchangeInfo *stockExchangeInfo, QObject *parent = 0);
+    explicit SummaryModel(StockExchangeInfo *stockExchangeInfo, QObject *parent = 0);
     ~SummaryModel();
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -21,12 +21,11 @@ signals:
 public slots:
 private:
     QVariant getDisplayRoleData(const QModelIndex &index) const;
-    QVariant getPriceLeadingPercentage(INVESTORS investor) const;
-    QVariant getCurrentWarehousePercentage(INVESTORS investor) const;
-    QVariant getDistributePercentage(INVESTORS investor) const;
+    float getPriceLeadingPercentage(INVESTORS investor) const;
+    float getCurrentWarehousePercentage(INVESTORS investor) const;
+    float getDistributePercentage(INVESTORS investor) const;
     INVESTORS getInvestorByColumnIndex(int index) const;
 private:
-    QString mShcode;
     StockExchangeInfo* mStockExchangeInfo;
 
 };

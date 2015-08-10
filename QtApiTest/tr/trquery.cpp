@@ -132,10 +132,16 @@ void TrQuery::setCts()
 
 void TrQuery::request()
 {
+    QString debugMsg;
+    QTextStream stream(&debugMsg);
     TrBlockInfo* info = mTrInfo.getInBlock();
+    stream<<mTrName<<" for "<<this->property("shcode").toString()<<" is requested with ";
     foreach(QString fieldName, info->getFieldNameList()) {
         mXaQuery->SetFieldData(info->getBlockName().toLocal8Bit(), fieldName, 0, str(this->property(fieldName.toLocal8Bit())).toLocal8Bit());
+        stream<<"("<<fieldName<<":"<<str(this->property(fieldName.toLocal8Bit()))<<"),";
     }
+    stream<<endl;
+    qCDebug(trQuery)<<debugMsg;
     mXaQuery->Request(isNextQuery());
 }
 

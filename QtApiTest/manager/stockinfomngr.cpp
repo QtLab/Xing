@@ -45,7 +45,7 @@ StockInfo *StockInfoMngr::getStockInfo(const QString &shcode)
     if(stockInfo != NULL)
         return stockInfo;
     QSqlQuery qry;
-    qry.prepare(tr("SELECT * FROM StockInfoTable WHERE `shcode`=%1").arg(shcode));
+    qry.prepare(tr("SELECT * FROM StockInfoTable WHERE `shcode`='%1'").arg(shcode));
     if(qry.exec()) {
         if(qry.next()) {
             stockInfo = new StockInfo();

@@ -30,6 +30,8 @@ private slots:
 
     void on_warehouseTestBtn_clicked();
 
+    void on_summaryTestButton_clicked();
+
 public slots:
     void enableTestButtons();
     void onStockInfoUpdateDone();
@@ -43,6 +45,7 @@ private:
     StockInfoUpdater *mStockInfoUpdater;
     MovementUpdater *mMovementUpdater;
     StockExchangeMngr *mStockExchangeMngr;
+    StockExchangeInfo *mStockExchangeInfo;
 };
 
 #endif // TESTDIALOG_H

@@ -16,10 +16,10 @@ LogBrowserDialog::LogBrowserDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->showTime->setChecked(true);
-    ui->showCategory->setChecked(true);
-    ui->showFileName->setChecked(true);
+    ui->showCategory->setChecked(false);
+    ui->showFileName->setChecked(false);
     ui->showFunction->setChecked(true);
-    ui->showLine->setChecked(true);
+    ui->showLine->setChecked(false);
     connect(ui->clearButton, SIGNAL(clicked()), ui->browser, SLOT(clear()));
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(save()));
 }

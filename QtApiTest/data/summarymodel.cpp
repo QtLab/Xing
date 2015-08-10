@@ -1,7 +1,7 @@
 #include "summarymodel.h"
 #include "util/xingutil.h"
 
-SummaryModel::SummaryModel(const QString &shcode , StockExchangeInfo *stockExchangeInfo, QObject *parent) : QAbstractTableModel(parent), mShcode(shcode),mStockExchangeInfo(stockExchangeInfo)
+SummaryModel::SummaryModel(StockExchangeInfo *stockExchangeInfo, QObject *parent) : QAbstractTableModel(parent), mStockExchangeInfo(stockExchangeInfo)
 {
 }
 
@@ -24,16 +24,58 @@ QVariant SummaryModel::data(const QModelIndex &index, int role) const
 {
     if(role == Qt::DisplayRole) {
         return getDisplayRoleData(index);
+    }else {
+        return QVariant::Invalid;
     }
+
 }
 
 QVariant SummaryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if(role == Qt::DisplayRole){
-        if(orientation = Qt::Horizontal) {
+        if(orientation == Qt::Horizontal) {
             switch(section) {
             case 0:
-                qkor()
+                return qkor("개인");
+            case 1:
+                return qkor("세력합");
+            case 2:
+                return qkor("외국인");
+            case 3:
+                return qkor("기관");
+            case 4:
+                return qkor("사모펀드");
+            case 5:
+                return qkor("금융투자");
+            case 6:
+                return qkor("보험");
+            case 7:
+                return qkor("투자신탁");
+            case 8:
+                return qkor("은행");
+            case 9:
+                return qkor("종합금융");
+            case 10:
+                return qkor("연기금");
+            case 11:
+                return qkor("기타법인");
+            case 12:
+                return qkor("내외국인");
+            case 13:
+                return qkor("국가외");
+            default:
+                return QVariant::Invalid;
+            }
+        }else{
+            switch(section) {
+            case 0:
+                return qkor("주가선도");
+            case 1:
+                return qkor("보유비중");
+            case 2:
+                return qkor("분산추이");
+            default:
+                return QVariant::Invalid;
             }
         }
     }
@@ -46,29 +88,32 @@ QVariant SummaryModel::getDisplayRoleData(const QModelIndex &index) const
     INVESTORS investor = static_cast<INVESTORS>(index.column());
     switch(index.row()) {
     case 0 :
-        return getPriceLeadingPercentage(investor);
+        return (int)(getPriceLeadingPercentage(investor)*100.0);
     case 1:
-        return getCurrentWarehousePercentage(investor);
+        return (int)(getCurrentWarehousePercentage(investor)*100.0);
     case 2:
-        return getDistributePercentage(investor);
+        return (int)(getDistributePercentage(investor)*100.0);
     }
 
     return QVariant::Invalid;
 }
 
-QVariant SummaryModel::getPriceLeadingPercentage(INVESTORS investor) const
+float SummaryModel::getPriceLeadingPercentage(INVESTORS investor) const
 {
-    return mStockExchangeInfo->getPriceLeadingPercentage(investor);
+    float percentage = mStockExchangeInfo->getPriceLeadingPercentage(investor);
+    return percentage;
 }
 
-QVariant SummaryModel::getCurrentWarehousePercentage(INVESTORS investor) const
+float SummaryModel::getCurrentWarehousePercentage(INVESTORS investor) const
 {
-    return mStockExchangeInfo->getCurrentWarehousePercentage(investor);
+    float percentage =  mStockExchangeInfo->getCurrentWarehousePercentage(investor);
+    return percentage;
 }
 
-QVariant SummaryModel::getDistributePercentage(INVESTORS investor) const
+float SummaryModel::getDistributePercentage(INVESTORS investor) const
 {
-    return mStockExchangeInfo->getDistributePercentage(investor);
+    float percentage =  mStockExchangeInfo->getDistributePercentage(investor);
+    return percentage;
 }
 
 INVESTORS SummaryModel::getInvestorByColumnIndex(int index) const

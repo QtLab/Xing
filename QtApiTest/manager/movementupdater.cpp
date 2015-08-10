@@ -20,13 +20,11 @@ MovementUpdater::~MovementUpdater()
 
 void MovementUpdater::update()
 {
-    moveToThread(&mThread);
-    mThread.start();
-    qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    QList<QString> shcodeList = StockInfoMngr::getInstance()->getShcodeList();
-    foreach(QString shcode, shcodeList){
-        requestMovementData(shcode);
+    if(!mThread.isRunning()){
+        moveToThread(&mThread);
+        mThread.start();
     }
+    QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
 }
 
 void MovementUpdater::t1702QueryDone()
@@ -45,6 +43,20 @@ void MovementUpdater::t1702QueryDone()
             if(mUpdatingQueryMap.size()==0)
                 emit updateDone();
         }
+    }
+}
+
+void MovementUpdater::updateStart()
+{
+    qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
+    QList<QString> shcodeList = StockInfoMngr::getInstance()->getShcodeList();
+    int i = 2;
+    foreach(QString shcode, shcodeList){
+        requestMovementData(shcode);
+        if(i==0)
+            break;
+        else
+            i--;
     }
 }
 

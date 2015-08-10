@@ -3,6 +3,8 @@
 #include "ui_testdialog.h"
 #include "util/xingutil.h"
 #include "data/sadmodel.h"
+#include "data/summarymodel.h"
+#include "data/progressbaritemdelegate.h"
 #include <QTableWidget>
 TestDialog::TestDialog(QWidget *parent) :
     QDialog(parent),
@@ -71,21 +73,22 @@ void TestDialog::onWarehouseHistoryReceived(WarehouseInfo *warehouseMap)
 
     for(int i = 0; i<info->getCount(); i++) {
         widget->setItem(i, 0,  new QTableWidgetItem(((*info)[i]->date).toString("yyyyMMdd")));
-        widget->setItem(i, 1, new QTableWidgetItem(tr("%1").arg((*info)[i]->price)));
-        widget->setItem(i, 2, new QTableWidgetItem(tr("%1").arg((*info)[i]->avgPrice)));
+        widget->setItem(i, 1, new QTableWidgetItem(tr("%L1").arg((*info)[i]->price)));
+        widget->setItem(i, 2, new QTableWidgetItem(tr("%L1").arg((*info)[i]->avgPrice)));
 
-        widget->setItem(i, 3, new QTableWidgetItem(tr("%1").arg((*info)[i]->volume)));
-        widget->setItem(i, 4, new QTableWidgetItem(tr("%1").arg((*info)[i]->cumulativeSum)));
-        widget->setItem(i, 5, new QTableWidgetItem(tr("%1").arg((*info)[i]->minCumulativeSum)));
-        widget->setItem(i, 6, new QTableWidgetItem(tr("%1").arg((*info)[i]->currentWareHousing)));
-        widget->setItem(i, 7, new QTableWidgetItem(tr("%1").arg((*info)[i]->maxWareHousing)));
-        widget->setItem(i, 8, new QTableWidgetItem(tr("%1").arg((*info)[i]->distPercent)));
+        widget->setItem(i, 3, new QTableWidgetItem(tr("%L1").arg((*info)[i]->volume)));
+        widget->setItem(i, 4, new QTableWidgetItem(tr("%L1").arg((*info)[i]->cumulativeSum)));
+        widget->setItem(i, 5, new QTableWidgetItem(tr("%L1").arg((*info)[i]->minCumulativeSum)));
+        widget->setItem(i, 6, new QTableWidgetItem(tr("%L1").arg((*info)[i]->currentWareHousing)));
+        widget->setItem(i, 7, new QTableWidgetItem(tr("%L1").arg((*info)[i]->maxWareHousing)));
+        widget->setItem(i, 8, new QTableWidgetItem(tr("%L1").arg((*info)[i]->distPercent)));
     }
     widget->show();
 }
 
 void TestDialog::onStockExchangeInfoReceived(StockExchangeInfo *stockExchangeInfo)
 {
+    mStockExchangeInfo = stockExchangeInfo;
     QTableView *view = new QTableView();
     view->setModel(new SADModel(stockExchangeInfo));
     view->resizeColumnsToContents();
@@ -102,4 +105,17 @@ void TestDialog::on_volumeStatisticTestBtn_clicked()
 void TestDialog::on_warehouseTestBtn_clicked()
 {
     mStockExchangeMngr->requestWarehouseHistory("005930");
+}
+
+void TestDialog::on_summaryTestButton_clicked()
+{
+    if(mStockExchangeInfo!=NULL) {
+        QTableView *view = new QTableView();
+        view->setItemDelegate(new ProgressBarItemDelegate());
+        view->setModel(new SummaryModel(mStockExchangeInfo));
+        view->resizeColumnsToContents();
+        view->resizeRowsToContents();
+        view->resize(view->horizontalHeader()->length()+100, view->verticalHeader()->height()+250);
+        view->show();
+    }
 }

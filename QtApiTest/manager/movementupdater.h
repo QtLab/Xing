@@ -21,6 +21,8 @@ signals:
 public slots:
     void update();
     void t1702QueryDone();
+private slots:
+    void updateStart();
 private:
     void saveToDB(T1702Item* item);
     void createStockMovementTable(const QString &shcode);

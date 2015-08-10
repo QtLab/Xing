@@ -147,12 +147,27 @@ float StockExchangeInfo::getDistributePercentage(INVESTORS investor, const QDate
 long StockExchangeInfo::getNumOfCirculationStock(const QDate &date)
 {
     QDate targetDate = getTargetDate(date);
-    long numOfCirculationStock;
-    for(int i  = 0; i<NUM_OF_INVESTORS; i++) {
-        WarehouseHistory *warehouseHistory = mWarehouseData.value(static_cast<INVESTORS>(i));
-        numOfCirculationStock += (*warehouseHistory)[targetDate]->currentWareHousing;
-    }
+    long numOfCirculationStock = 0;
+
+    numOfCirculationStock += getCurrentWarehouse(INDIVISUAL, date);
+    numOfCirculationStock += getCurrentWarehouse(REGISTERED_FOREIGNER, date);
+    numOfCirculationStock += getCurrentWarehouse(PEF, date);
+    numOfCirculationStock += getCurrentWarehouse(INVESTMENT_C, date);
+    numOfCirculationStock += getCurrentWarehouse(INSURANCE, date);
+    numOfCirculationStock += getCurrentWarehouse(INVESTMENT_T, date);
+    numOfCirculationStock += getCurrentWarehouse(BANK, date);
+    numOfCirculationStock += getCurrentWarehouse(ALLFINANZ, date);
+    numOfCirculationStock += getCurrentWarehouse(NPF, date);
+    numOfCirculationStock += getCurrentWarehouse(CORP, date);
+    numOfCirculationStock += getCurrentWarehouse(NON_REGISTERED_FOREIGNER, date);
+    numOfCirculationStock += getCurrentWarehouse(NATIONAL, date);
     return numOfCirculationStock;
+}
+
+long StockExchangeInfo::getCurrentWarehouse(INVESTORS investor, const QDate &date)
+{
+    WarehouseHistory *warehouseHistory = mWarehouseData.value(investor);
+    return (*warehouseHistory)[date]->currentWareHousing;
 }
 
 void StockExchangeInfo::initDateList()
@@ -221,7 +236,7 @@ QString StockExchangeInfo::getColumnNameByInvestor(INVESTORS investor) const
         return NATIONAL_COLUMN;
     default :
         qCCritical(stockExchangeInfo)<<"Can not find column name for "<<investor;
-        break;
+        return "UNKNOWN INVESTOR";
     }
 }
 
