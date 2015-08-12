@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT       += axcontainer
+QT       += axcontainer sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = StockAnalysis
@@ -35,7 +35,16 @@ SOURCES += main.cpp\
     tr/trmetainfo.cpp \
     util/log.cpp \
     util/logbrowser.cpp \
-    util/logbrowserdialog.cpp
+    util/logbrowserdialog.cpp \
+    data/progressbaritemdelegate.cpp \
+    data/sadmodel.cpp \
+    data/stockexchangeinfo.cpp \
+    data/summarymodel.cpp \
+    data/warehousehistory.cpp \
+    manager/movementupdater.cpp \
+    manager/stockexchangemngr.cpp \
+    manager/stockinfoupdater.cpp \
+    util/xingthread.cpp
 
 HEADERS  += mainwindow.h \
     XingLib/xaquery.h \
@@ -59,7 +68,17 @@ HEADERS  += mainwindow.h \
     tr/trmetainfo.h \
     util/log.h \
     util/logbrowser.h \
-    util/logbrowserdialog.h
+    util/logbrowserdialog.h \
+    data/commontype.h \
+    data/progressbaritemdelegate.h \
+    data/sadmodel.h \
+    data/stockexchangeinfo.h \
+    data/summarymodel.h \
+    data/warehousehistory.h \
+    manager/movementupdater.h \
+    manager/stockexchangemngr.h \
+    manager/stockinfoupdater.h \
+    util/xingthread.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui \

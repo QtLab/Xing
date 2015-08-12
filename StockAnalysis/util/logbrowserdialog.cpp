@@ -7,12 +7,19 @@
 #include <QDateTime>
 #include "logbrowserdialog.h"
 #include "ui_logbrowserdialog.h"
+#include <QMutex>
+#include <QMutexLocker>
 
 LogBrowserDialog::LogBrowserDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LogBrowserDialog)
 {
     ui->setupUi(this);
+    ui->showTime->setChecked(true);
+    ui->showCategory->setChecked(false);
+    ui->showFileName->setChecked(false);
+    ui->showFunction->setChecked(true);
+    ui->showLine->setChecked(false);
     connect(ui->clearButton, SIGNAL(clicked()), ui->browser, SLOT(clear()));
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(save()));
 }
@@ -22,8 +29,9 @@ LogBrowserDialog::~LogBrowserDialog()
     delete ui;
 }
 
-void LogBrowserDialog::outputMessage(QtMsgType type,const QMessageLogContext &context, const QString &msg)
+void LogBrowserDialog::outputMessage(QtMsgType type,const LogContext &context, const QString &msg)
 {
+    QMutexLocker locker(&mLogMutex);
     QString log;
     QTextStream stream(&log);
     if(ui->showTime->isChecked()){
@@ -31,16 +39,16 @@ void LogBrowserDialog::outputMessage(QtMsgType type,const QMessageLogContext &co
         stream<<"["<<time.toString(Qt::ISODate)<<"]";
     }
     if(ui->showCategory->isChecked()) {
-        stream<<" ["<<tr(context.category)<<"]";
+        stream<<" ["<<context.category<<"]";
     }
     if(ui->showFileName->isChecked()) {
-        stream<<" ["<<tr(context.file)<<"]";
+        stream<<" ["<<context.file<<"]";
     }
     if(ui->showFunction->isChecked()) {
-        stream<<" ["<<tr(context.function)<<"]";
+        stream<<" ["<<context.function<<"]";
     }
     if(ui->showLine->isChecked()) {
-        stream<<" ["<<tr(context.line)<<"]";
+        stream<<" ["<<QString::number(context.line)<<"]";
     }
     switch(type) {
     case QtDebugMsg:

@@ -2,6 +2,7 @@
 #include <QDate>
 #include <QDebug>
 #include "trquery.h"
+#include "util/log.h"
 
 TrQuery::TrQuery(TR_TYPE type, const QString& trName, QObject *parent) : QObject(parent), mTrName(trName), mTrInfo(trName), _next(false),mType(type)
 {
@@ -63,27 +64,31 @@ TrItem *TrQuery::getTrItemFromReceivedData(TrBlockInfo *outBlockInfo, int occurI
     {
         QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(),fieldName, occurIndex );
         TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
+        bool result = false;
         switch(fieldInfo->getDataType()) {
         case TrFieldInfo::CHAR:
-            item->setProperty(fieldName.toLocal8Bit(), value);
+            result = item->setProperty(fieldName.toLocal8Bit(), value);
             break;
         case TrFieldInfo::LONG:
-            item->setProperty(fieldName.toLocal8Bit(), value.toLong());
+            result = item->setProperty(fieldName.toLocal8Bit(), value.toLong());
             break;
         case TrFieldInfo::LONGLONG:
-            item->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
+            result = item->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
             break;
         case TrFieldInfo::FLOAT:
-            item->setProperty(fieldName.toLocal8Bit(), value.toFloat());
+            result = item->setProperty(fieldName.toLocal8Bit(), value.toFloat());
             break;
         case TrFieldInfo::DATE:
-            item->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
+            result = item->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
             break;
         case TrFieldInfo::TIME:
-            item->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
+            result = item->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
             break;
         default:
-            item->setProperty(fieldName.toLocal8Bit(), value);
+            result = item->setProperty(fieldName.toLocal8Bit(), value);
+        }
+        if(!result) {
+            qCWarning(trQuery)<<"setProperty for "<<fieldName<<" failed"<<endl;
         }
     }
     return item;
@@ -95,38 +100,48 @@ void TrQuery::setCts()
    foreach(QString fieldName, outBlockInfo->getFieldNameList()) {
        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(), fieldName, 0);
        TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
+       bool result;
        switch(fieldInfo->getDataType()) {
         case TrFieldInfo::CHAR:
-            this->setProperty(fieldName.toLocal8Bit(), value);
+            result = this->setProperty(fieldName.toLocal8Bit(), value);
             break;
         case TrFieldInfo::LONG:
-            this->setProperty(fieldName.toLocal8Bit(), value.toLong());
+            result = this->setProperty(fieldName.toLocal8Bit(), value.toLong());
             break;
         case TrFieldInfo::LONGLONG:
-            this->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
+            result = this->setProperty(fieldName.toLocal8Bit(), value.toLongLong());
             break;
         case TrFieldInfo::FLOAT:
-            this->setProperty(fieldName.toLocal8Bit(), value.toFloat());
+            result = this->setProperty(fieldName.toLocal8Bit(), value.toFloat());
             break;
         case TrFieldInfo::DATE:
-            this->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
+            result = this->setProperty(fieldName.toLocal8Bit(), QDate::fromString(value, "yyyyMMdd"));
             break;
         case TrFieldInfo::TIME:
-            this->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
+            result = this->setProperty(fieldName.toLocal8Bit(), QTime::fromString(value, "hhmmss"));
             break;
         default:
-            this->setProperty(fieldName.toLocal8Bit(), value);
+            result = this->setProperty(fieldName.toLocal8Bit(), value);
         }
+       if(!result) {
+           qCWarning(trQuery)<<"setProperty for "<<fieldName<<" failed"<<endl;
+       }
    }
    xaquery()->ClearBlockdata(outBlockInfo->getBlockName());
 }
 
 void TrQuery::request()
 {
+    QString debugMsg;
+    QTextStream stream(&debugMsg);
     TrBlockInfo* info = mTrInfo.getInBlock();
+    stream<<mTrName<<" for "<<this->property("shcode").toString()<<" is requested with ";
     foreach(QString fieldName, info->getFieldNameList()) {
         mXaQuery->SetFieldData(info->getBlockName().toLocal8Bit(), fieldName, 0, str(this->property(fieldName.toLocal8Bit())).toLocal8Bit());
+        stream<<"("<<fieldName<<":"<<str(this->property(fieldName.toLocal8Bit()))<<"),";
     }
+    stream<<endl;
+    qCDebug(trQuery)<<debugMsg;
     mXaQuery->Request(isNextQuery());
 }
 

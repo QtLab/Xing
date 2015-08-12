@@ -1,46 +1,50 @@
 #include <QDebug>
 #include <QMetaObject>
+#include <QThread>
 #include "util/log.h"
 #include "querymngr.h"
-
-QueryMngr::QueryMngr(QObject *parent) : QObject(parent)
+#include "util/log.h"
+QueryMngr::QueryMngr(QObject *parent) : QObject(parent) , mCurrentInterval(1000)
 {
 
 }
 
 QueryMngr::~QueryMngr()
 {
-
 }
 
 void QueryMngr::start()
 {
     moveToThread(&mThread);
-    mThread.start();
     initRequestTimer();
+    mThread.start();
 }
 
 void QueryMngr::sendRequest()
 {
     if(!mSendingQueue.isEmpty()) {
+        if(mCurrentInterval<3000){
+            mCurrentInterval += 300;
+        }
+        mRequestTimer.setInterval(mCurrentInterval);
         TrQuery *query = mSendingQueue.dequeue();
-        qCDebug(queryMngr,"send Request for %1",query->getTrName());
         query->request();
     } else if(mRequestTimer.isActive()) {
         mRequestTimer.stop();
+        mCurrentInterval = 1000;
         qCDebug(queryMngr)<<"Sending Queue is empty, so stop Request Timer";
     }
 }
 
-void QueryMngr::requestQuery(TrQuery *query)
+void QueryMngr::requestQuery(TrQuery *query, bool isOccurs)
 {
-    qCDebug(queryMngr,"%1 is requested",query->getTrName());
+    qCDebug(queryMngr)<<query->getTrName()<<" is requested"<<endl;
     query->moveToThread(&mThread);
     mQueryList.append(query);
     mSendingQueue.append(query);
     connect(query, SIGNAL(workDone()), this, SLOT(queryDone()));
     connect(query, SIGNAL(scheduleNextQuery()), this, SLOT(onScheduleNextRequest()));
-    checkAndRestartTimer();
+    QMetaObject::invokeMethod(this, "checkAndRestartTimer", Qt::QueuedConnection);
 }
 
 void QueryMngr::queryDone()
@@ -48,7 +52,7 @@ void QueryMngr::queryDone()
     QObject* sender = QObject::sender();
     if(sender != NULL) {
         TrQuery* query = qobject_cast<TrQuery *>(sender);
-        qCDebug(queryMngr,"query for %1 is done",query->getTrName());
+        qCDebug(queryMngr)<<"query for "<<query->getTrName()<<" is done"<<endl;
         if(mQueryList.contains(query)) {
             mQueryList.removeOne(query);
         } else {
@@ -79,14 +83,14 @@ void QueryMngr::initRequestTimer()
 {
     mRequestTimer.moveToThread(&mThread);
     connect(&mRequestTimer, SIGNAL(timeout()), this, SLOT(sendRequest()));
-    QMetaObject::invokeMethod(&mRequestTimer, "start", Qt::QueuedConnection,Q_ARG(int,1000));
+    QMetaObject::invokeMethod(&mRequestTimer, "start", Qt::QueuedConnection,Q_ARG(int,mCurrentInterval));
 }
 
 void QueryMngr::checkAndRestartTimer()
 {
     if(mThread.isRunning()) {
         if(!mRequestTimer.isActive()) {
-            mRequestTimer.start(1000);
+            mRequestTimer.start(mCurrentInterval);
             qCDebug(queryMngr)<<"mRequestTimer is restarted";
         }
     } else {

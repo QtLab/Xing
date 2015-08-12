@@ -1,7 +1,7 @@
 #include "tr/t1702/t1702item.h"
 #include <QDebug>
 
-T1702Item::T1702Item(QObject *parent):TrItem(parent)
+T1702Item::T1702Item(const QString &shcode, QObject *parent):TrItem(parent), mShcode(shcode)
 {
 
 	DEFINE_PROPERTY_NAME("¿œ¿⁄","date");
@@ -28,5 +28,14 @@ T1702Item::T1702Item(QObject *parent):TrItem(parent)
 }
 T1702Item::~T1702Item()
 {
-	qDebug()<<"T1702Item destroyed";
+}
+
+QString T1702Item::getSqlInsertStr()
+{
+    return makeSqlInsertQuery(tr("Movement_%1").arg(shcode()));
+}
+
+QString T1702Item::getSqlUpdateStr()
+{
+    return makeSqlUpdateQuery(tr("Movement_%1").arg(shcode()), tr(" WHERE date=%1").arg(date().toString(tr("yyyyMMdd"))));
 }

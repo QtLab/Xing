@@ -1,6 +1,5 @@
-#include <qDebug>
 #include <QTextStream>
-
+#include "util/log.h"
 #include "t1702query.h"
 
 T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),parent), _cts_idx(0), _cts_date("")
@@ -10,7 +9,7 @@ T1702Query::T1702Query(QObject *parent) : TrQuery(TrQuery::T1702, tr("t1702"),pa
 
 T1702Item *T1702Query::createItem()
 {
-    return new T1702Item();
+    return new T1702Item(_shcode);
 }
 
 void T1702Query::onReceiveData(const QString &trCode)
@@ -33,6 +32,7 @@ void T1702Query::onReceiveData(const QString &trCode)
             return;
         }
     }
+    qCDebug(queryMngr)<<"T1702Query "<<mItemList.last()->date()<<"/"<<this->_fromdate;
     setCts();
     setNextQuery(true);
     emit scheduleNextQuery();

@@ -1,11 +1,12 @@
+#include <QTextStream>
+#include <QMetaObject>
+#include <QMetaProperty>
 #include "stockinfo.h"
 
 StockInfo::StockInfo(QObject *parent):TrItem(parent)
 {
     DEFINE_PROPERTY_NAME("종목명", "hname");
     DEFINE_PROPERTY_NAME("단축코드", "shcode");
-
-
     DEFINE_PROPERTY_NAME("현재가","price");
     DEFINE_PROPERTY_NAME("전일대비구분","sign");
     DEFINE_PROPERTY_NAME("전일대비","change");
@@ -151,8 +152,8 @@ StockInfo::StockInfo(QObject *parent):TrItem(parent)
     DEFINE_PROPERTY_NAME("총매수평단가5","savg5");
     DEFINE_PROPERTY_NAME("외국계매도대금","ftradmdval");
     DEFINE_PROPERTY_NAME("외국계매수대금","ftradmsval");
-    DEFINE_PROPERTY_NAME("외국계매도평단가","ftradmdvag");
-    DEFINE_PROPERTY_NAME("외국계매수평단가","ftradmsvag");
+    DEFINE_PROPERTY_NAME("외국계매도평단가","ftradmdavg");
+    DEFINE_PROPERTY_NAME("외국계매수평단가","ftradmsavg");
     DEFINE_PROPERTY_NAME("투자주의환기","info5");
     DEFINE_PROPERTY_NAME("기업인수목적회사여부","spac_gubun");
     DEFINE_PROPERTY_NAME("발행가격","issueprice");
@@ -164,5 +165,15 @@ StockInfo::StockInfo(QObject *parent):TrItem(parent)
 StockInfo::~StockInfo()
 {
 
+}
+
+QString StockInfo::getSqlInsertStr()
+{
+    return makeSqlInsertQuery(tr("StockInfoTable"));
+}
+
+QString StockInfo::getSqlUpdateStr()
+{
+    return makeSqlUpdateQuery(tr("StockInfoTable"), tr(" WHERE shcode = %1").arg(shcode()));
 }
 

@@ -2,10 +2,10 @@
 #define QUERYMNGR_H
 
 #include <QObject>
-#include <QThread>
 #include <QTimer>
 #include <QQueue>
 #include "tr/trquery.h"
+#include "util/xingthread.h"
 class QueryMngr : public QObject
 {
     Q_OBJECT
@@ -18,17 +18,18 @@ signals:
 public slots:
     void start();
     void sendRequest();
-    void requestQuery(TrQuery* query);
+    void requestQuery(TrQuery* query, bool isOccurs = false);
     void queryDone();
     void onScheduleNextRequest();
+    void checkAndRestartTimer();
+
 private:
     void initRequestTimer();
-    void checkAndRestartTimer();
 private:
-    QThread mThread;
+    XingThread mThread;
     QTimer mRequestTimer;
     QList<TrQuery*> mQueryList;
     QQueue<TrQuery*> mSendingQueue;
+    int mCurrentInterval;
 };
-
 #endif // QUERYMNGR_H

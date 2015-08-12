@@ -5,7 +5,10 @@
 #include <QAction>
 #include <QMenu>
 #include <QList>
-#include "manager/stockinfomngr.h"
+#include "manager/querymngr.h"
+#include "manager/stockinfoupdater.h"
+#include "manager/movementupdater.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -20,7 +23,11 @@ public:
 
 public slots:
     void onStockInfoUpdated();
-    void onMsg(const QString& msg);
+    void onMovementUpdated();
+    void onDisconnectServer();
+    void onLogout();
+    void ReportEventLog(const QString &log);
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 
@@ -31,11 +38,11 @@ private:
     Ui::MainWindow *ui;
     QMenu* m_pUpdateMenu;
 
-    QAction* m_pAllStockDataUpdateAction;
-
-
-    StockInfoMngr mStockInfoMngr;
-
+    QAction* mStockInfoUpdateAction;
+    QAction* mMovementUpdateAction;
+    QueryMngr mQueryMngr;
+    StockInfoUpdater mStockInfoUpdater;
+    MovementUpdater mMovementUpdater;
 };
 
 #endif // MAINWINDOW_H
