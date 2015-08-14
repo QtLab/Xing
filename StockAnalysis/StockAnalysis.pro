@@ -44,7 +44,12 @@ SOURCES += main.cpp\
     manager/movementupdater.cpp \
     manager/stockexchangemngr.cpp \
     manager/stockinfoupdater.cpp \
-    util/xingthread.cpp
+    util/xingthread.cpp \
+    tr/t8424/t8424item.cpp \
+    tr/t8424/t8424query.cpp \
+    ui/upcodeselectiondialog.cpp \
+    tr/t1516/t1516item.cpp \
+    tr/t1516/t1516query.cpp
 
 HEADERS  += mainwindow.h \
     XingLib/xaquery.h \
@@ -78,10 +83,16 @@ HEADERS  += mainwindow.h \
     manager/movementupdater.h \
     manager/stockexchangemngr.h \
     manager/stockinfoupdater.h \
-    util/xingthread.h
+    util/xingthread.h \
+    tr/t8424/t8424item.h \
+    tr/t8424/t8424query.h \
+    ui/upcodeselectiondialog.h \
+    tr/t1516/t1516item.h \
+    tr/t1516/t1516query.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui \
-    util/logbrowserdialog.ui
+    util/logbrowserdialog.ui \
+    ui/upcodeselectiondialog.ui
 
 CONFIG += c++11

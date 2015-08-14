@@ -6,6 +6,7 @@
 #include "util/log.h"
 #include "movementupdater.h"
 #include "tr/t1702/t1702Query.h"
+#include "tr/t1516/t1516query.h"
 #include "manager/stockinfomngr.h"
 MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr),sStockStartDate(2004,1,2), mMarketEndTime(15,30)
 
@@ -25,6 +26,20 @@ void MovementUpdater::update()
         mThread.start();
     }
     QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
+}
+
+void MovementUpdater::update(QList<QString> upcodeList)
+{
+    if(!mThread.isRunning()) {
+        moveToThread(&mThread);
+        mThread.start();
+    }
+    foreach(const QString& upcode , upcodeList){
+        T1516Query *query = T1516Query::createQuery(upcode, NONE);
+        connect(query, SIGNAL(workDone()), this, SLOT(t1516QueryDone()));
+
+    }
+
 }
 
 void MovementUpdater::t1702QueryDone()
@@ -47,6 +62,11 @@ void MovementUpdater::t1702QueryDone()
             }
         }
     }
+}
+
+void MovementUpdater::t1516QueryDone()
+{
+
 }
 
 void MovementUpdater::updateStart()

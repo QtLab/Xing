@@ -22,7 +22,9 @@ signals:
     void updateDone();
 public slots:
     void update();
+    void update(QList<QString> upcodeList);
     void t1702QueryDone();
+    void t1516QueryDone();
 private slots:
     void updateStart();
 private:
@@ -37,6 +39,7 @@ private:
     XingThread mThread;
     QDate sStockStartDate;
     QList<QString> mUpdatingShcodeList;
+    QList<T1516Query *> mRequestedUpcodeLl
     QTime mMarketEndTime;
 };
 

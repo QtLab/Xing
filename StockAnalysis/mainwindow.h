@@ -27,7 +27,8 @@ public slots:
     void onDisconnectServer();
     void onLogout();
     void ReportEventLog(const QString &log);
-
+private slots:
+    void requestMovementUpdate();
 protected:
     virtual void closeEvent(QCloseEvent *event);
 

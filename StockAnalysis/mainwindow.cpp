@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui/upcodeselectiondialog.h"
 #include "util/xingutil.h"
 #include "util/log.h"
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initAction();
     initMenu();
     mQueryMngr.start();
+    connect(&mMovementUpdater, SIGNAL(updateDone()), this, SLOT(onMovementUpdated()));
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +46,15 @@ void MainWindow::ReportEventLog(const QString &log)
     qCDebug(mainWindow)<<qkor("Xing 모듈로부터의 이벤트 - ")<<log;
 }
 
+void MainWindow::requestMovementUpdate()
+{
+    UpCodeSelectionDialog dialog(&mQueryMngr);
+    if(dialog.exec() == QDialog::Accepted){
+        QList<QString> upCodeList = dialog.getUpcodeList();
+        mMovementUpdater.update(upCodeList);
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     qCDebug(mainWindow)<<"closeEvent";
@@ -59,7 +70,7 @@ void MainWindow::initAction()
 
     //Movement Update Action [START]
     mMovementUpdateAction = new QAction(qkor("수급정보 업데이트"), this);
-    connect(mMovementUpdateAction, &QAction::triggered, &mMovementUpdater, &MovementUpdater::update);
+    connect(mMovementUpdateAction, &QAction::triggered, this, &MainWindow::requestMovementUpdate);
     connect(&mMovementUpdater, &MovementUpdater::updateDone, this, &MainWindow::onMovementUpdated);
     //Movement Update Action [END]
 }

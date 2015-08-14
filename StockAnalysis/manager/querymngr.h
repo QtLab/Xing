@@ -18,7 +18,7 @@ signals:
 public slots:
     void start();
     void sendRequest();
-    void requestQuery(TrQuery* query, bool isOccurs = false);
+    void requestQuery(TrQuery* query);
     void queryDone();
     void onScheduleNextRequest();
     void checkAndRestartTimer();

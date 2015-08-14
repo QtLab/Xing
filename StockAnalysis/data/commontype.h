@@ -1,6 +1,8 @@
 #ifndef COMMONTYPE
 #define COMMONTYPE
 
+typedef enum { ALL=0, KOSPI=1, KOSDAQ=2, SECTOR=3, NONE}MARKET_TYPE ;
+
 typedef enum {
                 INDIVISUAL                  = 0,	//개인
                 FORCES 						= 1,    //세력합

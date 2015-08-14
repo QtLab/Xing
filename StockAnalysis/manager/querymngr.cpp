@@ -36,7 +36,7 @@ void QueryMngr::sendRequest()
     }
 }
 
-void QueryMngr::requestQuery(TrQuery *query, bool isOccurs)
+void QueryMngr::requestQuery(TrQuery *query)
 {
     qCDebug(queryMngr)<<query->getTrName()<<" is requested"<<endl;
     query->moveToThread(&mThread);

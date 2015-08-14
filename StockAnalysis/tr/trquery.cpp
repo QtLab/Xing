@@ -97,7 +97,10 @@ TrItem *TrQuery::getTrItemFromReceivedData(TrBlockInfo *outBlockInfo, int occurI
 void TrQuery::setCts()
 {
    TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
+   TrBlockInfo* inBlockInfo = trInfo()->getInBlock();
    foreach(QString fieldName, outBlockInfo->getFieldNameList()) {
+       if(!inBlockInfo->getFieldNameList().contains(fieldName))
+           continue;
        QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(), fieldName, 0);
        TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
        bool result;

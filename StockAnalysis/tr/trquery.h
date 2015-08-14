@@ -9,7 +9,7 @@ class TrQuery : public QObject
 {
     Q_OBJECT
 public:
-    typedef enum {T1102, T1702, T8430} TR_TYPE;
+    typedef enum {T1102, T1702, T8430, T8424, T1516} TR_TYPE;
     explicit TrQuery(TR_TYPE type, const QString& trName, QObject *parent = 0);
     ~TrQuery();
 
