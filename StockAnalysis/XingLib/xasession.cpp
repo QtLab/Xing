@@ -3,7 +3,7 @@
 #include <ActiveQt/QAxObject>
 
 XASession::XASession(QObject *parent) :
-    QObject(parent),session(new QAxObject("XA_Session.XASession"))
+    QObject(parent),session(new QAxObject("XA_Session.XASession")),sessionEvents(nullptr)
 {
 
 }
@@ -30,7 +30,15 @@ bool XASession::ConnectServer(bool toDemoServer)
     } else {
         result = session->dynamicCall("ConnectServer(QString szServerIP, int nServerPort)", REAL_SERVER_ADDR, DEFAULT_SERVER_PORT);
     }
+    if(sessionEvents != nullptr) {
+        disconnect(sessionEvents, &XASessionEvents::onLogin, this, &XASession::onLogin);
+        disconnect(sessionEvents, &XASessionEvents::onLogout, this, &XASession::onLogout);
+        disconnect(sessionEvents, &XASessionEvents::onDisconnect, this, &XASession::onDisconnect);
+        disconnect(sessionEvents, SIGNAL(eventTriggered(const QString&)), this, SLOT(ReportXASessionEventLog(const QString&)));
 
+        sessionEvents->deleteLater();
+        sessionEvents = nullptr;
+    }
     sessionEvents = new XASessionEvents(session, this);
     connect(sessionEvents, &XASessionEvents::onLogin, this, &XASession::onLogin);
     connect(sessionEvents, &XASessionEvents::onLogout, this, &XASession::onLogout);
@@ -121,7 +129,7 @@ void XASession::SetConnectTimeOut(int ConnectTimeOut)
     session->dynamicCall("SetConnectTimeOut(int ConnectTimeOut)", ConnectTimeOut);
 }
 
-void XASession::SetSendPacketSize(int SendPacketSize){
+void XASession::SetSendPacketSize(int SendPacketSize) {
     session->dynamicCall("SetSendPacketSize(int SendPacketSize)", SendPacketSize);
 }
 

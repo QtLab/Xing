@@ -21,6 +21,9 @@ public:
     void setGubun(const QString &gubun) { _gubun = gubun; }
     QString gubun() { return _gubun; }
 
+    void setShcode(const QString &shcode) { _shcode = shcode; }
+    QString shcode() { return _shcode; }
+
     virtual QString toString() override;
     QMap<QString, T1516Item *> getResult();
 protected:

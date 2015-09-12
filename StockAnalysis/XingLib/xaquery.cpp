@@ -18,6 +18,11 @@ XAQuery* XAQuery::newTrInstance(const QString& _transaction, QObject *parent)
     else
         return NULL;
 }
+
+bool XAQuery::isNext()
+{
+    return xaquery->dynamicCall("IsNext()").toBool();
+}
 long XAQuery::Request(bool bNext)
 {
     return xaquery->dynamicCall("Request(bool)", bNext).toInt();

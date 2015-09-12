@@ -8,7 +8,7 @@
 #include "manager/querymngr.h"
 #include "manager/stockinfoupdater.h"
 #include "manager/movementupdater.h"
-
+#include "manager/loginmngr.h"
 namespace Ui {
 class MainWindow;
 }
@@ -18,17 +18,20 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(LoginMngr *loginMngr, QWidget *parent = 0);
     ~MainWindow();
 
 public slots:
     void onStockInfoUpdated();
+    void onUpjongCodeUpdated();
     void onMovementUpdated();
     void onDisconnectServer();
+    void onLogin();
     void onLogout();
     void ReportEventLog(const QString &log);
 private slots:
-    void requestMovementUpdate();
+    void requestMovementUpdateByUpcode();
+    void requestMovementUpdateByShcode();
 protected:
     virtual void closeEvent(QCloseEvent *event);
 
@@ -39,11 +42,14 @@ private:
     Ui::MainWindow *ui;
     QMenu* m_pUpdateMenu;
 
+    QAction* mUpjongCodeUpdateAction;
     QAction* mStockInfoUpdateAction;
-    QAction* mMovementUpdateAction;
+    QAction* mMovementUpdateByUpcodeAction;
+    QAction* mMovementUpdateByShcodeAction;
     QueryMngr mQueryMngr;
     StockInfoUpdater mStockInfoUpdater;
     MovementUpdater mMovementUpdater;
+    LoginMngr *mLoginMngr;
 };
 
 #endif // MAINWINDOW_H

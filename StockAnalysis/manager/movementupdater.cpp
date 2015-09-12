@@ -7,8 +7,7 @@
 #include "movementupdater.h"
 #include "tr/t1702/t1702Query.h"
 #include "tr/t1516/t1516query.h"
-#include "manager/stockinfomngr.h"
-MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr),sStockStartDate(2004,1,2), mMarketEndTime(15,30)
+MovementUpdater::MovementUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent), mQueryMngr(queryMngr),sStockStartDate(2004,1,2), mMarketEndTime(15,30), totalNumOfShcode(0)
 
 {
 
@@ -19,27 +18,28 @@ MovementUpdater::~MovementUpdater()
 
 }
 
-void MovementUpdater::update()
+void MovementUpdater::updateByShcodeList(QList<QString> shcodeList)
 {
     if(!mThread.isRunning()) {
         moveToThread(&mThread);
         mThread.start();
     }
+    mUpdatingShcodeList.append(shcodeList);
     QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
 }
 
-void MovementUpdater::update(QList<QString> upcodeList)
+void MovementUpdater::updateByUpcodeList(QList<QString> upcodeList)
 {
     if(!mThread.isRunning()) {
         moveToThread(&mThread);
         mThread.start();
     }
-    foreach(const QString& upcode , upcodeList){
-        T1516Query *query = T1516Query::createQuery(upcode, NONE);
+    foreach(const QString& upcode , upcodeList) {
+        T1516Query *query = T1516Query::createQuery(upcode, MARKET_TYPE_NONE);
         connect(query, SIGNAL(workDone()), this, SLOT(t1516QueryDone()));
-
+        mQueryMngr->requestQuery(query);
+        mRequestedUpcodeList.append(query);
     }
-
 }
 
 void MovementUpdater::t1702QueryDone()
@@ -48,6 +48,10 @@ void MovementUpdater::t1702QueryDone()
     if(sender != NULL) {
         T1702Query *query = qobject_cast<T1702Query *>(sender);
         if(query != NULL) {
+            if(mUpdatingShcodeList.size()!=0) {
+                qCDebug(movementUpdater)<<"Movement update "<<totalNumOfShcode-mUpdatingShcodeList.size()<<"/"<<totalNumOfShcode;
+                nextRequest();
+            }
             QList<T1702Item *> list = query->getResult();
             foreach(T1702Item *item, list) {
                 saveToDB(item);
@@ -56,23 +60,30 @@ void MovementUpdater::t1702QueryDone()
             query->deleteLater();
             if(mUpdatingShcodeList.size()==0)
                 emit updateDone();
-            else {
-                qCDebug(movementUpdater)<<"Movement update "<<StockInfoMngr::getInstance()->getShcodeList().size()-mUpdatingShcodeList.size()<<"/"<<StockInfoMngr::getInstance()->getShcodeList().size();
-                nextRequest();
-            }
         }
     }
 }
 
 void MovementUpdater::t1516QueryDone()
 {
-
+    QObject* sender = QObject::sender();
+    if(sender != NULL) {
+        T1516Query* query = qobject_cast<T1516Query*>(sender);
+        if(query != NULL) {
+            QMap<QString, T1516Item*> itemMap = query->getResult();
+            mUpdatingShcodeList.append(itemMap.keys());
+            mRequestedUpcodeList.removeOne(query);
+            if(mRequestedUpcodeList.size()==0) {
+                QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
+            }
+        }
+    }
 }
 
 void MovementUpdater::updateStart()
 {
     qCDebug(movementUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
-    mUpdatingShcodeList = StockInfoMngr::getInstance()->getShcodeList();
+    totalNumOfShcode = mUpdatingShcodeList.size();
     nextRequest();
 }
 void MovementUpdater::saveToDB(T1702Item *item)
@@ -132,9 +143,14 @@ bool MovementUpdater::requestMovementData(const QString &shcode)
     QTime currentTime = QTime::currentTime();
     QDate today = QDate::currentDate();
     QDate fromDay = getLastUpdatedDateFromDatabase(shcode);
-
-    if(currentTime<mMarketEndTime)
+    StockInfo *stockInfo = StockInfoMngr::getInstance()->getStockInfo(shcode);
+    QDate firstUpdatedDay = getFirstUpdatedDateFromDatabase(shcode);
+    if(currentTime<mMarketEndTime)				//장중에 업데이트 시에는 전날 기준으로
         today.addDays(-1);
+    if(!((firstUpdatedDay == sStockStartDate) || (firstUpdatedDay==stockInfo->listdate()))) {		//saveToDB가 중간에 끊긴 경우
+        fromDay = stockInfo->listdate()>sStockStartDate?stockInfo->listdate():sStockStartDate;
+    }
+
     if(fromDay == QDate::currentDate())
         return false;
     T1702Query *query = T1702Query::createQuery(shcode, fromDay, today, T1702Query::AMOUNT, T1702Query::PURE_BUY, T1702Query::DAILY);
@@ -146,8 +162,7 @@ bool MovementUpdater::requestMovementData(const QString &shcode)
 QDate MovementUpdater::getLastUpdatedDateFromDatabase(const QString &shcode)
 {
     QSqlQuery lastDateQry;
-    lastDateQry.prepare(tr("SELECT max(`Date`) FROM Movement_%1").arg(shcode));
-    if(lastDateQry.exec()) {
+    lastDateQry.prepare(tr("SELECT max(`Date`) FROM Movement_%1").arg(shcode));    if(lastDateQry.exec()) {
         if(lastDateQry.next()) {
             if(!lastDateQry.isNull(0))
                 return lastDateQry.value(0).toDate();
@@ -161,6 +176,21 @@ QDate MovementUpdater::getLastUpdatedDateFromDatabase(const QString &shcode)
         return listDate;
     else
         return sStockStartDate;
+}
+
+QDate MovementUpdater::getFirstUpdatedDateFromDatabase(const QString &shcode)
+{
+    QSqlQuery lastDateQry;
+    lastDateQry.prepare(tr("SELECT min(`Date`) FROM Movement_%1").arg(shcode));
+    if(lastDateQry.exec()) {
+        if(lastDateQry.next()) {
+            if(!lastDateQry.isNull(0))
+                return lastDateQry.value(0).toDate();
+        }
+    } else {
+        errorQuery(&lastDateQry);
+    }
+    return QDate::currentDate();
 }
 
 

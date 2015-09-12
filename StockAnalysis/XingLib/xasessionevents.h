@@ -21,7 +21,6 @@ private slots:
     void Logout();
     void exception(int, const QString &, const QString &, const QString &);
     void propertyChanged(const QString &name);
-    void signal(const QString &name, int argc, void* argv);
 };
 
 #endif // XASESSIONEVENTS_H

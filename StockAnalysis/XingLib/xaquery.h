@@ -19,7 +19,7 @@ private:
 public:
     static XAQuery* newTrInstance(const QString& _transaction, QObject *parent = 0);
 
-
+    bool isNext();
     long Request(bool);
     QString GetFieldData(const QString& szBlockName, const QString& szFieldName, long nOccursIndex);
     void SetFieldData (const QString& szBlockName, const QString& szFieldName, long nOccursIndex, const QString& szData);

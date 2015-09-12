@@ -17,7 +17,7 @@ void messageOutput(QtMsgType type,const QMessageLogContext &context,const QStrin
         logBrowser->outputMessage(type, context, QObject::tr("[thread-%1]").arg((long)QThread::currentThreadId())+msg);
 }
 void initDatabaseConnection() {
-  QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("192.168.219.250");
     db.setDatabaseName("XingDB");
     db.setUserName("seuki77");
@@ -25,7 +25,7 @@ void initDatabaseConnection() {
     if(!db.open()) {
         qCDebug(Main)<<db.lastError();
         qCDebug(Main)<<"Failed to connect";
-    }else {
+    } else {
         qCDebug(Main)<<"Database Connected";
     }
 }
@@ -41,15 +41,12 @@ int main(int argc, char *argv[])
 
     initDatabaseConnection();
     XASession xasession;
-
-    MainWindow w;
-    QObject::connect(&xasession, SIGNAL(onDisconnect()), &w, SLOT(onDisconnectServer()));
-    QObject::connect(&xasession, SIGNAL(onLogout()), &w, SLOT(onLogout()));
-    QObject::connect(&xasession, SIGNAL(ReportEventLog(QString)), &w, SLOT(ReportEventLog(QString)));
     LoginMngr loginMngr = LoginMngr(&xasession);
+    MainWindow *w;
     LoginDialog dialog(&loginMngr);
     if(dialog.exec()==QDialog::Accepted) {
-        w.show();
+        w = new MainWindow(&loginMngr);
+        w->show();
     }
 
     return a.exec();

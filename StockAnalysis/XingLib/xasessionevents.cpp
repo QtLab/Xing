@@ -9,7 +9,6 @@ XASessionEvents::XASessionEvents(QAxObject *session, QObject *parent) :
     connect(session, SIGNAL(Logout()), this, SLOT(Logout()));
     connect(session, SIGNAL(exception(int, QString, QString, QString)), this, SLOT(exception(int, const QString&, const QString&, const QString&)));
     connect(session, SIGNAL(propertyChanged(QString)), this, SLOT(propertyChanged(const QString&)));
-    connect(session, SIGNAL(signal(QString, int, void*)), this, SLOT(signal(const QString&, int, void*)));
 }
 void XASessionEvents::Disconnect()
 {
@@ -35,7 +34,3 @@ void XASessionEvents::propertyChanged(const QString &name)
     emit eventTriggered(tr("XASessionEvents : propertyChanged name=%1").arg(name));
 }
 
-void XASessionEvents::signal(const QString &name, int argc, void* argv)
-{
-    emit eventTriggered(tr("XASessionEvents : signal name=%1").arg(name));
-}

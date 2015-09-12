@@ -18,6 +18,7 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::onLogin(const QString &szCode, const QString &szMsg)
 {
+    //disconnect(mLoginMngr, &LoginMngr::notifyLogin, this, &LoginDialog::onLogin);
     if(szCode=="0000") {
         QMessageBox::information(this, "Login", szMsg);
         done(QDialog::Accepted);

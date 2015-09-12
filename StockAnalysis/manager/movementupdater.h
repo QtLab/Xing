@@ -11,6 +11,7 @@
 #include "manager/querymngr.h"
 #include "manager/stockinfomngr.h"
 #include "tr/t1702/t1702query.h"
+#include "tr/t1516/t1516query.h"
 class MovementUpdater : public QObject
 {
     Q_OBJECT
@@ -21,8 +22,8 @@ public:
 signals:
     void updateDone();
 public slots:
-    void update();
-    void update(QList<QString> upcodeList);
+    void updateByShcodeList(QList<QString> shcodeList);
+    void updateByUpcodeList(QList<QString> upcodeList);
     void t1702QueryDone();
     void t1516QueryDone();
 private slots:
@@ -33,14 +34,16 @@ private:
     void errorQuery(QSqlQuery *query);
     void nextRequest();
     bool requestMovementData(const QString &shcode);
-    QDate getLastUpdatedDateFromDatabase(const QString & shcode);
+    QDate getLastUpdatedDateFromDatabase(const QString &shcode);
+    QDate getFirstUpdatedDateFromDatabase(const QString &shcode);
 private:
     QueryMngr* mQueryMngr;
     XingThread mThread;
     QDate sStockStartDate;
     QList<QString> mUpdatingShcodeList;
-    QList<T1516Query *> mRequestedUpcodeLl
+    QList<T1516Query *> mRequestedUpcodeList;
     QTime mMarketEndTime;
+    int totalNumOfShcode;
 };
 
 #endif // MOVEMENTUPDATER_H

@@ -1,7 +1,7 @@
 #ifndef COMMONTYPE
 #define COMMONTYPE
 
-typedef enum { ALL=0, KOSPI=1, KOSDAQ=2, SECTOR=3, NONE}MARKET_TYPE ;
+typedef enum { ALL=0, KOSPI=1, KOSDAQ=2, SECTOR=3, MARKET_TYPE_NONE}MARKET_TYPE ;
 
 typedef enum {
                 INDIVISUAL                  = 0,	//개인
@@ -18,9 +18,9 @@ typedef enum {
                 CORP                        = 11,	//기타법인
                 NON_REGISTERED_FOREIGNER    = 12, 	//내외국인
                 NATIONAL                    = 13,	//국가외
-                NONE						= 14
+                INVESTOR_NONE						= 14
              } INVESTORS;
-#define NUM_OF_INVESTORS static_cast<int>(NONE)
+#define NUM_OF_INVESTORS static_cast<int>(INVESTOR_NONE)
 #define PEF_COLUMN "amt0000"
 #define INVESTMENT_C_COLUMN "amt0001"
 #define INSURANCE_COLUMN "amt0002"

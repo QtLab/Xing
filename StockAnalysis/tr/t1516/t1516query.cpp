@@ -1,5 +1,5 @@
 #include "t1516query.h"
-
+#include <QDebug>
 T1516Query::T1516Query(QObject *parent) : TrQuery(TrQuery::T1516, tr("t1516"), parent),_upcode(tr("")), _gubun(tr(""))
 {
 
@@ -12,7 +12,7 @@ T1516Item *T1516Query::createItem()
 
 bool T1516Query::hasNextData()
 {
-    QString value = xaquery()->GetFieldData(tr("t1516OutBlock"), tr("shcode"));
+    QString value = xaquery()->GetFieldData(tr("t1516OutBlock"), tr("shcode"),0);
     return !mItemMap.contains(value);
 }
 
@@ -23,16 +23,17 @@ void T1516Query::onReceiveData(const QString &trCode)
     for(int i = 0; i<blockCnt; i++) {
         TrItem *item = getTrItemFromReceivedData(outBlockInfo1, i);
         T1516Item* t1516Item = qobject_cast<T1516Item*>(item);
+        QString shcode = t1516Item->shcode();
         mItemMap.insert(t1516Item->shcode(), t1516Item);
     }
-    if(hasNextData()) {
+    if(xaquery()->isNext()) {
         setCts();
         setNextQuery(true);
         emit scheduleNextQuery();
         xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
     }else{
         emit workDone();
-        xaquery()->clearBlockdata(outBlockInfo1->getBlockName());
+        xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
     }
 }
 
@@ -50,8 +51,8 @@ T1516Query *T1516Query::createQuery(const QString &upcode, MARKET_TYPE marketTyp
 {
     T1516Query* query = new T1516Query();
     query->setUpcode(upcode);
-    if(marketType != NONE)
-        query->setGubun(QString::number(qobject_cast<int>(marketType)));
+    if(marketType != MARKET_TYPE_NONE)
+        query->setGubun(QString::number(static_cast<int>(marketType)));
     return query;
 }
 

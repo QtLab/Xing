@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     tr/t8424/t8424query.cpp \
     ui/upcodeselectiondialog.cpp \
     tr/t1516/t1516item.cpp \
-    tr/t1516/t1516query.cpp
+    tr/t1516/t1516query.cpp \
+    ui/shcodeselectiondialog.cpp
 
 HEADERS  += mainwindow.h \
     XingLib/xaquery.h \
@@ -88,11 +89,13 @@ HEADERS  += mainwindow.h \
     tr/t8424/t8424query.h \
     ui/upcodeselectiondialog.h \
     tr/t1516/t1516item.h \
-    tr/t1516/t1516query.h
+    tr/t1516/t1516query.h \
+    ui/shcodeselectiondialog.h
 
 FORMS    += mainwindow.ui \
     ui/logindialog.ui \
     util/logbrowserdialog.ui \
-    ui/upcodeselectiondialog.ui
+    ui/upcodeselectiondialog.ui \
+    ui/shcodeselectiondialog.ui
 
 CONFIG += c++11
