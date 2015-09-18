@@ -83,27 +83,27 @@ void ShcodeSelectionDialog::showETF()
 
 void ShcodeSelectionDialog::showETN()
 {
-
+	//Not Support
 }
 
 void ShcodeSelectionDialog::showKonex()
 {
-
+	//Not Support
 }
 
 void ShcodeSelectionDialog::showKotc()
 {
-
+	//Not Support
 }
 
 void ShcodeSelectionDialog::showElw()
 {
-
+	//Not Support
 }
 
 void ShcodeSelectionDialog::showRegistered()
 {
-
+	//It will be supported after implementing stock registering
 }
 
 void ShcodeSelectionDialog::showSectorTheme()

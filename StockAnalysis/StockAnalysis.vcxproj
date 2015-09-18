@@ -205,6 +205,8 @@
     <ClCompile Include="Debug\moc_t8424query.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Debug\moc_T8425Item.cpp" />
+    <ClCompile Include="Debug\moc_T8425Query.cpp" />
     <ClCompile Include="Debug\moc_t8430item.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -334,6 +336,8 @@
     <ClCompile Include="Release\moc_xingthread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="tr\t8425\T8425Item.cpp" />
+    <ClCompile Include="tr\t8425\T8425Query.cpp" />
     <ClCompile Include="util\log.cpp" />
     <ClCompile Include="util\logbrowser.cpp" />
     <ClCompile Include="util\logbrowserdialog.cpp" />
@@ -381,6 +385,8 @@
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_shcodeselectiondialog.h" />
     <ClInclude Include="GeneratedFiles\ui_upcodeselectiondialog.h" />
+    <CustomBuild Include="tr\t8425\T8425Item.h" />
+    <CustomBuild Include="tr\t8425\T8425Query.h" />
     <ClInclude Include="util\log.h" />
     <CustomBuild Include="util\logbrowser.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal

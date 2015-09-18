@@ -1,4 +1,4 @@
-#ifndef STOCKINFOUPDATER_H
+﻿#ifndef STOCKINFOUPDATER_H
 #define STOCKINFOUPDATER_H
 
 #include <QWidget>
@@ -23,10 +23,10 @@ signals:
 public slots:
     void updateStockInfo();
     void updateUpjongCode();
-    void t8424QueryDone();
-    void t8430QueryDone();
-    void t1102QueryDone();
-    void t1516QueryDone();
+    void t8424QueryDone();			//업종전체조회
+    void t8430QueryDone();			//주식종목조회
+    void t1102QueryDone();			//주식현재가조회
+    void t1516QueryDone();			//업종별 종목시세
 private:
     void createStockInfoTable();
     void createUpjongCodeTable();
