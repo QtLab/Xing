@@ -10,7 +10,6 @@
 #include "tr/t1102/t1102query.h"
 #include "tr/t1516/t1516query.h"
 #include "data/stockinfo.h"
-#include "util/xingthread.h"
 class StockInfoUpdater : public QObject
 {
     Q_OBJECT
@@ -19,29 +18,19 @@ public:
     ~StockInfoUpdater();
 signals:
     void updateStockInfoDone();
-    void updateUpjongCodeDone();
 public slots:
     void updateStockInfo();
-    void updateUpjongCode();
-    void t8424QueryDone();			//업종전체조회
+    
     void t8430QueryDone();			//주식종목조회
     void t1102QueryDone();			//주식현재가조회
-    void t1516QueryDone();			//업종별 종목시세
 private:
     void createStockInfoTable();
-    void createUpjongCodeTable();
-    void createUpjongTable(const QString &upcode);
-    void requestShcodeListByUpjongCode(const QString &upcode);
     void saveStockInfoToDB(StockInfo *info);
-    void saveUpjongCodeToDB(const QString &upcode, const QString &hname);
-    void saveUpjongInfoToDB(const QString &upcode, const QString &shcode, const QString &hname);
     void errorQuery(QSqlQuery *query);
     bool checkCondition(StockInfo *info);
 private:
     QueryMngr* mQueryMngr;
     QMap<QString, StockInfo *> mStockInfoUpdatingMap;
-    XingThread mThread;
-    QList<T1516Query *> mT1516RequestedList;
     const QDate ZeroDate;
 };
 

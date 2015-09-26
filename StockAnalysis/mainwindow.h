@@ -6,9 +6,12 @@
 #include <QMenu>
 #include <QList>
 #include "manager/querymngr.h"
-#include "manager/stockinfoupdater.h"
-#include "manager/movementupdater.h"
+#include "updater/stockinfoupdater.h"
+#include "updater/movementupdater.h"
+#include "updater/UpjongCodeUpdater.h"
+#include "updater/themeupjongupdater.h"
 #include "manager/loginmngr.h"
+#include "util/xingthread.h"
 namespace Ui {
 class MainWindow;
 }
@@ -22,9 +25,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void onStockInfoUpdated();
     void onUpjongCodeUpdated();
-    void onMovementUpdated();
     void onDisconnectServer();
     void onLogin();
     void onLogout();
@@ -43,13 +44,18 @@ private:
     QMenu* m_pUpdateMenu;
 
     QAction* mUpjongCodeUpdateAction;
+	QAction* mThemeUpdateAction;
     QAction* mStockInfoUpdateAction;
     QAction* mMovementUpdateByUpcodeAction;
     QAction* mMovementUpdateByShcodeAction;
     QueryMngr mQueryMngr;
+
+	ThemeUpjongUpdater mThemeUpdater;
     StockInfoUpdater mStockInfoUpdater;
     MovementUpdater mMovementUpdater;
+	UpjongCodeUpdater mUpjongCodeUpdater;
     LoginMngr *mLoginMngr;
+	XingThread mBackgroundWorker;
 };
 
 #endif // MAINWINDOW_H

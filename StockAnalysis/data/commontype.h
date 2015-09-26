@@ -2,7 +2,7 @@
 #define COMMONTYPE
 
 typedef enum { ALL=0, KOSPI=1, KOSDAQ=2, SECTOR=3, MARKET_TYPE_NONE}MARKET_TYPE ;
-
+typedef enum { KOSPI_UPJONG = 0, KOSDAQ_UPJONG = 1, SECTOR_UPJONG = 2, SPECIAL_UPJONG = 3} UPJONG_TYPE;
 typedef enum {
                 INDIVISUAL                  = 0,	//개인
                 FORCES 						= 1,    //세력합

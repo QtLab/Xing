@@ -1,4 +1,6 @@
-#pragma once
+#ifndef T8425ITEM_H
+#define T8425ITEM_H
+
 #include <QObject>
 #include <QString>
 #include "tr\tritem.h"
@@ -20,3 +22,4 @@ private:
 	QString _tmcode;			//테마코드
 };
 
+#endif

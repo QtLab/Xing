@@ -25,5 +25,5 @@ T1516Item::T1516Item(QObject *parent):TrItem(parent)
 }
 T1516Item::~T1516Item()
 {
-	qDebug()<<"T1516Item destroyed";
+	//qDebug()<<"T1516Item destroyed";
 }

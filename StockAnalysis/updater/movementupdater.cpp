@@ -18,28 +18,24 @@ MovementUpdater::~MovementUpdater()
 
 }
 
+void MovementUpdater::updateByShcode(const QString &shcode)
+{
+	mUpdatingShcodeList.append(shcode);
+	QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
+}
+
 void MovementUpdater::updateByShcodeList(QList<QString> shcodeList)
 {
-    if(!mThread.isRunning()) {
-        moveToThread(&mThread);
-        mThread.start();
-    }
     mUpdatingShcodeList.append(shcodeList);
     QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
 }
 
-void MovementUpdater::updateByUpcodeList(QList<QString> upcodeList)
+void MovementUpdater::updateByUpcode(const QString &upcode)
 {
-    if(!mThread.isRunning()) {
-        moveToThread(&mThread);
-        mThread.start();
-    }
-    foreach(const QString& upcode , upcodeList) {
-        T1516Query *query = T1516Query::createQuery(upcode, MARKET_TYPE_NONE);
-        connect(query, SIGNAL(workDone()), this, SLOT(t1516QueryDone()));
-        mQueryMngr->requestQuery(query);
-        mRequestedUpcodeList.append(query);
-    }
+    T1516Query *query = T1516Query::createQuery(upcode, MARKET_TYPE_NONE);
+    connect(query, SIGNAL(workDone()), this, SLOT(t1516QueryDone()));
+	mQueryMngr->requestQuery(query);
+	mRequestedUpcodeList.append(query);
 }
 
 void MovementUpdater::t1702QueryDone()
@@ -52,10 +48,10 @@ void MovementUpdater::t1702QueryDone()
                 qCDebug(movementUpdater)<<"Movement update "<<totalNumOfShcode-mUpdatingShcodeList.size()<<"/"<<totalNumOfShcode;
                 nextRequest();
             }
-            QList<T1702Item *> list = query->getResult();
-            foreach(T1702Item *item, list) {
+            QList<TrItem *> list = query->getResult();
+            foreach(TrItem *trItem, list) {
+				T1702Item *item = qobject_cast<T1702Item *>(trItem);
                 saveToDB(item);
-                item->deleteLater();
             }
             query->deleteLater();
             if(mUpdatingShcodeList.size()==0)
@@ -70,9 +66,13 @@ void MovementUpdater::t1516QueryDone()
     if(sender != NULL) {
         T1516Query* query = qobject_cast<T1516Query*>(sender);
         if(query != NULL) {
-            QMap<QString, T1516Item*> itemMap = query->getResult();
-            mUpdatingShcodeList.append(itemMap.keys());
+            QList<TrItem*> itemList = query->getResult();
+			foreach(TrItem* trItem, itemList) {
+				T1516Item *item = qobject_cast<T1516Item *>(trItem);
+				mUpdatingShcodeList.append(item->shcode());
+			}
             mRequestedUpcodeList.removeOne(query);
+			query->deleteLater();
             if(mRequestedUpcodeList.size()==0) {
                 QMetaObject::invokeMethod(this, "updateStart", Qt::QueuedConnection);
             }
@@ -128,9 +128,6 @@ void MovementUpdater::nextRequest()
 {
     bool success = false;
     do {
-        if(mUpdatingShcodeList.size()==0) {
-            emit updateDone();
-        }
         success = requestMovementData(mUpdatingShcodeList.at(0));
         mUpdatingShcodeList.removeAt(0);
     }

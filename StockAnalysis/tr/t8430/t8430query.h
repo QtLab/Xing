@@ -2,10 +2,10 @@
 #define T8430QUERY_H
 
 #include <QObject>
-#include "tr/trquery.h"
+#include "tr/blocktrquery.h"
 #include "tr/t8430/t8430item.h"
 
-class T8430Query : public TrQuery
+class T8430Query : public BlockTrQuery
 {
     Q_OBJECT
     Q_PROPERTY(QString gubun MEMBER _gubun READ gubun WRITE setGubun)
@@ -16,18 +16,12 @@ public:
     void setGubun(const QString& gubun){ _gubun = gubun; }
     QString gubun() { return _gubun; }
 
-    virtual QString toString() override;
-    QList<T8430Item *> getResult();
 protected:
     explicit T8430Query(QObject *parent = 0);
     virtual T8430Item *createItem() override;
-signals:
-public slots:
-    virtual void onReceiveData(const QString& trCode);
-    virtual void onReceiveChartRealData(const QString& trCode);
+
 private:
     QString _gubun;
-    QList<T8430Item *> mItemList;
 };
 
 #endif // T8430QUERY_H

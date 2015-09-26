@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "stockinfoupdater.h"
 #include "util/log.h"
-#include "tr/t8424/t8424query.h"
+
 
 StockInfoUpdater::StockInfoUpdater(QueryMngr *queryMngr, QObject *parent) : QObject(parent),mQueryMngr(queryMngr),ZeroDate(0,0,0)
 {
@@ -17,46 +17,11 @@ StockInfoUpdater::~StockInfoUpdater()
 
 void StockInfoUpdater::updateStockInfo()
 {
-    if(!mThread.isRunning()) {
-        moveToThread(&mThread);
-        mThread.start();
-    }
     qCDebug(stockInfoUpdater)<<"Update Start time"<<QDateTime::currentDateTime().toString(Qt::ISODate);
     createStockInfoTable();
     T8430Query *query = T8430Query::createQuery();
     connect(query, SIGNAL(workDone()), this, SLOT(t8430QueryDone()));
     mQueryMngr->requestQuery(query);
-}
-
-void StockInfoUpdater::updateUpjongCode()
-{
-    if(!mThread.isRunning()) {
-        moveToThread(&mThread);
-        mThread.start();
-    }
-    createUpjongCodeTable();
-    T8424Query *query = T8424Query::createQuery();
-    connect(query, SIGNAL(workDone()), this, SLOT(t8424QueryDone()));
-    mQueryMngr->requestQuery(query);
-}
-
-void StockInfoUpdater::t8424QueryDone()
-{
-    QObject *sender = QObject::sender();
-    if(sender!=NULL) {
-        T8424Query *query = qobject_cast<T8424Query *>(sender);
-        if(query!= NULL) {
-            QList<T8424Item *> itemList = query->getResult();
-            foreach(T8424Item *item , itemList) {
-                saveUpjongCodeToDB(item->upcode(), item->hname());
-                requestShcodeListByUpjongCode(item->upcode());
-                item->deleteLater();
-            }
-            query->deleteLater();
-
-        }
-    }
-
 }
 
 void StockInfoUpdater::t8430QueryDone()
@@ -65,8 +30,9 @@ void StockInfoUpdater::t8430QueryDone()
     if(sender != NULL) {
         T8430Query *query = qobject_cast<T8430Query *>(sender);
         if(query != NULL) {
-            QList<T8430Item *> list = query->getResult();
-            foreach(T8430Item *item, list) {
+            QList<TrItem *> list = query->getResult();
+            foreach(TrItem *trItem, list) {
+				T8430Item *item = qobject_cast<T8430Item *>(trItem);
                 StockInfo *stockInfo = new StockInfo();
                 stockInfo->setShcode(item->shcode());
                 stockInfo->setHname(item->hname());
@@ -74,7 +40,6 @@ void StockInfoUpdater::t8430QueryDone()
                 stockInfo->setETF(item->etfgubun()==tr("1"));
                 stockInfo->setKOSPI(item->gubun()==tr("1"));
                 mStockInfoUpdatingMap.insert(stockInfo->shcode(), stockInfo);
-                item->deleteLater();
             }
             query->deleteLater();
             foreach(StockInfo *info , mStockInfoUpdatingMap.values()) {
@@ -92,7 +57,7 @@ void StockInfoUpdater::t1102QueryDone()
     if(sender != NULL) {
         T1102Query *query = qobject_cast<T1102Query *>(sender);
         if(query!=NULL) {
-            T1102Item* item = query->getResult();
+            T1102Item* item = qobject_cast<T1102Item*>(query->getResult());
             StockInfo *info = mStockInfoUpdatingMap.value(item->shcode());
             QList<QString> propertyList = item->getPropertyList();
             foreach(QString propertyName, propertyList) {
@@ -125,62 +90,6 @@ void StockInfoUpdater::createStockInfoTable()
     }
 }
 
-void StockInfoUpdater::createUpjongCodeTable()
-{
-    QSqlQuery query;
-    query.prepare("CREATE TABLE IF NOT EXISTS UpjongCodeTable (upcode CHAR(3) UNIQUE PRIMARY KEY, hname VARCHAR(20))");
-    if(!query.exec()) {
-        errorQuery(&query);
-        return;
-    } else {
-        qCDebug(stockInfoUpdater)<<"UpjongCodeTable is created";
-        return;
-    }
-}
-
-void StockInfoUpdater::createUpjongTable(const QString &upcode)
-{
-    QSqlQuery query;
-    query.prepare(tr("CREATE TABLE IF NOT EXISTS UpjongTable_%1 (shcode CHAR(6) UNIQUE PRIMARY KEY, hname VARCHAR(20))").arg(upcode));
-    if(!query.exec()) {
-        errorQuery(&query);
-        return;
-    } else {
-        qCDebug(stockInfoUpdater)<<"UpjongTable_"<<upcode<<" is created";
-        return;
-    }
-
-}
-
-void StockInfoUpdater::requestShcodeListByUpjongCode(const QString &upcode)
-{
-   T1516Query *query = T1516Query::createQuery(upcode, MARKET_TYPE_NONE);
-   connect(query, SIGNAL(workDone()), this, SLOT(t1516QueryDone()));
-   mQueryMngr->requestQuery(query);
-   mT1516RequestedList.append(query);
-}
-
-void StockInfoUpdater::t1516QueryDone()
-{
-    QObject* sender = QObject::sender();
-    if(sender != NULL) {
-        T1516Query* query = qobject_cast<T1516Query*>(sender);
-        if(query != NULL) {
-            QMap<QString, T1516Item*> itemMap = query->getResult();
-            createUpjongTable(query->upcode());
-            foreach(QString shcode, itemMap.keys()) {
-                saveUpjongInfoToDB(query->upcode(), shcode, itemMap.value(shcode)->hname());
-            }
-            mT1516RequestedList.removeOne(query);
-            qCDebug(stockInfoUpdater)<<mT1516RequestedList.size()<<" t1516 queries are left";
-            if(mT1516RequestedList.size()==0) {
-                emit updateUpjongCodeDone();
-            }
-        }
-    }
-
-}
-
 void StockInfoUpdater::saveStockInfoToDB(StockInfo *info)
 {
     QSqlQuery qry;
@@ -207,46 +116,6 @@ void StockInfoUpdater::saveStockInfoToDB(StockInfo *info)
 
 }
 
-void StockInfoUpdater::saveUpjongCodeToDB(const QString &upcode, const QString &hname)
-{
-    QSqlQuery qry;
-    QString qryString = tr("SELECT COUNT(*) FROM UpjongCodeTable WHERE upcode='%1'").arg(upcode);
-    qry.prepare(qryString);
-    if(qry.exec()) {
-        if(qry.next()) {
-            if(qry.value(0).toInt()==0) {
-                qryString = tr("INSERT INTO UpjongCodeTable (upcode, hname) VALUES ('%1', '%2')").arg(upcode).arg(hname);
-                qry.prepare(qryString);
-                if(!qry.exec()) {
-                    errorQuery(&qry);
-                }
-            }
-        }
-    } else {
-        errorQuery(&qry);
-    }
-}
-
-void StockInfoUpdater::saveUpjongInfoToDB(const QString &upcode, const QString &shcode, const QString &hname)
-{
-    QSqlQuery qry;
-    QString qryString = tr("SELECT COUNT(*) FROM UpjongTable_%1 WHERE shcode='%2'").arg(upcode).arg(shcode);
-    qry.prepare(qryString);
-    if(qry.exec()){
-        if(qry.next()) {
-            if(qry.value(0).toInt() == 0) {
-               qryString = tr("INSERT INTO UpjongTable_%1 ( shcode, hname ) VALUES ( '%2', '%3')").arg(upcode).arg(shcode).arg(hname);
-               qry.prepare(qryString);
-               if(!qry.exec()) {
-                   errorQuery(&qry);
-               }
-            }
-        }
-    } else {
-        errorQuery(&qry);
-    }
-
-}
 
 void StockInfoUpdater::errorQuery(QSqlQuery *query)
 {

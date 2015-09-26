@@ -68,9 +68,6 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="manager\movementupdater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="data\progressbaritemdelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="manager\stockinfomngr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="manager\stockinfoupdater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data\summarymodel.cpp">
@@ -138,9 +132,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tr\trquery.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\upcodeselectiondialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data\warehousehistory.cpp">
@@ -326,12 +317,6 @@
     <ClCompile Include="Release\moc_trquery.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_upcodeselectiondialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_upcodeselectiondialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_xaquery.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -374,6 +359,81 @@
     <ClCompile Include="Debug\moc_T8425Item.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="updater\stockinfoupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="updater\movementupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_T8425Query.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_T8425Item.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="updater\UpjongCodeUpdater.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_UpjongCodeUpdater.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_UpjongCodeUpdater.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="updater\themeupjongupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_themeupjongupdater.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_themeupjongupdater.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\t1537\t1537item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_t1537item.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_t1537item.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\t1537\t1537query.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_t1537query.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_t1537query.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\simpletrquery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_simpletrquery.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_simpletrquery.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\ctstrquery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_ctstrquery.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_ctstrquery.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\blocktrquery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_blocktrquery.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_blocktrquery.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data\commontype.h">
@@ -395,9 +455,6 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="manager\movementupdater.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="data\progressbaritemdelegate.h">
@@ -422,9 +479,6 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="manager\stockinfomngr.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="manager\stockinfoupdater.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="data\summarymodel.h">
@@ -469,9 +523,6 @@
     <CustomBuild Include="tr\trquery.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\upcodeselectiondialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="data\warehousehistory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -505,9 +556,6 @@
     <ClInclude Include="GeneratedFiles\ui_shcodeselectiondialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_upcodeselectiondialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="util\logbrowserdialog.ui">
@@ -522,13 +570,37 @@
     <CustomBuild Include="ui\shcodeselectiondialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\upcodeselectiondialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="tr\t8425\T8425Query.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="tr\t8425\T8425Item.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="updater\stockinfoupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="updater\movementupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="updater\UpjongCodeUpdater.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="updater\themeupjongupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\t1537\t1537item.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\t1537\t1537query.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\simpletrquery.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\ctstrquery.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\blocktrquery.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

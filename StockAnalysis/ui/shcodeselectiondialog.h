@@ -2,7 +2,7 @@
 #define SHCODESELECTIONDIALOG_H
 
 #include <QDialog>
-
+#include "data/commontype.h"
 #include "manager/querymngr.h"
 namespace Ui {
 	class ShcodeSelectionDialog;
@@ -17,7 +17,9 @@ class ShcodeSelectionDialog : public QDialog
 public:
 	explicit ShcodeSelectionDialog(QueryMngr *queryMngr, QWidget *parent = 0);
 	~ShcodeSelectionDialog();
-	typedef enum { ALL_STOCK = 0, KOSPI = 1, KOSDAQ = 2, ETF = 3, ETN = 4, KONEX = 5, KOTC = 6, ELW = 7, KOSPI_UPJONG = 8, KOSDAQ_UPJONG = 9, SECTOR_UPJONG = 10, SPECIAL_INDEX_UPJONG = 11, REGISTERED = 12, SECTOR_THEME = 13, SECTOR_INDEX = 14 } BUTTON_ID;
+	typedef enum { ALL_STOCK_BTN_ID = 0, KOSPI_BTN_ID = 1, KOSDAQ_BTN_ID = 2, ETF_BTN_ID = 3, ETN_BTN_ID = 4, KONEX_BTN_ID = 5, KOTC_BTN_ID = 6, ELW_BTN_ID = 7, KOSPI_UPJONG_BTN_ID = 8, KOSDAQ_UPJONG_BTN_ID = 9, SECTOR_UPJONG_BTN_ID = 10, SPECIAL_INDEX_UPJONG_BTN_ID = 11, REGISTERED_BTN_ID = 12, SECTOR_THEME_BTN_ID = 13, SECTOR_INDEX_BTN_ID = 14 } BUTTON_ID;
+	QString getSelectedShcode();
+	QString getSelectedUpcode();
 private:
 	void initButtonGroups();
 	void showAllStocks();
@@ -30,21 +32,30 @@ private:
 	void showElw();
 	void showRegistered();
 	void showSectorTheme();
-	void showSectorIndexUpjong();
+	void showSectorIndex();
 	void showKospiUpjong();
 	void showKosdaqUpjong();
-	void showSectorIndex();
-	void showSpecialSectorIndex();
+	void showSectorIndexUpjong();
+	void showSpecialSectorIndexUpjong();
 	void updateUpjongCombo(const QString &queryStr);
-	void updateShcodeTable(const QString &queryStr);
+	void updateTableView(const QString &queryStr);
 private slots:
 	void onBtnToggled(int id, bool toggled);
-	void onShowUpjong(const QString& upjong);
+	void onShowShcodeListByUpjong(const QString& upjong);
+	void onShowUpjongCodeListByUpjongType(const UPJONG_TYPE upjongType);
+public slots:
+	void onTableViewClicked(const QModelIndex &index);
+signals:
+	void shcodeSelected(const QString &shcode);
+	void upcodeSelected(const QString &upcode);
+
 private:
 	Ui::ShcodeSelectionDialog *ui;
 	QueryMngr *mQueryMngr;
 	QButtonGroup *mBtnGroup;
 	QSqlQueryModel *mSqlQueryModel;
+	BUTTON_ID mCurrentSelectedBtnId;
+	QString mCurrentSelectedCode;
 };
 
 #endif // SHCODESELECTIONDIALOG_H

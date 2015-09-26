@@ -294,6 +294,7 @@ public:
 
 
         retranslateUi(ShcodeSelectionDialog);
+        QObject::connect(closeBtn, SIGNAL(clicked()), ShcodeSelectionDialog, SLOT(accept()));
 
         QMetaObject::connectSlotsByName(ShcodeSelectionDialog);
     } // setupUi

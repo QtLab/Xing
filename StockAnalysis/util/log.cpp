@@ -13,3 +13,5 @@ Q_LOGGING_CATEGORY(stockExchangeMngr, "Mngr.stockExchange")
 Q_LOGGING_CATEGORY(stockExchangeInfo, "Data.stockExchange")
 Q_LOGGING_CATEGORY(Main, "Main")
 Q_LOGGING_CATEGORY(mainWindow, "MainWindow")
+Q_LOGGING_CATEGORY(upjongCodeUpdater, "Updater.upjongCode")
+Q_LOGGING_CATEGORY(themeUpjongUpdater, "Updater.themeUpjong");

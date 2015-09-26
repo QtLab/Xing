@@ -172,7 +172,7 @@ QVariant SADModel::getTextAlignmentRole(const QModelIndex &index) const
 {
     if(index.column()==0)
         return Qt::AlignCenter;
-    return Qt::AlignRight | Qt::AlignVCenter;
+    return (Qt::AlignRight | Qt::AlignVCenter);
 }
 
 long SADModel::getInvestorColumnValue(const QModelIndex &index) const

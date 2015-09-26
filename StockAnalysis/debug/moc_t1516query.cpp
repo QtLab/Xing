@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T1516Query_t {
     QByteArrayData data[8];
-    char stringdata[76];
+    char stringdata[59];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,18 +30,17 @@ struct qt_meta_stringdata_T1516Query_t {
 static const qt_meta_stringdata_T1516Query_t qt_meta_stringdata_T1516Query = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "T1516Query"
-QT_MOC_LITERAL(1, 11, 13), // "onReceiveData"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 6), // "trCode"
-QT_MOC_LITERAL(4, 33, 22), // "onReceiveChartRealData"
-QT_MOC_LITERAL(5, 56, 6), // "upcode"
-QT_MOC_LITERAL(6, 63, 5), // "gubun"
-QT_MOC_LITERAL(7, 69, 6) // "shcode"
+QT_MOC_LITERAL(1, 11, 6), // "upcode"
+QT_MOC_LITERAL(2, 18, 5), // "gubun"
+QT_MOC_LITERAL(3, 24, 6), // "shcode"
+QT_MOC_LITERAL(4, 31, 9), // "pricejisu"
+QT_MOC_LITERAL(5, 41, 4), // "sign"
+QT_MOC_LITERAL(6, 46, 6), // "change"
+QT_MOC_LITERAL(7, 53, 5) // "jdiff"
 
     },
-    "T1516Query\0onReceiveData\0\0trCode\0"
-    "onReceiveChartRealData\0upcode\0gubun\0"
-    "shcode"
+    "T1516Query\0upcode\0gubun\0shcode\0pricejisu\0"
+    "sign\0change\0jdiff"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,43 +50,35 @@ static const uint qt_meta_data_T1516Query[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
-       3,   30, // properties
+       0,    0, // methods
+       7,   14, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x0a /* Public */,
-       4,    1,   27,    2, 0x0a /* Public */,
-
- // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, QMetaType::QString,    3,
-
  // properties: name, type, flags
+       1, QMetaType::QString, 0x00095103,
+       2, QMetaType::QString, 0x00095103,
+       3, QMetaType::QString, 0x00095103,
+       4, QMetaType::Float, 0x00095103,
        5, QMetaType::QString, 0x00095103,
-       6, QMetaType::QString, 0x00095103,
-       7, QMetaType::QString, 0x00095103,
+       6, QMetaType::Float, 0x00095103,
+       7, QMetaType::Float, 0x00095103,
 
        0        // eod
 };
 
 void T1516Query::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        T1516Query *_t = static_cast<T1516Query *>(_o);
-        switch (_id) {
-        case 0: _t->onReceiveData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 1: _t->onReceiveChartRealData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 const QMetaObject T1516Query::staticMetaObject = {
-    { &TrQuery::staticMetaObject, qt_meta_stringdata_T1516Query.data,
+    { &CtsTrQuery::staticMetaObject, qt_meta_stringdata_T1516Query.data,
       qt_meta_data_T1516Query,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -102,58 +93,58 @@ void *T1516Query::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_T1516Query.stringdata))
         return static_cast<void*>(const_cast< T1516Query*>(this));
-    return TrQuery::qt_metacast(_clname);
+    return CtsTrQuery::qt_metacast(_clname);
 }
 
 int T1516Query::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = TrQuery::qt_metacall(_c, _id, _a);
+    _id = CtsTrQuery::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
-    }
+    
 #ifndef QT_NO_PROPERTIES
-      else if (_c == QMetaObject::ReadProperty) {
+     if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< QString*>(_v) = upcode(); break;
         case 1: *reinterpret_cast< QString*>(_v) = gubun(); break;
         case 2: *reinterpret_cast< QString*>(_v) = shcode(); break;
+        case 3: *reinterpret_cast< float*>(_v) = pricejisu(); break;
+        case 4: *reinterpret_cast< QString*>(_v) = sign(); break;
+        case 5: *reinterpret_cast< float*>(_v) = change(); break;
+        case 6: *reinterpret_cast< float*>(_v) = jdiff(); break;
         default: break;
         }
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::WriteProperty) {
         void *_v = _a[0];
         switch (_id) {
         case 0: setUpcode(*reinterpret_cast< QString*>(_v)); break;
         case 1: setGubun(*reinterpret_cast< QString*>(_v)); break;
         case 2: setShcode(*reinterpret_cast< QString*>(_v)); break;
+        case 3: setPricejisu(*reinterpret_cast< float*>(_v)); break;
+        case 4: setSign(*reinterpret_cast< QString*>(_v)); break;
+        case 5: setChange(*reinterpret_cast< float*>(_v)); break;
+        case 6: setJdiff(*reinterpret_cast< float*>(_v)); break;
         default: break;
         }
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::ResetProperty) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        if (_id < 3)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 7;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

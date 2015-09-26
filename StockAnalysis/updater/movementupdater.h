@@ -7,7 +7,6 @@
 #include <QMap>
 #include <QQueue>
 #include <QTime>
-#include "util/xingthread.h"
 #include "manager/querymngr.h"
 #include "manager/stockinfomngr.h"
 #include "tr/t1702/t1702query.h"
@@ -22,8 +21,9 @@ public:
 signals:
     void updateDone();
 public slots:
+	void updateByShcode(const QString &shcode);
     void updateByShcodeList(QList<QString> shcodeList);
-    void updateByUpcodeList(QList<QString> upcodeList);
+    void updateByUpcode(const QString &upcode);
     void t1702QueryDone();
     void t1516QueryDone();
 private slots:
@@ -38,7 +38,6 @@ private:
     QDate getFirstUpdatedDateFromDatabase(const QString &shcode);
 private:
     QueryMngr* mQueryMngr;
-    XingThread mThread;
     QDate sStockStartDate;
     QList<QString> mUpdatingShcodeList;
     QList<T1516Query *> mRequestedUpcodeList;

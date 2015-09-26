@@ -15,7 +15,8 @@ Q_DECLARE_LOGGING_CATEGORY(stockExchangeMngr)
 Q_DECLARE_LOGGING_CATEGORY(stockExchangeInfo)
 Q_DECLARE_LOGGING_CATEGORY(Main)
 Q_DECLARE_LOGGING_CATEGORY(mainWindow)
-
+Q_DECLARE_LOGGING_CATEGORY(upjongCodeUpdater)
+Q_DECLARE_LOGGING_CATEGORY(themeUpjongUpdater)
 #define query_error(category, query) qCCritical(category)<<"QueryError : "<<query.lastError()<<endl<<query.executedQuery()
 
 #endif // LOG_H

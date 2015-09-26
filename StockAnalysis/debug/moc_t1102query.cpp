@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T1102Query_t {
-    QByteArrayData data[6];
-    char stringdata[63];
+    QByteArrayData data[2];
+    char stringdata[18];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,15 +30,10 @@ struct qt_meta_stringdata_T1102Query_t {
 static const qt_meta_stringdata_T1102Query_t qt_meta_stringdata_T1102Query = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "T1102Query"
-QT_MOC_LITERAL(1, 11, 13), // "onReceiveData"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 6), // "trCode"
-QT_MOC_LITERAL(4, 33, 22), // "onReceiveChartRealData"
-QT_MOC_LITERAL(5, 56, 6) // "shcode"
+QT_MOC_LITERAL(1, 11, 6) // "shcode"
 
     },
-    "T1102Query\0onReceiveData\0\0trCode\0"
-    "onReceiveChartRealData\0shcode"
+    "T1102Query\0shcode"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,41 +43,29 @@ static const uint qt_meta_data_T1102Query[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
-       1,   30, // properties
+       0,    0, // methods
+       1,   14, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x0a /* Public */,
-       4,    1,   27,    2, 0x0a /* Public */,
-
- // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, QMetaType::QString,    3,
-
  // properties: name, type, flags
-       5, QMetaType::QString, 0x00095103,
+       1, QMetaType::QString, 0x00095103,
 
        0        // eod
 };
 
 void T1102Query::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        T1102Query *_t = static_cast<T1102Query *>(_o);
-        switch (_id) {
-        case 0: _t->onReceiveData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 1: _t->onReceiveChartRealData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 const QMetaObject T1102Query::staticMetaObject = {
-    { &TrQuery::staticMetaObject, qt_meta_stringdata_T1102Query.data,
+    { &SimpleTrQuery::staticMetaObject, qt_meta_stringdata_T1102Query.data,
       qt_meta_data_T1102Query,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -97,25 +80,17 @@ void *T1102Query::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_T1102Query.stringdata))
         return static_cast<void*>(const_cast< T1102Query*>(this));
-    return TrQuery::qt_metacast(_clname);
+    return SimpleTrQuery::qt_metacast(_clname);
 }
 
 int T1102Query::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = TrQuery::qt_metacall(_c, _id, _a);
+    _id = SimpleTrQuery::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
-    }
+    
 #ifndef QT_NO_PROPERTIES
-      else if (_c == QMetaObject::ReadProperty) {
+     if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< QString*>(_v) = shcode(); break;

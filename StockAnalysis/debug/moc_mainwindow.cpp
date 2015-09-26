@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[12];
-    char stringdata[184];
+    QByteArrayData data[10];
+    char stringdata[147];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,21 +30,18 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 18), // "onStockInfoUpdated"
-QT_MOC_LITERAL(2, 30, 0), // ""
-QT_MOC_LITERAL(3, 31, 19), // "onUpjongCodeUpdated"
-QT_MOC_LITERAL(4, 51, 17), // "onMovementUpdated"
-QT_MOC_LITERAL(5, 69, 18), // "onDisconnectServer"
-QT_MOC_LITERAL(6, 88, 7), // "onLogin"
-QT_MOC_LITERAL(7, 96, 8), // "onLogout"
-QT_MOC_LITERAL(8, 105, 14), // "ReportEventLog"
-QT_MOC_LITERAL(9, 120, 3), // "log"
-QT_MOC_LITERAL(10, 124, 29), // "requestMovementUpdateByUpcode"
-QT_MOC_LITERAL(11, 154, 29) // "requestMovementUpdateByShcode"
+QT_MOC_LITERAL(1, 11, 19), // "onUpjongCodeUpdated"
+QT_MOC_LITERAL(2, 31, 0), // ""
+QT_MOC_LITERAL(3, 32, 18), // "onDisconnectServer"
+QT_MOC_LITERAL(4, 51, 7), // "onLogin"
+QT_MOC_LITERAL(5, 59, 8), // "onLogout"
+QT_MOC_LITERAL(6, 68, 14), // "ReportEventLog"
+QT_MOC_LITERAL(7, 83, 3), // "log"
+QT_MOC_LITERAL(8, 87, 29), // "requestMovementUpdateByUpcode"
+QT_MOC_LITERAL(9, 117, 29) // "requestMovementUpdateByShcode"
 
     },
-    "MainWindow\0onStockInfoUpdated\0\0"
-    "onUpjongCodeUpdated\0onMovementUpdated\0"
+    "MainWindow\0onUpjongCodeUpdated\0\0"
     "onDisconnectServer\0onLogin\0onLogout\0"
     "ReportEventLog\0log\0requestMovementUpdateByUpcode\0"
     "requestMovementUpdateByShcode"
@@ -57,7 +54,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,24 +62,20 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x0a /* Public */,
-       3,    0,   60,    2, 0x0a /* Public */,
-       4,    0,   61,    2, 0x0a /* Public */,
-       5,    0,   62,    2, 0x0a /* Public */,
-       6,    0,   63,    2, 0x0a /* Public */,
-       7,    0,   64,    2, 0x0a /* Public */,
-       8,    1,   65,    2, 0x0a /* Public */,
-      10,    0,   68,    2, 0x08 /* Private */,
-      11,    0,   69,    2, 0x08 /* Private */,
+       1,    0,   49,    2, 0x0a /* Public */,
+       3,    0,   50,    2, 0x0a /* Public */,
+       4,    0,   51,    2, 0x0a /* Public */,
+       5,    0,   52,    2, 0x0a /* Public */,
+       6,    1,   53,    2, 0x0a /* Public */,
+       8,    0,   56,    2, 0x08 /* Private */,
+       9,    0,   57,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    9,
+    QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -94,15 +87,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->onStockInfoUpdated(); break;
-        case 1: _t->onUpjongCodeUpdated(); break;
-        case 2: _t->onMovementUpdated(); break;
-        case 3: _t->onDisconnectServer(); break;
-        case 4: _t->onLogin(); break;
-        case 5: _t->onLogout(); break;
-        case 6: _t->ReportEventLog((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 7: _t->requestMovementUpdateByUpcode(); break;
-        case 8: _t->requestMovementUpdateByShcode(); break;
+        case 0: _t->onUpjongCodeUpdated(); break;
+        case 1: _t->onDisconnectServer(); break;
+        case 2: _t->onLogin(); break;
+        case 3: _t->onLogout(); break;
+        case 4: _t->ReportEventLog((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 5: _t->requestMovementUpdateByUpcode(); break;
+        case 6: _t->requestMovementUpdateByShcode(); break;
         default: ;
         }
     }
@@ -133,13 +124,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 7;
     }
     return _id;
 }
