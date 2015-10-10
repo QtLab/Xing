@@ -16,8 +16,8 @@ public:
 	QList<TrItem *> getResult();
 
 public slots:
-    virtual void onReceiveData(const QString& trCode);
-    virtual void onReceiveChartRealData(const QString& trCode);
+    virtual void onReceiveData(const QString& trCode) override;
+    virtual void onReceiveChartRealData(const QString& trCode) override;
 
 private:
 	QList<TrItem *> mItemList;

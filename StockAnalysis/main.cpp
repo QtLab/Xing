@@ -4,7 +4,7 @@
 #include <QPointer>
 #include <QThread>
 #include "mainwindow.h"
-#include "ui/logindialog.h"
+#include "function/login/ui/logindialog.h"
 #include "util/logbrowser.h"
 #include "util/log.h"
 #include "XingLib/xasession.h"

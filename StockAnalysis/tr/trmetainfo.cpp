@@ -210,7 +210,7 @@ QString TrFieldInfo::toString()
 
 TrFieldInfo::DATA_TYPE TrFieldInfo::getType(const QString &hname, const QString &type, int dataSize)
 {
-    if(hname.endsWith(qkor("일"))||(hname.endsWith(qkor("일자")))){
+    if(hname.endsWith(qkor("일"))||(hname.endsWith(qkor("일자"))) || hname.endsWith(qkor("날짜"))){
         return TrFieldInfo::DATE;
     } else if(hname.endsWith(qkor("시간"))){
         return TrFieldInfo::TIME;

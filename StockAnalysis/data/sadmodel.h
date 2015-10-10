@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QAbstractTableModel>
-#include "manager/stockexchangemngr.h"
+#include "function/sad/stockexchangemngr.h"
 
 #define DAILY_ROW_SIZE 5
 #define WEEKLY_ROW_SIZE 4

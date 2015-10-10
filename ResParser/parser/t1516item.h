@@ -8,24 +8,24 @@
 class T1516Item : public TrItem
 {
 	Q_OBJECT
-	Q_PROPERTY(QString hname MEMBER _hname READ hname WRITE setHname)		//Á¾¸ñ¸í
-	Q_PROPERTY(long price MEMBER _price READ price WRITE setPrice)		//ÇöÀç°¡
-	Q_PROPERTY(QString sign MEMBER _sign READ sign WRITE setSign)		//ÀüÀÏ´ëºñ±¸ºĞ
-	Q_PROPERTY(long change MEMBER _change READ change WRITE setChange)		//ÀüÀÏ´ëºñ
-	Q_PROPERTY(float diff MEMBER _diff READ diff WRITE setDiff)		//µî¶ôÀ²
-	Q_PROPERTY(long volume MEMBER _volume READ volume WRITE setVolume)		//´©Àû°Å·¡·®
-	Q_PROPERTY(long open MEMBER _open READ open WRITE setOpen)		//½Ã°¡
-	Q_PROPERTY(long high MEMBER _high READ high WRITE setHigh)		//°í°¡
-	Q_PROPERTY(long low MEMBER _low READ low WRITE setLow)		//Àú°¡
-	Q_PROPERTY(float sojinrate MEMBER _sojinrate READ sojinrate WRITE setSojinrate)		//¼ÒÁøÀ²
-	Q_PROPERTY(float beta MEMBER _beta READ beta WRITE setBeta)		//º£Å¸°è¼ö
+	Q_PROPERTY(QString hname MEMBER _hname READ hname WRITE setHname)		//ì¢…ëª©ëª…
+	Q_PROPERTY(long price MEMBER _price READ price WRITE setPrice)		//í˜„ì¬ê°€
+	Q_PROPERTY(QString sign MEMBER _sign READ sign WRITE setSign)		//ì „ì¼ëŒ€ë¹„êµ¬ë¶„
+	Q_PROPERTY(long change MEMBER _change READ change WRITE setChange)		//ì „ì¼ëŒ€ë¹„
+	Q_PROPERTY(float diff MEMBER _diff READ diff WRITE setDiff)		//ë“±ë½ìœ¨
+	Q_PROPERTY(long volume MEMBER _volume READ volume WRITE setVolume)		//ëˆ„ì ê±°ë˜ëŸ‰
+	Q_PROPERTY(long open MEMBER _open READ open WRITE setOpen)		//ì‹œê°€
+	Q_PROPERTY(long high MEMBER _high READ high WRITE setHigh)		//ê³ ê°€
+	Q_PROPERTY(long low MEMBER _low READ low WRITE setLow)		//ì €ê°€
+	Q_PROPERTY(float sojinrate MEMBER _sojinrate READ sojinrate WRITE setSojinrate)		//ì†Œì§„ìœ¨
+	Q_PROPERTY(float beta MEMBER _beta READ beta WRITE setBeta)		//ë² íƒ€ê³„ìˆ˜
 	Q_PROPERTY(float perx MEMBER _perx READ perx WRITE setPerx)		//PER
-	Q_PROPERTY(long frgsvolume MEMBER _frgsvolume READ frgsvolume WRITE setFrgsvolume)		//¿ÜÀÎ¼ø¸Å¼ö
-	Q_PROPERTY(long orgsvolume MEMBER _orgsvolume READ orgsvolume WRITE setOrgsvolume)		//±â°ü¼ø¸Å¼ö
-	Q_PROPERTY(float diff_vol MEMBER _diff_vol READ diff_vol WRITE setDiff_Vol)		//°Å·¡Áõ°¡À²
-	Q_PROPERTY(QString shcode MEMBER _shcode READ shcode WRITE setShcode)		//Á¾¸ñÄÚµå
-	Q_PROPERTY(long total MEMBER _total READ total WRITE setTotal)		//½Ã°¡ÃÑ¾×
-	Q_PROPERTY(long value MEMBER _value READ value WRITE setValue)		//°Å·¡´ë±İ
+	Q_PROPERTY(long frgsvolume MEMBER _frgsvolume READ frgsvolume WRITE setFrgsvolume)		//ì™¸ì¸ìˆœë§¤ìˆ˜
+	Q_PROPERTY(long orgsvolume MEMBER _orgsvolume READ orgsvolume WRITE setOrgsvolume)		//ê¸°ê´€ìˆœë§¤ìˆ˜
+	Q_PROPERTY(float diff_vol MEMBER _diff_vol READ diff_vol WRITE setDiff_Vol)		//ê±°ë˜ì¦ê°€ìœ¨
+	Q_PROPERTY(QString shcode MEMBER _shcode READ shcode WRITE setShcode)		//ì¢…ëª©ì½”ë“œ
+	Q_PROPERTY(long total MEMBER _total READ total WRITE setTotal)		//ì‹œê°€ì´ì•¡
+	Q_PROPERTY(long value MEMBER _value READ value WRITE setValue)		//ê±°ë˜ëŒ€ê¸ˆ
 public:
 	explicit T1516Item(QObject *parent=0);
 	~T1516Item();
@@ -66,24 +66,24 @@ public:
 	long value() { return _value; }
 	void setValue(long value) { _value = value; }
 private:
-	QString _hname;		//Á¾¸ñ¸í
-	long _price;		//ÇöÀç°¡
-	QString _sign;		//ÀüÀÏ´ëºñ±¸ºĞ
-	long _change;		//ÀüÀÏ´ëºñ
-	float _diff;		//µî¶ôÀ²
-	long _volume;		//´©Àû°Å·¡·®
-	long _open;		//½Ã°¡
-	long _high;		//°í°¡
-	long _low;		//Àú°¡
-	float _sojinrate;		//¼ÒÁøÀ²
-	float _beta;		//º£Å¸°è¼ö
+	QString _hname;		//ì¢…ëª©ëª…
+	long _price;		//í˜„ì¬ê°€
+	QString _sign;		//ì „ì¼ëŒ€ë¹„êµ¬ë¶„
+	long _change;		//ì „ì¼ëŒ€ë¹„
+	float _diff;		//ë“±ë½ìœ¨
+	long _volume;		//ëˆ„ì ê±°ë˜ëŸ‰
+	long _open;		//ì‹œê°€
+	long _high;		//ê³ ê°€
+	long _low;		//ì €ê°€
+	float _sojinrate;		//ì†Œì§„ìœ¨
+	float _beta;		//ë² íƒ€ê³„ìˆ˜
 	float _perx;		//PER
-	long _frgsvolume;		//¿ÜÀÎ¼ø¸Å¼ö
-	long _orgsvolume;		//±â°ü¼ø¸Å¼ö
-	float _diff_vol;		//°Å·¡Áõ°¡À²
-	QString _shcode;		//Á¾¸ñÄÚµå
-	long _total;		//½Ã°¡ÃÑ¾×
-	long _value;		//°Å·¡´ë±İ
+	long _frgsvolume;		//ì™¸ì¸ìˆœë§¤ìˆ˜
+	long _orgsvolume;		//ê¸°ê´€ìˆœë§¤ìˆ˜
+	float _diff_vol;		//ê±°ë˜ì¦ê°€ìœ¨
+	QString _shcode;		//ì¢…ëª©ì½”ë“œ
+	long _total;		//ì‹œê°€ì´ì•¡
+	long _value;		//ê±°ë˜ëŒ€ê¸ˆ
 };
 
 #endif //T1516ITEM

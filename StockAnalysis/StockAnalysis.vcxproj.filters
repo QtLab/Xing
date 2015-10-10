@@ -56,40 +56,19 @@
     <ClCompile Include="util\logbrowserdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui\logindialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="manager\loginmngr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="data\progressbaritemdelegate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="manager\querymngr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="data\sadmodel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\shcodeselectiondialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data\stockexchangeinfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="manager\stockexchangemngr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="data\stockinfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="manager\stockinfomngr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data\summarymodel.cpp">
@@ -359,29 +338,17 @@
     <ClCompile Include="Debug\moc_T8425Item.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="updater\stockinfoupdater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="updater\movementupdater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Release\moc_T8425Query.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_T8425Item.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="updater\UpjongCodeUpdater.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_UpjongCodeUpdater.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_UpjongCodeUpdater.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="updater\themeupjongupdater.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_themeupjongupdater.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -434,6 +401,90 @@
     <ClCompile Include="Release\moc_blocktrquery.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_queryhandler.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_queryhandler.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_stockchartdatamanager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_stockchartdatamanager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\t8413\t8413item.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_t8413item.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_t8413item.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tr\t8413\t8413query.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_t8413query.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_t8413query.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qperiodselectiondlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qperiodselectiondlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="function\login\loginmngr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\query\queryhandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\query\querymngr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\chart\data\StockPriceHistory.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\chart\util\ModifiedPrice.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\login\ui\logindialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\chart\stockchartdatamanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\sad\stockexchangemngr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\info\stockinfomngr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\sad\ui\progressbaritemdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\common\ui\qperiodselectiondlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\common\ui\shcodeselectiondialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\sad\movementupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\info\stockinfoupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\info\themeupjongupdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="function\info\UpjongCodeUpdater.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data\commontype.h">
@@ -448,37 +499,16 @@
     <CustomBuild Include="util\logbrowserdialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\logindialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="manager\loginmngr.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="mainwindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="data\progressbaritemdelegate.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="manager\querymngr.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="data\sadmodel.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\shcodeselectiondialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="data\stockexchangeinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="manager\stockexchangemngr.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="data\stockinfo.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="manager\stockinfomngr.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="data\summarymodel.h">
@@ -556,36 +586,27 @@
     <ClInclude Include="GeneratedFiles\ui_shcodeselectiondialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_qperiodselectiondlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="function\chart\data\StockPriceHistory.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="function\chart\util\ModifiedPrice.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="util\logbrowserdialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\logindialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="mainwindow.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\shcodeselectiondialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="tr\t8425\T8425Query.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="tr\t8425\T8425Item.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="updater\stockinfoupdater.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="updater\movementupdater.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="updater\UpjongCodeUpdater.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="updater\themeupjongupdater.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="tr\t1537\t1537item.h">
@@ -602,6 +623,63 @@
     </CustomBuild>
     <CustomBuild Include="tr\blocktrquery.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\t8413\t8413item.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tr\t8413\t8413query.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\login\loginmngr.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\login\logindialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\query\queryhandler.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\query\querymngr.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\login\ui\logindialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\chart\stockchartdatamanager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\sad\stockexchangemngr.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\info\stockinfomngr.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\sad\ui\progressbaritemdelegate.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\common\ui\qperiodselectiondlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\common\ui\qperiodselectiondlg.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\common\ui\shcodeselectiondialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\common\ui\shcodeselectiondialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\sad\movementupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\info\stockinfoupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\info\themeupjongupdater.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="function\info\UpjongCodeUpdater.h">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

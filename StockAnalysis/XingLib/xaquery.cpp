@@ -111,6 +111,10 @@ QString XAQuery::GetTrDesc()
     return xaquery->dynamicCall("GetTrDesc()").toString();
 }
 
+long XAQuery::Decompress(const QString& szBlockName)
+{
+	return xaquery->dynamicCall("Decompress(QString)", szBlockName).toInt();
+}
 
 void XAQuery::SetResFileName(const QString& ResFileName)
 {

@@ -2,7 +2,6 @@
 #define T1102QUERY_H
 
 #include <QObject>
-#include <QString>
 #include "tr/simpletrquery.h"
 #include "tr/t1102/t1102item.h"
 class T1102Query : public SimpleTrQuery

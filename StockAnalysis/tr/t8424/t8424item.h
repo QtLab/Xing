@@ -1,7 +1,6 @@
 #ifndef T8424ITEM_H
 #define T8424ITEM_H
 
-#include <QObject>
 #include "tr/tritem.h"
 class T8424Item : public TrItem
 {

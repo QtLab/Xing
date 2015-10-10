@@ -36,12 +36,12 @@ public:
     long getMovingAvgPrice(MOVING_TYPE type, const QDate& date = QDate::currentDate()) const ;
     long getMovingTotalVolumeSum(MOVING_TYPE type, const QDate& date = QDate::currentDate()) const ;
 
-    float getPriceLeadingPercentage(INVESTORS investor, const QDate& date= QDate::currentDate());
-    float getCurrentWarehousePercentage(INVESTORS investor,const QDate& date = QDate::currentDate() );
-    float getDistributePercentage(INVESTORS investor, const QDate& date = QDate::currentDate());
-    long getNumOfCirculationStock(const QDate& date = QDate::currentDate());
-    long getCurrentWarehouse(INVESTORS investor, const QDate& date = QDate::currentDate());
-    int getNumberOfDates();
+    float getPriceLeadingPercentage(INVESTORS investor, const QDate& date= QDate::currentDate());					//주가선도비율
+    float getCurrentWarehousePercentage(INVESTORS investor,const QDate& date = QDate::currentDate() );			//매집비율
+    float getDistributePercentage(INVESTORS investor, const QDate& date = QDate::currentDate());						//분산비율
+    long getNumOfCirculationStock(const QDate& date = QDate::currentDate());													//현재 유통주식수								
+    long getCurrentWarehouse(INVESTORS investor, const QDate& date = QDate::currentDate());							//현재 매집량
+    int getNumberOfDates();													
     QDate getDateByIndex(int index) const;
 private:
     QDate getFromDate(MOVING_TYPE type, QDate toDate) const;

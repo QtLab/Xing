@@ -40,7 +40,7 @@ public:
     QString GetResData();
     QString GetTrCode();
     QString GetTrDesc();
-
+	long Decompress(const QString& szBlockName);
     void SetResFileName(const QString& ResFileName);
 
 signals:        //signals to be used to notify COM event

@@ -3,7 +3,6 @@
 
 T1102Item::T1102Item(QObject *parent):TrItem(parent)
 {
-
 	DEFINE_PROPERTY_NAME("한글명","hname");
 	DEFINE_PROPERTY_NAME("현재가","price");
 	DEFINE_PROPERTY_NAME("전일대비구분","sign");
@@ -161,5 +160,5 @@ T1102Item::T1102Item(QObject *parent):TrItem(parent)
 }
 T1102Item::~T1102Item()
 {
-	qDebug()<<"T1102Item destroyed";
+
 }

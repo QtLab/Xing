@@ -3,27 +3,26 @@
 
 T1516Item::T1516Item(QObject *parent):TrItem(parent)
 {
-
-	DEFINE_PROPERTY_NAME("Á¾¸ñ¸í","hname");
-	DEFINE_PROPERTY_NAME("ÇöÀç°¡","price");
-	DEFINE_PROPERTY_NAME("ÀüÀÏ´ëºñ±¸ºÐ","sign");
-	DEFINE_PROPERTY_NAME("ÀüÀÏ´ëºñ","change");
-	DEFINE_PROPERTY_NAME("µî¶ôÀ²","diff");
-	DEFINE_PROPERTY_NAME("´©Àû°Å·¡·®","volume");
-	DEFINE_PROPERTY_NAME("½Ã°¡","open");
-	DEFINE_PROPERTY_NAME("°í°¡","high");
-	DEFINE_PROPERTY_NAME("Àú°¡","low");
-	DEFINE_PROPERTY_NAME("¼ÒÁøÀ²","sojinrate");
-	DEFINE_PROPERTY_NAME("º£Å¸°è¼ö","beta");
+	DEFINE_PROPERTY_NAME("ì¢…ëª©ëª…","hname");
+	DEFINE_PROPERTY_NAME("í˜„ìž¬ê°€","price");
+	DEFINE_PROPERTY_NAME("ì „ì¼ëŒ€ë¹„êµ¬ë¶„","sign");
+	DEFINE_PROPERTY_NAME("ì „ì¼ëŒ€ë¹„","change");
+	DEFINE_PROPERTY_NAME("ë“±ë½ìœ¨","diff");
+	DEFINE_PROPERTY_NAME("ëˆ„ì ê±°ëž˜ëŸ‰","volume");
+	DEFINE_PROPERTY_NAME("ì‹œê°€","open");
+	DEFINE_PROPERTY_NAME("ê³ ê°€","high");
+	DEFINE_PROPERTY_NAME("ì €ê°€","low");
+	DEFINE_PROPERTY_NAME("ì†Œì§„ìœ¨","sojinrate");
+	DEFINE_PROPERTY_NAME("ë² íƒ€ê³„ìˆ˜","beta");
 	DEFINE_PROPERTY_NAME("PER","perx");
-	DEFINE_PROPERTY_NAME("¿ÜÀÎ¼ø¸Å¼ö","frgsvolume");
-	DEFINE_PROPERTY_NAME("±â°ü¼ø¸Å¼ö","orgsvolume");
-	DEFINE_PROPERTY_NAME("°Å·¡Áõ°¡À²","diff_vol");
-	DEFINE_PROPERTY_NAME("Á¾¸ñÄÚµå","shcode");
-	DEFINE_PROPERTY_NAME("½Ã°¡ÃÑ¾×","total");
-	DEFINE_PROPERTY_NAME("°Å·¡´ë±Ý","value");
+	DEFINE_PROPERTY_NAME("ì™¸ì¸ìˆœë§¤ìˆ˜","frgsvolume");
+	DEFINE_PROPERTY_NAME("ê¸°ê´€ìˆœë§¤ìˆ˜","orgsvolume");
+	DEFINE_PROPERTY_NAME("ê±°ëž˜ì¦ê°€ìœ¨","diff_vol");
+	DEFINE_PROPERTY_NAME("ì¢…ëª©ì½”ë“œ","shcode");
+	DEFINE_PROPERTY_NAME("ì‹œê°€ì´ì•¡","total");
+	DEFINE_PROPERTY_NAME("ê±°ëž˜ëŒ€ê¸ˆ","value");
 }
 T1516Item::~T1516Item()
 {
-	qDebug()<<"T1516Item destroyed";
+
 }

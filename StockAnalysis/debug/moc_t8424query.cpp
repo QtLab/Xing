@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T8424Query_t {
     QByteArrayData data[2];
-    char stringdata[17];
+    char stringdata[18];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,10 +30,10 @@ struct qt_meta_stringdata_T8424Query_t {
 static const qt_meta_stringdata_T8424Query_t qt_meta_stringdata_T8424Query = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "T8424Query"
-QT_MOC_LITERAL(1, 11, 5) // "gubun"
+QT_MOC_LITERAL(1, 11, 6) // "gubun1"
 
     },
-    "T8424Query\0gubun"
+    "T8424Query\0gubun1"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +51,7 @@ static const uint qt_meta_data_T8424Query[] = {
        0,       // signalCount
 
  // properties: name, type, flags
-       1, QMetaType::QString, 0x00095103,
+       1, QMetaType::QString, 0x00095003,
 
        0        // eod
 };

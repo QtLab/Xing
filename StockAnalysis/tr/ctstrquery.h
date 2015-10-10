@@ -13,16 +13,17 @@ public:
 
 	virtual QString toString() override;
 	QList<TrItem *> getResult();
+	void setCompressedBlock(bool isCompressed);
 	
 public slots:
+    virtual void onReceiveData(const QString& trCode) override;
+    virtual void onReceiveChartRealData(const QString& trCode) override;
+protected:
 	virtual void readOutBlock();
 	virtual void readOutBlock1();
-    virtual void onReceiveData(const QString& trCode);
-    virtual void onReceiveChartRealData(const QString& trCode);
-
 protected:
 	QList<TrItem *> mItemList;
-	
+	bool mIsCompressedBlock;
 };
 
 #endif // CTSTRQUERY_H

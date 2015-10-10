@@ -16,6 +16,7 @@ public:
 
     QString str(const QVariant &value);
     QString getTrName();
+	
 signals:
     void ReceiveMsg(const QString& msg);
     void workDone();

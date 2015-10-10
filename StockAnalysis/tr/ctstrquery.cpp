@@ -3,7 +3,7 @@
 #include "ctstrquery.h"
 
 CtsTrQuery::CtsTrQuery(const QString &trName, QObject *parent)
-	: TrQuery(trName, parent)
+	: TrQuery(trName, parent), mIsCompressedBlock(false)
 {
 
 }
@@ -32,9 +32,15 @@ QList<TrItem *> CtsTrQuery::getResult()
 	return mItemList;
 }
 
+void CtsTrQuery::setCompressedBlock(bool isCompressed)
+{
+	mIsCompressedBlock = isCompressed;
+}
+
 void CtsTrQuery::readOutBlock()
 {
 	TrBlockInfo* outBlockInfo = trInfo()->getOutBlock();
+
 	foreach(QString fieldName, outBlockInfo->getFieldNameList()) {
 		QString value = xaquery()->GetFieldData(outBlockInfo->getBlockName(), fieldName, 0);
 		TrFieldInfo* fieldInfo = outBlockInfo->getField(fieldName);
@@ -71,6 +77,11 @@ void CtsTrQuery::readOutBlock()
 void CtsTrQuery::readOutBlock1()
 {
     TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
+	if (mIsCompressedBlock)
+	{
+		long decompressedSize = xaquery()->Decompress(outBlockInfo1->getBlockName());
+		if (decompressedSize <= 0) return;
+	}
     int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
     for(int i = 0; i<blockCnt; i++) {
         TrItem *item = getTrItemFromReceivedData(outBlockInfo1, i);
