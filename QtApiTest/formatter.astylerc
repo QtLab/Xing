@@ -1,7 +1,0 @@
-style=kr
-brackets=linux
-min-conditional-indent=0
-one-line=keep-statements
-one-line=keep-blocks
-indent=spaces=4
-pad=oper
