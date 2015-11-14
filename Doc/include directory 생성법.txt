@@ -1,0 +1,2 @@
+rmdir /Q /S ..\include\*
+xcopy .\Src\*.h ..\include\ /e /k /Y

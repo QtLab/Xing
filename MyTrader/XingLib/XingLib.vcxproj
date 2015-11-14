@@ -61,10 +61,8 @@
       <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Sqld.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5Concurrentd.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>rmdir /Q /S ..\include\*
-xcopy .\Src\*.h ..\include\ /e /k /Y
-
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -378,6 +376,8 @@ xcopy .\Src\*.h ..\include\ /e /k /Y
     <ClCompile Include="GeneratedFiles\Release\moc_xingthread.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Src\service\chart\setting\chartinfo.cpp" />
+    <ClCompile Include="Src\service\chart\setting\MainChartSetting.cpp" />
     <ClCompile Include="Src\service\chart\setting\chartsetting.cpp" />
     <ClCompile Include="Src\service\chart\ui\chartwidget.cpp" />
     <ClCompile Include="Src\service\chart\ui\hotspotdialog.cpp" />
@@ -444,6 +444,9 @@ xcopy .\Src\*.h ..\include\ /e /k /Y
     <ClInclude Include="GeneratedFiles\ui_logindialog.h" />
     <ClInclude Include="GeneratedFiles\ui_qperiodselectiondlg.h" />
     <ClInclude Include="GeneratedFiles\ui_shcodeselectiondialog.h" />
+    <ClInclude Include="Src\service\chart\chart_common.h" />
+    <ClInclude Include="Src\service\chart\setting\chartinfo.h" />
+    <ClInclude Include="Src\service\chart\setting\MainChartSetting.h" />
     <ClInclude Include="Src\common\type\commontype.h" />
     <CustomBuild Include="Src\service\sad\sadmodel.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

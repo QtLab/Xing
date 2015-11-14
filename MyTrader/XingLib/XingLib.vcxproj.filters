@@ -506,6 +506,12 @@
     <ClCompile Include="Src\service\chart\setting\chartsetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\service\chart\setting\MainChartSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\service\chart\setting\chartinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\xinglib.h">
@@ -551,6 +557,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\service\chart\setting\chartsetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\service\chart\setting\MainChartSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\service\chart\chart_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\service\chart\setting\chartinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,5 @@
 #include "chartwidget.h"
 #include "ui_chartwidget.h"
-#include <qdebug.h>
 #include <QResizeEvent>
 #include <QRadioButton>
 #include <QTreeWidget>
@@ -10,7 +9,7 @@
 #include "service/info/stockinfomngr.h"
 #include "hotspotdialog.h"
 #include "core/util/xingutil.h"
-
+#include "service/chart/setting/MainChartSetting.h"
 static Indicator sIndicatorTable[] = {
 	{ "AccDist", "Accumulation/Distribution", ACCUM_DISTRIBUTION, MARKET_BREADTH_INDICATOR },
 	{ "AroonOsc", "Aroon Oscillator", AROON_OSCILLATOR, TREND_INDICATOR },
@@ -49,16 +48,15 @@ static Indicator sIndicatorTable[] = {
 };
 
 ChartWidget::ChartWidget(QueryMngr *queryMngr, QWidget *parent)
-	: QWidget(parent)
+	: QWidget(parent), ChartInfo()
 	, mNoOfPoints(0)
 	, mNumOfIndicators(0)
-	, mResizeOffset(0)
-	, mShcodeDlg(new ShcodeSelectionDialog(queryMngr, this))
-	, mQueryMngr(queryMngr)
-	, mShcode("005930")
-	, mStockManager(new StockChartDataManager(queryMngr))
 	, mStartDate(QDateTime::currentDateTime())
 	, mEndDate(QDateTime::currentDateTime())
+	, mShcodeDlg(new ShcodeSelectionDialog(queryMngr, this))
+	, mQueryMngr(queryMngr)
+	, mStockManager(new StockChartDataManager(queryMngr))
+	, mShcode("005930")
 	, mPriceData(nullptr)
 	, mStockInfoMngr(StockInfoMngr::getInstance())
 {
@@ -68,28 +66,21 @@ ChartWidget::ChartWidget(QueryMngr *queryMngr, QWidget *parent)
 	connect(mStockManager, SIGNAL(responseStockData(StockPriceData*)), this, SLOT(onStockPriceDataReceived(StockPriceData*)));
 	connect(ui->chartViewer, SIGNAL(clicked(QMouseEvent*)), this, SLOT(onChartClicked(QMouseEvent*)));
 	connect(ui->chartViewer, SIGNAL(viewPortChanged()), this, SLOT(onViewPortChanged()));
+	mMainChartSetting = new MainChartSetting();
 }
 
 ChartWidget::~ChartWidget()
 {
+	mStockManager->deleteLater();
+	foreach(ChartSetting* setting, mChartSettings.values())
+	{
+		delete setting;
+	}
+	delete mMainChartSetting;
+	delete mPriceData;
 	delete ui->chartViewer->getChart();
 	delete ui->viewPortControl->getChart();
 	delete ui;
-}
-
-void ChartWidget::onStockPriceDataReceived(StockPriceData* stockData)
-{
-	if (mPriceData != nullptr)
-	{
-		delete mPriceData;
-	}
-	mPriceData = stockData;
-	double *timestamp(nullptr), *high(nullptr), *low(nullptr), *open(nullptr), *close(nullptr), *volume(nullptr);
-	mPriceData->getDataPtr(&timestamp, &open, &high, &low, &close, &volume);
-	auto numOfData = mPriceData->getNumOfData();
-	setChartRange(timestamp, numOfData);
-	ui->chartViewer->updateViewPort(true, true);
-	ui->viewPortControl->setViewer(ui->chartViewer);
 }
 
 void ChartWidget::on_shcodeSearchBtn_clicked()
@@ -100,6 +91,18 @@ void ChartWidget::on_shcodeSearchBtn_clicked()
 		mShcode = shcode;
 		mStockManager->requestStockData(mShcode, StockChartDataManager::DAILY, true);
 	}
+}
+
+void ChartWidget::onStockPriceDataReceived(StockPriceData* stockData)
+{
+	if (mPriceData != nullptr)
+	{
+		delete mPriceData;
+	}
+	mPriceData = stockData;
+	setChartRange(mPriceData->getTimeStampDataPtr(), mPriceData->getNumOfData());
+	ui->chartViewer->updateViewPort(true, true);
+	ui->viewPortControl->setViewer(ui->chartViewer);
 }
 
 void ChartWidget::onChartClicked(QMouseEvent*)
@@ -121,20 +124,16 @@ void ChartWidget::onChartClicked(QMouseEvent*)
 	}
 }
 
-void ChartWidget::onChartSettingChanged()
-{
-	ui->chartViewer->updateViewPort(true, true);
-}
-
-void ChartWidget::onMainChartTypeChanged(int id, bool checked)
+void ChartWidget::onMainChartTypeChanged(int id, bool checked) const
 {
 	if (checked)
 	{
+		mMainChartSetting->setChartType(static_cast<MAIN_CHART_TYPE>(id));
 		ui->chartViewer->updateViewPort(true, true);
 	}
 }
 
-void ChartWidget::onChannelTypeChanged(int id, bool checked)
+void ChartWidget::onChannelTypeChanged(int id, bool checked) const
 {
 	if (checked)
 	{
@@ -148,10 +147,7 @@ void ChartWidget::resizeEvent(QResizeEvent* event)
 
 	QSize old = event->oldSize();
 	QSize current = event->size();
-	if (old.width()>0 || old.height()>0)
-	{
-		mResizeOffset = current.height() - old.height();
-	}
+
 	if (mPriceData != nullptr)
 	{
 		ui->chartViewer->updateViewPort(true, true);
@@ -201,7 +197,29 @@ void ChartWidget::initMainChartSelectionUI()
 	mMainChartType->addButton(ohlc, OHLC);
 	mMainChartType->addButton(typicalPrice, TYPICAL_PRICE);
 	mMainChartType->addButton(weightedClose, WEIGHTED_CLOSE);
-
+	
+	switch (mMainChartSetting->getChartType())
+	{
+	case CANDLE_STICK:	
+		candleStick->setChecked(true);
+		break;
+	case CLOSING_PRICE: 
+		closePrice->setChecked(true);
+		break;
+	case MEDIAN_PRICE: 
+		medianPrice->setChecked(true);
+		break;
+	case OHLC:
+		ohlc->setChecked(true);
+		break;
+	case TYPICAL_PRICE:
+		typicalPrice->setChecked(true);
+		break;
+	case WEIGHTED_CLOSE: 
+		weightedClose->setChecked(true);
+		break;
+	default: break;
+	}
 	connect(mMainChartType, SIGNAL(buttonToggled(int, bool)), SLOT(onMainChartTypeChanged(int, bool)));
 }
 
@@ -226,7 +244,7 @@ void ChartWidget::initChannelSelectionUI()
 	connect(mChannelType, SIGNAL(buttonToggled(int, bool)), SLOT(onChannelTypeChanged(int, bool)));
 }
 
-void ChartWidget::initIndicatorSelectionUI()
+void ChartWidget::initIndicatorSelectionUI() const
 {
 	QTreeWidget *treeWidget = new QTreeWidget(ui->mIndicatorType);
 	QTreeWidgetItem *marketBreadthIndicator = new QTreeWidgetItem(treeWidget);
@@ -282,7 +300,6 @@ void ChartWidget::initIndicatorSelectionUI()
 void ChartWidget::drawFullChart(double* timestamp, double* open, double* high, double* low, double* close, double* volume, int numOfData) const
 {
 	XYChart *chart = new XYChart(getViewPortWidth(), getViewPortHeight());
-	//chart->setPlotArea(ui->chartViewer->getPlotAreaLeft(), ui->chartViewer->getPlotAreaTop(), getViewPortWidth() - ui->chartViewer->getPlotAreaLeft() * 2, getViewPortHeight() - ui->chartViewer->getPlotAreaTop() * 2);
 	chart->setPlotArea(60, 10,getViewPortWidth()-120, getViewPortHeight()-30 );
 	CandleStickLayer *layer = chart->addCandleStickLayer(DoubleArray(high, numOfData), DoubleArray(low, numOfData), DoubleArray(open, numOfData), DoubleArray(close, numOfData), 0xff0000, 0x0000ff);
 	layer->setXData(DoubleArray(timestamp, numOfData));
@@ -301,24 +318,22 @@ void ChartWidget::drawChart() const
 	auto viewPortStartDate = ui->chartViewer->getValueAtViewPort("x", ui->chartViewer->getViewPortLeft());
 	auto viewPortEndDate = ui->chartViewer->getValueAtViewPort("x", ui->chartViewer->getViewPortLeft() + ui->chartViewer->getViewPortWidth());
 
-	double *timestamp(nullptr), *high(nullptr), *low(nullptr), *open(nullptr), *close(nullptr), *volume(nullptr);
-	mPriceData->getDataPtr(&timestamp, &open, &high, &low, &close, &volume);
 	auto numOfData = mPriceData->getNumOfData();
 
 	int extraPoints = getExtraPoints();
-	auto startIndex = static_cast<int>(floor(Chart::bSearch(DoubleArray(timestamp, numOfData), viewPortStartDate))) - extraPoints;
-	auto endIndex = static_cast<int>(ceil(Chart::bSearch(DoubleArray(timestamp, numOfData), viewPortEndDate)));
+	auto startIndex = static_cast<int>(floor(Chart::bSearch(DoubleArray(mPriceData->getTimeStampDataPtr(), numOfData), viewPortStartDate))) - extraPoints;
+	auto endIndex = static_cast<int>(ceil(Chart::bSearch(DoubleArray(mPriceData->getTimeStampDataPtr(), numOfData), viewPortEndDate)));
 
 	auto numOfPoints = endIndex - startIndex - 1;
 
-	auto viewPortTimeStamps = DoubleArray((timestamp + startIndex), numOfPoints);
-	auto viewPortHigh = DoubleArray((high + startIndex), numOfPoints);
-	auto viewPortLow = DoubleArray((low + startIndex), numOfPoints);
-	auto viewPortOpen = DoubleArray((open + startIndex), numOfPoints);
-	auto viewPortClose = DoubleArray((close + startIndex), numOfPoints);
-	auto viewPortVolume = DoubleArray((volume + startIndex), numOfPoints);
-	int mainHeight = getMainChartHeight();
-	int width = getChartWidth();
+	auto viewPortTimeStamps = DoubleArray((mPriceData->getTimeStampDataPtr() + startIndex), numOfPoints);
+	auto viewPortHigh = DoubleArray((mPriceData->getHighDataPtr() + startIndex), numOfPoints);
+	auto viewPortLow = DoubleArray((mPriceData->getLowDataPtr()+ startIndex), numOfPoints);
+	auto viewPortOpen = DoubleArray((mPriceData->getOpenDataPtr() + startIndex), numOfPoints);
+	auto viewPortClose = DoubleArray((mPriceData->getCloseDataPtr() + startIndex), numOfPoints);
+	auto viewPortVolume = DoubleArray((mPriceData->getVolDataPtr() + startIndex), numOfPoints);
+	auto mainHeight = getMainChartHeight();
+	auto width = getChartWidth();
 
 	FinanceChart *chart = new FinanceChart(width);
 
@@ -346,10 +361,7 @@ void ChartWidget::drawChart() const
 	//	dynamicLayer->rect(topLeftX, topLeftY, bottomRightX, bottomRightY, 0xff0000, 0x0000ff); 
 	//d->text("<*img=@Triangle,color=00CC00,width=7,height=10*>", "normal", 8, 50, 50, 0);
 
-
-	auto main = chart->addMainChart(mainHeight);
-	chart->setLogScale(false);
-	chart->addCandleStick(0xff0000, 0x0000ff);
+	mMainChartSetting->apply(chart, this);
 
 	delete ui->chartViewer->getChart();
 	ui->chartViewer->setChart(chart);
@@ -360,6 +372,10 @@ void ChartWidget::drawChart() const
 	//	ui->chartViewer->setImageMap(url.toLocal8Bit().data());
 	ui->chartViewer->setImageMap(chart->getHTMLImageMap("clickable", "", buffer));
 
+}
+
+void ChartWidget::loadChartSetting(FinanceChart* chart)
+{
 }
 
 void ChartWidget::updatePeriod()
@@ -408,14 +424,14 @@ int ChartWidget::getViewPortWidth() const
 	return ui->viewPortFrame->width()-100;
 }
 
-int ChartWidget::getViewPortHeight() const
+int ChartWidget::getViewPortHeight() const 
 {
 	return 100;
 }
 
 int ChartWidget::getMainChartHeight() const
 {
-	int totalHeight = ui->chartViewerFrame->height()-140;
+	auto totalHeight = ui->chartViewerFrame->height()-140;
 
 	if (mNumOfIndicators == 0)
 		return totalHeight;
@@ -431,7 +447,7 @@ int ChartWidget::getMainChartHeight() const
 
 int ChartWidget::getIndicatorHeight() const
 {
-	auto totalHeight = ui->chartViewer->height() + mResizeOffset - 66;
+	auto totalHeight = ui->chartViewerFrame->height()-140;
 	if (mNumOfIndicators == 0)
 		return 0;
 	else if ((totalHeight - mNumOfIndicators*MAX_INDICATOR_HEIGHT) > MAX_INDICATOR_HEIGHT)

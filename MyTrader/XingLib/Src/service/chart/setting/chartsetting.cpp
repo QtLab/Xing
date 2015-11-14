@@ -1,6 +1,6 @@
 #include "chartsetting.h"
 
-ChartSetting::ChartSetting(const QString& settingName) :mSettingName(settingName)
+ChartSetting::ChartSetting(const QString& settingName, QObject* parent) :QObject(parent), _name(settingName)
 {
 }
 
@@ -8,7 +8,7 @@ ChartSetting::~ChartSetting()
 {
 }
 
-QString ChartSetting::settingName() const
+QString ChartSetting::name() const
 {
-	return mSettingName;
+	return _name;
 }

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QDateTime>
 #include "service/chart/data/StockPriceData.h"
+#include "service/chart/chart_common.h"
+#include "service/chart/setting/chartinfo.h"
 
 #define MAX_INDICATOR_HEIGHT 100
 class QButtonGroup;
@@ -20,78 +22,35 @@ class QChartViewer;
 class ShcodeSelectionDialog;
 class QueryMngr;
 class StockChartDataManager;
-typedef enum { CANDLE_STICK, CLOSING_PRICE, MEDIAN_PRICE, OHLC, TYPICAL_PRICE, WEIGHTED_CLOSE } MAIN_CHART_TYPE;
-typedef enum { NONE, BOLLINGER_BAND, DONCHAIN_CHANNEL, ENVELOP } CHANNEL_TYPE;
-typedef enum
-{
-	ACCUM_DISTRIBUTION = 0
-	, AROON_OSCILLATOR
-	, AROON
-	, AVG_DIRECTIONAL_INDEX
-	, AVG_TRUE_RANGE
-	, BOLLINGER_BAND_WIDTH
-	, CHAIKIN_MONEY_FLOW
-	, CHAIKIN_OSCILLATOR
-	, CHAIKIN_VOLATILITY
-	, CLOSE_LOCATION_VALUE
-	, COMMONDITY_CHANNEL_INDEX
-	, DETRENDED_PRICE_OSC
-	, DONCHIAN_CHANNEL_WIDTH
-	, EASE_OF_MOVEMENT
-	, FAST_STOCHASTIC
-	, MACD
-	, MASS_INDEX
-	, MOMENTUM
-	, MONEY_FLOW_INDEX
-	, NEG_VOLUME_INDEX
-	, ON_BALANCE_VOLUME
-	, PERFORMANCE
-	, PERCENTAGE_PRICE_OSCILLATOR
-	, PERCENTAGE_VOLUME_OSCILLATOR
-	, POS_VOLUME_INDEX
-	, PRICE_VOLUME_TREND
-	, RATE_OF_CHANGE
-	, RSI
-	, SLOW_STOCHASTIC
-	, STOCH_RSI
-	, TRIX
-	, ULTIMATE_OSCILLATOR
-	, VOLUME
-	, WILLIAMS_R
-	, PARABOLIC_SAR
-	, NUM_OF_INDICATOR
-} INDICATOR_INDEX;
-
-typedef enum {
-	MARKET_BREADTH_INDICATOR,
-	TREND_INDICATOR,
-	VOLATILITY_INDICATOR,
-	MOMENTUM_INDICATOR, 
-	ETC
-} INDICATOR_TYPE;
+class ChartSetting;
+class MainChartSetting;
 typedef struct _Indicator {
 	QString name;
 	QString desc;
-	INDICATOR_INDEX index;
-	INDICATOR_TYPE type;
+	INDICATOR_TYPE index;
+	INDICATOR_CATEGORY_TYPE type;
 } Indicator;
 
-class ChartWidget : public QWidget
+class ChartWidget : public QWidget, public ChartInfo
 {
 	Q_OBJECT
 
 public:
-	ChartWidget(QueryMngr *queryMngr, QWidget *parent = 0);
+	explicit ChartWidget(QueryMngr *queryMngr, QWidget *parent = 0);
 	~ChartWidget();
-	public slots:
+	virtual int getChartWidth() const override;
+	virtual int getViewPortWidth() const override;
+	virtual int getViewPortHeight() const override;
+	virtual int getMainChartHeight() const override;
+	virtual int getIndicatorHeight() const override;
+public slots:
 	void onStockPriceDataReceived(StockPriceData* stockData);
 	void onViewPortChanged() const;
-	private slots:
+private slots:
 	void on_shcodeSearchBtn_clicked();
 	void onChartClicked(QMouseEvent *);
-	void onChartSettingChanged();
-	void onMainChartTypeChanged(int id, bool checked);
-	void onChannelTypeChanged(int id, bool checked);
+	void onMainChartTypeChanged(int id, bool checked) const;
+	void onChannelTypeChanged(int id, bool checked) const;
 protected:
 	virtual void resizeEvent(QResizeEvent * event) override;
 private:
@@ -99,16 +58,13 @@ private:
 	void setChartRange(double* timeStamp, int timeStampLen) const;
 	void initMainChartSelectionUI();
 	void initChannelSelectionUI();
-	void initIndicatorSelectionUI();
+	void initIndicatorSelectionUI() const;
 	void drawFullChart(double *timestamp, double *open, double *high, double *low, double *close, double *volume, int numOfData) const;
 	void drawChart() const;
+	void loadChartSetting(FinanceChart *chart);
 	void updatePeriod();
-	int getChartWidth() const;
-	int getViewPortWidth() const;
-	int getViewPortHeight() const;
-	int getMainChartHeight() const;
-	int getIndicatorHeight() const;
 	int getExtraPoints() const;
+	
 	static XYChart* addIndicator(FinanceChart *m, QString indicator, int height);
 	LineLayer *addMovingAvg(FinanceChart *m, QString avgType, int avgPeriod, int color);
 private:
@@ -117,7 +73,6 @@ private:
 	QButtonGroup *mChannelType;
 	int mNoOfPoints;
 	int mNumOfIndicators;
-	int mResizeOffset;
 	QDateTime mStartDate;
 	QDateTime mEndDate;
 
@@ -127,7 +82,8 @@ private:
 	QString mShcode;
 	StockPriceData *mPriceData;
 	StockInfoMngr *mStockInfoMngr;
-
+	QMap<QString, ChartSetting*> mChartSettings;
+	MainChartSetting *mMainChartSetting;
 };
 
 #endif // CHARTWIDGET_H

@@ -4,7 +4,8 @@
 #include <QDate>
 #include <QtCore/QMap>
 #include <QObject>
-class StockPriceData 
+
+class StockPriceData
 {
 
 public:
@@ -15,6 +16,14 @@ public:
 	~StockPriceData();
 	bool addData(const QDateTime& date, double open, double high, double low, double close, double volume);
 	bool getDataPtr(double **timeStamp, double **open, double **high, double **low, double **close, double **volume) const;
+
+	double* getTimeStampDataPtr() const { return mTimeStamps; }
+	double* getOpenDataPtr() const { return mOpenData; }
+	double* getHighDataPtr() const { return mHighData; }
+	double* getLowDataPtr() const { return mLowData; }
+	double* getCloseDataPtr() const { return mCloseData; }
+	double* getVolDataPtr() const { return mVolData; }
+
 	int getDataPtrByPeriod(const QDateTime start, const QDateTime end, int numOfExtraPoints, double **timeStamp, double **open, double **high, double **low, double **close, double **volume) const;
 	int getNumOfData() const;
 private:
