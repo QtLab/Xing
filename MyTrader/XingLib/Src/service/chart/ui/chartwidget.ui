@@ -109,6 +109,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
               <property name="frameShape">
                <enum>QFrame::Panel</enum>
               </property>
@@ -124,8 +127,11 @@
                  <x>0</x>
                  <y>0</y>
                  <width>176</width>
-                 <height>283</height>
+                 <height>285</height>
                 </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
                </property>
                <attribute name="label">
                 <string>Chart Type</string>
@@ -136,9 +142,12 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>88</width>
-                 <height>69</height>
+                 <width>176</width>
+                 <height>285</height>
                 </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
                </property>
                <attribute name="label">
                 <string>Indicator</string>
@@ -149,9 +158,12 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>88</width>
-                 <height>69</height>
+                 <width>176</width>
+                 <height>285</height>
                 </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
                </property>
                <attribute name="label">
                 <string>Channel Type</string>

@@ -258,7 +258,7 @@ void ChartWidget::initIndicatorSelectionUI() const
 	volatilityIndicator->setText(0, qkor("변동성"));
 	QTreeWidgetItem *etcIndicator = new QTreeWidgetItem(treeWidget);
 	etcIndicator->setText(0, qkor("변동성"));
-
+	treeWidget->header()->hide();
 	for (int i = 0; i < NUM_OF_INDICATOR; ++i)
 	{
 		switch (sIndicatorTable[i].type)
