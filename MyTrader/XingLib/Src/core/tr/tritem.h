@@ -2,7 +2,6 @@
 #define TRITEM_H
 
 #include <QObject>
-#include <QList>
 #include <QString>
 #include <QMap>
 #include <QList>

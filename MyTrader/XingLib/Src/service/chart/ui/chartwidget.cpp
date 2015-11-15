@@ -3,7 +3,7 @@
 #include <QResizeEvent>
 #include <QRadioButton>
 #include <QTreeWidget>
-#include <QDialog>
+#include <QDialog>
 #include "common/ui/shcodeselectiondialog.h"
 #include "service/chart/stockchartdatamanager.h"
 #include "FinanceChart.h"

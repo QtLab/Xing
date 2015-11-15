@@ -1,7 +1,6 @@
 #ifndef CHARTWIDGET_H
 #define CHARTWIDGET_H
 
-#include <QObject>
 #include <QWidget>
 #include <QDateTime>
 #include "service/chart/data/StockPriceData.h"
