@@ -2,7 +2,6 @@
 #define CHARTSETTING_H
 
 #include <QObject>
-#include <QString>
 class FinanceChart;
 class XmlStreamWriter;
 class XmlStreamReader;
@@ -10,7 +9,7 @@ class ChartInfo;
 class ChartSetting : public QObject
 {
 	Q_OBJECT
-		Q_PROPERTY(QString name MEMBER _name READ name)
+	Q_PROPERTY(QString name MEMBER _name READ name)
 public:
 	explicit ChartSetting(const QString &settingName, QObject* parent=0);
 	virtual ~ChartSetting();
@@ -22,5 +21,5 @@ public:
 private:
 	QString _name;
 };
-#endif
+#endif		//CHARTSETTING_H
 

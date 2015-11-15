@@ -2,8 +2,6 @@
 #define T8430ITEM
 
 #include <QObject>
-#include <QString>
-#include <QDate>
 #include "core/tr/tritem.h"
 class T8430Item : public TrItem
 {

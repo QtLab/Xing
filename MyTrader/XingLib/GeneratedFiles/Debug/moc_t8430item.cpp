@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 't8430item.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 't8430item.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.4.1. It"
+#error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,11 +20,11 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T8430Item_t {
     QByteArrayData data[11];
-    char stringdata[95];
+    char stringdata0[95];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_T8430Item_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_T8430Item_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_T8430Item_t qt_meta_stringdata_T8430Item = {
@@ -78,6 +78,45 @@ static const uint qt_meta_data_T8430Item[] = {
 
 void T8430Item::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+
+#ifndef QT_NO_PROPERTIES
+    if (_c == QMetaObject::ReadProperty) {
+        T8430Item *_t = static_cast<T8430Item *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: *reinterpret_cast< QString*>(_v) = _t->hname(); break;
+        case 1: *reinterpret_cast< QString*>(_v) = _t->shcode(); break;
+        case 2: *reinterpret_cast< QString*>(_v) = _t->expcode(); break;
+        case 3: *reinterpret_cast< QString*>(_v) = _t->etfgubun(); break;
+        case 4: *reinterpret_cast< long*>(_v) = _t->uplmtprice(); break;
+        case 5: *reinterpret_cast< long*>(_v) = _t->dnlmtprice(); break;
+        case 6: *reinterpret_cast< long*>(_v) = _t->jnilclose(); break;
+        case 7: *reinterpret_cast< QString*>(_v) = _t->memedan(); break;
+        case 8: *reinterpret_cast< long*>(_v) = _t->recprice(); break;
+        case 9: *reinterpret_cast< QString*>(_v) = _t->gubun(); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::WriteProperty) {
+        T8430Item *_t = static_cast<T8430Item *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setHname(*reinterpret_cast< QString*>(_v)); break;
+        case 1: _t->setShcode(*reinterpret_cast< QString*>(_v)); break;
+        case 2: _t->setExpcode(*reinterpret_cast< QString*>(_v)); break;
+        case 3: _t->setEtfgubun(*reinterpret_cast< QString*>(_v)); break;
+        case 4: _t->setUplmtprice(*reinterpret_cast< long*>(_v)); break;
+        case 5: _t->setDnlmtprice(*reinterpret_cast< long*>(_v)); break;
+        case 6: _t->setJnilclose(*reinterpret_cast< long*>(_v)); break;
+        case 7: _t->setMemedan(*reinterpret_cast< QString*>(_v)); break;
+        case 8: _t->setRecprice(*reinterpret_cast< long*>(_v)); break;
+        case 9: _t->setGubun(*reinterpret_cast< QString*>(_v)); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::ResetProperty) {
+    }
+#endif // QT_NO_PROPERTIES
     Q_UNUSED(_o);
     Q_UNUSED(_id);
     Q_UNUSED(_c);
@@ -98,7 +137,7 @@ const QMetaObject *T8430Item::metaObject() const
 void *T8430Item::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_T8430Item.stringdata))
+    if (!strcmp(_clname, qt_meta_stringdata_T8430Item.stringdata0))
         return static_cast<void*>(const_cast< T8430Item*>(this));
     return TrItem::qt_metacast(_clname);
 }
@@ -110,39 +149,9 @@ int T8430Item::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     
 #ifndef QT_NO_PROPERTIES
-     if (_c == QMetaObject::ReadProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: *reinterpret_cast< QString*>(_v) = hname(); break;
-        case 1: *reinterpret_cast< QString*>(_v) = shcode(); break;
-        case 2: *reinterpret_cast< QString*>(_v) = expcode(); break;
-        case 3: *reinterpret_cast< QString*>(_v) = etfgubun(); break;
-        case 4: *reinterpret_cast< long*>(_v) = uplmtprice(); break;
-        case 5: *reinterpret_cast< long*>(_v) = dnlmtprice(); break;
-        case 6: *reinterpret_cast< long*>(_v) = jnilclose(); break;
-        case 7: *reinterpret_cast< QString*>(_v) = memedan(); break;
-        case 8: *reinterpret_cast< long*>(_v) = recprice(); break;
-        case 9: *reinterpret_cast< QString*>(_v) = gubun(); break;
-        default: break;
-        }
-        _id -= 10;
-    } else if (_c == QMetaObject::WriteProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: setHname(*reinterpret_cast< QString*>(_v)); break;
-        case 1: setShcode(*reinterpret_cast< QString*>(_v)); break;
-        case 2: setExpcode(*reinterpret_cast< QString*>(_v)); break;
-        case 3: setEtfgubun(*reinterpret_cast< QString*>(_v)); break;
-        case 4: setUplmtprice(*reinterpret_cast< long*>(_v)); break;
-        case 5: setDnlmtprice(*reinterpret_cast< long*>(_v)); break;
-        case 6: setJnilclose(*reinterpret_cast< long*>(_v)); break;
-        case 7: setMemedan(*reinterpret_cast< QString*>(_v)); break;
-        case 8: setRecprice(*reinterpret_cast< long*>(_v)); break;
-        case 9: setGubun(*reinterpret_cast< QString*>(_v)); break;
-        default: break;
-        }
-        _id -= 10;
-    } else if (_c == QMetaObject::ResetProperty) {
+   if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
+        qt_static_metacall(this, _c, _id, _a);
         _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
         _id -= 10;
@@ -153,10 +162,6 @@ int T8430Item::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     } else if (_c == QMetaObject::QueryPropertyEditable) {
         _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 10;
-    } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        if (_id < 10)
-            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 10;
     }
 #endif // QT_NO_PROPERTIES

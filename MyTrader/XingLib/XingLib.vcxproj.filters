@@ -512,6 +512,18 @@
     <ClCompile Include="Src\service\chart\setting\chartinfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainChartSetting.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainChartSetting.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chartsetting.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chartsetting.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\xinglib.h">
@@ -554,12 +566,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\service\chart\util\ui_common_util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\service\chart\setting\chartsetting.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\service\chart\setting\MainChartSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\service\chart\chart_common.h">
@@ -737,6 +743,12 @@
     </CustomBuild>
     <CustomBuild Include="Src\logger\traderx.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Src\service\chart\setting\MainChartSetting.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Src\service\chart\setting\chartsetting.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 #include "core/tr/t8430/t8430item.h"
-#include <QDebug>
 
 T8430Item::T8430Item(QObject *parent):TrItem(parent)
 {

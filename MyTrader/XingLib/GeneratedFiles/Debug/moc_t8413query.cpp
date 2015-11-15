@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 't8413query.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 't8413query.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.4.1. It"
+#error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,11 +20,11 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T8413Query_t {
     QByteArrayData data[23];
-    char stringdata[171];
+    char stringdata0[171];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_T8413Query_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_T8413Query_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_T8413Query_t qt_meta_stringdata_T8413Query = {
@@ -104,6 +104,69 @@ static const uint qt_meta_data_T8413Query[] = {
 
 void T8413Query::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+
+#ifndef QT_NO_PROPERTIES
+    if (_c == QMetaObject::ReadProperty) {
+        T8413Query *_t = static_cast<T8413Query *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: *reinterpret_cast< QDate*>(_v) = _t->edate(); break;
+        case 1: *reinterpret_cast< QString*>(_v) = _t->s_time(); break;
+        case 2: *reinterpret_cast< QString*>(_v) = _t->e_time(); break;
+        case 3: *reinterpret_cast< long*>(_v) = _t->lowend(); break;
+        case 4: *reinterpret_cast< QDate*>(_v) = _t->cts_date(); break;
+        case 5: *reinterpret_cast< long*>(_v) = _t->jivolume(); break;
+        case 6: *reinterpret_cast< QString*>(_v) = _t->dshmin(); break;
+        case 7: *reinterpret_cast< long*>(_v) = _t->dihigh(); break;
+        case 8: *reinterpret_cast< long*>(_v) = _t->highend(); break;
+        case 9: *reinterpret_cast< QString*>(_v) = _t->comp_yn(); break;
+        case 10: *reinterpret_cast< QString*>(_v) = _t->gubun(); break;
+        case 11: *reinterpret_cast< long*>(_v) = _t->disiga(); break;
+        case 12: *reinterpret_cast< long*>(_v) = _t->jiclose(); break;
+        case 13: *reinterpret_cast< long*>(_v) = _t->dilow(); break;
+        case 14: *reinterpret_cast< long*>(_v) = _t->qrycnt(); break;
+        case 15: *reinterpret_cast< long*>(_v) = _t->jisiga(); break;
+        case 16: *reinterpret_cast< long*>(_v) = _t->diclose(); break;
+        case 17: *reinterpret_cast< long*>(_v) = _t->jihigh(); break;
+        case 18: *reinterpret_cast< long*>(_v) = _t->jilow(); break;
+        case 19: *reinterpret_cast< long*>(_v) = _t->rec_count(); break;
+        case 20: *reinterpret_cast< QString*>(_v) = _t->shcode(); break;
+        case 21: *reinterpret_cast< QDate*>(_v) = _t->sdate(); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::WriteProperty) {
+        T8413Query *_t = static_cast<T8413Query *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setEdate(*reinterpret_cast< QDate*>(_v)); break;
+        case 1: _t->setS_Time(*reinterpret_cast< QString*>(_v)); break;
+        case 2: _t->setE_Time(*reinterpret_cast< QString*>(_v)); break;
+        case 3: _t->setLowend(*reinterpret_cast< long*>(_v)); break;
+        case 4: _t->setCts_Date(*reinterpret_cast< QDate*>(_v)); break;
+        case 5: _t->setJivolume(*reinterpret_cast< long*>(_v)); break;
+        case 6: _t->setDshmin(*reinterpret_cast< QString*>(_v)); break;
+        case 7: _t->setDihigh(*reinterpret_cast< long*>(_v)); break;
+        case 8: _t->setHighend(*reinterpret_cast< long*>(_v)); break;
+        case 9: _t->setComp_Yn(*reinterpret_cast< QString*>(_v)); break;
+        case 10: _t->setGubun(*reinterpret_cast< QString*>(_v)); break;
+        case 11: _t->setDisiga(*reinterpret_cast< long*>(_v)); break;
+        case 12: _t->setJiclose(*reinterpret_cast< long*>(_v)); break;
+        case 13: _t->setDilow(*reinterpret_cast< long*>(_v)); break;
+        case 14: _t->setQrycnt(*reinterpret_cast< long*>(_v)); break;
+        case 15: _t->setJisiga(*reinterpret_cast< long*>(_v)); break;
+        case 16: _t->setDiclose(*reinterpret_cast< long*>(_v)); break;
+        case 17: _t->setJihigh(*reinterpret_cast< long*>(_v)); break;
+        case 18: _t->setJilow(*reinterpret_cast< long*>(_v)); break;
+        case 19: _t->setRec_Count(*reinterpret_cast< long*>(_v)); break;
+        case 20: _t->setShcode(*reinterpret_cast< QString*>(_v)); break;
+        case 21: _t->setSdate(*reinterpret_cast< QDate*>(_v)); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::ResetProperty) {
+    }
+#endif // QT_NO_PROPERTIES
     Q_UNUSED(_o);
     Q_UNUSED(_id);
     Q_UNUSED(_c);
@@ -124,7 +187,7 @@ const QMetaObject *T8413Query::metaObject() const
 void *T8413Query::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_T8413Query.stringdata))
+    if (!strcmp(_clname, qt_meta_stringdata_T8413Query.stringdata0))
         return static_cast<void*>(const_cast< T8413Query*>(this));
     return CtsTrQuery::qt_metacast(_clname);
 }
@@ -136,63 +199,9 @@ int T8413Query::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     
 #ifndef QT_NO_PROPERTIES
-     if (_c == QMetaObject::ReadProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: *reinterpret_cast< QDate*>(_v) = edate(); break;
-        case 1: *reinterpret_cast< QString*>(_v) = s_time(); break;
-        case 2: *reinterpret_cast< QString*>(_v) = e_time(); break;
-        case 3: *reinterpret_cast< long*>(_v) = lowend(); break;
-        case 4: *reinterpret_cast< QDate*>(_v) = cts_date(); break;
-        case 5: *reinterpret_cast< long*>(_v) = jivolume(); break;
-        case 6: *reinterpret_cast< QString*>(_v) = dshmin(); break;
-        case 7: *reinterpret_cast< long*>(_v) = dihigh(); break;
-        case 8: *reinterpret_cast< long*>(_v) = highend(); break;
-        case 9: *reinterpret_cast< QString*>(_v) = comp_yn(); break;
-        case 10: *reinterpret_cast< QString*>(_v) = gubun(); break;
-        case 11: *reinterpret_cast< long*>(_v) = disiga(); break;
-        case 12: *reinterpret_cast< long*>(_v) = jiclose(); break;
-        case 13: *reinterpret_cast< long*>(_v) = dilow(); break;
-        case 14: *reinterpret_cast< long*>(_v) = qrycnt(); break;
-        case 15: *reinterpret_cast< long*>(_v) = jisiga(); break;
-        case 16: *reinterpret_cast< long*>(_v) = diclose(); break;
-        case 17: *reinterpret_cast< long*>(_v) = jihigh(); break;
-        case 18: *reinterpret_cast< long*>(_v) = jilow(); break;
-        case 19: *reinterpret_cast< long*>(_v) = rec_count(); break;
-        case 20: *reinterpret_cast< QString*>(_v) = shcode(); break;
-        case 21: *reinterpret_cast< QDate*>(_v) = sdate(); break;
-        default: break;
-        }
-        _id -= 22;
-    } else if (_c == QMetaObject::WriteProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: setEdate(*reinterpret_cast< QDate*>(_v)); break;
-        case 1: setS_Time(*reinterpret_cast< QString*>(_v)); break;
-        case 2: setE_Time(*reinterpret_cast< QString*>(_v)); break;
-        case 3: setLowend(*reinterpret_cast< long*>(_v)); break;
-        case 4: setCts_Date(*reinterpret_cast< QDate*>(_v)); break;
-        case 5: setJivolume(*reinterpret_cast< long*>(_v)); break;
-        case 6: setDshmin(*reinterpret_cast< QString*>(_v)); break;
-        case 7: setDihigh(*reinterpret_cast< long*>(_v)); break;
-        case 8: setHighend(*reinterpret_cast< long*>(_v)); break;
-        case 9: setComp_Yn(*reinterpret_cast< QString*>(_v)); break;
-        case 10: setGubun(*reinterpret_cast< QString*>(_v)); break;
-        case 11: setDisiga(*reinterpret_cast< long*>(_v)); break;
-        case 12: setJiclose(*reinterpret_cast< long*>(_v)); break;
-        case 13: setDilow(*reinterpret_cast< long*>(_v)); break;
-        case 14: setQrycnt(*reinterpret_cast< long*>(_v)); break;
-        case 15: setJisiga(*reinterpret_cast< long*>(_v)); break;
-        case 16: setDiclose(*reinterpret_cast< long*>(_v)); break;
-        case 17: setJihigh(*reinterpret_cast< long*>(_v)); break;
-        case 18: setJilow(*reinterpret_cast< long*>(_v)); break;
-        case 19: setRec_Count(*reinterpret_cast< long*>(_v)); break;
-        case 20: setShcode(*reinterpret_cast< QString*>(_v)); break;
-        case 21: setSdate(*reinterpret_cast< QDate*>(_v)); break;
-        default: break;
-        }
-        _id -= 22;
-    } else if (_c == QMetaObject::ResetProperty) {
+   if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
+        qt_static_metacall(this, _c, _id, _a);
         _id -= 22;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
         _id -= 22;
@@ -203,10 +212,6 @@ int T8413Query::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     } else if (_c == QMetaObject::QueryPropertyEditable) {
         _id -= 22;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 22;
-    } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        if (_id < 22)
-            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 22;
     }
 #endif // QT_NO_PROPERTIES

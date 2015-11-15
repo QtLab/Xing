@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'stockinfo.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'stockinfo.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.4.1. It"
+#error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,11 +20,11 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_StockInfo_t {
     QByteArrayData data[158];
-    char stringdata[1242];
+    char stringdata0[1242];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_StockInfo_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_StockInfo_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_StockInfo_t qt_meta_stringdata_StockInfo = {
@@ -403,6 +403,355 @@ static const uint qt_meta_data_StockInfo[] = {
 
 void StockInfo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+
+#ifndef QT_NO_PROPERTIES
+    if (_c == QMetaObject::ReadProperty) {
+        StockInfo *_t = static_cast<StockInfo *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: *reinterpret_cast< QString*>(_v) = _t->hname(); break;
+        case 1: *reinterpret_cast< QString*>(_v) = _t->expcode(); break;
+        case 2: *reinterpret_cast< bool*>(_v) = _t->isETF(); break;
+        case 3: *reinterpret_cast< bool*>(_v) = _t->isKOSPI(); break;
+        case 4: *reinterpret_cast< long*>(_v) = _t->price(); break;
+        case 5: *reinterpret_cast< QString*>(_v) = _t->sign(); break;
+        case 6: *reinterpret_cast< long*>(_v) = _t->change(); break;
+        case 7: *reinterpret_cast< float*>(_v) = _t->diff(); break;
+        case 8: *reinterpret_cast< long*>(_v) = _t->volume(); break;
+        case 9: *reinterpret_cast< long*>(_v) = _t->recprice(); break;
+        case 10: *reinterpret_cast< long*>(_v) = _t->avg(); break;
+        case 11: *reinterpret_cast< long*>(_v) = _t->uplmtprice(); break;
+        case 12: *reinterpret_cast< long*>(_v) = _t->dnlmtprice(); break;
+        case 13: *reinterpret_cast< long*>(_v) = _t->jnilvolume(); break;
+        case 14: *reinterpret_cast< long*>(_v) = _t->volumediff(); break;
+        case 15: *reinterpret_cast< long*>(_v) = _t->open(); break;
+        case 16: *reinterpret_cast< QTime*>(_v) = _t->opentime(); break;
+        case 17: *reinterpret_cast< long*>(_v) = _t->high(); break;
+        case 18: *reinterpret_cast< QTime*>(_v) = _t->hightime(); break;
+        case 19: *reinterpret_cast< long*>(_v) = _t->low(); break;
+        case 20: *reinterpret_cast< QTime*>(_v) = _t->lowtime(); break;
+        case 21: *reinterpret_cast< long*>(_v) = _t->high52w(); break;
+        case 22: *reinterpret_cast< QDate*>(_v) = _t->high52wdate(); break;
+        case 23: *reinterpret_cast< long*>(_v) = _t->low52w(); break;
+        case 24: *reinterpret_cast< QDate*>(_v) = _t->low52wdate(); break;
+        case 25: *reinterpret_cast< float*>(_v) = _t->exhratio(); break;
+        case 26: *reinterpret_cast< float*>(_v) = _t->per(); break;
+        case 27: *reinterpret_cast< float*>(_v) = _t->pbrx(); break;
+        case 28: *reinterpret_cast< long*>(_v) = _t->listing(); break;
+        case 29: *reinterpret_cast< long*>(_v) = _t->jkrate(); break;
+        case 30: *reinterpret_cast< QString*>(_v) = _t->memedan(); break;
+        case 31: *reinterpret_cast< QString*>(_v) = _t->offernocd1(); break;
+        case 32: *reinterpret_cast< QString*>(_v) = _t->bidnocd1(); break;
+        case 33: *reinterpret_cast< QString*>(_v) = _t->offerno1(); break;
+        case 34: *reinterpret_cast< QString*>(_v) = _t->bidno1(); break;
+        case 35: *reinterpret_cast< long*>(_v) = _t->dvol1(); break;
+        case 36: *reinterpret_cast< long*>(_v) = _t->svol1(); break;
+        case 37: *reinterpret_cast< long*>(_v) = _t->dcha1(); break;
+        case 38: *reinterpret_cast< long*>(_v) = _t->scha1(); break;
+        case 39: *reinterpret_cast< float*>(_v) = _t->ddiff1(); break;
+        case 40: *reinterpret_cast< float*>(_v) = _t->sdiff1(); break;
+        case 41: *reinterpret_cast< QString*>(_v) = _t->offernocd2(); break;
+        case 42: *reinterpret_cast< QString*>(_v) = _t->bidnocd2(); break;
+        case 43: *reinterpret_cast< QString*>(_v) = _t->offerno2(); break;
+        case 44: *reinterpret_cast< QString*>(_v) = _t->bidno2(); break;
+        case 45: *reinterpret_cast< long*>(_v) = _t->dvol2(); break;
+        case 46: *reinterpret_cast< long*>(_v) = _t->svol2(); break;
+        case 47: *reinterpret_cast< long*>(_v) = _t->dcha2(); break;
+        case 48: *reinterpret_cast< long*>(_v) = _t->scha2(); break;
+        case 49: *reinterpret_cast< float*>(_v) = _t->ddiff2(); break;
+        case 50: *reinterpret_cast< float*>(_v) = _t->sdiff2(); break;
+        case 51: *reinterpret_cast< QString*>(_v) = _t->offernocd3(); break;
+        case 52: *reinterpret_cast< QString*>(_v) = _t->bidnocd3(); break;
+        case 53: *reinterpret_cast< QString*>(_v) = _t->offerno3(); break;
+        case 54: *reinterpret_cast< QString*>(_v) = _t->bidno3(); break;
+        case 55: *reinterpret_cast< long*>(_v) = _t->dvol3(); break;
+        case 56: *reinterpret_cast< long*>(_v) = _t->svol3(); break;
+        case 57: *reinterpret_cast< long*>(_v) = _t->dcha3(); break;
+        case 58: *reinterpret_cast< long*>(_v) = _t->scha3(); break;
+        case 59: *reinterpret_cast< float*>(_v) = _t->ddiff3(); break;
+        case 60: *reinterpret_cast< float*>(_v) = _t->sdiff3(); break;
+        case 61: *reinterpret_cast< QString*>(_v) = _t->offernocd4(); break;
+        case 62: *reinterpret_cast< QString*>(_v) = _t->bidnocd4(); break;
+        case 63: *reinterpret_cast< QString*>(_v) = _t->offerno4(); break;
+        case 64: *reinterpret_cast< QString*>(_v) = _t->bidno4(); break;
+        case 65: *reinterpret_cast< long*>(_v) = _t->dvol4(); break;
+        case 66: *reinterpret_cast< long*>(_v) = _t->svol4(); break;
+        case 67: *reinterpret_cast< long*>(_v) = _t->dcha4(); break;
+        case 68: *reinterpret_cast< long*>(_v) = _t->scha4(); break;
+        case 69: *reinterpret_cast< float*>(_v) = _t->ddiff4(); break;
+        case 70: *reinterpret_cast< float*>(_v) = _t->sdiff4(); break;
+        case 71: *reinterpret_cast< QString*>(_v) = _t->offernocd5(); break;
+        case 72: *reinterpret_cast< QString*>(_v) = _t->bidnocd5(); break;
+        case 73: *reinterpret_cast< QString*>(_v) = _t->offerno5(); break;
+        case 74: *reinterpret_cast< QString*>(_v) = _t->bidno5(); break;
+        case 75: *reinterpret_cast< long*>(_v) = _t->dvol5(); break;
+        case 76: *reinterpret_cast< long*>(_v) = _t->svol5(); break;
+        case 77: *reinterpret_cast< long*>(_v) = _t->dcha5(); break;
+        case 78: *reinterpret_cast< long*>(_v) = _t->scha5(); break;
+        case 79: *reinterpret_cast< float*>(_v) = _t->ddiff5(); break;
+        case 80: *reinterpret_cast< float*>(_v) = _t->sdiff5(); break;
+        case 81: *reinterpret_cast< long*>(_v) = _t->fwdvl(); break;
+        case 82: *reinterpret_cast< long*>(_v) = _t->ftradmdcha(); break;
+        case 83: *reinterpret_cast< float*>(_v) = _t->ftradmddiff(); break;
+        case 84: *reinterpret_cast< long*>(_v) = _t->fwsvl(); break;
+        case 85: *reinterpret_cast< long*>(_v) = _t->ftradmscha(); break;
+        case 86: *reinterpret_cast< float*>(_v) = _t->ftradmsdiff(); break;
+        case 87: *reinterpret_cast< float*>(_v) = _t->vol(); break;
+        case 88: *reinterpret_cast< QString*>(_v) = _t->shcode(); break;
+        case 89: *reinterpret_cast< long*>(_v) = _t->value(); break;
+        case 90: *reinterpret_cast< long*>(_v) = _t->jvolume(); break;
+        case 91: *reinterpret_cast< long*>(_v) = _t->highyear(); break;
+        case 92: *reinterpret_cast< QDate*>(_v) = _t->highyeardate(); break;
+        case 93: *reinterpret_cast< long*>(_v) = _t->lowyear(); break;
+        case 94: *reinterpret_cast< QDate*>(_v) = _t->lowyeardate(); break;
+        case 95: *reinterpret_cast< long*>(_v) = _t->target(); break;
+        case 96: *reinterpret_cast< long*>(_v) = _t->capital(); break;
+        case 97: *reinterpret_cast< long*>(_v) = _t->abscnt(); break;
+        case 98: *reinterpret_cast< long*>(_v) = _t->parprice(); break;
+        case 99: *reinterpret_cast< QString*>(_v) = _t->gsmm(); break;
+        case 100: *reinterpret_cast< long*>(_v) = _t->subprice(); break;
+        case 101: *reinterpret_cast< long*>(_v) = _t->total(); break;
+        case 102: *reinterpret_cast< QDate*>(_v) = _t->listdate(); break;
+        case 103: *reinterpret_cast< QString*>(_v) = _t->name(); break;
+        case 104: *reinterpret_cast< long*>(_v) = _t->bfsales(); break;
+        case 105: *reinterpret_cast< long*>(_v) = _t->bfoperatingincome(); break;
+        case 106: *reinterpret_cast< long*>(_v) = _t->bfordinaryincome(); break;
+        case 107: *reinterpret_cast< long*>(_v) = _t->bfnetincome(); break;
+        case 108: *reinterpret_cast< float*>(_v) = _t->bfeps(); break;
+        case 109: *reinterpret_cast< QString*>(_v) = _t->name2(); break;
+        case 110: *reinterpret_cast< long*>(_v) = _t->bfsales2(); break;
+        case 111: *reinterpret_cast< long*>(_v) = _t->bfoperatingincome2(); break;
+        case 112: *reinterpret_cast< long*>(_v) = _t->bfordinaryincome2(); break;
+        case 113: *reinterpret_cast< long*>(_v) = _t->bfnetincome2(); break;
+        case 114: *reinterpret_cast< float*>(_v) = _t->bfeps2(); break;
+        case 115: *reinterpret_cast< float*>(_v) = _t->salert(); break;
+        case 116: *reinterpret_cast< float*>(_v) = _t->opert(); break;
+        case 117: *reinterpret_cast< float*>(_v) = _t->ordrt(); break;
+        case 118: *reinterpret_cast< float*>(_v) = _t->netrt(); break;
+        case 119: *reinterpret_cast< float*>(_v) = _t->epsrt(); break;
+        case 120: *reinterpret_cast< QString*>(_v) = _t->info1(); break;
+        case 121: *reinterpret_cast< QString*>(_v) = _t->info2(); break;
+        case 122: *reinterpret_cast< QString*>(_v) = _t->info3(); break;
+        case 123: *reinterpret_cast< QString*>(_v) = _t->info4(); break;
+        case 124: *reinterpret_cast< QString*>(_v) = _t->janginfo(); break;
+        case 125: *reinterpret_cast< float*>(_v) = _t->t_per(); break;
+        case 126: *reinterpret_cast< QString*>(_v) = _t->tonghwa(); break;
+        case 127: *reinterpret_cast< long*>(_v) = _t->dval1(); break;
+        case 128: *reinterpret_cast< long*>(_v) = _t->sval1(); break;
+        case 129: *reinterpret_cast< long*>(_v) = _t->dval2(); break;
+        case 130: *reinterpret_cast< long*>(_v) = _t->sval2(); break;
+        case 131: *reinterpret_cast< long*>(_v) = _t->dval3(); break;
+        case 132: *reinterpret_cast< long*>(_v) = _t->sval3(); break;
+        case 133: *reinterpret_cast< long*>(_v) = _t->dval4(); break;
+        case 134: *reinterpret_cast< long*>(_v) = _t->sval4(); break;
+        case 135: *reinterpret_cast< long*>(_v) = _t->dval5(); break;
+        case 136: *reinterpret_cast< long*>(_v) = _t->sval5(); break;
+        case 137: *reinterpret_cast< long*>(_v) = _t->davg1(); break;
+        case 138: *reinterpret_cast< long*>(_v) = _t->savg1(); break;
+        case 139: *reinterpret_cast< long*>(_v) = _t->davg2(); break;
+        case 140: *reinterpret_cast< long*>(_v) = _t->savg2(); break;
+        case 141: *reinterpret_cast< long*>(_v) = _t->davg3(); break;
+        case 142: *reinterpret_cast< long*>(_v) = _t->savg3(); break;
+        case 143: *reinterpret_cast< long*>(_v) = _t->davg4(); break;
+        case 144: *reinterpret_cast< long*>(_v) = _t->savg4(); break;
+        case 145: *reinterpret_cast< long*>(_v) = _t->davg5(); break;
+        case 146: *reinterpret_cast< long*>(_v) = _t->savg5(); break;
+        case 147: *reinterpret_cast< long*>(_v) = _t->ftradmdval(); break;
+        case 148: *reinterpret_cast< long*>(_v) = _t->ftradmsval(); break;
+        case 149: *reinterpret_cast< long*>(_v) = _t->ftradmdavg(); break;
+        case 150: *reinterpret_cast< long*>(_v) = _t->ftradmsavg(); break;
+        case 151: *reinterpret_cast< QString*>(_v) = _t->info5(); break;
+        case 152: *reinterpret_cast< QString*>(_v) = _t->spac_gubun(); break;
+        case 153: *reinterpret_cast< long*>(_v) = _t->issueprice(); break;
+        case 154: *reinterpret_cast< QString*>(_v) = _t->alloc_gubun(); break;
+        case 155: *reinterpret_cast< QString*>(_v) = _t->alloc_text(); break;
+        case 156: *reinterpret_cast< QString*>(_v) = _t->shterm_text(); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::WriteProperty) {
+        StockInfo *_t = static_cast<StockInfo *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0:
+            if (_t->_hname != *reinterpret_cast< QString*>(_v)) {
+                _t->_hname = *reinterpret_cast< QString*>(_v);
+            }
+            break;
+        case 1:
+            if (_t->_expcode != *reinterpret_cast< QString*>(_v)) {
+                _t->_expcode = *reinterpret_cast< QString*>(_v);
+            }
+            break;
+        case 2:
+            if (_t->_isETF != *reinterpret_cast< bool*>(_v)) {
+                _t->_isETF = *reinterpret_cast< bool*>(_v);
+            }
+            break;
+        case 3:
+            if (_t->_isKOSPI != *reinterpret_cast< bool*>(_v)) {
+                _t->_isKOSPI = *reinterpret_cast< bool*>(_v);
+            }
+            break;
+        case 4: _t->setPrice(*reinterpret_cast< long*>(_v)); break;
+        case 5: _t->setSign(*reinterpret_cast< QString*>(_v)); break;
+        case 6: _t->setChange(*reinterpret_cast< long*>(_v)); break;
+        case 7: _t->setDiff(*reinterpret_cast< float*>(_v)); break;
+        case 8: _t->setVolume(*reinterpret_cast< long*>(_v)); break;
+        case 9: _t->setRecprice(*reinterpret_cast< long*>(_v)); break;
+        case 10: _t->setAvg(*reinterpret_cast< long*>(_v)); break;
+        case 11: _t->setUplmtprice(*reinterpret_cast< long*>(_v)); break;
+        case 12: _t->setDnlmtprice(*reinterpret_cast< long*>(_v)); break;
+        case 13: _t->setJnilvolume(*reinterpret_cast< long*>(_v)); break;
+        case 14: _t->setVolumediff(*reinterpret_cast< long*>(_v)); break;
+        case 15: _t->setOpen(*reinterpret_cast< long*>(_v)); break;
+        case 16: _t->setOpentime(*reinterpret_cast< QTime*>(_v)); break;
+        case 17: _t->setHigh(*reinterpret_cast< long*>(_v)); break;
+        case 18: _t->setHightime(*reinterpret_cast< QTime*>(_v)); break;
+        case 19: _t->setLow(*reinterpret_cast< long*>(_v)); break;
+        case 20: _t->setLowtime(*reinterpret_cast< QTime*>(_v)); break;
+        case 21: _t->setHigh52W(*reinterpret_cast< long*>(_v)); break;
+        case 22: _t->setHigh52Wdate(*reinterpret_cast< QDate*>(_v)); break;
+        case 23: _t->setLow52W(*reinterpret_cast< long*>(_v)); break;
+        case 24: _t->setLow52Wdate(*reinterpret_cast< QDate*>(_v)); break;
+        case 25: _t->setExhratio(*reinterpret_cast< float*>(_v)); break;
+        case 26: _t->setPer(*reinterpret_cast< float*>(_v)); break;
+        case 27: _t->setPbrx(*reinterpret_cast< float*>(_v)); break;
+        case 28: _t->setListing(*reinterpret_cast< long*>(_v)); break;
+        case 29: _t->setJkrate(*reinterpret_cast< long*>(_v)); break;
+        case 30: _t->setMemedan(*reinterpret_cast< QString*>(_v)); break;
+        case 31: _t->setOffernocd1(*reinterpret_cast< QString*>(_v)); break;
+        case 32: _t->setBidnocd1(*reinterpret_cast< QString*>(_v)); break;
+        case 33: _t->setOfferno1(*reinterpret_cast< QString*>(_v)); break;
+        case 34: _t->setBidno1(*reinterpret_cast< QString*>(_v)); break;
+        case 35: _t->setDvol1(*reinterpret_cast< long*>(_v)); break;
+        case 36: _t->setSvol1(*reinterpret_cast< long*>(_v)); break;
+        case 37: _t->setDcha1(*reinterpret_cast< long*>(_v)); break;
+        case 38: _t->setScha1(*reinterpret_cast< long*>(_v)); break;
+        case 39: _t->setDdiff1(*reinterpret_cast< float*>(_v)); break;
+        case 40: _t->setSdiff1(*reinterpret_cast< float*>(_v)); break;
+        case 41: _t->setOffernocd2(*reinterpret_cast< QString*>(_v)); break;
+        case 42: _t->setBidnocd2(*reinterpret_cast< QString*>(_v)); break;
+        case 43: _t->setOfferno2(*reinterpret_cast< QString*>(_v)); break;
+        case 44: _t->setBidno2(*reinterpret_cast< QString*>(_v)); break;
+        case 45: _t->setDvol2(*reinterpret_cast< long*>(_v)); break;
+        case 46: _t->setSvol2(*reinterpret_cast< long*>(_v)); break;
+        case 47: _t->setDcha2(*reinterpret_cast< long*>(_v)); break;
+        case 48: _t->setScha2(*reinterpret_cast< long*>(_v)); break;
+        case 49: _t->setDdiff2(*reinterpret_cast< float*>(_v)); break;
+        case 50: _t->setSdiff2(*reinterpret_cast< float*>(_v)); break;
+        case 51: _t->setOffernocd3(*reinterpret_cast< QString*>(_v)); break;
+        case 52: _t->setBidnocd3(*reinterpret_cast< QString*>(_v)); break;
+        case 53: _t->setOfferno3(*reinterpret_cast< QString*>(_v)); break;
+        case 54: _t->setBidno3(*reinterpret_cast< QString*>(_v)); break;
+        case 55: _t->setDvol3(*reinterpret_cast< long*>(_v)); break;
+        case 56: _t->setSvol3(*reinterpret_cast< long*>(_v)); break;
+        case 57: _t->setDcha3(*reinterpret_cast< long*>(_v)); break;
+        case 58: _t->setScha3(*reinterpret_cast< long*>(_v)); break;
+        case 59: _t->setDdiff3(*reinterpret_cast< float*>(_v)); break;
+        case 60: _t->setSdiff3(*reinterpret_cast< float*>(_v)); break;
+        case 61: _t->setOffernocd4(*reinterpret_cast< QString*>(_v)); break;
+        case 62: _t->setBidnocd4(*reinterpret_cast< QString*>(_v)); break;
+        case 63: _t->setOfferno4(*reinterpret_cast< QString*>(_v)); break;
+        case 64: _t->setBidno4(*reinterpret_cast< QString*>(_v)); break;
+        case 65: _t->setDvol4(*reinterpret_cast< long*>(_v)); break;
+        case 66: _t->setSvol4(*reinterpret_cast< long*>(_v)); break;
+        case 67: _t->setDcha4(*reinterpret_cast< long*>(_v)); break;
+        case 68: _t->setScha4(*reinterpret_cast< long*>(_v)); break;
+        case 69: _t->setDdiff4(*reinterpret_cast< float*>(_v)); break;
+        case 70: _t->setSdiff4(*reinterpret_cast< float*>(_v)); break;
+        case 71: _t->setOffernocd5(*reinterpret_cast< QString*>(_v)); break;
+        case 72: _t->setBidnocd5(*reinterpret_cast< QString*>(_v)); break;
+        case 73: _t->setOfferno5(*reinterpret_cast< QString*>(_v)); break;
+        case 74: _t->setBidno5(*reinterpret_cast< QString*>(_v)); break;
+        case 75: _t->setDvol5(*reinterpret_cast< long*>(_v)); break;
+        case 76: _t->setSvol5(*reinterpret_cast< long*>(_v)); break;
+        case 77: _t->setDcha5(*reinterpret_cast< long*>(_v)); break;
+        case 78: _t->setScha5(*reinterpret_cast< long*>(_v)); break;
+        case 79: _t->setDdiff5(*reinterpret_cast< float*>(_v)); break;
+        case 80: _t->setSdiff5(*reinterpret_cast< float*>(_v)); break;
+        case 81: _t->setFwdvl(*reinterpret_cast< long*>(_v)); break;
+        case 82: _t->setFtradmdcha(*reinterpret_cast< long*>(_v)); break;
+        case 83: _t->setFtradmddiff(*reinterpret_cast< float*>(_v)); break;
+        case 84: _t->setFwsvl(*reinterpret_cast< long*>(_v)); break;
+        case 85: _t->setFtradmscha(*reinterpret_cast< long*>(_v)); break;
+        case 86: _t->setFtradmsdiff(*reinterpret_cast< float*>(_v)); break;
+        case 87: _t->setVol(*reinterpret_cast< float*>(_v)); break;
+        case 88: _t->setShcode(*reinterpret_cast< QString*>(_v)); break;
+        case 89: _t->setValue(*reinterpret_cast< long*>(_v)); break;
+        case 90: _t->setJvolume(*reinterpret_cast< long*>(_v)); break;
+        case 91: _t->setHighyear(*reinterpret_cast< long*>(_v)); break;
+        case 92: _t->setHighyeardate(*reinterpret_cast< QDate*>(_v)); break;
+        case 93: _t->setLowyear(*reinterpret_cast< long*>(_v)); break;
+        case 94: _t->setLowyeardate(*reinterpret_cast< QDate*>(_v)); break;
+        case 95: _t->setTarget(*reinterpret_cast< long*>(_v)); break;
+        case 96: _t->setCapital(*reinterpret_cast< long*>(_v)); break;
+        case 97: _t->setAbscnt(*reinterpret_cast< long*>(_v)); break;
+        case 98: _t->setParprice(*reinterpret_cast< long*>(_v)); break;
+        case 99: _t->setGsmm(*reinterpret_cast< QString*>(_v)); break;
+        case 100: _t->setSubprice(*reinterpret_cast< long*>(_v)); break;
+        case 101: _t->setTotal(*reinterpret_cast< long*>(_v)); break;
+        case 102: _t->setListdate(*reinterpret_cast< QDate*>(_v)); break;
+        case 103: _t->setName(*reinterpret_cast< QString*>(_v)); break;
+        case 104: _t->setBfsales(*reinterpret_cast< long*>(_v)); break;
+        case 105: _t->setBfoperatingincome(*reinterpret_cast< long*>(_v)); break;
+        case 106: _t->setBfordinaryincome(*reinterpret_cast< long*>(_v)); break;
+        case 107: _t->setBfnetincome(*reinterpret_cast< long*>(_v)); break;
+        case 108: _t->setBfeps(*reinterpret_cast< float*>(_v)); break;
+        case 109: _t->setName2(*reinterpret_cast< QString*>(_v)); break;
+        case 110: _t->setBfsales2(*reinterpret_cast< long*>(_v)); break;
+        case 111: _t->setBfoperatingincome2(*reinterpret_cast< long*>(_v)); break;
+        case 112: _t->setBfordinaryincome2(*reinterpret_cast< long*>(_v)); break;
+        case 113: _t->setBfnetincome2(*reinterpret_cast< long*>(_v)); break;
+        case 114: _t->setBfeps2(*reinterpret_cast< float*>(_v)); break;
+        case 115: _t->setSalert(*reinterpret_cast< float*>(_v)); break;
+        case 116: _t->setOpert(*reinterpret_cast< float*>(_v)); break;
+        case 117: _t->setOrdrt(*reinterpret_cast< float*>(_v)); break;
+        case 118: _t->setNetrt(*reinterpret_cast< float*>(_v)); break;
+        case 119: _t->setEpsrt(*reinterpret_cast< float*>(_v)); break;
+        case 120: _t->setInfo1(*reinterpret_cast< QString*>(_v)); break;
+        case 121: _t->setInfo2(*reinterpret_cast< QString*>(_v)); break;
+        case 122: _t->setInfo3(*reinterpret_cast< QString*>(_v)); break;
+        case 123: _t->setInfo4(*reinterpret_cast< QString*>(_v)); break;
+        case 124: _t->setJanginfo(*reinterpret_cast< QString*>(_v)); break;
+        case 125: _t->setT_Per(*reinterpret_cast< float*>(_v)); break;
+        case 126: _t->setTonghwa(*reinterpret_cast< QString*>(_v)); break;
+        case 127: _t->setDval1(*reinterpret_cast< long*>(_v)); break;
+        case 128: _t->setSval1(*reinterpret_cast< long*>(_v)); break;
+        case 129: _t->setDval2(*reinterpret_cast< long*>(_v)); break;
+        case 130: _t->setSval2(*reinterpret_cast< long*>(_v)); break;
+        case 131: _t->setDval3(*reinterpret_cast< long*>(_v)); break;
+        case 132: _t->setSval3(*reinterpret_cast< long*>(_v)); break;
+        case 133: _t->setDval4(*reinterpret_cast< long*>(_v)); break;
+        case 134: _t->setSval4(*reinterpret_cast< long*>(_v)); break;
+        case 135: _t->setDval5(*reinterpret_cast< long*>(_v)); break;
+        case 136: _t->setSval5(*reinterpret_cast< long*>(_v)); break;
+        case 137: _t->setDavg1(*reinterpret_cast< long*>(_v)); break;
+        case 138: _t->setSavg1(*reinterpret_cast< long*>(_v)); break;
+        case 139: _t->setDavg2(*reinterpret_cast< long*>(_v)); break;
+        case 140: _t->setSavg2(*reinterpret_cast< long*>(_v)); break;
+        case 141: _t->setDavg3(*reinterpret_cast< long*>(_v)); break;
+        case 142: _t->setSavg3(*reinterpret_cast< long*>(_v)); break;
+        case 143: _t->setDavg4(*reinterpret_cast< long*>(_v)); break;
+        case 144: _t->setSavg4(*reinterpret_cast< long*>(_v)); break;
+        case 145: _t->setDavg5(*reinterpret_cast< long*>(_v)); break;
+        case 146: _t->setSavg5(*reinterpret_cast< long*>(_v)); break;
+        case 147: _t->setFtradmdval(*reinterpret_cast< long*>(_v)); break;
+        case 148: _t->setFtradmsval(*reinterpret_cast< long*>(_v)); break;
+        case 149: _t->setFtradmdavg(*reinterpret_cast< long*>(_v)); break;
+        case 150: _t->setFtradmsavg(*reinterpret_cast< long*>(_v)); break;
+        case 151: _t->setInfo5(*reinterpret_cast< QString*>(_v)); break;
+        case 152: _t->setSpac_Gubun(*reinterpret_cast< QString*>(_v)); break;
+        case 153: _t->setIssueprice(*reinterpret_cast< long*>(_v)); break;
+        case 154: _t->setAlloc_Gubun(*reinterpret_cast< QString*>(_v)); break;
+        case 155: _t->setAlloc_Text(*reinterpret_cast< QString*>(_v)); break;
+        case 156: _t->setShterm_Text(*reinterpret_cast< QString*>(_v)); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::ResetProperty) {
+    }
+#endif // QT_NO_PROPERTIES
     Q_UNUSED(_o);
     Q_UNUSED(_id);
     Q_UNUSED(_c);
@@ -423,7 +772,7 @@ const QMetaObject *StockInfo::metaObject() const
 void *StockInfo::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_StockInfo.stringdata))
+    if (!strcmp(_clname, qt_meta_stringdata_StockInfo.stringdata0))
         return static_cast<void*>(const_cast< StockInfo*>(this));
     return TrItem::qt_metacast(_clname);
 }
@@ -435,349 +784,9 @@ int StockInfo::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     
 #ifndef QT_NO_PROPERTIES
-     if (_c == QMetaObject::ReadProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: *reinterpret_cast< QString*>(_v) = hname(); break;
-        case 1: *reinterpret_cast< QString*>(_v) = expcode(); break;
-        case 2: *reinterpret_cast< bool*>(_v) = isETF(); break;
-        case 3: *reinterpret_cast< bool*>(_v) = isKOSPI(); break;
-        case 4: *reinterpret_cast< long*>(_v) = price(); break;
-        case 5: *reinterpret_cast< QString*>(_v) = sign(); break;
-        case 6: *reinterpret_cast< long*>(_v) = change(); break;
-        case 7: *reinterpret_cast< float*>(_v) = diff(); break;
-        case 8: *reinterpret_cast< long*>(_v) = volume(); break;
-        case 9: *reinterpret_cast< long*>(_v) = recprice(); break;
-        case 10: *reinterpret_cast< long*>(_v) = avg(); break;
-        case 11: *reinterpret_cast< long*>(_v) = uplmtprice(); break;
-        case 12: *reinterpret_cast< long*>(_v) = dnlmtprice(); break;
-        case 13: *reinterpret_cast< long*>(_v) = jnilvolume(); break;
-        case 14: *reinterpret_cast< long*>(_v) = volumediff(); break;
-        case 15: *reinterpret_cast< long*>(_v) = open(); break;
-        case 16: *reinterpret_cast< QTime*>(_v) = opentime(); break;
-        case 17: *reinterpret_cast< long*>(_v) = high(); break;
-        case 18: *reinterpret_cast< QTime*>(_v) = hightime(); break;
-        case 19: *reinterpret_cast< long*>(_v) = low(); break;
-        case 20: *reinterpret_cast< QTime*>(_v) = lowtime(); break;
-        case 21: *reinterpret_cast< long*>(_v) = high52w(); break;
-        case 22: *reinterpret_cast< QDate*>(_v) = high52wdate(); break;
-        case 23: *reinterpret_cast< long*>(_v) = low52w(); break;
-        case 24: *reinterpret_cast< QDate*>(_v) = low52wdate(); break;
-        case 25: *reinterpret_cast< float*>(_v) = exhratio(); break;
-        case 26: *reinterpret_cast< float*>(_v) = per(); break;
-        case 27: *reinterpret_cast< float*>(_v) = pbrx(); break;
-        case 28: *reinterpret_cast< long*>(_v) = listing(); break;
-        case 29: *reinterpret_cast< long*>(_v) = jkrate(); break;
-        case 30: *reinterpret_cast< QString*>(_v) = memedan(); break;
-        case 31: *reinterpret_cast< QString*>(_v) = offernocd1(); break;
-        case 32: *reinterpret_cast< QString*>(_v) = bidnocd1(); break;
-        case 33: *reinterpret_cast< QString*>(_v) = offerno1(); break;
-        case 34: *reinterpret_cast< QString*>(_v) = bidno1(); break;
-        case 35: *reinterpret_cast< long*>(_v) = dvol1(); break;
-        case 36: *reinterpret_cast< long*>(_v) = svol1(); break;
-        case 37: *reinterpret_cast< long*>(_v) = dcha1(); break;
-        case 38: *reinterpret_cast< long*>(_v) = scha1(); break;
-        case 39: *reinterpret_cast< float*>(_v) = ddiff1(); break;
-        case 40: *reinterpret_cast< float*>(_v) = sdiff1(); break;
-        case 41: *reinterpret_cast< QString*>(_v) = offernocd2(); break;
-        case 42: *reinterpret_cast< QString*>(_v) = bidnocd2(); break;
-        case 43: *reinterpret_cast< QString*>(_v) = offerno2(); break;
-        case 44: *reinterpret_cast< QString*>(_v) = bidno2(); break;
-        case 45: *reinterpret_cast< long*>(_v) = dvol2(); break;
-        case 46: *reinterpret_cast< long*>(_v) = svol2(); break;
-        case 47: *reinterpret_cast< long*>(_v) = dcha2(); break;
-        case 48: *reinterpret_cast< long*>(_v) = scha2(); break;
-        case 49: *reinterpret_cast< float*>(_v) = ddiff2(); break;
-        case 50: *reinterpret_cast< float*>(_v) = sdiff2(); break;
-        case 51: *reinterpret_cast< QString*>(_v) = offernocd3(); break;
-        case 52: *reinterpret_cast< QString*>(_v) = bidnocd3(); break;
-        case 53: *reinterpret_cast< QString*>(_v) = offerno3(); break;
-        case 54: *reinterpret_cast< QString*>(_v) = bidno3(); break;
-        case 55: *reinterpret_cast< long*>(_v) = dvol3(); break;
-        case 56: *reinterpret_cast< long*>(_v) = svol3(); break;
-        case 57: *reinterpret_cast< long*>(_v) = dcha3(); break;
-        case 58: *reinterpret_cast< long*>(_v) = scha3(); break;
-        case 59: *reinterpret_cast< float*>(_v) = ddiff3(); break;
-        case 60: *reinterpret_cast< float*>(_v) = sdiff3(); break;
-        case 61: *reinterpret_cast< QString*>(_v) = offernocd4(); break;
-        case 62: *reinterpret_cast< QString*>(_v) = bidnocd4(); break;
-        case 63: *reinterpret_cast< QString*>(_v) = offerno4(); break;
-        case 64: *reinterpret_cast< QString*>(_v) = bidno4(); break;
-        case 65: *reinterpret_cast< long*>(_v) = dvol4(); break;
-        case 66: *reinterpret_cast< long*>(_v) = svol4(); break;
-        case 67: *reinterpret_cast< long*>(_v) = dcha4(); break;
-        case 68: *reinterpret_cast< long*>(_v) = scha4(); break;
-        case 69: *reinterpret_cast< float*>(_v) = ddiff4(); break;
-        case 70: *reinterpret_cast< float*>(_v) = sdiff4(); break;
-        case 71: *reinterpret_cast< QString*>(_v) = offernocd5(); break;
-        case 72: *reinterpret_cast< QString*>(_v) = bidnocd5(); break;
-        case 73: *reinterpret_cast< QString*>(_v) = offerno5(); break;
-        case 74: *reinterpret_cast< QString*>(_v) = bidno5(); break;
-        case 75: *reinterpret_cast< long*>(_v) = dvol5(); break;
-        case 76: *reinterpret_cast< long*>(_v) = svol5(); break;
-        case 77: *reinterpret_cast< long*>(_v) = dcha5(); break;
-        case 78: *reinterpret_cast< long*>(_v) = scha5(); break;
-        case 79: *reinterpret_cast< float*>(_v) = ddiff5(); break;
-        case 80: *reinterpret_cast< float*>(_v) = sdiff5(); break;
-        case 81: *reinterpret_cast< long*>(_v) = fwdvl(); break;
-        case 82: *reinterpret_cast< long*>(_v) = ftradmdcha(); break;
-        case 83: *reinterpret_cast< float*>(_v) = ftradmddiff(); break;
-        case 84: *reinterpret_cast< long*>(_v) = fwsvl(); break;
-        case 85: *reinterpret_cast< long*>(_v) = ftradmscha(); break;
-        case 86: *reinterpret_cast< float*>(_v) = ftradmsdiff(); break;
-        case 87: *reinterpret_cast< float*>(_v) = vol(); break;
-        case 88: *reinterpret_cast< QString*>(_v) = shcode(); break;
-        case 89: *reinterpret_cast< long*>(_v) = value(); break;
-        case 90: *reinterpret_cast< long*>(_v) = jvolume(); break;
-        case 91: *reinterpret_cast< long*>(_v) = highyear(); break;
-        case 92: *reinterpret_cast< QDate*>(_v) = highyeardate(); break;
-        case 93: *reinterpret_cast< long*>(_v) = lowyear(); break;
-        case 94: *reinterpret_cast< QDate*>(_v) = lowyeardate(); break;
-        case 95: *reinterpret_cast< long*>(_v) = target(); break;
-        case 96: *reinterpret_cast< long*>(_v) = capital(); break;
-        case 97: *reinterpret_cast< long*>(_v) = abscnt(); break;
-        case 98: *reinterpret_cast< long*>(_v) = parprice(); break;
-        case 99: *reinterpret_cast< QString*>(_v) = gsmm(); break;
-        case 100: *reinterpret_cast< long*>(_v) = subprice(); break;
-        case 101: *reinterpret_cast< long*>(_v) = total(); break;
-        case 102: *reinterpret_cast< QDate*>(_v) = listdate(); break;
-        case 103: *reinterpret_cast< QString*>(_v) = name(); break;
-        case 104: *reinterpret_cast< long*>(_v) = bfsales(); break;
-        case 105: *reinterpret_cast< long*>(_v) = bfoperatingincome(); break;
-        case 106: *reinterpret_cast< long*>(_v) = bfordinaryincome(); break;
-        case 107: *reinterpret_cast< long*>(_v) = bfnetincome(); break;
-        case 108: *reinterpret_cast< float*>(_v) = bfeps(); break;
-        case 109: *reinterpret_cast< QString*>(_v) = name2(); break;
-        case 110: *reinterpret_cast< long*>(_v) = bfsales2(); break;
-        case 111: *reinterpret_cast< long*>(_v) = bfoperatingincome2(); break;
-        case 112: *reinterpret_cast< long*>(_v) = bfordinaryincome2(); break;
-        case 113: *reinterpret_cast< long*>(_v) = bfnetincome2(); break;
-        case 114: *reinterpret_cast< float*>(_v) = bfeps2(); break;
-        case 115: *reinterpret_cast< float*>(_v) = salert(); break;
-        case 116: *reinterpret_cast< float*>(_v) = opert(); break;
-        case 117: *reinterpret_cast< float*>(_v) = ordrt(); break;
-        case 118: *reinterpret_cast< float*>(_v) = netrt(); break;
-        case 119: *reinterpret_cast< float*>(_v) = epsrt(); break;
-        case 120: *reinterpret_cast< QString*>(_v) = info1(); break;
-        case 121: *reinterpret_cast< QString*>(_v) = info2(); break;
-        case 122: *reinterpret_cast< QString*>(_v) = info3(); break;
-        case 123: *reinterpret_cast< QString*>(_v) = info4(); break;
-        case 124: *reinterpret_cast< QString*>(_v) = janginfo(); break;
-        case 125: *reinterpret_cast< float*>(_v) = t_per(); break;
-        case 126: *reinterpret_cast< QString*>(_v) = tonghwa(); break;
-        case 127: *reinterpret_cast< long*>(_v) = dval1(); break;
-        case 128: *reinterpret_cast< long*>(_v) = sval1(); break;
-        case 129: *reinterpret_cast< long*>(_v) = dval2(); break;
-        case 130: *reinterpret_cast< long*>(_v) = sval2(); break;
-        case 131: *reinterpret_cast< long*>(_v) = dval3(); break;
-        case 132: *reinterpret_cast< long*>(_v) = sval3(); break;
-        case 133: *reinterpret_cast< long*>(_v) = dval4(); break;
-        case 134: *reinterpret_cast< long*>(_v) = sval4(); break;
-        case 135: *reinterpret_cast< long*>(_v) = dval5(); break;
-        case 136: *reinterpret_cast< long*>(_v) = sval5(); break;
-        case 137: *reinterpret_cast< long*>(_v) = davg1(); break;
-        case 138: *reinterpret_cast< long*>(_v) = savg1(); break;
-        case 139: *reinterpret_cast< long*>(_v) = davg2(); break;
-        case 140: *reinterpret_cast< long*>(_v) = savg2(); break;
-        case 141: *reinterpret_cast< long*>(_v) = davg3(); break;
-        case 142: *reinterpret_cast< long*>(_v) = savg3(); break;
-        case 143: *reinterpret_cast< long*>(_v) = davg4(); break;
-        case 144: *reinterpret_cast< long*>(_v) = savg4(); break;
-        case 145: *reinterpret_cast< long*>(_v) = davg5(); break;
-        case 146: *reinterpret_cast< long*>(_v) = savg5(); break;
-        case 147: *reinterpret_cast< long*>(_v) = ftradmdval(); break;
-        case 148: *reinterpret_cast< long*>(_v) = ftradmsval(); break;
-        case 149: *reinterpret_cast< long*>(_v) = ftradmdavg(); break;
-        case 150: *reinterpret_cast< long*>(_v) = ftradmsavg(); break;
-        case 151: *reinterpret_cast< QString*>(_v) = info5(); break;
-        case 152: *reinterpret_cast< QString*>(_v) = spac_gubun(); break;
-        case 153: *reinterpret_cast< long*>(_v) = issueprice(); break;
-        case 154: *reinterpret_cast< QString*>(_v) = alloc_gubun(); break;
-        case 155: *reinterpret_cast< QString*>(_v) = alloc_text(); break;
-        case 156: *reinterpret_cast< QString*>(_v) = shterm_text(); break;
-        default: break;
-        }
-        _id -= 157;
-    } else if (_c == QMetaObject::WriteProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0:
-            if (_hname != *reinterpret_cast< QString*>(_v)) {
-                _hname = *reinterpret_cast< QString*>(_v);
-            }
-            break;
-        case 1:
-            if (_expcode != *reinterpret_cast< QString*>(_v)) {
-                _expcode = *reinterpret_cast< QString*>(_v);
-            }
-            break;
-        case 2:
-            if (_isETF != *reinterpret_cast< bool*>(_v)) {
-                _isETF = *reinterpret_cast< bool*>(_v);
-            }
-            break;
-        case 3:
-            if (_isKOSPI != *reinterpret_cast< bool*>(_v)) {
-                _isKOSPI = *reinterpret_cast< bool*>(_v);
-            }
-            break;
-        case 4: setPrice(*reinterpret_cast< long*>(_v)); break;
-        case 5: setSign(*reinterpret_cast< QString*>(_v)); break;
-        case 6: setChange(*reinterpret_cast< long*>(_v)); break;
-        case 7: setDiff(*reinterpret_cast< float*>(_v)); break;
-        case 8: setVolume(*reinterpret_cast< long*>(_v)); break;
-        case 9: setRecprice(*reinterpret_cast< long*>(_v)); break;
-        case 10: setAvg(*reinterpret_cast< long*>(_v)); break;
-        case 11: setUplmtprice(*reinterpret_cast< long*>(_v)); break;
-        case 12: setDnlmtprice(*reinterpret_cast< long*>(_v)); break;
-        case 13: setJnilvolume(*reinterpret_cast< long*>(_v)); break;
-        case 14: setVolumediff(*reinterpret_cast< long*>(_v)); break;
-        case 15: setOpen(*reinterpret_cast< long*>(_v)); break;
-        case 16: setOpentime(*reinterpret_cast< QTime*>(_v)); break;
-        case 17: setHigh(*reinterpret_cast< long*>(_v)); break;
-        case 18: setHightime(*reinterpret_cast< QTime*>(_v)); break;
-        case 19: setLow(*reinterpret_cast< long*>(_v)); break;
-        case 20: setLowtime(*reinterpret_cast< QTime*>(_v)); break;
-        case 21: setHigh52W(*reinterpret_cast< long*>(_v)); break;
-        case 22: setHigh52Wdate(*reinterpret_cast< QDate*>(_v)); break;
-        case 23: setLow52W(*reinterpret_cast< long*>(_v)); break;
-        case 24: setLow52Wdate(*reinterpret_cast< QDate*>(_v)); break;
-        case 25: setExhratio(*reinterpret_cast< float*>(_v)); break;
-        case 26: setPer(*reinterpret_cast< float*>(_v)); break;
-        case 27: setPbrx(*reinterpret_cast< float*>(_v)); break;
-        case 28: setListing(*reinterpret_cast< long*>(_v)); break;
-        case 29: setJkrate(*reinterpret_cast< long*>(_v)); break;
-        case 30: setMemedan(*reinterpret_cast< QString*>(_v)); break;
-        case 31: setOffernocd1(*reinterpret_cast< QString*>(_v)); break;
-        case 32: setBidnocd1(*reinterpret_cast< QString*>(_v)); break;
-        case 33: setOfferno1(*reinterpret_cast< QString*>(_v)); break;
-        case 34: setBidno1(*reinterpret_cast< QString*>(_v)); break;
-        case 35: setDvol1(*reinterpret_cast< long*>(_v)); break;
-        case 36: setSvol1(*reinterpret_cast< long*>(_v)); break;
-        case 37: setDcha1(*reinterpret_cast< long*>(_v)); break;
-        case 38: setScha1(*reinterpret_cast< long*>(_v)); break;
-        case 39: setDdiff1(*reinterpret_cast< float*>(_v)); break;
-        case 40: setSdiff1(*reinterpret_cast< float*>(_v)); break;
-        case 41: setOffernocd2(*reinterpret_cast< QString*>(_v)); break;
-        case 42: setBidnocd2(*reinterpret_cast< QString*>(_v)); break;
-        case 43: setOfferno2(*reinterpret_cast< QString*>(_v)); break;
-        case 44: setBidno2(*reinterpret_cast< QString*>(_v)); break;
-        case 45: setDvol2(*reinterpret_cast< long*>(_v)); break;
-        case 46: setSvol2(*reinterpret_cast< long*>(_v)); break;
-        case 47: setDcha2(*reinterpret_cast< long*>(_v)); break;
-        case 48: setScha2(*reinterpret_cast< long*>(_v)); break;
-        case 49: setDdiff2(*reinterpret_cast< float*>(_v)); break;
-        case 50: setSdiff2(*reinterpret_cast< float*>(_v)); break;
-        case 51: setOffernocd3(*reinterpret_cast< QString*>(_v)); break;
-        case 52: setBidnocd3(*reinterpret_cast< QString*>(_v)); break;
-        case 53: setOfferno3(*reinterpret_cast< QString*>(_v)); break;
-        case 54: setBidno3(*reinterpret_cast< QString*>(_v)); break;
-        case 55: setDvol3(*reinterpret_cast< long*>(_v)); break;
-        case 56: setSvol3(*reinterpret_cast< long*>(_v)); break;
-        case 57: setDcha3(*reinterpret_cast< long*>(_v)); break;
-        case 58: setScha3(*reinterpret_cast< long*>(_v)); break;
-        case 59: setDdiff3(*reinterpret_cast< float*>(_v)); break;
-        case 60: setSdiff3(*reinterpret_cast< float*>(_v)); break;
-        case 61: setOffernocd4(*reinterpret_cast< QString*>(_v)); break;
-        case 62: setBidnocd4(*reinterpret_cast< QString*>(_v)); break;
-        case 63: setOfferno4(*reinterpret_cast< QString*>(_v)); break;
-        case 64: setBidno4(*reinterpret_cast< QString*>(_v)); break;
-        case 65: setDvol4(*reinterpret_cast< long*>(_v)); break;
-        case 66: setSvol4(*reinterpret_cast< long*>(_v)); break;
-        case 67: setDcha4(*reinterpret_cast< long*>(_v)); break;
-        case 68: setScha4(*reinterpret_cast< long*>(_v)); break;
-        case 69: setDdiff4(*reinterpret_cast< float*>(_v)); break;
-        case 70: setSdiff4(*reinterpret_cast< float*>(_v)); break;
-        case 71: setOffernocd5(*reinterpret_cast< QString*>(_v)); break;
-        case 72: setBidnocd5(*reinterpret_cast< QString*>(_v)); break;
-        case 73: setOfferno5(*reinterpret_cast< QString*>(_v)); break;
-        case 74: setBidno5(*reinterpret_cast< QString*>(_v)); break;
-        case 75: setDvol5(*reinterpret_cast< long*>(_v)); break;
-        case 76: setSvol5(*reinterpret_cast< long*>(_v)); break;
-        case 77: setDcha5(*reinterpret_cast< long*>(_v)); break;
-        case 78: setScha5(*reinterpret_cast< long*>(_v)); break;
-        case 79: setDdiff5(*reinterpret_cast< float*>(_v)); break;
-        case 80: setSdiff5(*reinterpret_cast< float*>(_v)); break;
-        case 81: setFwdvl(*reinterpret_cast< long*>(_v)); break;
-        case 82: setFtradmdcha(*reinterpret_cast< long*>(_v)); break;
-        case 83: setFtradmddiff(*reinterpret_cast< float*>(_v)); break;
-        case 84: setFwsvl(*reinterpret_cast< long*>(_v)); break;
-        case 85: setFtradmscha(*reinterpret_cast< long*>(_v)); break;
-        case 86: setFtradmsdiff(*reinterpret_cast< float*>(_v)); break;
-        case 87: setVol(*reinterpret_cast< float*>(_v)); break;
-        case 88: setShcode(*reinterpret_cast< QString*>(_v)); break;
-        case 89: setValue(*reinterpret_cast< long*>(_v)); break;
-        case 90: setJvolume(*reinterpret_cast< long*>(_v)); break;
-        case 91: setHighyear(*reinterpret_cast< long*>(_v)); break;
-        case 92: setHighyeardate(*reinterpret_cast< QDate*>(_v)); break;
-        case 93: setLowyear(*reinterpret_cast< long*>(_v)); break;
-        case 94: setLowyeardate(*reinterpret_cast< QDate*>(_v)); break;
-        case 95: setTarget(*reinterpret_cast< long*>(_v)); break;
-        case 96: setCapital(*reinterpret_cast< long*>(_v)); break;
-        case 97: setAbscnt(*reinterpret_cast< long*>(_v)); break;
-        case 98: setParprice(*reinterpret_cast< long*>(_v)); break;
-        case 99: setGsmm(*reinterpret_cast< QString*>(_v)); break;
-        case 100: setSubprice(*reinterpret_cast< long*>(_v)); break;
-        case 101: setTotal(*reinterpret_cast< long*>(_v)); break;
-        case 102: setListdate(*reinterpret_cast< QDate*>(_v)); break;
-        case 103: setName(*reinterpret_cast< QString*>(_v)); break;
-        case 104: setBfsales(*reinterpret_cast< long*>(_v)); break;
-        case 105: setBfoperatingincome(*reinterpret_cast< long*>(_v)); break;
-        case 106: setBfordinaryincome(*reinterpret_cast< long*>(_v)); break;
-        case 107: setBfnetincome(*reinterpret_cast< long*>(_v)); break;
-        case 108: setBfeps(*reinterpret_cast< float*>(_v)); break;
-        case 109: setName2(*reinterpret_cast< QString*>(_v)); break;
-        case 110: setBfsales2(*reinterpret_cast< long*>(_v)); break;
-        case 111: setBfoperatingincome2(*reinterpret_cast< long*>(_v)); break;
-        case 112: setBfordinaryincome2(*reinterpret_cast< long*>(_v)); break;
-        case 113: setBfnetincome2(*reinterpret_cast< long*>(_v)); break;
-        case 114: setBfeps2(*reinterpret_cast< float*>(_v)); break;
-        case 115: setSalert(*reinterpret_cast< float*>(_v)); break;
-        case 116: setOpert(*reinterpret_cast< float*>(_v)); break;
-        case 117: setOrdrt(*reinterpret_cast< float*>(_v)); break;
-        case 118: setNetrt(*reinterpret_cast< float*>(_v)); break;
-        case 119: setEpsrt(*reinterpret_cast< float*>(_v)); break;
-        case 120: setInfo1(*reinterpret_cast< QString*>(_v)); break;
-        case 121: setInfo2(*reinterpret_cast< QString*>(_v)); break;
-        case 122: setInfo3(*reinterpret_cast< QString*>(_v)); break;
-        case 123: setInfo4(*reinterpret_cast< QString*>(_v)); break;
-        case 124: setJanginfo(*reinterpret_cast< QString*>(_v)); break;
-        case 125: setT_Per(*reinterpret_cast< float*>(_v)); break;
-        case 126: setTonghwa(*reinterpret_cast< QString*>(_v)); break;
-        case 127: setDval1(*reinterpret_cast< long*>(_v)); break;
-        case 128: setSval1(*reinterpret_cast< long*>(_v)); break;
-        case 129: setDval2(*reinterpret_cast< long*>(_v)); break;
-        case 130: setSval2(*reinterpret_cast< long*>(_v)); break;
-        case 131: setDval3(*reinterpret_cast< long*>(_v)); break;
-        case 132: setSval3(*reinterpret_cast< long*>(_v)); break;
-        case 133: setDval4(*reinterpret_cast< long*>(_v)); break;
-        case 134: setSval4(*reinterpret_cast< long*>(_v)); break;
-        case 135: setDval5(*reinterpret_cast< long*>(_v)); break;
-        case 136: setSval5(*reinterpret_cast< long*>(_v)); break;
-        case 137: setDavg1(*reinterpret_cast< long*>(_v)); break;
-        case 138: setSavg1(*reinterpret_cast< long*>(_v)); break;
-        case 139: setDavg2(*reinterpret_cast< long*>(_v)); break;
-        case 140: setSavg2(*reinterpret_cast< long*>(_v)); break;
-        case 141: setDavg3(*reinterpret_cast< long*>(_v)); break;
-        case 142: setSavg3(*reinterpret_cast< long*>(_v)); break;
-        case 143: setDavg4(*reinterpret_cast< long*>(_v)); break;
-        case 144: setSavg4(*reinterpret_cast< long*>(_v)); break;
-        case 145: setDavg5(*reinterpret_cast< long*>(_v)); break;
-        case 146: setSavg5(*reinterpret_cast< long*>(_v)); break;
-        case 147: setFtradmdval(*reinterpret_cast< long*>(_v)); break;
-        case 148: setFtradmsval(*reinterpret_cast< long*>(_v)); break;
-        case 149: setFtradmdavg(*reinterpret_cast< long*>(_v)); break;
-        case 150: setFtradmsavg(*reinterpret_cast< long*>(_v)); break;
-        case 151: setInfo5(*reinterpret_cast< QString*>(_v)); break;
-        case 152: setSpac_Gubun(*reinterpret_cast< QString*>(_v)); break;
-        case 153: setIssueprice(*reinterpret_cast< long*>(_v)); break;
-        case 154: setAlloc_Gubun(*reinterpret_cast< QString*>(_v)); break;
-        case 155: setAlloc_Text(*reinterpret_cast< QString*>(_v)); break;
-        case 156: setShterm_Text(*reinterpret_cast< QString*>(_v)); break;
-        default: break;
-        }
-        _id -= 157;
-    } else if (_c == QMetaObject::ResetProperty) {
+   if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
+        qt_static_metacall(this, _c, _id, _a);
         _id -= 157;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
         _id -= 157;
@@ -788,10 +797,6 @@ int StockInfo::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     } else if (_c == QMetaObject::QueryPropertyEditable) {
         _id -= 157;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 157;
-    } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        if (_id < 157)
-            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 157;
     }
 #endif // QT_NO_PROPERTIES

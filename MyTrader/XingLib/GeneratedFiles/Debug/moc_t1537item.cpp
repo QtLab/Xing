@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 't1537item.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 't1537item.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.4.1. It"
+#error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,11 +20,11 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_T1537Item_t {
     QByteArrayData data[15];
-    char stringdata[100];
+    char stringdata0[100];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_T1537Item_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_T1537Item_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_T1537Item_t qt_meta_stringdata_T1537Item = {
@@ -86,6 +86,53 @@ static const uint qt_meta_data_T1537Item[] = {
 
 void T1537Item::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+
+#ifndef QT_NO_PROPERTIES
+    if (_c == QMetaObject::ReadProperty) {
+        T1537Item *_t = static_cast<T1537Item *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: *reinterpret_cast< QString*>(_v) = _t->hname(); break;
+        case 1: *reinterpret_cast< long*>(_v) = _t->price(); break;
+        case 2: *reinterpret_cast< QString*>(_v) = _t->sign(); break;
+        case 3: *reinterpret_cast< long*>(_v) = _t->change(); break;
+        case 4: *reinterpret_cast< float*>(_v) = _t->diff(); break;
+        case 5: *reinterpret_cast< long*>(_v) = _t->volume(); break;
+        case 6: *reinterpret_cast< QTime*>(_v) = _t->jniltime(); break;
+        case 7: *reinterpret_cast< QString*>(_v) = _t->shcode(); break;
+        case 8: *reinterpret_cast< long*>(_v) = _t->yeprice(); break;
+        case 9: *reinterpret_cast< long*>(_v) = _t->open(); break;
+        case 10: *reinterpret_cast< long*>(_v) = _t->high(); break;
+        case 11: *reinterpret_cast< long*>(_v) = _t->low(); break;
+        case 12: *reinterpret_cast< long*>(_v) = _t->value(); break;
+        case 13: *reinterpret_cast< long*>(_v) = _t->marketcap(); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::WriteProperty) {
+        T1537Item *_t = static_cast<T1537Item *>(_o);
+        Q_UNUSED(_t)
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setHname(*reinterpret_cast< QString*>(_v)); break;
+        case 1: _t->setPrice(*reinterpret_cast< long*>(_v)); break;
+        case 2: _t->setSign(*reinterpret_cast< QString*>(_v)); break;
+        case 3: _t->setChange(*reinterpret_cast< long*>(_v)); break;
+        case 4: _t->setDiff(*reinterpret_cast< float*>(_v)); break;
+        case 5: _t->setVolume(*reinterpret_cast< long*>(_v)); break;
+        case 6: _t->setJniltime(*reinterpret_cast< QTime*>(_v)); break;
+        case 7: _t->setShcode(*reinterpret_cast< QString*>(_v)); break;
+        case 8: _t->setYeprice(*reinterpret_cast< long*>(_v)); break;
+        case 9: _t->setOpen(*reinterpret_cast< long*>(_v)); break;
+        case 10: _t->setHigh(*reinterpret_cast< long*>(_v)); break;
+        case 11: _t->setLow(*reinterpret_cast< long*>(_v)); break;
+        case 12: _t->setValue(*reinterpret_cast< long*>(_v)); break;
+        case 13: _t->setMarketcap(*reinterpret_cast< long*>(_v)); break;
+        default: break;
+        }
+    } else if (_c == QMetaObject::ResetProperty) {
+    }
+#endif // QT_NO_PROPERTIES
     Q_UNUSED(_o);
     Q_UNUSED(_id);
     Q_UNUSED(_c);
@@ -106,7 +153,7 @@ const QMetaObject *T1537Item::metaObject() const
 void *T1537Item::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_T1537Item.stringdata))
+    if (!strcmp(_clname, qt_meta_stringdata_T1537Item.stringdata0))
         return static_cast<void*>(const_cast< T1537Item*>(this));
     return TrItem::qt_metacast(_clname);
 }
@@ -118,47 +165,9 @@ int T1537Item::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     
 #ifndef QT_NO_PROPERTIES
-     if (_c == QMetaObject::ReadProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: *reinterpret_cast< QString*>(_v) = hname(); break;
-        case 1: *reinterpret_cast< long*>(_v) = price(); break;
-        case 2: *reinterpret_cast< QString*>(_v) = sign(); break;
-        case 3: *reinterpret_cast< long*>(_v) = change(); break;
-        case 4: *reinterpret_cast< float*>(_v) = diff(); break;
-        case 5: *reinterpret_cast< long*>(_v) = volume(); break;
-        case 6: *reinterpret_cast< QTime*>(_v) = jniltime(); break;
-        case 7: *reinterpret_cast< QString*>(_v) = shcode(); break;
-        case 8: *reinterpret_cast< long*>(_v) = yeprice(); break;
-        case 9: *reinterpret_cast< long*>(_v) = open(); break;
-        case 10: *reinterpret_cast< long*>(_v) = high(); break;
-        case 11: *reinterpret_cast< long*>(_v) = low(); break;
-        case 12: *reinterpret_cast< long*>(_v) = value(); break;
-        case 13: *reinterpret_cast< long*>(_v) = marketcap(); break;
-        default: break;
-        }
-        _id -= 14;
-    } else if (_c == QMetaObject::WriteProperty) {
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: setHname(*reinterpret_cast< QString*>(_v)); break;
-        case 1: setPrice(*reinterpret_cast< long*>(_v)); break;
-        case 2: setSign(*reinterpret_cast< QString*>(_v)); break;
-        case 3: setChange(*reinterpret_cast< long*>(_v)); break;
-        case 4: setDiff(*reinterpret_cast< float*>(_v)); break;
-        case 5: setVolume(*reinterpret_cast< long*>(_v)); break;
-        case 6: setJniltime(*reinterpret_cast< QTime*>(_v)); break;
-        case 7: setShcode(*reinterpret_cast< QString*>(_v)); break;
-        case 8: setYeprice(*reinterpret_cast< long*>(_v)); break;
-        case 9: setOpen(*reinterpret_cast< long*>(_v)); break;
-        case 10: setHigh(*reinterpret_cast< long*>(_v)); break;
-        case 11: setLow(*reinterpret_cast< long*>(_v)); break;
-        case 12: setValue(*reinterpret_cast< long*>(_v)); break;
-        case 13: setMarketcap(*reinterpret_cast< long*>(_v)); break;
-        default: break;
-        }
-        _id -= 14;
-    } else if (_c == QMetaObject::ResetProperty) {
+   if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
+        qt_static_metacall(this, _c, _id, _a);
         _id -= 14;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
         _id -= 14;
@@ -169,10 +178,6 @@ int T1537Item::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     } else if (_c == QMetaObject::QueryPropertyEditable) {
         _id -= 14;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 14;
-    } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        if (_id < 14)
-            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 14;
     }
 #endif // QT_NO_PROPERTIES

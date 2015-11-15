@@ -3,6 +3,7 @@
 #include <QResizeEvent>
 #include <QRadioButton>
 #include <QTreeWidget>
+#include <QDialog>
 #include "common/ui/shcodeselectiondialog.h"
 #include "service/chart/stockchartdatamanager.h"
 #include "FinanceChart.h"
@@ -60,13 +61,13 @@ ChartWidget::ChartWidget(QueryMngr *queryMngr, QWidget *parent)
 	, mPriceData(nullptr)
 	, mStockInfoMngr(StockInfoMngr::getInstance())
 {
+	mMainChartSetting = new MainChartSetting();
 	initUI();
 	//updatePeriod();
 	mStockManager->start();
 	connect(mStockManager, SIGNAL(responseStockData(StockPriceData*)), this, SLOT(onStockPriceDataReceived(StockPriceData*)));
 	connect(ui->chartViewer, SIGNAL(clicked(QMouseEvent*)), this, SLOT(onChartClicked(QMouseEvent*)));
 	connect(ui->chartViewer, SIGNAL(viewPortChanged()), this, SLOT(onViewPortChanged()));
-	mMainChartSetting = new MainChartSetting();
 }
 
 ChartWidget::~ChartWidget()
