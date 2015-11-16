@@ -26,3 +26,5 @@ MyTrader/lib/XingLib.lib
 *.lib
 MyTrader/MyTrader.sdf
 *.suo
+*.suo
+MyTrader/MyTrader.sdf

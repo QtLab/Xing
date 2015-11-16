@@ -64,8 +64,8 @@ private:
 	void loadChartSetting(FinanceChart *chart);
 	void updatePeriod();
 	int getExtraPoints() const;
-	
-	static XYChart* addIndicator(FinanceChart *m, QString indicator, int height);
+		
+	static XYChart* addIndicator(FinanceChart *m, INDICATOR_TYPE type, int height);
 	LineLayer *addMovingAvg(FinanceChart *m, QString avgType, int avgPeriod, int color);
 private:
 	Ui::ChartWidget *ui;

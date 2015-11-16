@@ -138,6 +138,7 @@ void ChartWidget::onChannelTypeChanged(int id, bool checked) const
 {
 	if (checked)
 	{
+
 		ui->chartViewer->updateViewPort(true, true);
 	}
 }
@@ -477,30 +478,62 @@ void ChartWidget::onViewPortChanged() const
 	drawFullChart(timestamp, open, high, low, close, volume, numOfData);
 }
 
-XYChart* ChartWidget::addIndicator(FinanceChart* m, QString indicator, int height)
+XYChart* ChartWidget::addIndicator(FinanceChart* m, INDICATOR_TYPE type, int height)
 {
-	if (indicator == "RSI")
-		return m->addRSI(height, 14, 0x800080, 20, 0xff6666, 0x6666ff);
-	else if (indicator == "StochRSI")
-		return m->addStochRSI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
-	else if (indicator == "MACD")
-		return m->addMACD(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
-	else if (indicator == "FStoch")
-		return m->addFastStochastic(height, 14, 3, 0x6060, 0x606000);
-	else if (indicator == "SStoch")
-		return m->addSlowStochastic(height, 14, 3, 0x6060, 0x606000);
-	else if (indicator == "ATR")
-		return m->addATR(height, 14, 0x808080, 0xff);
-	else if (indicator == "ADX")
+	switch (type)
+	{
+	case ACCUM_DISTRIBUTION: break;
+	case AROON_OSCILLATOR: break;
+	case AROON: break;
+	case AVG_DIRECTIONAL_INDEX:
 		return m->addADX(height, 14, 0x8000, 0x800000, 0x80);
-	else if (indicator == "DCW")
-		return m->addDonchianWidth(height, 20, 0xff);
-	else if (indicator == "BBW")
+	case AVG_TRUE_RANGE:
+		return m->addATR(height, 14, 0x808080, 0xff);
+	case BOLLINGER_BAND_WIDTH:
 		return m->addBollingerWidth(height, 20, 2, 0xff);
-	else if (indicator == "DPO")
+	case CHAIKIN_MONEY_FLOW: break;
+	case CHAIKIN_OSCILLATOR: break;
+	case CHAIKIN_VOLATILITY: break;
+	case CLOSE_LOCATION_VALUE: break;
+	case COMMONDITY_CHANNEL_INDEX: break;
+	case DETRENDED_PRICE_OSC: break;
 		return m->addDPO(height, 20, 0xff);
-	else if (indicator == "PVT")
+	case DONCHIAN_CHANNEL_WIDTH: 
+		return m->addDonchianWidth(height, 20, 0xff);
+	case EASE_OF_MOVEMENT: break;
+	case FAST_STOCHASTIC:
+		return m->addFastStochastic(height, 14, 3, 0x6060, 0x606000);
+	case MACD: 
+		return m->addMACD(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
+	case MASS_INDEX: break;
+	case MOMENTUM: break;
+	case MONEY_FLOW_INDEX: break;
+	case NEG_VOLUME_INDEX: break;
+	case ON_BALANCE_VOLUME: break;
+	case PERFORMANCE: break;
+	case PERCENTAGE_PRICE_OSCILLATOR: break;
+	case PERCENTAGE_VOLUME_OSCILLATOR: break;
+	case POS_VOLUME_INDEX: break;
+	case PRICE_VOLUME_TREND: break;
 		return m->addPVT(height, 0xff);
+	case RATE_OF_CHANGE: break;
+	case RSI: 
+		return m->addRSI(height, 14, 0x800080, 20, 0xff6666, 0x6666ff);
+	case SLOW_STOCHASTIC:
+		return m->addSlowStochastic(height, 14, 3, 0x6060, 0x606000);
+	case STOCH_RSI: 
+		return m->addStochRSI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
+	case TRIX: break;
+	case ULTIMATE_OSCILLATOR: break;
+	case VOLUME: break;
+	case WILLIAMS_R: break;
+	case PARABOLIC_SAR: break;
+	case NUM_OF_INDICATOR: break;
+	default: break;
+	}
+	else if (indicator == "BBW")
+	else if (indicator == "DPO")
+	else if (indicator == "PVT")
 	else if (indicator == "Momentum")
 		return m->addMomentum(height, 12, 0xff);
 	else if (indicator == "Performance")
