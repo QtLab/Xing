@@ -2,6 +2,8 @@
 #define CHARTSETTING_H
 
 #include <QObject>
+#include "FinanceChart.h"
+#include "service/chart/setting/chartinfo.h"
 class FinanceChart;
 class XmlStreamWriter;
 class XmlStreamReader;

@@ -3,6 +3,7 @@
 
 #include <QLoggingCategory>
 #include <QtSql/QSqlError>
+#include <QDebug>
 Q_DECLARE_LOGGING_CATEGORY(xaSession)
 Q_DECLARE_LOGGING_CATEGORY(xaQuery)
 Q_DECLARE_LOGGING_CATEGORY(queryMngr)

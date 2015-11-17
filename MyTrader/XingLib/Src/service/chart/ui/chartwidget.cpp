@@ -11,6 +11,7 @@
 #include "hotspotdialog.h"
 #include "core/util/xingutil.h"
 #include "service/chart/setting/MainChartSetting.h"
+#include "service/chart/setting/accdistsetting.h"
 static Indicator sIndicatorTable[] = {
 	{ "AccDist", "Accumulation/Distribution", ACCUM_DISTRIBUTION, MARKET_BREADTH_INDICATOR },
 	{ "AroonOsc", "Aroon Oscillator", AROON_OSCILLATOR, TREND_INDICATOR },
@@ -138,9 +139,17 @@ void ChartWidget::onChannelTypeChanged(int id, bool checked) const
 {
 	if (checked)
 	{
-
+		
 		ui->chartViewer->updateViewPort(true, true);
 	}
+}
+
+void ChartWidget::onIndicatorAdded(QTreeWidgetItem* item, int column)
+{
+	auto type = item->type() - QTreeWidgetItem::UserType;
+	addIndicator(static_cast<INDICATOR_TYPE>(type));
+	ui->chartViewer->updateViewPort(true, true);
+	mNumOfIndicators++;
 }
 
 void ChartWidget::resizeEvent(QResizeEvent* event)
@@ -266,37 +275,37 @@ void ChartWidget::initIndicatorSelectionUI() const
 		{
 		case MARKET_BREADTH_INDICATOR:
 		{
-			QTreeWidgetItem *item = new QTreeWidgetItem(marketBreadthIndicator);
+			QTreeWidgetItem *item = new QTreeWidgetItem(marketBreadthIndicator, QTreeWidgetItem::UserType+static_cast<int>(sIndicatorTable[i].index));
 			item->setText(0, sIndicatorTable[i].desc);
 		}
 		break;
 		case TREND_INDICATOR:
 		{
-			QTreeWidgetItem *item = new QTreeWidgetItem(trendIndicator);
+			QTreeWidgetItem *item = new QTreeWidgetItem(trendIndicator, QTreeWidgetItem::UserType+static_cast<int>(sIndicatorTable[i].index));
 			item->setText(0, sIndicatorTable[i].desc);
 		}
 		break;
 		case VOLATILITY_INDICATOR:
 		{
-			QTreeWidgetItem *item = new QTreeWidgetItem(volatilityIndicator);
+			QTreeWidgetItem *item = new QTreeWidgetItem(volatilityIndicator, QTreeWidgetItem::UserType+static_cast<int>(sIndicatorTable[i].index));
 			item->setText(0, sIndicatorTable[i].desc);
 		}
 		break;
 		case MOMENTUM_INDICATOR:
 		{
-			QTreeWidgetItem *item = new QTreeWidgetItem(momentumIndicator);
+			QTreeWidgetItem *item = new QTreeWidgetItem(momentumIndicator, QTreeWidgetItem::UserType+static_cast<int>(sIndicatorTable[i].index));
 			item->setText(0, sIndicatorTable[i].desc);
 		}
 		break;
 		case ETC:
 		{
-			QTreeWidgetItem *item = new QTreeWidgetItem(etcIndicator);
+			QTreeWidgetItem *item = new QTreeWidgetItem(etcIndicator, QTreeWidgetItem::UserType+static_cast<int>(sIndicatorTable[i].index));
 			item->setText(0, sIndicatorTable[i].desc);
 		}break;
 		default: break;
 		}
 	}
-
+	connect(treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(onIndicatorAdded(QTreeWidgetItem*, int)));
 }
 
 void ChartWidget::drawFullChart(double* timestamp, double* open, double* high, double* low, double* close, double* volume, int numOfData) const
@@ -365,6 +374,10 @@ void ChartWidget::drawChart() const
 
 	mMainChartSetting->apply(chart, this);
 
+	foreach(ChartSetting *setting, mChartSettings)
+	{
+		setting->apply(chart, this);
+	}
 	delete ui->chartViewer->getChart();
 	ui->chartViewer->setChart(chart);
 
@@ -478,110 +491,123 @@ void ChartWidget::onViewPortChanged() const
 	drawFullChart(timestamp, open, high, low, close, volume, numOfData);
 }
 
-XYChart* ChartWidget::addIndicator(FinanceChart* m, INDICATOR_TYPE type, int height)
+void ChartWidget::addIndicator(INDICATOR_TYPE type)
 {
 	switch (type)
 	{
-	case ACCUM_DISTRIBUTION: break;
-	case AROON_OSCILLATOR: break;
-	case AROON: break;
-	case AVG_DIRECTIONAL_INDEX:
-		return m->addADX(height, 14, 0x8000, 0x800000, 0x80);
-	case AVG_TRUE_RANGE:
-		return m->addATR(height, 14, 0x808080, 0xff);
-	case BOLLINGER_BAND_WIDTH:
-		return m->addBollingerWidth(height, 20, 2, 0xff);
-	case CHAIKIN_MONEY_FLOW: break;
-	case CHAIKIN_OSCILLATOR: break;
-	case CHAIKIN_VOLATILITY: break;
-	case CLOSE_LOCATION_VALUE: break;
-	case COMMONDITY_CHANNEL_INDEX: break;
-	case DETRENDED_PRICE_OSC: break;
-		return m->addDPO(height, 20, 0xff);
-	case DONCHIAN_CHANNEL_WIDTH: 
-		return m->addDonchianWidth(height, 20, 0xff);
-	case EASE_OF_MOVEMENT: break;
-	case FAST_STOCHASTIC:
-		return m->addFastStochastic(height, 14, 3, 0x6060, 0x606000);
-	case MACD: 
-		return m->addMACD(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
-	case MASS_INDEX: break;
-	case MOMENTUM: break;
-	case MONEY_FLOW_INDEX: break;
-	case NEG_VOLUME_INDEX: break;
-	case ON_BALANCE_VOLUME: break;
-	case PERFORMANCE: break;
-	case PERCENTAGE_PRICE_OSCILLATOR: break;
-	case PERCENTAGE_VOLUME_OSCILLATOR: break;
-	case POS_VOLUME_INDEX: break;
-	case PRICE_VOLUME_TREND: break;
-		return m->addPVT(height, 0xff);
-	case RATE_OF_CHANGE: break;
-	case RSI: 
-		return m->addRSI(height, 14, 0x800080, 20, 0xff6666, 0x6666ff);
-	case SLOW_STOCHASTIC:
-		return m->addSlowStochastic(height, 14, 3, 0x6060, 0x606000);
-	case STOCH_RSI: 
-		return m->addStochRSI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
-	case TRIX: break;
-	case ULTIMATE_OSCILLATOR: break;
-	case VOLUME: break;
-	case WILLIAMS_R: break;
-	case PARABOLIC_SAR: break;
-	case NUM_OF_INDICATOR: break;
-	default: break;
+	case ACCUM_DISTRIBUTION:
+	{
+		AccDistSetting *setting = AccDistSetting::createAccDistSetting(0xff, this);
+		mChartSettings.insert(setting->name(), setting);
+		ui->chartViewer->updateViewPort(true, true);
 	}
-	else if (indicator == "BBW")
-	else if (indicator == "DPO")
-	else if (indicator == "PVT")
-	else if (indicator == "Momentum")
-		return m->addMomentum(height, 12, 0xff);
-	else if (indicator == "Performance")
-		return m->addPerformance(height, 0xff);
-	else if (indicator == "ROC")
-		return m->addROC(height, 12, 0xff);
-	else if (indicator == "OBV")
-		return m->addOBV(height, 0xff);
-	else if (indicator == "AccDist")
-		return m->addAccDist(height, 0xff);
-	else if (indicator == "CLV")
-		return m->addCLV(height, 0xff);
-	else if (indicator == "WilliamR")
-		return m->addWilliamR(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
-	else if (indicator == "Aroon")
-		return m->addAroon(height, 14, 0x339933, 0x333399);
-	else if (indicator == "AroonOsc")
-		return m->addAroonOsc(height, 14, 0xff);
-	else if (indicator == "CCI")
-		return m->addCCI(height, 20, 0x800080, 100, 0xff6666, 0x6666ff);
-	else if (indicator == "EMV")
-		return m->addEaseOfMovement(height, 9, 0x6060, 0x606000);
-	else if (indicator == "MDX")
-		return m->addMassIndex(height, 0x800080, 0xff6666, 0x6666ff);
-	else if (indicator == "CVolatility")
-		return m->addChaikinVolatility(height, 10, 10, 0xff);
-	else if (indicator == "COscillator")
-		return m->addChaikinOscillator(height, 0xff);
-	else if (indicator == "CMF")
-		return m->addChaikinMoneyFlow(height, 21, 0x8000);
-	else if (indicator == "NVI")
-		return m->addNVI(height, 255, 0xff, 0x883333);
-	else if (indicator == "PVI")
-		return m->addPVI(height, 255, 0xff, 0x883333);
-	else if (indicator == "MFI")
-		return m->addMFI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
-	else if (indicator == "PVO")
-		return m->addPVO(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
-	else if (indicator == "PPO")
-		return m->addPPO(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
-	else if (indicator == "UO")
-		return m->addUltimateOscillator(height, 7, 14, 28, 0x800080, 20, 0xff6666, 0x6666ff);
-	else if (indicator == "Vol")
-		return m->addVolIndicator(height, 0x99ff99, 0xff9999, 0xc0c0c0);
-	else if (indicator == "TRIX")
-		return m->addTRIX(height, 12, 0xff);
-	else
-		return nullptr;
+		break;
+	case AROON_OSCILLATOR:
+//		m->addAroonOsc(height, 14, 0xff);
+		break;
+	case AROON:
+//		m->addAroon(height, 14, 0x339933, 0x333399);
+		break;
+	case AVG_DIRECTIONAL_INDEX:
+//		m->addADX(height, 14, 0x8000, 0x800000, 0x80);
+		break;
+	case AVG_TRUE_RANGE:
+//		m->addATR(height, 14, 0x808080, 0xff);
+		break;
+	case BOLLINGER_BAND_WIDTH:
+//		m->addBollingerWidth(height, 20, 2, 0xff);
+		break;
+	case CHAIKIN_MONEY_FLOW: 
+//		m->addChaikinMoneyFlow(height, 21, 0x8000);
+		break;
+	case CHAIKIN_OSCILLATOR:
+//		m->addChaikinOscillator(height, 0xff);
+		break;
+	case CHAIKIN_VOLATILITY:
+//		m->addChaikinVolatility(height, 10, 10, 0xff);
+		break;
+	case CLOSE_LOCATION_VALUE:
+//		m->addCLV(height, 0xff);
+		break;
+	case COMMONDITY_CHANNEL_INDEX:
+//		m->addCCI(height, 20, 0x800080, 100, 0xff6666, 0x6666ff);
+		break;
+	case DETRENDED_PRICE_OSC:
+//		m->addDPO(height, 20, 0xff);
+		break;
+	case DONCHIAN_CHANNEL_WIDTH: 
+//		m->addDonchianWidth(height, 20, 0xff);
+		break;
+	case EASE_OF_MOVEMENT:
+//		m->addEaseOfMovement(height, 9, 0x6060, 0x606000);
+		break;
+	case FAST_STOCHASTIC:
+//		m->addFastStochastic(height, 14, 3, 0x6060, 0x606000);
+		break;
+	case MACD: 
+//		m->addMACD(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
+		break;
+	case MASS_INDEX:
+//		m->addMassIndex(height, 0x800080, 0xff6666, 0x6666ff);
+		break;
+	case MOMENTUM:
+//		m->addMomentum(height, 12, 0xff);
+		break;
+	case MONEY_FLOW_INDEX:
+//		m->addMFI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
+		break;
+	case NEG_VOLUME_INDEX:
+//		m->addNVI(height, 255, 0xff, 0x883333);
+		break;
+	case ON_BALANCE_VOLUME:
+//		m->addOBV(height, 0xff);
+		break;
+	case PERFORMANCE:
+//		m->addPerformance(height, 0xff);
+		break;
+	case PERCENTAGE_PRICE_OSCILLATOR:
+//		m->addPPO(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
+		break;
+	case PERCENTAGE_VOLUME_OSCILLATOR:
+//		m->addPVO(height, 26, 12, 9, 0xff, 0xff00ff, 0x8000);
+		break;
+	case POS_VOLUME_INDEX:
+//		m->addPVI(height, 255, 0xff, 0x883333);
+		break;
+	case PRICE_VOLUME_TREND:
+//		m->addPVT(height, 0xff);
+		break;
+	case RATE_OF_CHANGE:
+//		m->addROC(height, 12, 0xff);
+		break;
+	case RSI: 
+//		m->addRSI(height, 14, 0x800080, 20, 0xff6666, 0x6666ff);
+		break;
+	case SLOW_STOCHASTIC:
+//		m->addSlowStochastic(height, 14, 3, 0x6060, 0x606000);
+		break;
+	case STOCH_RSI: 
+//		m->addStochRSI(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
+		break;
+	case TRIX:
+//		m->addTRIX(height, 12, 0xff);
+		break;
+	case ULTIMATE_OSCILLATOR:
+//		m->addUltimateOscillator(height, 7, 14, 28, 0x800080, 20, 0xff6666, 0x6666ff);
+		break;
+	case VOLUME:
+//		m->addVolIndicator(height, 0x99ff99, 0xff9999, 0xc0c0c0);
+		break;
+	case WILLIAMS_R:
+//		m->addWilliamR(height, 14, 0x800080, 30, 0xff6666, 0x6666ff);
+		break;
+	case PARABOLIC_SAR:
+//		m ->addParabolicSAR(0.02, 0.02, 0.2, Chart::DiamondShape, 5, 0x008800, 0x000000);
+		break;
+	case NUM_OF_INDICATOR: break;
+	default: 
+		break;
+	}
 }
 
 LineLayer* ChartWidget::addMovingAvg(FinanceChart* m, QString avgType, int avgPeriod, int color)

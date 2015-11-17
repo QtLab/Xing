@@ -121,20 +121,23 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(mToolBox->sizePolicy().hasHeightForWidth());
         mToolBox->setSizePolicy(sizePolicy1);
-        mToolBox->setStyleSheet(QStringLiteral("selection-background-color: rgb(255, 255, 255);"));
+        mToolBox->setStyleSheet(QStringLiteral(""));
         mToolBox->setFrameShape(QFrame::Panel);
         mToolBox->setFrameShadow(QFrame::Raised);
         mChartType = new QWidget();
         mChartType->setObjectName(QStringLiteral("mChartType"));
         mChartType->setGeometry(QRect(0, 0, 176, 285));
+        mChartType->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         mToolBox->addItem(mChartType, QStringLiteral("Chart Type"));
         mIndicatorType = new QWidget();
         mIndicatorType->setObjectName(QStringLiteral("mIndicatorType"));
         mIndicatorType->setGeometry(QRect(0, 0, 176, 285));
+        mIndicatorType->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         mToolBox->addItem(mIndicatorType, QStringLiteral("Indicator"));
         mChannelType = new QWidget();
         mChannelType->setObjectName(QStringLiteral("mChannelType"));
         mChannelType->setGeometry(QRect(0, 0, 176, 285));
+        mChannelType->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         mToolBox->addItem(mChannelType, QStringLiteral("Channel Type"));
 
         verticalLayout_6->addWidget(mToolBox);
@@ -255,7 +258,7 @@ public:
 
         retranslateUi(ChartWidget);
 
-        mToolBox->setCurrentIndex(1);
+        mToolBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(ChartWidget);

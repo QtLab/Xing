@@ -36,10 +36,12 @@ private:
 	double *mLowData;
 	double *mOpenData;
 	double *mCloseData;
-	int mNoOfPoints;
+	int mSize;
 	QDateTime mStartTime;
 	QDateTime mEndTime;
 	QHash<QDateTime, int> mDateTimeMap;
+	int mNumOfPoints;
+
 };
 Q_DECLARE_METATYPE(StockPriceData*);
 #endif 

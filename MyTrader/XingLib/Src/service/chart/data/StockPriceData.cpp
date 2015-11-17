@@ -3,14 +3,16 @@
 #include "logger/log.h"
 
 StockPriceData::StockPriceData() :
-	mShcode(""),
-	mTimeStamps(nullptr),
-	mVolData(nullptr),
-	mHighData(nullptr),
-	mLowData(nullptr),
-	mOpenData(nullptr),
-	mCloseData(nullptr),
-	mNoOfPoints(0)
+mShcode(""),
+mTimeStamps(nullptr),
+mVolData(nullptr),
+mHighData(nullptr),
+mLowData(nullptr),
+mOpenData(nullptr),
+mCloseData(nullptr),
+mSize(0),
+mNumOfPoints(0)
+
 {
 }
 
@@ -20,13 +22,14 @@ StockPriceData::StockPriceData(const StockPriceData& data)
 }
 
 StockPriceData::StockPriceData(const QString& shcode, int size) : mShcode(shcode)
-                                                                  , mTimeStamps(new double[size])
-                                                                  , mVolData(new double[size])
-                                                                  , mHighData(new double[size])
-                                                                  , mLowData(new double[size])
-                                                                  , mOpenData(new double[size])
-                                                                  , mCloseData(new double[size])
-                                                                  , mNoOfPoints(size)
+, mTimeStamps(new double[size])
+, mVolData(new double[size])
+, mHighData(new double[size])
+, mLowData(new double[size])
+, mOpenData(new double[size])
+, mCloseData(new double[size])
+, mSize(size)
+, mNumOfPoints(size-1)
 {
 }
 
@@ -57,37 +60,36 @@ StockPriceData::~StockPriceData()
 
 bool StockPriceData::addData(const QDateTime& dateTime, double open, double high, double low, double close, double volume)
 {
-	static auto noOfData = mNoOfPoints - 1;
-	if (noOfData < 0)
+	if (mNumOfPoints <0)
 	{
 		qCWarning(stockChart) << "add more data than size";
 		return false;
 	}
-	if (noOfData == mNoOfPoints - 1)
+	if (mNumOfPoints == mSize-1)
 	{
-		mEndTime = dateTime;
+		mStartTime= dateTime;
 	}
-	else if (noOfData == 0)
+	else if (mNumOfPoints == 0)
 	{
-		mStartTime = dateTime;
+		mEndTime= dateTime;
 	}
 	auto timeStamp = QDateTimeToChartTime(dateTime);
-	memcpy((mTimeStamps + noOfData), &timeStamp, sizeof(double));
-	memcpy((mOpenData + noOfData), &open, sizeof(double));
-	memcpy((mHighData + noOfData), &high, sizeof(double));
-	memcpy((mLowData + noOfData), &low, sizeof(double));
-	memcpy((mCloseData + noOfData), &close, sizeof(double));
-	memcpy((mVolData + noOfData), &volume, sizeof(double));
-	mDateTimeMap.insert(dateTime, noOfData);
-	noOfData--;
+	memcpy((mTimeStamps + mNumOfPoints), &timeStamp, sizeof(double));
+	memcpy((mOpenData + mNumOfPoints), &open, sizeof(double));
+	memcpy((mHighData + mNumOfPoints), &high, sizeof(double));
+	memcpy((mLowData + mNumOfPoints), &low, sizeof(double));
+	memcpy((mCloseData + mNumOfPoints), &close, sizeof(double));
+	memcpy((mVolData + mNumOfPoints), &volume, sizeof(double));
+	mDateTimeMap.insert(dateTime, mNumOfPoints);
+	mNumOfPoints--;
 	return true;
 }
 
 bool StockPriceData::getDataPtr(double** timeStamp, double** open, double** high, double** low, double** close, double** volume) const
 {
-	if (mDateTimeMap.size() != mNoOfPoints)
+	if (mDateTimeMap.size() != mSize)
 	{
-		qCWarning(stockChart) << "data size is less than allocated size, " << mDateTimeMap.size() << "/" << mNoOfPoints;
+		qCWarning(stockChart) << "data size is less than allocated size, " << mDateTimeMap.size() << "/" << mSize;
 		return false;
 	}
 	if (timeStamp != nullptr)
@@ -130,7 +132,6 @@ int StockPriceData::getDataPtrByPeriod(const QDateTime start, const QDateTime en
 	}
 	while (!mDateTimeMap.contains(endTime) && (endTime > mStartTime))
 	{
-		qDebug(stockChart) << endTime.toString(Qt::ISODate);
 		endTime = endTime.addDays(-1);
 	}
 	if (endTime <= mStartTime)
@@ -158,24 +159,24 @@ int StockPriceData::getDataPtrByPeriod(const QDateTime start, const QDateTime en
 
 int StockPriceData::getNumOfData() const
 {
-	return mNoOfPoints;
+	return mSize;
 }
 
 void StockPriceData::init(const StockPriceData& data)
 {
 	mShcode = data.mShcode;
-	mNoOfPoints = data.mNoOfPoints;
-	mTimeStamps = new double[mNoOfPoints];
-	memcpy(mTimeStamps, data.mTimeStamps, sizeof(double) * mNoOfPoints);
-	mVolData = new double[mNoOfPoints];
-	memcpy(mVolData, data.mVolData, sizeof(double) * mNoOfPoints);
-	mHighData = new double[mNoOfPoints];
-	memcpy(mHighData, data.mHighData, sizeof(double) * mNoOfPoints);
-	mLowData = new double[mNoOfPoints];
-	memcpy(mLowData, data.mLowData, sizeof(double) * mNoOfPoints);
-	mOpenData = new double[mNoOfPoints];
-	memcpy(mOpenData, data.mOpenData, sizeof(double) * mNoOfPoints);
-	mCloseData = new double[mNoOfPoints];
-	memcpy(mCloseData, data.mCloseData, sizeof(double) * mNoOfPoints);
+	mSize = data.mSize;
+	mTimeStamps = new double[mSize];
+	memcpy(mTimeStamps, data.mTimeStamps, sizeof(double) * mSize);
+	mVolData = new double[mSize];
+	memcpy(mVolData, data.mVolData, sizeof(double) * mSize);
+	mHighData = new double[mSize];
+	memcpy(mHighData, data.mHighData, sizeof(double) * mSize);
+	mLowData = new double[mSize];
+	memcpy(mLowData, data.mLowData, sizeof(double) * mSize);
+	mOpenData = new double[mSize];
+	memcpy(mOpenData, data.mOpenData, sizeof(double) * mSize);
+	mCloseData = new double[mSize];
+	memcpy(mCloseData, data.mCloseData, sizeof(double) * mSize);
 }
 

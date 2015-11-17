@@ -8,6 +8,7 @@
 #include "service/chart/setting/chartinfo.h"
 
 #define MAX_INDICATOR_HEIGHT 100
+class QTreeWidgetItem;
 class QButtonGroup;
 class LineLayer;
 class XYChart;
@@ -51,6 +52,7 @@ private slots:
 	void onChartClicked(QMouseEvent *);
 	void onMainChartTypeChanged(int id, bool checked) const;
 	void onChannelTypeChanged(int id, bool checked) const;
+	void onIndicatorAdded(QTreeWidgetItem *item, int column);
 protected:
 	virtual void resizeEvent(QResizeEvent * event) override;
 private:
@@ -65,7 +67,7 @@ private:
 	void updatePeriod();
 	int getExtraPoints() const;
 		
-	static XYChart* addIndicator(FinanceChart *m, INDICATOR_TYPE type, int height);
+	void addIndicator(INDICATOR_TYPE type);
 	LineLayer *addMovingAvg(FinanceChart *m, QString avgType, int avgPeriod, int color);
 private:
 	Ui::ChartWidget *ui;
