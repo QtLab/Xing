@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ChartWidget_t {
-    QByteArrayData data[17];
-    char stringdata0[238];
+    QByteArrayData data[18];
+    char stringdata0[258];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,7 +45,8 @@ QT_MOC_LITERAL(12, 171, 20), // "onChannelTypeChanged"
 QT_MOC_LITERAL(13, 192, 16), // "onIndicatorAdded"
 QT_MOC_LITERAL(14, 209, 16), // "QTreeWidgetItem*"
 QT_MOC_LITERAL(15, 226, 4), // "item"
-QT_MOC_LITERAL(16, 231, 6) // "column"
+QT_MOC_LITERAL(16, 231, 6), // "column"
+QT_MOC_LITERAL(17, 238, 19) // "onMouseMovePlotArea"
 
     },
     "ChartWidget\0onStockPriceDataReceived\0"
@@ -54,7 +55,7 @@ QT_MOC_LITERAL(16, 231, 6) // "column"
     "QMouseEvent*\0onMainChartTypeChanged\0"
     "id\0checked\0onChannelTypeChanged\0"
     "onIndicatorAdded\0QTreeWidgetItem*\0"
-    "item\0column"
+    "item\0column\0onMouseMovePlotArea"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +65,7 @@ static const uint qt_meta_data_ChartWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,13 +73,14 @@ static const uint qt_meta_data_ChartWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x0a /* Public */,
-       5,    0,   52,    2, 0x0a /* Public */,
-       6,    0,   53,    2, 0x08 /* Private */,
-       7,    1,   54,    2, 0x08 /* Private */,
-       9,    2,   57,    2, 0x08 /* Private */,
-      12,    2,   62,    2, 0x08 /* Private */,
-      13,    2,   67,    2, 0x08 /* Private */,
+       1,    1,   54,    2, 0x0a /* Public */,
+       5,    0,   57,    2, 0x0a /* Public */,
+       6,    0,   58,    2, 0x08 /* Private */,
+       7,    1,   59,    2, 0x08 /* Private */,
+       9,    2,   62,    2, 0x08 /* Private */,
+      12,    2,   67,    2, 0x08 /* Private */,
+      13,    2,   72,    2, 0x08 /* Private */,
+      17,    1,   77,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -88,6 +90,7 @@ static const uint qt_meta_data_ChartWidget[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Bool,   10,   11,
     QMetaType::Void, QMetaType::Int, QMetaType::Bool,   10,   11,
     QMetaType::Void, 0x80000000 | 14, QMetaType::Int,   15,   16,
+    QMetaType::Void, 0x80000000 | 8,    2,
 
        0        // eod
 };
@@ -105,6 +108,7 @@ void ChartWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 4: _t->onMainChartTypeChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         case 5: _t->onChannelTypeChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         case 6: _t->onIndicatorAdded((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 7: _t->onMouseMovePlotArea((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -137,13 +141,13 @@ int ChartWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

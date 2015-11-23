@@ -8,6 +8,7 @@
 #include "service/chart/setting/chartinfo.h"
 
 #define MAX_INDICATOR_HEIGHT 100
+class MultiChart;
 class QTreeWidgetItem;
 class QButtonGroup;
 class LineLayer;
@@ -25,6 +26,7 @@ class QueryMngr;
 class StockChartDataManager;
 class ChartSetting;
 class MainChartSetting;
+
 typedef struct _Indicator {
 	QString name;
 	QString desc;
@@ -46,13 +48,14 @@ public:
 	virtual int getIndicatorHeight() const override;
 public slots:
 	void onStockPriceDataReceived(StockPriceData* stockData);
-	void onViewPortChanged() const;
+	void onViewPortChanged();
 private slots:
 	void on_shcodeSearchBtn_clicked();
 	void onChartClicked(QMouseEvent *);
 	void onMainChartTypeChanged(int id, bool checked) const;
 	void onChannelTypeChanged(int id, bool checked) const;
 	void onIndicatorAdded(QTreeWidgetItem *item, int column);
+	void onMouseMovePlotArea(QMouseEvent *);
 protected:
 	virtual void resizeEvent(QResizeEvent * event) override;
 private:
@@ -62,13 +65,14 @@ private:
 	void initChannelSelectionUI();
 	void initIndicatorSelectionUI() const;
 	void drawFullChart(double *timestamp, double *open, double *high, double *low, double *close, double *volume, int numOfData) const;
-	void drawChart() const;
+	void drawChart();
 	void loadChartSetting(FinanceChart *chart);
 	void updatePeriod();
 	int getExtraPoints() const;
 		
 	void addIndicator(INDICATOR_TYPE type);
 	LineLayer *addMovingAvg(FinanceChart *m, QString avgType, int avgPeriod, int color);
+	void traceChart(MultiChart *m, int mouseX);
 private:
 	Ui::ChartWidget *ui;
 	QButtonGroup *mMainChartType;
