@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <QThread>	
 #include "logger/log.h"
 #include "xingthread.h"
 

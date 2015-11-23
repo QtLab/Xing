@@ -10,21 +10,21 @@ CtsTrQuery::CtsTrQuery(const QString &trName, QObject *parent)
 
 CtsTrQuery::~CtsTrQuery()
 {
-	foreach(TrItem * item , getResult()) {
+	foreach(TrItem * item, getResult()) {
 		item->deleteLater();
 	}
 }
 
 QString CtsTrQuery::toString()
 {
-    QString desc;
-    QTextStream stream(&desc);
-    stream<<getTrName() << " Query Result[START]"<<endl;
+	QString desc;
+	QTextStream stream(&desc);
+	stream << getTrName() << " Query Result[START]" << endl;
 	foreach(TrItem* item, getResult()){
-        stream<<item->toString()<<endl;
+		stream << item->toString() << endl;
 	}
-    stream<<getTrName() << " Query Result[END]"<<endl;
-    return desc;
+	stream << getTrName() << " Query Result[END]" << endl;
+	return desc;
 }
 
 QList<TrItem *> CtsTrQuery::getResult()
@@ -76,30 +76,34 @@ void CtsTrQuery::readOutBlock()
 
 void CtsTrQuery::readOutBlock1()
 {
-    TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
+	TrBlockInfo* outBlockInfo1 = trInfo()->getOutBlock1();
 	if (mIsCompressedBlock)
 	{
 		long decompressedSize = xaquery()->Decompress(outBlockInfo1->getBlockName());
 		if (decompressedSize <= 0) return;
 	}
-    int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
-    for(int i = 0; i<blockCnt; i++) {
-        TrItem *item = getTrItemFromReceivedData(outBlockInfo1, i);
+	int blockCnt = xaquery()->GetBlockCount(outBlockInfo1->getBlockName());
+	for (int i = 0; i < blockCnt; i++) {
+		TrItem *item = getTrItemFromReceivedData(outBlockInfo1, i);
 		mItemList.append(item);
-    }
+	}
 	xaquery()->ClearBlockdata(outBlockInfo1->getBlockName());
 }
 
 void CtsTrQuery::onReceiveData(const QString& trCode)
 {
-	readOutBlock();
-	readOutBlock1();
-    if(xaquery()->isNext()) {
-        setNextQuery(true);
-        emit scheduleNextQuery();
-    }else{
-        emit workDone();
-    }
+
+	if (xaquery()->isNext()) {
+		setNextQuery(true);
+		emit scheduleNextQuery();
+		readOutBlock();
+		readOutBlock1();
+	}
+	else{
+		readOutBlock();
+		readOutBlock1();
+		emit workDone();
+	}
 }
 
 void CtsTrQuery::onReceiveChartRealData(const QString& trCode)

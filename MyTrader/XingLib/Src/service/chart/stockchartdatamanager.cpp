@@ -1,22 +1,23 @@
 #include <QMetaType>
-#include "stockchartdatamanager.h"
+#include "core/util/xingthread.h"
+#include "service/chart/stockchartdatamanager.h"
 #include "service/chart/util/ModifiedPrice.h"
 #include "service/info/stockinfomngr.h"
 StockChartDataManager::StockChartDataManager(QueryMngr* queryMngr, QObject *parent) : 
-QObject(parent), mQueryMngr(queryMngr)
+QObject(parent), mQueryMngr(queryMngr), mWorkThread(new XingThread)
 {
 	
 }
 
 StockChartDataManager::~StockChartDataManager()
 {
-
+	mWorkThread->deleteLater();
 }
 
 void StockChartDataManager::start()
 {
-	moveToThread(&mWorkThread);
-	mWorkThread.start();
+	moveToThread(mWorkThread);
+	mWorkThread->start();
 }
 
 void StockChartDataManager::requestStockData(const QString &shcode, TIME_UNIT timeUnit, const QDate& startDate, const QDate& endDate, bool modified_price)

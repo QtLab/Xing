@@ -10,9 +10,6 @@ public:
     ~XingThread();
 protected:
     virtual void run() override;
-signals:
-
-public slots:
 };
 
 #endif // XINGTHREAD_H
