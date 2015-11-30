@@ -47,8 +47,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_CONCURRENT_LIB;QT_WIDGETS_LIB;XINGLIB_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtWidgets;.\Src\service\info;.\Src\service\chart\ui;.\Src\service\chart\setting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_CONCURRENT_LIB;QT_WIDGETS_LIB;XINGLIB_LIB;QT_XML_LIB;QT_XMLPATTERNS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtWidgets;.\Src\service\info;.\Src\service\chart\ui;.\Src\service\chart\setting;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtXmlPatterns;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -59,7 +59,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Sqld.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5Concurrentd.lib;Qt5Widgetsd.lib;Qt5AxBase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Sqld.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5Concurrentd.lib;Qt5Widgetsd.lib;Qt5AxBase.lib;Qt5Xmld.lib;Qt5XmlPatternsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -68,8 +68,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_CONCURRENT_LIB;QT_WIDGETS_LIB;XINGLIB_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtWidgets;.\Src\service\info;.\Src\service\chart\ui;.\Src\service\chart\setting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_CONCURRENT_LIB;QT_WIDGETS_LIB;XINGLIB_LIB;QT_XML_LIB;QT_XMLPATTERNS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtWidgets;.\Src\service\info;.\Src\service\chart\ui;.\Src\service\chart\setting;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtXmlPatterns;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -79,7 +79,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Sql.lib;Qt5AxContainer.lib;Qt5AxBase.lib;Qt5Concurrent.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Sql.lib;Qt5AxContainer.lib;Qt5AxBase.lib;Qt5Concurrent.lib;Qt5Widgets.lib;Qt5Xml.lib;Qt5XmlPatterns.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -404,6 +404,8 @@
     <ClCompile Include="Src\service\chart\setting\accdistsetting.cpp" />
     <ClCompile Include="Src\service\chart\setting\basicindicatorsetting.cpp" />
     <ClCompile Include="Src\service\chart\setting\chartinfo.cpp" />
+    <ClCompile Include="Src\service\chart\setting\chartsettingreader.cpp" />
+    <ClCompile Include="Src\service\chart\setting\chartsettingwriter.cpp" />
     <ClCompile Include="Src\service\chart\setting\MainChartSetting.cpp" />
     <ClCompile Include="Src\service\chart\setting\chartsetting.cpp" />
     <ClCompile Include="Src\service\chart\ui\chartwidget.cpp" />
@@ -554,6 +556,8 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CONCURRENT_LIB -DQT_WIDGETS_LIB -DXINGLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtWidgets" "-I.\Src\service\info" "-I.\Src\service\chart\ui"</Command>
     </CustomBuild>
+    <ClInclude Include="Src\service\chart\setting\chartsettingreader.h" />
+    <ClInclude Include="Src\service\chart\setting\chartsettingwriter.h" />
     <ClInclude Include="Src\service\chart\util\ui_common_util.h" />
     <ClInclude Include="Src\service\sad\stockexchangeinfo.h" />
     <CustomBuild Include="Src\common\type\stockinfo.h">

@@ -4,6 +4,7 @@
 #include "service\chart\setting\chartsetting.h"
 #include "service\chart\chart_common.h"
 
+
 class Financechart;
 class ChartInfo;
 
@@ -20,8 +21,8 @@ public:
 	explicit MainChartSetting(QObject *parent=0);
 	~MainChartSetting();
 
-	bool saveSettingToXml(XmlStreamWriter* xml) override;
-	bool loadSettingFromXml(XmlStreamReader* xml) override;
+	bool saveSettingToXml(QXmlStreamWriter* xml) override;
+	bool loadSettingFromXml(QXmlStreamReader* xml) override;
 	bool apply(FinanceChart* chart, const ChartInfo* chartInfo) override;
 
 	void setLogScale(bool enable) { _logScale = enable; }
