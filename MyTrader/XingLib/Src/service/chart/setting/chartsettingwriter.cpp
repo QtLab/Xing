@@ -23,7 +23,7 @@ bool ChartSettingWriter::open()
 	{
 		mFile.remove();
 	}
-	if (mFile.open(QFile::WriteOnly | QFile::Text))
+	if (!mFile.open(QFile::WriteOnly | QFile::Text))
 	{
 		mLastErrorString = QObject::tr("Save chart setting - cannot write file %1:\n%2.").arg(mFile.fileName()).arg(mFile.errorString());
 		return false;
