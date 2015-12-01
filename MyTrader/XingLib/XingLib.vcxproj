@@ -558,6 +558,7 @@
     </CustomBuild>
     <ClInclude Include="Src\service\chart\setting\chartsettingreader.h" />
     <ClInclude Include="Src\service\chart\setting\chartsettingwriter.h" />
+    <ClInclude Include="Src\service\chart\type\Enum.h" />
     <ClInclude Include="Src\service\chart\util\ui_common_util.h" />
     <ClInclude Include="Src\service\sad\stockexchangeinfo.h" />
     <CustomBuild Include="Src\common\type\stockinfo.h">
