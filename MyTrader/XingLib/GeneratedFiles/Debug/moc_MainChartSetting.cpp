@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainChartSetting_t {
-    QByteArrayData data[6];
-    char stringdata0[80];
+    QByteArrayData data[13];
+    char stringdata0[170];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,21 @@ QT_MOC_LITERAL(1, 17, 8), // "logScale"
 QT_MOC_LITERAL(2, 26, 15), // "percentageScale"
 QT_MOC_LITERAL(3, 42, 13), // "candleUpColor"
 QT_MOC_LITERAL(4, 56, 13), // "candleDnColor"
-QT_MOC_LITERAL(5, 70, 9) // "lineColor"
+QT_MOC_LITERAL(5, 70, 9), // "lineColor"
+QT_MOC_LITERAL(6, 80, 15), // "MAIN_CHART_TYPE"
+QT_MOC_LITERAL(7, 96, 12), // "CANDLE_STICK"
+QT_MOC_LITERAL(8, 109, 13), // "CLOSING_PRICE"
+QT_MOC_LITERAL(9, 123, 12), // "MEDIAN_PRICE"
+QT_MOC_LITERAL(10, 136, 4), // "OHLC"
+QT_MOC_LITERAL(11, 141, 13), // "TYPICAL_PRICE"
+QT_MOC_LITERAL(12, 155, 14) // "WEIGHTED_CLOSE"
 
     },
     "MainChartSetting\0logScale\0percentageScale\0"
-    "candleUpColor\0candleDnColor\0lineColor"
+    "candleUpColor\0candleDnColor\0lineColor\0"
+    "MAIN_CHART_TYPE\0CANDLE_STICK\0CLOSING_PRICE\0"
+    "MEDIAN_PRICE\0OHLC\0TYPICAL_PRICE\0"
+    "WEIGHTED_CLOSE"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,7 +60,7 @@ static const uint qt_meta_data_MainChartSetting[] = {
        0,    0, // classinfo
        0,    0, // methods
        5,   14, // properties
-       0,    0, // enums/sets
+       1,   29, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
@@ -61,6 +71,17 @@ static const uint qt_meta_data_MainChartSetting[] = {
        3, QMetaType::Long, 0x00095103,
        4, QMetaType::Long, 0x00095103,
        5, QMetaType::Long, 0x00095103,
+
+ // enums: name, flags, count, data
+       6, 0x0,    6,   33,
+
+ // enum data: key, value
+       7, uint(MainChartSetting::CANDLE_STICK),
+       8, uint(MainChartSetting::CLOSING_PRICE),
+       9, uint(MainChartSetting::MEDIAN_PRICE),
+      10, uint(MainChartSetting::OHLC),
+      11, uint(MainChartSetting::TYPICAL_PRICE),
+      12, uint(MainChartSetting::WEIGHTED_CLOSE),
 
        0        // eod
 };

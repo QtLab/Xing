@@ -19,13 +19,8 @@ bool ChartSettingReader::open()
 	} else
 	{
 		mReader.setDevice(&mFile);
-		if (mReader.readNextStartElement())
-		{
-			
-		}
 		return true;	
 	}
-	
 }
 
 bool ChartSettingReader::close()
@@ -35,6 +30,11 @@ bool ChartSettingReader::close()
 
 ChartSetting* ChartSettingReader::read()
 {
+	if (mReader.readNextStartElement())
+	{
+		QString name = mReader.name().toString();
+		
+	}
 }
 
 QString ChartSettingReader::errorString() const

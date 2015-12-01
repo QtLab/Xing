@@ -8,8 +8,8 @@ class AccDistSetting : public BasicIndicatorSetting
 	Q_OBJECT
 
 public:
-	bool saveSettingToXml(XmlStreamWriter* xml) override;
-	bool loadSettingFromXml(XmlStreamReader* xml) override;
+	bool saveSettingToXml(QXmlStreamWriter* xml) override;
+	bool loadSettingFromXml(QXmlStreamReader* xml) override;
 	bool apply(FinanceChart* chart, const ChartInfo* chartInfo) override;
 	~AccDistSetting();
 	static AccDistSetting* createAccDistSetting(const QColor &color, QObject *parent=0);

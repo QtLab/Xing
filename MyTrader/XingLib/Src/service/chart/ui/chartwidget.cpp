@@ -132,7 +132,7 @@ void ChartWidget::onMainChartTypeChanged(int id, bool checked) const
 {
 	if (checked)
 	{
-		mMainChartSetting->setChartType(static_cast<MAIN_CHART_TYPE>(id));
+		mMainChartSetting->setChartType(static_cast<MainChartSetting::MAIN_CHART_TYPE>(id));
 		ui->chartViewer->updateViewPort(true, true);
 	}
 }
@@ -210,31 +210,31 @@ void ChartWidget::initMainChartSelectionUI()
 	layout->addWidget(weightedClose);
 
 	mMainChartType = new QButtonGroup(layout);
-	mMainChartType->addButton(candleStick, CANDLE_STICK);
-	mMainChartType->addButton(closePrice, CLOSING_PRICE);
-	mMainChartType->addButton(medianPrice, MEDIAN_PRICE);
-	mMainChartType->addButton(ohlc, OHLC);
-	mMainChartType->addButton(typicalPrice, TYPICAL_PRICE);
-	mMainChartType->addButton(weightedClose, WEIGHTED_CLOSE);
+	mMainChartType->addButton(candleStick, MainChartSetting::CANDLE_STICK);
+	mMainChartType->addButton(closePrice, MainChartSetting::CLOSING_PRICE);
+	mMainChartType->addButton(medianPrice, MainChartSetting::MEDIAN_PRICE);
+	mMainChartType->addButton(ohlc, MainChartSetting::OHLC);
+	mMainChartType->addButton(typicalPrice, MainChartSetting::TYPICAL_PRICE);
+	mMainChartType->addButton(weightedClose, MainChartSetting::WEIGHTED_CLOSE);
 	
 	switch (mMainChartSetting->getChartType())
 	{
-	case CANDLE_STICK:	
+	case MainChartSetting::CANDLE_STICK:	
 		candleStick->setChecked(true);
 		break;
-	case CLOSING_PRICE: 
+	case MainChartSetting::CLOSING_PRICE: 
 		closePrice->setChecked(true);
 		break;
-	case MEDIAN_PRICE: 
+	case MainChartSetting::MEDIAN_PRICE: 
 		medianPrice->setChecked(true);
 		break;
-	case OHLC:
+	case MainChartSetting::OHLC:
 		ohlc->setChecked(true);
 		break;
-	case TYPICAL_PRICE:
+	case MainChartSetting::TYPICAL_PRICE:
 		typicalPrice->setChecked(true);
 		break;
-	case WEIGHTED_CLOSE: 
+	case MainChartSetting::WEIGHTED_CLOSE: 
 		weightedClose->setChecked(true);
 		break;
 	default: break;

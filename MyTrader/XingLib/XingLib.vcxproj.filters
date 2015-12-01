@@ -604,9 +604,6 @@
     <ClInclude Include="Src\service\chart\setting\chartsettingreader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\service\chart\type\Enum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Src\common\type\stockinfo.h">

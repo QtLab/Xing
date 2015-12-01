@@ -18,6 +18,8 @@ class MainChartSetting :
 	Q_PROPERTY(long candleDnColor MEMBER _candleDnColor READ candleDnColor WRITE setCandleDnColor)
 	Q_PROPERTY(long lineColor MEMBER _lineColor READ lineColor WRITE setLineColor)
 public:
+	typedef enum { CANDLE_STICK, CLOSING_PRICE, MEDIAN_PRICE, OHLC, TYPICAL_PRICE, WEIGHTED_CLOSE } MAIN_CHART_TYPE;
+	Q_ENUM(MAIN_CHART_TYPE);
 	explicit MainChartSetting(QObject *parent=0);
 	~MainChartSetting();
 

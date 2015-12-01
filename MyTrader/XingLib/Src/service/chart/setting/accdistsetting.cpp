@@ -7,12 +7,12 @@ AccDistSetting::AccDistSetting(const QString &name, QObject *parent)
 
 }
 
-bool AccDistSetting::saveSettingToXml(XmlStreamWriter* xml)
+bool AccDistSetting::saveSettingToXml(QXmlStreamWriter* xml)
 {
 	return true;
 }
 
-bool AccDistSetting::loadSettingFromXml(XmlStreamReader* xml)
+bool AccDistSetting::loadSettingFromXml(QXmlStreamReader* xml)
 {
 	return true;
 }
