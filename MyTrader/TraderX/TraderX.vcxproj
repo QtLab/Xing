@@ -38,8 +38,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin</OutDir>
-    <IncludePath>..\XingLib\Src;.\Src;$(WindowsSDK_IncludePath);$(VC_IncludePath)</IncludePath>
-    <SourcePath>$(SourcePath)</SourcePath>
+    <IncludePath>..\..\..\ChartDirector\include;..\XingLib\Src;.\Src;$(WindowsSDK_IncludePath);$(VC_IncludePath)</IncludePath>
+    <SourcePath>..\..\..\ChartDirector\include;$(SourcePath)</SourcePath>
     <LibraryPath>$(QDTIR)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

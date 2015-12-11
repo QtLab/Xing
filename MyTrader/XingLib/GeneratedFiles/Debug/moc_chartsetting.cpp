@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ChartSetting_t {
-    QByteArrayData data[2];
-    char stringdata0[18];
+    QByteArrayData data[5];
+    char stringdata0[55];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,10 +30,14 @@ struct qt_meta_stringdata_ChartSetting_t {
 static const qt_meta_stringdata_ChartSetting_t qt_meta_stringdata_ChartSetting = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "ChartSetting"
-QT_MOC_LITERAL(1, 13, 4) // "name"
+QT_MOC_LITERAL(1, 13, 4), // "name"
+QT_MOC_LITERAL(2, 18, 16), // "ChartSettingType"
+QT_MOC_LITERAL(3, 35, 9), // "MainChart"
+QT_MOC_LITERAL(4, 45, 9) // "Indicator"
 
     },
-    "ChartSetting\0name"
+    "ChartSetting\0name\0ChartSettingType\0"
+    "MainChart\0Indicator"
 };
 #undef QT_MOC_LITERAL
 
@@ -45,13 +49,20 @@ static const uint qt_meta_data_ChartSetting[] = {
        0,    0, // classinfo
        0,    0, // methods
        1,   14, // properties
-       0,    0, // enums/sets
+       1,   17, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
  // properties: name, type, flags
        1, QMetaType::QString, 0x00095003,
+
+ // enums: name, flags, count, data
+       2, 0x0,    2,   21,
+
+ // enum data: key, value
+       3, uint(ChartSetting::MainChart),
+       4, uint(ChartSetting::Indicator),
 
        0        // eod
 };

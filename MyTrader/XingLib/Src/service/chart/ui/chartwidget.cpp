@@ -13,6 +13,7 @@
 #include "service/chart/setting/MainChartSetting.h"
 #include "service/chart/setting/accdistsetting.h"
 #include <QtCore/QTextStream>
+#include <Src/service/chart/setting/chartsettingwriter.h>
 static Indicator sIndicatorTable[] = {
 	{ "AccDist", "Accumulation/Distribution", ACCUM_DISTRIBUTION, MARKET_BREADTH_INDICATOR },
 	{ "AroonOsc", "Aroon Oscillator", AROON_OSCILLATOR, TREND_INDICATOR },
@@ -172,6 +173,18 @@ void ChartWidget::resizeEvent(QResizeEvent* event)
 		ui->chartViewer->updateViewPort(true, true);
 
 	}
+}
+
+void ChartWidget::closeEvent(QCloseEvent*)
+{
+	ChartSettingWriter writer("chartsetting.xml");
+	writer.open();
+	writer.write(mMainChartSetting);
+	foreach(ChartSetting *setting , mChartSettings.values())
+	{
+		writer.write(setting);
+	}
+	writer.close();
 }
 
 void ChartWidget::initUI()

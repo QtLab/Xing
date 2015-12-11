@@ -6,6 +6,7 @@
 #include "service/chart/data/StockPriceData.h"
 #include "service/chart/chart_common.h"
 #include "service/chart/setting/chartinfo.h"
+#include "service/chart/setting/indicatorsetting.h"
 
 #define MAX_INDICATOR_HEIGHT 100
 class MultiChart;
@@ -58,6 +59,8 @@ private slots:
 	void onMouseMovePlotArea(QMouseEvent *);
 protected:
 	virtual void resizeEvent(QResizeEvent * event) override;
+
+	void closeEvent(QCloseEvent*) override;
 private:
 	void initUI();
 	void setChartRange(double* timeStamp, int timeStampLen) const;

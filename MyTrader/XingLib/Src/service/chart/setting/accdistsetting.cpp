@@ -1,26 +1,29 @@
 #include "accdistsetting.h"
+#include "common/util/enum_util.h"
+#include <QtCore/QVariant>
+#define NAME_ATTR "name"
+#define COLOR_ATTR "color"
+#define TO_HEX_STR(X) QString::number(X, 16).toUpper().rightJustified(2, '0')
 
 int AccDistSetting::sIndex = 0;
 AccDistSetting::AccDistSetting(const QString &name, QObject *parent)
-	: BasicIndicatorSetting(name, parent)
+	: IndicatorSetting(name, parent)
 {
 
 }
-
-bool AccDistSetting::saveSettingToXml(QXmlStreamWriter* xml)
+QColor AccDistSetting::getColor() const
 {
-	return true;
-}
-
-bool AccDistSetting::loadSettingFromXml(QXmlStreamReader* xml)
-{
-	return true;
+	return mColor;
 }
 
 bool AccDistSetting::apply(FinanceChart* chart, const ChartInfo* chartInfo)
 {
-	chart->addAccDist(chartInfo->getIndicatorHeight(), 0xff);
+	chart->addAccDist(chartInfo->getIndicatorHeight(), getColor().value());
 	return true;
+}
+void AccDistSetting::setColor(const QColor color)
+{
+	mColor = color;
 }
 
 AccDistSetting::~AccDistSetting()
@@ -39,4 +42,15 @@ AccDistSetting* AccDistSetting::createAccDistSetting(const QColor &color, QObjec
 AccDistSetting* AccDistSetting::createAccDistSetting(long color, QObject *parent)
 {
 	return createAccDistSetting(QColor(color & 0xff0000, color & 0x00ff00, color & 0x0000ff), parent);
+}
+void AccDistSetting::writeSettingToXml(QXmlStreamWriter* xml)
+{
+	xml->writeStartElement(enumToString<INDICATOR_TYPE>(ACCUM_DISTRIBUTION));
+	xml->writeAttribute(NAME_ATTR, name());
+	xml->writeAttribute(COLOR_ATTR, QVariant(mColor).toString());
+	xml->writeEndElement();
+}
+
+void AccDistSetting::readSettingFromXml(QXmlStreamReader* xml)
+{
 }

@@ -4,7 +4,7 @@
 
 ChartSettingWriter::ChartSettingWriter(const QString& fileName) : mFile(fileName), mLastErrorString("")
 {
-
+	mWriter.setAutoFormatting(true);
 }
 
 ChartSettingWriter::~ChartSettingWriter()

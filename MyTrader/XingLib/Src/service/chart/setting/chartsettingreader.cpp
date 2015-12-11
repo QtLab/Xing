@@ -1,5 +1,7 @@
 #include "chartsettingreader.h"
-
+#include "service/chart/chart_common.h"
+#include "common/util/enum_util.h"
+#include "indicatorsetting.h"
 
 ChartSettingReader::ChartSettingReader(const QString& fileName) :mFile(fileName), mLastErrorString("")
 {
@@ -32,11 +34,30 @@ ChartSetting* ChartSettingReader::read()
 {
 	if (mReader.readNextStartElement())
 	{
-		QString name = mReader.name().toString();
-		
+		QString chartSettingType = mReader.name().toString();
+		switch (stringToEnum<CHART_SETTING_TYPE>(chartSettingType))
+		{
+			case MAIN_CHART:
+			{
+				ChartSetting* setting = new MainChartSetting();
+				setting->loadSettingFromXml(&mReader);
+				return setting;
+			}
+			break;
+		case INDICATOR:
+			{
+				IndicatorSetting* setting = createIndicatorSetting(&mReader);
+				return setting;
+			}
+			break;
+		}
+	}
+	else {
+		return nullptr;
 	}
 }
 
 QString ChartSettingReader::errorString() const
 {
+	return mLastErrorString;
 }
