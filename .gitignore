@@ -23,3 +23,5 @@ FundamentalAnalysis/FundamentalAnalysis.v12.suo
 *.vcxproj
 *.vcxproj.filters
 GeneratedFiles
+MyTrader/MyTrader.opensdf
+*.sdf

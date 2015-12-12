@@ -12,8 +12,9 @@
 #include "core/util/xingutil.h"
 #include "service/chart/setting/MainChartSetting.h"
 #include "service/chart/setting/accdistsetting.h"
-#include <QtCore/QTextStream>
-#include <Src/service/chart/setting/chartsettingwriter.h>
+#include "service/chart/setting/chartsettingwriter.h"
+#include "service/chart/setting/chartsettingreader.h"
+
 static Indicator sIndicatorTable[] = {
 	{ "AccDist", "Accumulation/Distribution", ACCUM_DISTRIBUTION, MARKET_BREADTH_INDICATOR },
 	{ "AroonOsc", "Aroon Oscillator", AROON_OSCILLATOR, TREND_INDICATOR },
@@ -64,7 +65,7 @@ ChartWidget::ChartWidget(QueryMngr *queryMngr, QWidget *parent)
 	, mPriceData(nullptr)
 	, mStockInfoMngr(StockInfoMngr::getInstance())
 {
-	mMainChartSetting = new MainChartSetting();
+	loadChartSetting();
 	initUI();
 	//updatePeriod();
 	mStockManager->start();
@@ -195,6 +196,25 @@ void ChartWidget::initUI()
 	initMainChartSelectionUI();
 	initChannelSelectionUI();
 	initIndicatorSelectionUI();
+}
+
+void ChartWidget::loadChartSetting()
+{
+	ChartSettingReader reader("chartsetting.xml");
+	reader.open();
+	ChartSetting *setting = nullptr;
+	while ((setting = reader.read()) != nullptr)
+	{
+		MainChartSetting *mainSetting = qobject_cast<MainChartSetting*>(setting);
+		if (mainSetting != nullptr)
+		{
+			mMainChartSetting = mainSetting;
+		} else
+		{
+			mChartSettings.insert(setting->name(), setting);
+		}
+	}
+
 }
 
 void ChartWidget::setChartRange(double* timeStamp, int timeStampLen) const

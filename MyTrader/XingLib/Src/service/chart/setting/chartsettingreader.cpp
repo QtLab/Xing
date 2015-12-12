@@ -27,6 +27,7 @@ bool ChartSettingReader::open()
 
 bool ChartSettingReader::close()
 {
+	mFile.close();
 	return true;
 }
 

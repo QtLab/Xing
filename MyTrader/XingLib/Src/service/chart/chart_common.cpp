@@ -2,11 +2,12 @@
 #include "service/chart/setting/accdistsetting.h"
 IndicatorSetting *createIndicatorSetting(QXmlStreamReader *xml)
 {
-	Q_ASSERT(xml->name().toString() == enumToString<CHART_SETTING_TYPE>(INDICATOR));
+	QString name = enumToString<CHART_SETTING_TYPE>(INDICATOR);
+	Q_ASSERT(xml->name().toString() == name);
 	if (xml->readNextStartElement())
 	{
 		QString indicator_type = xml->name().toString();
-		INDICATOR_TYPE type = stringToEnum<INDICATOR_TYPE>(indicator_type);
+		INDICATOR_TYPE type = stringToEnum<IndicatorSetting::IndicatorType>(indicator_type);
 		IndicatorSetting *setting = nullptr;
 		switch (type)
 		{

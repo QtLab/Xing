@@ -43,6 +43,11 @@ AccDistSetting* AccDistSetting::createAccDistSetting(long color, QObject *parent
 {
 	return createAccDistSetting(QColor(color & 0xff0000, color & 0x00ff00, color & 0x0000ff), parent);
 }
+
+AccDistSetting* AccDistSetting::createAccDistSetting(QXmlStreamReader* xml)
+{
+}
+
 void AccDistSetting::writeSettingToXml(QXmlStreamWriter* xml)
 {
 	xml->writeStartElement(enumToString<INDICATOR_TYPE>(ACCUM_DISTRIBUTION));

@@ -12,7 +12,7 @@ class ChartSetting : public QObject
 	Q_OBJECT
 	Q_PROPERTY(QString name MEMBER _name READ name)
 public:
-	typedef enum {MainChart, Indicator} ChartSettingType;
+	enum ChartSettingType {MainChart, Indicator};
 	Q_ENUM(ChartSettingType)
 	explicit ChartSetting(const QString &settingName, QObject* parent=0);
 	virtual ~ChartSetting();

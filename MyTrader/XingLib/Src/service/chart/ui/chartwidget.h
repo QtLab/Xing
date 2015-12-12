@@ -63,6 +63,7 @@ protected:
 	void closeEvent(QCloseEvent*) override;
 private:
 	void initUI();
+	void loadChartSetting();
 	void setChartRange(double* timeStamp, int timeStampLen) const;
 	void initMainChartSelectionUI();
 	void initChannelSelectionUI();
