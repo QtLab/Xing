@@ -18,8 +18,3 @@ bool IndicatorSetting::saveSettingToXml(QXmlStreamWriter* xml)
 	xml->writeEndElement();
 	return true;
 }
-
-bool IndicatorSetting::loadSettingFromXml(QXmlStreamReader* xml)
-{
-	return true;
-}

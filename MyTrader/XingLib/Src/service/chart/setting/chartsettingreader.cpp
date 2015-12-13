@@ -40,7 +40,7 @@ ChartSetting* ChartSettingReader::read()
 		{
 			case MAIN_CHART:
 			{
-				ChartSetting* setting = new MainChartSetting();
+				MainChartSetting* setting = new MainChartSetting();
 				setting->loadSettingFromXml(&mReader);
 				return setting;
 			}

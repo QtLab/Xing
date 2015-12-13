@@ -214,6 +214,10 @@ void ChartWidget::loadChartSetting()
 			mChartSettings.insert(setting->name(), setting);
 		}
 	}
+	if (mMainChartSetting == nullptr)
+	{
+		mMainChartSetting = new MainChartSetting();
+	}
 
 }
 

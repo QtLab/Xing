@@ -80,5 +80,20 @@ bool MainChartSetting::saveSettingToXml(QXmlStreamWriter* xml)
 
 bool MainChartSetting::loadSettingFromXml(QXmlStreamReader* xml)
 {
+	Q_ASSERT(xml->name() == enumToString<CHART_SETTING_TYPE>(MAIN_CHART));
+	auto attributes = xml->attributes();
+	_logScale = QVariant(attributes.value(LOG_SCALE_ATTRIBUTE).toString()).toBool();
+	_percentageScale = QVariant(attributes.value(PERCENTAGE_ATTRIBUTE).toString()).toBool();
+	QString chartType = xml->readNextStartElement();
+	switch (stringToEnum<MAIN_CHART_TYPE>(chartType))
+	{
+	case CANDLE_STICK:
+		auto candleAttributes = xml->attributes();
+		_candleUpColor = candleAttributes.value(UP_COLOR_ATTRIBUTE).toString().toInt();
+		_candleDnColor = candleAttributes.value(DN_COLOR_ATTRIBUTE).toString().toInt();
+		break;
+	case CLOSING_PRICE:
+		case 
+	}
 	return true;
 }

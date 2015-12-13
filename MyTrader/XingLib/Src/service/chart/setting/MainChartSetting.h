@@ -24,7 +24,7 @@ public:
 	~MainChartSetting();
 
 	bool saveSettingToXml(QXmlStreamWriter* xml) override;
-	bool loadSettingFromXml(QXmlStreamReader* xml) override;
+	bool loadSettingFromXml(QXmlStreamReader* xml) ;
 	bool apply(FinanceChart* chart, const ChartInfo* chartInfo) override;
 
 	void setLogScale(bool enable) { _logScale = enable; }

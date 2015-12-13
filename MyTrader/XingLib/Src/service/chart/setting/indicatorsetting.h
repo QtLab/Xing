@@ -50,8 +50,7 @@ public:
 	Q_ENUM(IndicatorType);
 	IndicatorSetting(const QString &name, QObject *parent=0);
 	~IndicatorSetting();
-	bool saveSettingToXml(QXmlStreamWriter* xml) override;
-	bool loadSettingFromXml(QXmlStreamReader* xml) override;
+	bool saveSettingToXml(QXmlStreamWriter* xml) override final;
 
 protected:
 	virtual void writeSettingToXml(QXmlStreamWriter *xml) = 0;

@@ -17,7 +17,6 @@ public:
 	explicit ChartSetting(const QString &settingName, QObject* parent=0);
 	virtual ~ChartSetting();
 	virtual bool saveSettingToXml(QXmlStreamWriter *xml) = 0;
-	virtual bool loadSettingFromXml(QXmlStreamReader *xml) = 0;
 	virtual bool apply(FinanceChart *chart, const ChartInfo* chartInfo) = 0;
 	QString name() const;
 private:
